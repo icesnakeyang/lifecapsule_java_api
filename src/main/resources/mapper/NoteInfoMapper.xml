@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gogoyang.lifecapsule.meta.note.dao.mapper.NoteInfoMapper">
+    <insert id="createNoteInfo"
+            parameterType="com.gogoyang.lifecapsule.meta.note.entity.NoteInfo">
+      insert into note_info
+      (
+      note_id,
+      user_id,
+      created_time,
+      title,
+      category_id
+      ) values (
+      #{noteId},
+      #{userId},
+      #{createdTime},
+      #{title},
+      #{categoryId}
+      )
+    </insert>
+
+    <!--配置note_info表和NoteInfo对象的字段映射 -->
+    <resultMap id="noteInfoMap" type="com.gogoyang.lifecapsule.meta.note.entity.NoteInfo">
+        <result property="noteId" column="note_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="categoryId" column="category_id"/>
+    </resultMap>
+
+    <!--分页查询一个用户id的笔记列表-->
+    <select id="listNoteByUserId" parameterType="map"
+            resultMap="noteInfoMap">
+    select * from note_info
+    where 1=1
+    and user_id = #{userId}
+    order by ids desc
+    limit #{pageSize} offset #{offset}
+  </select>
+
+    <!--根据noteId查询note笔记-->
+    <select id="getNoteByNoteId" parameterType="map"
+            resultMap="noteInfoMap">
+        select * from note_info
+        where note_id=#{noteId}
+    </select>
+
+    <!--修改NoteInfo表-->
+    <update id="updateNoteInfo"
+            parameterType="com.gogoyang.lifecapsule.meta.note.entity.NoteInfo">
+        update note_info set
+        title=#{title}
+        where note_id=#{noteId}
+    </update>
+
+    <!--统计一个笔记分类下的笔记总数-->
+    <select id="totalNoteByCategoryId" parameterType="java.lang.String"
+            resultType="java.lang.Integer">
+        select count(ids) as total from note_info
+        where category_id=#{categoryId}
+    </select>
+
+    <!--查询一个笔记分类下的笔记列表-->
+    <select id="listNoteByCategory" parameterType="map"
+            resultMap="noteInfoMap">
+        select * from note_info
+        where category_id=#{categoryId}
+        and user_id=#{userId}
+        order by ids desc
+        limit #{pageSize} offset #{offset}
+    </select>
+
+</mapper>

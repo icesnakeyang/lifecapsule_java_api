@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gogoyang.lifecapsule.meta.user.dao.UserInfoDao">
+    <insert id="createUser"
+            parameterType="com.gogoyang.lifecapsule.meta.user.entity.UserInfo">
+      insert into user_info
+      (
+      user_id,
+      phone,
+      email,
+      created_time,
+      token,
+      token_time,
+      status,
+      password
+      ) values (
+      #{userId},
+      #{phone},
+      #{email},
+      #{createdTime},
+      #{token},
+      #{tokenTime},
+      #{status},
+      #{password}
+      )
+    </insert>
+
+    <update id="updateUserPassword" parameterType="map">
+    update user_info set
+    password=#{password}
+    where user_id=#{userId}
+  </update>
+
+    <!--配置user_info表和UserInfo对象的字段映射 -->
+    <resultMap id="userInfoMap" type="com.gogoyang.lifecapsule.meta.user.entity.UserInfo">
+        <result property="userId" column="user_id"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="tokenTime" column="token_time"/>
+    </resultMap>
+
+    <!--根据用户手机号码和登录密码查询用户-->
+    <select id="getUserByPhonePassword" parameterType="map"
+            resultMap="userInfoMap">
+        select * from user_info
+        where phone=#{phone}
+        and password=#{password}
+    </select>
+
+    <!--根据用户email和登录密码查询用户-->
+    <select id="getUserByEmailPassword" parameterType="map"
+            resultMap="userInfoMap">
+        select * from user_info
+        where email=#{email}
+        and password=#{password}
+    </select>
+
+    <!--查询user_info表里是否有该手机号码的用户-->
+    <select id="getUserByPhone" parameterType="map"
+            resultMap="userInfoMap">
+        select * from user_info
+        where phone=#{phone}
+    </select>
+
+    <!--查询user_info表里是否有已使用该email的用户-->
+    <select id="getUserByEmail" parameterType="map"
+            resultMap="userInfoMap">
+        select * from user_info
+        where email=#{email}
+    </select>
+
+    <!--根据用户token查询用户信息-->
+    <select id="getUserByUserToken" parameterType="map"
+            resultMap="userInfoMap">
+        select * from user_info
+        where token=#{token}
+    </select>
+</mapper>
