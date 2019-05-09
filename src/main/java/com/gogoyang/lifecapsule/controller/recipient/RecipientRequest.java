@@ -16,6 +16,8 @@ public class RecipientRequest {
     private String phone;
     private String address;
     private String remark;
+    private String personName;
+    private String personId;
 
     public String getUserId() {
         return userId;
@@ -79,5 +81,21 @@ public class RecipientRequest {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getPersonName() {
+        return personName;
+    }
+
+    public void setPersonName(String personName) {
+        this.personName = personName;
+    }
+
+    public String getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(String personId) {
+        this.personId = personId;
     }
 }

@@ -8,7 +8,6 @@ import com.gogoyang.lifecapsule.meta.recipient.service.IRecipientService;
 import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
 import com.gogoyang.lifecapsule.meta.user.service.IUserInfoService;
 import com.gogoyang.lifecapsule.utility.GogoTools;
-import com.sun.xml.internal.ws.api.ha.StickyFeature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -45,8 +44,10 @@ public class RecipientBusinessService implements IRecipientBusinessService {
     public Map createRecipientPerson(Map in) throws Exception {
         String token = in.get("token").toString();
         String noteId = in.get("noteId").toString();
+        String recipientId = (String) in.get("recipientId");
         String email = (String) in.get("email");
-        String name = (String) in.get("recipientName");
+        String recipientName = (String) in.get("recipientName");
+        String personName = (String) in.get("personName");
         String phone = (String) in.get("phone");
         String address = (String) in.get("address");
         String remark = (String) in.get("remark");
@@ -76,13 +77,40 @@ public class RecipientBusinessService implements IRecipientBusinessService {
 
         /**
          * 保存接收人
+         * 1、检查是否有recipient
+         * 2、有就检查recipient是否为当前noteId
+         * 3、没有就创建一个recipient
+         * 3、创建，或者保存recipientPerson
          */
-        Recipient recipient = new Recipient();
-        recipient.setUserId(userInfo.getUserId());
-        recipient.setNoteId(noteId);
-        recipient.setRecipientId(GogoTools.UUID().toString());
 
+        Recipient recipient = null;
+        if (recipientId == null) {
+            recipient = new Recipient();
+            recipient.setUserId(userInfo.getUserId());
+            recipient.setNoteId(noteId);
+            recipient.setRecipientId(GogoTools.UUID().toString());
+            if (recipientName == null) {
+                recipientName = personName;
+            }
+            recipient.setRecipientName(recipientName);
+            iRecipientService.saveRecipient(recipient);
+            recipientId = recipient.getRecipientId();
+        } else {
+            //检查触发器是否存在
+            recipient = iRecipientService.getRecipientByRecipientId(recipientId);
+            if (recipient == null) {
+                throw new Exception("10017");
+            }
+            //检查触发器是否属于当前编辑的笔记
+            if (!recipient.getNoteId().equals(noteId)) {
+                throw new Exception("10018");
+            }
+        }
+
+        //新增一个接收人
         RecipientPerson recipientPerson = new RecipientPerson();
+        recipientPerson.setRecipientId(recipientId);
+        recipientPerson.setPersonId(GogoTools.UUID().toString());
         if (email != null) {
             ArrayList<String> emailList = new ArrayList<>();
             emailList.add(email);
@@ -99,23 +127,22 @@ public class RecipientBusinessService implements IRecipientBusinessService {
             addressList.add(address);
             recipientPerson.setAddressList(addressList);
         }
-        recipientPerson.setRecipientName(name);
+        recipientPerson.setPersonName(personName);
         recipientPerson.setRemark(remark);
 
-        ArrayList<RecipientPerson> personList = new ArrayList<>();
-        personList.add(recipientPerson);
+        iRecipientService.saveRecipientPerson(recipientPerson);
 
-        recipient.setPersonList(personList);
-
-        iRecipientService.saveRecipient(recipient);
-
+        /**
+         * 把触发器，和接收人都返回给前端
+         */
         Map out = new HashMap();
         out.put("recipient", recipient);
+        out.put("recipientPerson", recipientPerson);
         return out;
     }
 
     @Override
-    public Map listRecipientPerson(Map in) throws Exception {
+    public Map listRecipientPersonByRecipientId(Map in) throws Exception {
         String token = in.get("token").toString();
         String recipientId = in.get("recipientId").toString();
 
@@ -160,6 +187,33 @@ public class RecipientBusinessService implements IRecipientBusinessService {
 
         Map out = new HashMap();
         out.put("recipientList", recipientList);
+        return out;
+    }
+
+    @Override
+    public Map getRecipientByRecipientId(Map in) throws Exception {
+        String token = in.get("token").toString();
+        String recipientId = in.get("recipientId").toString();
+
+        UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
+        if (userInfo == null) {
+            throw new Exception("10003");
+        }
+
+        Recipient recipient = iRecipientService.getRecipientByRecipientId(recipientId);
+
+        Map out = new HashMap();
+        out.put("recipient", recipient);
+        return out;
+    }
+
+    @Override
+    public Map getPersonByPersonId(Map in) throws Exception {
+        String token = in.get("token").toString();
+        String personId = in.get("personId").toString();
+        RecipientPerson person = iRecipientService.getPersonByPersonId(personId);
+        Map out = new HashMap();
+        out.put("person", person);
         return out;
     }
 }

@@ -39,7 +39,9 @@ public class RecipientController {
             String token = httpServletRequest.getHeader("token");
             Map in = new HashMap();
             in.put("noteId", request.getNoteId());
+            in.put("recipientId", request.getRecipientId());
             in.put("recipientName", request.getRecipientName());
+            in.put("personName", request.getPersonName());
             in.put("phone", request.getPhone());
             in.put("email", request.getEmail());
             in.put("address", request.getAddress());
@@ -47,6 +49,31 @@ public class RecipientController {
             in.put("remark", request.getRemark());
 
             Map out = iRecipientBusinessService.createRecipientPerson(in);
+            response.setData(out);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                logger.error(ex.getMessage());
+            }
+        }
+        return response;
+    }
+
+    @ResponseBody
+    @PostMapping("/getRecipientByRecipientId")
+
+    public Response getRecipientByRecipientId(@RequestBody RecipientRequest request,
+                                              HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            Map in = new HashMap();
+            in.put("token", token);
+            in.put("recipientId", request.getRecipientId());
+
+            Map out = iRecipientBusinessService.getRecipientByRecipientId(in);
             response.setData(out);
         } catch (Exception ex) {
             try {
@@ -91,9 +118,9 @@ public class RecipientController {
     }
 
     @ResponseBody
-    @PostMapping("/listRecipientPerson")
-    public Response listRecipientPerson(@RequestBody RecipientRequest request,
-                                        HttpServletRequest httpServletRequest) {
+    @PostMapping("/listRecipientPersonByRecipientId")
+    public Response listRecipientPersonByRecipientId(@RequestBody RecipientRequest request,
+                                                     HttpServletRequest httpServletRequest) {
         Response response = new Response();
         try {
             String token = httpServletRequest.getHeader("token");
@@ -101,7 +128,7 @@ public class RecipientController {
             in.put("token", token);
             in.put("recipientId", request.getRecipientId());
 
-            Map out = iRecipientBusinessService.listRecipientPerson(in);
+            Map out = iRecipientBusinessService.listRecipientPersonByRecipientId(in);
             response.setData(out);
         } catch (Exception ex) {
             try {
@@ -109,6 +136,30 @@ public class RecipientController {
             } catch (Exception ex2) {
                 response.setCode(10001);
                 logger.error(ex2.getMessage());
+            }
+        }
+        return response;
+    }
+
+    @ResponseBody
+    @PostMapping("/getPersonByPersonId")
+    public Response getPersonByPersonId(@RequestBody RecipientRequest request,
+                                        HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            Map in = new HashMap();
+            in.put("token", token);
+            in.put("personId", request.getPersonId());
+
+            Map out = iRecipientBusinessService.getPersonByPersonId(in);
+            response.setData(out);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                logger.error(ex.getMessage());
             }
         }
         return response;

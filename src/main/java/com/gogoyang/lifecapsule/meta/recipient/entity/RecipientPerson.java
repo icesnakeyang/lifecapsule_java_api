@@ -10,9 +10,19 @@ import java.util.List;
 @Data
 public class RecipientPerson {
     /**
+     * 触发器编号
+     */
+    private String recipientId;
+
+    /**
+     * 个人编号
+     */
+    private String personId;
+
+    /**
      * 接收人姓名
      */
-    private String recipientName;
+    private String personName;
 
     /**
      * email，可以多个
@@ -36,17 +46,25 @@ public class RecipientPerson {
 
     /**
      * 扩展：qq，微信，Facebook等
+     *
      * @return
      */
 
     /////////////////////////////////////////////////////////////////////
-
-    public String getRecipientName() {
-        return recipientName;
+    public String getRecipientId() {
+        return recipientId;
     }
 
-    public void setRecipientName(String recipientName) {
-        this.recipientName = recipientName;
+    public void setRecipientId(String recipientId) {
+        this.recipientId = recipientId;
+    }
+
+    public String getPersonName() {
+        return personName;
+    }
+
+    public void setPersonName(String personName) {
+        this.personName = personName;
     }
 
     public List<String> getEmailList() {
@@ -79,5 +97,13 @@ public class RecipientPerson {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public String getPersonId() {
+        return personId;
+    }
+
+    public void setPersonId(String personId) {
+        this.personId = personId;
     }
 }
