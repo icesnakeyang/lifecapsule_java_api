@@ -2,7 +2,6 @@ package com.gogoyang.lifecapsule.meta.recipient.service;
 
 import com.gogoyang.lifecapsule.meta.recipient.dao.IRecipientRepository;
 import com.gogoyang.lifecapsule.meta.recipient.entity.Recipient;
-import com.gogoyang.lifecapsule.meta.recipient.entity.RecipientPerson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -20,42 +19,41 @@ public class RecipientService implements IRecipientService {
         this.iRecipientRepository = iRecipientRepository;
     }
 
+    /**
+     * 保存一个接收人
+     * 如果有_id值，更新，没有就新增
+     * @param recipient
+     * @throws Exception
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void saveRecipient(Recipient recipient) throws Exception {
         iRecipientRepository.saveRecipient(recipient);
     }
 
-    @Transactional(rollbackFor = Exception.class)
+    /**
+     * 根据触发器id查询所有接收人
+     * @param triggerId
+     * @return
+     * @throws Exception
+     */
     @Override
-    public void saveRecipientPerson(RecipientPerson recipientPerson) throws Exception {
-        iRecipientRepository.saveRecipientPerson(recipientPerson);
-    }
-
-    @Override
-    public List<Recipient> listRecipientByNoteId(String noteId) throws Exception {
-        List<Recipient> recipientList = iRecipientRepository.listRecipientByNoteId(noteId);
-        return recipientList;
-    }
-
-    @Override
-    public Map listRecipientPersonByRecipientId(String recipientId) throws Exception {
-        List<RecipientPerson> personList = iRecipientRepository.listRecipientPerson(recipientId);
+    public Map listRecipientByTriggerId(String triggerId) throws Exception {
+        List<Recipient> recipientList = iRecipientRepository.listRecipientByTriggerId(triggerId);
         Map out = new HashMap();
-        out.put("personList", personList);
+        out.put("recipientList", recipientList);
         return out;
     }
 
+    /**
+     * 根据接收人id，查询接收人信息
+     * @param recipientId
+     * @return
+     * @throws Exception
+     */
     @Override
     public Recipient getRecipientByRecipientId(String recipientId) throws Exception {
-        Recipient recipient = iRecipientRepository.getRecipientByRecipientId(recipientId);
+        Recipient recipient=iRecipientRepository.getRecipientByRecipientId(recipientId);
         return recipient;
-
-    }
-
-    @Override
-    public RecipientPerson getPersonByPersonId(String personId) throws Exception {
-        RecipientPerson person=iRecipientRepository.getPersonByPersonId(personId);
-        return person;
     }
 }

@@ -1,5 +1,7 @@
 package com.gogoyang.lifecapsule.business.note;
 
+import com.gogoyang.lifecapsule.meta.category.entity.NoteCategory;
+import com.gogoyang.lifecapsule.meta.category.service.ICategoryService;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteDetail;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteInfo;
 import com.gogoyang.lifecapsule.meta.note.service.INoteService;
@@ -20,11 +22,15 @@ import java.util.Map;
 public class NoteBusinessService implements INoteBusinessService {
     private final INoteService iNoteService;
     private final IUserInfoService iUserInfoService;
+    private final ICategoryService iCategoryService;
 
     @Autowired
-    public NoteBusinessService(INoteService iNoteService, IUserInfoService iUserInfoService) {
+    public NoteBusinessService(INoteService iNoteService,
+                               IUserInfoService iUserInfoService,
+                               ICategoryService iCategoryService) {
         this.iNoteService = iNoteService;
         this.iUserInfoService = iUserInfoService;
+        this.iCategoryService = iCategoryService;
     }
 
     /**
@@ -40,7 +46,7 @@ public class NoteBusinessService implements INoteBusinessService {
         String title = in.get("title").toString();
         String token = (String) in.get("token");
         String detail = in.get("detail").toString();
-        String categoryId = in.get("categoryId").toString();
+        String categoryId = (String) in.get("categoryId");
 
         /**
          * 根据token取用户信息
@@ -53,6 +59,12 @@ public class NoteBusinessService implements INoteBusinessService {
             throw new Exception("10003");
         }
 
+        /**
+         * 如果没有分类id，就使用该用户的默认分类id
+         */
+        if (categoryId == null) {
+            NoteCategory category = iCategoryService.getCategoryByCategoryName("Default", userInfo.getUserId());
+        }
         NoteInfo noteInfo = new NoteInfo();
         noteInfo.setUserId(userInfo.getUserId());
         noteInfo.setNoteId(GogoTools.UUID().toString());
@@ -113,6 +125,7 @@ public class NoteBusinessService implements INoteBusinessService {
 
     /**
      * 查询笔记分类下的笔记
+     *
      * @param in
      * @return
      * @throws Exception

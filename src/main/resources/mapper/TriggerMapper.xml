@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gogoyang.lifecapsule.meta.trigger.dao.TriggerMapper">
+    <!--    创建一个触发器 trigger-->
+    <insert id="createTrigger" parameterType="com.gogoyang.lifecapsule.meta.trigger.entity.Trigger">
+        insert into trigger
+        (trigger_id, note_id, name, created_time, remark)
+        values
+        (#{triggerId}, #{noteId}, #{name}, #{createdTime}, #{remark})
+    </insert>
+
+    <!--配置trigger表和Trigger对象的字段映射 -->
+    <resultMap id="triggerMap" type="com.gogoyang.lifecapsule.meta.trigger.entity.Trigger">
+        <result property="triggerId" column="trigger_id"/>
+        <result property="noteId" column="note_id"/>
+        <result property="createdTime" column="created_time"/>
+    </resultMap>
+
+    <!--根据触发器id，查询触发器-->
+    <select id="getTriggerByTriggerId" parameterType="java.lang.String"
+            resultMap="triggerMap">
+        select * from trigger
+        where trigger_id=#{triggerId}
+    </select>
+</mapper>

@@ -34,19 +34,18 @@ public class LoginBusinessService implements ILoginBusinessService {
         /**
          * 如果用户没有输入密码，则抛出错误
          */
-        if(password==null){
+        if (password == null) {
             throw new Exception("10002");
         }
 
         //用户输入的密码必须进行md5加密，然后和数据库比对
-        password= GogoTools.encoderByMd5(password);
+        password = GogoTools.encoderByMd5(password);
         UserInfo userInfo = null;
         if (phone != null) {
             userInfo = iUserInfoService.getUserByPhonePassword(phone, password);
-        } else {
-            if (email != null) {
-                userInfo = iUserInfoService.getUserByEmailPassword(email, password);
-            }
+        }
+        if (email != null) {
+            userInfo = iUserInfoService.getUserByEmailPassword(email, password);
         }
         if (userInfo == null) {
             throw new Exception("10002");

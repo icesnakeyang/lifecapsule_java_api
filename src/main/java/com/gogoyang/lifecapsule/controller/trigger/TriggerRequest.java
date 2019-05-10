@@ -1,4 +1,4 @@
-package com.gogoyang.lifecapsule.controller.recipient;
+package com.gogoyang.lifecapsule.controller.trigger;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RecipientRequest {
+public class TriggerRequest {
     private String userId;
     private String noteId;
     private String recipientId;
@@ -16,8 +16,9 @@ public class RecipientRequest {
     private String phone;
     private String address;
     private String remark;
-    private String personName;
-    private String personId;
+    private String triggerName;
+    private String triggerId;
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public String getUserId() {
         return userId;
@@ -83,19 +84,19 @@ public class RecipientRequest {
         this.remark = remark;
     }
 
-    public String getPersonName() {
-        return personName;
+    public String getTriggerName() {
+        return triggerName;
     }
 
-    public void setPersonName(String personName) {
-        this.personName = personName;
+    public void setTriggerName(String triggerName) {
+        this.triggerName = triggerName;
     }
 
-    public String getPersonId() {
-        return personId;
+    public String getTriggerId() {
+        return triggerId;
     }
 
-    public void setPersonId(String personId) {
-        this.personId = personId;
+    public void setTriggerId(String triggerId) {
+        this.triggerId = triggerId;
     }
 }

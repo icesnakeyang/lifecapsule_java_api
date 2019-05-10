@@ -2,14 +2,14 @@ server:
   port: 8088
 spring:
   datasource:
-    #    url: jdbc:mysql://rm-wz9v8xc42t1go7ptc0o.mysql.rds.aliyuncs.com:3306/lifecapsule
-    #    username: root
-    #    password: 112233ccddEE
+        url: jdbc:mysql://rm-wz9v8xc42t1go7ptc0o.mysql.rds.aliyuncs.com:3306/lifecapsule
+        username: root
+        password: 112233ccddEE
 
 #    url: jdbc:mysql://localhost:3306/lifecapsule?useUnicode=true&characterEncoding=utf-8&autoReconnect=true&allowMultiQueries=true
-    url: jdbc:mysql://localhost:3306/lifecapsule?serverTimezone=UTC
-    username: root
-    password: 123456
+#    url: jdbc:mysql://localhost:3306/lifecapsule?serverTimezone=UTC
+#    username: root
+#    password: 123456
 
 
   data:
