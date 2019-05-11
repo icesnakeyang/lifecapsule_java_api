@@ -3,7 +3,7 @@
 <mapper namespace="com.gogoyang.lifecapsule.meta.trigger.dao.TriggerMapper">
     <!--    创建一个触发器 trigger-->
     <insert id="createTrigger" parameterType="com.gogoyang.lifecapsule.meta.trigger.entity.Trigger">
-        insert into trigger
+        insert into `trigger`
         (trigger_id, note_id, name, created_time, remark)
         values
         (#{triggerId}, #{noteId}, #{name}, #{createdTime}, #{remark})
@@ -19,14 +19,14 @@
     <!--根据触发器id，查询触发器-->
     <select id="getTriggerByTriggerId" parameterType="java.lang.String"
             resultMap="triggerMap">
-        select * from trigger
+        select * from `trigger`
         where trigger_id=#{triggerId}
     </select>
 
     <!--根据笔记id查询所有的触发器-->
     <select id="listTriggerByNoteId" parameterType="map"
             resultMap="triggerMap">
-        select * from trigger
+        select * from `trigger`
         where 1=1
         and note_id=#{noteId}
         order by ids

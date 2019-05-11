@@ -20,4 +20,8 @@ public interface ITriggerBusinessService {
     Map listTriggerByNoteId(Map in) throws Exception;
 
     Map listRecipientByTriggerId(Map in) throws Exception;
+
+    Map getTriggerByTriggerId(Map in) throws Exception;
+
+    Map getRecipientByRecipientId(Map in) throws Exception;
 }

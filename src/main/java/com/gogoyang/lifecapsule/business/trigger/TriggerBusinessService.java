@@ -9,6 +9,7 @@ import com.gogoyang.lifecapsule.meta.trigger.service.ITriggerService;
 import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
 import com.gogoyang.lifecapsule.meta.user.service.IUserInfoService;
 import com.gogoyang.lifecapsule.utility.GogoTools;
+import com.sun.org.apache.xml.internal.resolver.readers.ExtendedXMLCatalogReader;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -157,6 +158,92 @@ public class TriggerBusinessService implements ITriggerBusinessService {
 
         Map out = new HashMap();
         out.put("recipientList", recipientList);
+        return out;
+    }
+
+    /**
+     * 根据触发器id，查询触发器配置信息
+     * 包括：所有的触发条件，和所有的接收人
+     *
+     * @param in
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Map getTriggerByTriggerId(Map in) throws Exception {
+        String token = in.get("token").toString();
+        String triggerId = in.get("triggerId").toString();
+
+        /**
+         * 检查当前用户
+         */
+        UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
+        if (userInfo == null) {
+            throw new Exception("10003");
+        }
+
+        /**
+         * 查询触发器
+         */
+        Trigger trigger = iTriggerService.getTriggerByTriggerId(triggerId);
+        if (trigger == null) {
+            throw new Exception("10017");
+        }
+        /**
+         * 检查触发器的笔记
+         */
+        NoteInfo noteInfo = iNoteService.getNoteTinyByNoteId(trigger.getNoteId());
+        if (noteInfo == null) {
+            throw new Exception("10004");
+        }
+        /**
+         * 检查笔记是否当前用户创建的
+         */
+        if (!noteInfo.getUserId().equals(userInfo.getUserId())) {
+            throw new Exception("10011");
+        }
+
+        /**
+         * 读取所有接收人
+         */
+        List<Recipient> recipientList = iRecipientService.listRecipientByTriggerId(triggerId);
+
+        Map out = new HashMap();
+        out.put("trigger", trigger);
+        out.put("recipientList", recipientList);
+
+        return out;
+    }
+
+    @Override
+    public Map getRecipientByRecipientId(Map in) throws Exception {
+        String token=in.get("token").toString();
+        String recipientId=in.get("recipientId").toString();
+
+        UserInfo userInfo=iUserInfoService.getUserByUserToken(token);
+        if(userInfo==null){
+            throw new Exception("10003");
+        }
+
+        Recipient recipient=iRecipientService.getRecipientByRecipientId(recipientId);
+        if(recipient==null){
+            throw new Exception("10019");
+        }
+
+        Trigger trigger=iTriggerService.getTriggerByTriggerId(recipient.getTriggerId());
+        if(trigger==null){
+            throw new Exception("10017");
+        }
+        NoteInfo noteInfo=iNoteService.getNoteTinyByNoteId(trigger.getNoteId());
+        if(noteInfo==null){
+            throw new Exception("10004");
+        }
+        if(!noteInfo.getUserId().equals(userInfo.getUserId())){
+            throw new Exception("10011");
+        }
+
+        Map out=new HashMap();
+        out.put("recipient", recipient);
         return out;
     }
 }

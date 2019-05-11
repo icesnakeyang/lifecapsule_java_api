@@ -60,6 +60,7 @@ public class TriggerController {
 
     /**
      * 根据笔记id查询所有的触发器
+     *
      * @param request
      * @param httpServletRequest
      * @return
@@ -67,7 +68,7 @@ public class TriggerController {
     @ResponseBody
     @PostMapping("/listTriggerByNoteId")
     public Response listTriggerByNoteId(@RequestBody TriggerRequest request,
-                                HttpServletRequest httpServletRequest) {
+                                        HttpServletRequest httpServletRequest) {
         Response response = new Response();
         try {
             String token = httpServletRequest.getHeader("token");
@@ -89,17 +90,65 @@ public class TriggerController {
     }
 
     @ResponseBody
+    @PostMapping("/getTriggerByTriggerId")
+    public Response getTriggerByTriggerId(@RequestBody TriggerRequest request,
+                                          HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            Map in = new HashMap();
+            in.put("token", token);
+            in.put("triggerId", request.getTriggerId());
+
+            Map out = iTriggerBusinessService.getTriggerByTriggerId(in);
+            response.setData(out);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                logger.error(ex.getMessage());
+            }
+        }
+        return response;
+    }
+
+    @ResponseBody
     @PostMapping("/listRecipientByTriggerId")
     public Response listRecipientByTriggerId(@RequestBody TriggerRequest request,
-                                             HttpServletRequest httpServletRequest){
+                                             HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            Map in = new HashMap();
+            in.put("token", token);
+            in.put("triggerId", request.getTriggerId());
+
+            Map out = iTriggerBusinessService.listRecipientByTriggerId(in);
+            response.setData(out);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                logger.error(ex.getMessage());
+            }
+        }
+        return response;
+    }
+
+    @ResponseBody
+    @PostMapping("/getRecipientByRecipientId")
+    public Response getRecipientByRecipientId(@RequestBody TriggerRequest request,
+                                              HttpServletRequest httpServletRequest){
         Response response=new Response();
         try {
             String token=httpServletRequest.getHeader("token");
             Map in=new HashMap();
             in.put("token", token);
-            in.put("triggerId", request.getTriggerId());
+            in.put("recipientId", request.getRecipientId());
 
-            Map out=iTriggerBusinessService.listRecipientByTriggerId(in);
+            Map out=iTriggerBusinessService.getRecipientByRecipientId(in);
             response.setData(out);
         }catch (Exception ex){
             try {
