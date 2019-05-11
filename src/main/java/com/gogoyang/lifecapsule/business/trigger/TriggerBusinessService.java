@@ -12,10 +12,7 @@ import com.gogoyang.lifecapsule.utility.GogoTools;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class TriggerBusinessService implements ITriggerBusinessService {
@@ -116,6 +113,50 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         Map out = new HashMap();
         out.put("trigger", trigger);
         out.put("recipient", recipient);
+        return out;
+    }
+
+    /**
+     * 根据笔记id查询所有的触发器
+     *
+     * @param in
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Map listTriggerByNoteId(Map in) throws Exception {
+        String token = in.get("token").toString();
+        String noteId = in.get("noteId").toString();
+
+        UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
+        if (userInfo == null) {
+            throw new Exception("10003");
+        }
+
+        NoteInfo noteInfo = iNoteService.getNoteTinyByNoteId(noteId);
+        if (noteInfo == null) {
+            throw new Exception("10004");
+        }
+
+        if (!noteInfo.getUserId().equals(userInfo.getUserId())) {
+            throw new Exception("10011");
+        }
+
+        ArrayList<Trigger> triggerList = iTriggerService.listTriggerByNoteId(noteId);
+
+        Map out = new HashMap();
+        out.put("triggerList", triggerList);
+        return out;
+    }
+
+    @Override
+    public Map listRecipientByTriggerId(Map in) throws Exception {
+        String token = in.get("token").toString();
+        String triggerId = in.get("triggerId").toString();
+        List<Recipient> recipientList = iRecipientService.listRecipientByTriggerId(triggerId);
+
+        Map out = new HashMap();
+        out.put("recipientList", recipientList);
         return out;
     }
 }

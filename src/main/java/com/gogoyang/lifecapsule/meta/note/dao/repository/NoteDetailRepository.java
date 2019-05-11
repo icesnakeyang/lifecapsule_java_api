@@ -47,8 +47,9 @@ public class NoteDetailRepository implements INoteDetailRepository {
 
         Query query = new Query(Criteria.where("noteId").is(noteDetail.getNoteId()));
         NoteDetail oldNote = mongoTemplate.findOne(query, NoteDetail.class);
-
-        noteDetail.set_id(oldNote.get_id());
+        if (oldNote != null) {
+            noteDetail.set_id(oldNote.get_id());
+        }
 
         mongoTemplate.save(noteDetail);
     }

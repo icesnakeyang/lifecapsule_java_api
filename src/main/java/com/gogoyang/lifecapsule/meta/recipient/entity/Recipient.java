@@ -1,7 +1,7 @@
 package com.gogoyang.lifecapsule.meta.recipient.entity;
 
 
-import com.sun.xml.internal.ws.spi.db.DatabindingException;
+
 import lombok.Data;
 
 import java.util.Date;

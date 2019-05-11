@@ -2,6 +2,8 @@ package com.gogoyang.lifecapsule.meta.trigger.service;
 
 import com.gogoyang.lifecapsule.meta.trigger.entity.Trigger;
 
+import java.util.ArrayList;
+
 public interface ITriggerService {
     /**
      * 创建一个触发器 trigger
@@ -17,4 +19,12 @@ public interface ITriggerService {
      * @throws Exception
      */
     Trigger getTriggerByTriggerId(String triggerId) throws Exception;
+
+    /**
+     * 根据笔记id查询所有的触发器
+     * @param noteId
+     * @return
+     * @throws Exception
+     */
+    ArrayList<Trigger> listTriggerByNoteId(String noteId) throws Exception;
 }

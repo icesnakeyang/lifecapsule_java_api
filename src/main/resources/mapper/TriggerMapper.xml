@@ -22,4 +22,13 @@
         select * from trigger
         where trigger_id=#{triggerId}
     </select>
+
+    <!--根据笔记id查询所有的触发器-->
+    <select id="listTriggerByNoteId" parameterType="map"
+            resultMap="triggerMap">
+        select * from trigger
+        where 1=1
+        and note_id=#{noteId}
+        order by ids
+    </select>
 </mapper>

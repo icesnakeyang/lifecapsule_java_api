@@ -2,6 +2,7 @@ package com.gogoyang.lifecapsule.meta.recipient.service;
 
 import com.gogoyang.lifecapsule.meta.recipient.entity.Recipient;
 
+import java.util.List;
 import java.util.Map;
 
 public interface IRecipientService {
@@ -20,7 +21,7 @@ public interface IRecipientService {
      * @return
      * @throws Exception
      */
-    Map listRecipientByTriggerId(String triggerId) throws Exception;
+    List<Recipient> listRecipientByTriggerId(String triggerId) throws Exception;
 
     /**
      * 根据接收人id，查询接收人信息

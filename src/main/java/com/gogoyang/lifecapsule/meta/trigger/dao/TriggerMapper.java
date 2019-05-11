@@ -3,6 +3,10 @@ package com.gogoyang.lifecapsule.meta.trigger.dao;
 import com.gogoyang.lifecapsule.meta.trigger.entity.Trigger;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 @Mapper
 public interface TriggerMapper {
     /**
@@ -17,4 +21,10 @@ public interface TriggerMapper {
      * @return
      */
     Trigger getTriggerByTriggerId(String triggerId);
+
+    /**
+     * 根据笔记id查询所有的触发器
+     * @param qIn
+     */
+    ArrayList<Trigger> listTriggerByNoteId(Map qIn);
 }
