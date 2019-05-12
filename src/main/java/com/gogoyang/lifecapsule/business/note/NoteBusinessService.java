@@ -64,6 +64,7 @@ public class NoteBusinessService implements INoteBusinessService {
          */
         if (categoryId == null) {
             NoteCategory category = iCategoryService.getCategoryByCategoryName("Default", userInfo.getUserId());
+            categoryId=category.getCategoryId();
         }
         NoteInfo noteInfo = new NoteInfo();
         noteInfo.setUserId(userInfo.getUserId());
