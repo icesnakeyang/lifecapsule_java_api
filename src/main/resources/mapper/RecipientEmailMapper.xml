@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gogoyang.lifecapsule.meta.email.dao.RecipientEmailMapper">
+    <!--    添加一个新的接收人email-->
+    <insert id="addEmail" parameterType="com.gogoyang.lifecapsule.meta.email.entity.RecipientEmail">
+        insert into recipient_email
+        (email_id, recipient_id, email, created_time)
+        values
+        (#{emailId}, #{recipientId}, #{email}, #{createdTime})
+    </insert>
+
+    <!--配置recipient_email表和RecipientEmail对象的字段映射 -->
+    <resultMap id="recipientEmailMap" type="com.gogoyang.lifecapsule.meta.email.entity.RecipientEmail">
+        <result property="emailId" column="email_id"/>
+        <result property="recipientId" column="recipient_id"/>
+        <result property="createdTime" column="created_time"/>
+    </resultMap>
+
+<!--    根据接收人id（recipientId）查询接收人所有登记的email-->
+    <select id="listRecipientEmailByRecipientId" parameterType="java.lang.String"
+            resultMap="recipientEmailMap">
+        select * from recipient_email
+        where 1=1
+        and recipient_id=#{recipientId}
+        order by ids desc
+    </select>
+</mapper>

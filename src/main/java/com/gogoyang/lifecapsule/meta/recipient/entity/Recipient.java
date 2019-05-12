@@ -2,6 +2,7 @@ package com.gogoyang.lifecapsule.meta.recipient.entity;
 
 
 
+import com.gogoyang.lifecapsule.meta.email.entity.RecipientEmail;
 import lombok.Data;
 
 import java.util.Date;
@@ -13,9 +14,9 @@ import java.util.List;
 @Data
 public class Recipient {
     /**
-     * MongoDB自动创建的id
+     * 自增主键
      */
-    private String _id;
+    private String ids;
     /**
      * 触发器编号
      */
@@ -29,12 +30,12 @@ public class Recipient {
     /**
      * 接收人姓名
      */
-    private String name;
+    private String recipientName;
 
     /**
      * email，可以多个
      */
-    private List<String> emailList;
+    private List<RecipientEmail> emailList;
 
     /**
      * 联系电话，多个
@@ -55,21 +56,6 @@ public class Recipient {
      * 用户对该接收人的说明
      */
     private String remark;
-
-    public String get_id() {
-        return _id;
-    }
-
-    public void set_id(String _id) {
-        this._id = _id;
-    }
-
-    /**
-     * 扩展：qq，微信，Facebook等
-     *
-     * @return
-     */
-
     ///////////////////////////////////////////////////////////////////////////
 
     public String getTriggerId() {
@@ -88,19 +74,11 @@ public class Recipient {
         this.recipientId = recipientId;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<String> getEmailList() {
+    public List<RecipientEmail> getEmailList() {
         return emailList;
     }
 
-    public void setEmailList(List<String> emailList) {
+    public void setEmailList(List<RecipientEmail> emailList) {
         this.emailList = emailList;
     }
 
@@ -134,5 +112,21 @@ public class Recipient {
 
     public void setCreatedTime(Date createdTime) {
         this.createdTime = createdTime;
+    }
+
+    public String getIds() {
+        return ids;
+    }
+
+    public void setIds(String ids) {
+        this.ids = ids;
+    }
+
+    public String getRecipientName() {
+        return recipientName;
+    }
+
+    public void setRecipientName(String recipientName) {
+        this.recipientName = recipientName;
     }
 }

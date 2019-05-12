@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gogoyang.lifecapsule.meta.recipient.dao.RecipientMapper">
+    <!--    创建一个接收人-->
+    <insert id="createRecipient" parameterType="com.gogoyang.lifecapsule.meta.recipient.entity.Recipient">
+        insert into recipient
+        (recipient_id, recipient_name, created_time, trigger_id)
+        values
+        (#{recipientId}, #{recipientName}, #{createdTime}, #{triggerId})
+    </insert>
+
+    <!--配置recipient表和Recipient对象的字段映射 -->
+    <resultMap id="recipientMap" type="com.gogoyang.lifecapsule.meta.recipient.entity.Recipient">
+        <result property="recipientId" column="recipient_id"/>
+        <result property="recipientName" column="recipient_name"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="triggerId" column="trigger_id"/>
+    </resultMap>
+
+    <!--    根据触发器id，查询所有接收人简要信息-->
+    <select id="listRecipientByTriggerId" parameterType="java.lang.String"
+            resultMap="recipientMap">
+        select * from recipient
+        where trigger_id=#{triggerId}
+    </select>
+
+    <!--    根据接收人id查询接收人-->
+    <select id="getRecipientByRecipientId" parameterType="java.lang.String"
+            resultMap="recipientMap">
+        select * from recipient
+        where recipient_id=#{recipientId}
+    </select>
+</mapper>
