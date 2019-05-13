@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,6 +20,10 @@ public class TriggerRequest {
     private String remark;
     private String triggerName;
     private String triggerId;
+    private String conditionName;
+    private String conditionKey;
+    private Date conditionTime;
+    private String conditionId;
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public String getUserId() {
@@ -98,5 +104,37 @@ public class TriggerRequest {
 
     public void setTriggerId(String triggerId) {
         this.triggerId = triggerId;
+    }
+
+    public String getConditionName() {
+        return conditionName;
+    }
+
+    public void setConditionName(String conditionName) {
+        this.conditionName = conditionName;
+    }
+
+    public Date getConditionTime() {
+        return conditionTime;
+    }
+
+    public void setConditionTime(Date conditionTime) {
+        this.conditionTime = conditionTime;
+    }
+
+    public String getConditionKey() {
+        return conditionKey;
+    }
+
+    public void setConditionKey(String conditionKey) {
+        this.conditionKey = conditionKey;
+    }
+
+    public String getConditionId() {
+        return conditionId;
+    }
+
+    public void setConditionId(String conditionId) {
+        this.conditionId = conditionId;
     }
 }

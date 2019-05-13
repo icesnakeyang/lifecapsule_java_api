@@ -1,5 +1,7 @@
 package com.gogoyang.lifecapsule.business.trigger;
 
+import com.gogoyang.lifecapsule.meta.condition.entity.Condition;
+import com.gogoyang.lifecapsule.meta.condition.service.IConditionService;
 import com.gogoyang.lifecapsule.meta.email.entity.RecipientEmail;
 import com.gogoyang.lifecapsule.meta.email.service.IRecipientEmailService;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteInfo;
@@ -12,6 +14,7 @@ import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
 import com.gogoyang.lifecapsule.meta.user.service.IUserInfoService;
 import com.gogoyang.lifecapsule.utility.GogoTools;
 import com.sun.org.apache.xml.internal.resolver.readers.ExtendedXMLCatalogReader;
+import com.sun.tools.javap.TypeAnnotationWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,17 +28,21 @@ public class TriggerBusinessService implements ITriggerBusinessService {
     private final ITriggerService iTriggerService;
     private final IRecipientService iRecipientService;
     private final IRecipientEmailService iRecipientEmailService;
+    private final IConditionService iConditionService;
 
+    @Autowired
     public TriggerBusinessService(IUserInfoService iUserInfoService,
                                   INoteService iNoteService,
                                   ITriggerService iTriggerService,
                                   IRecipientService iRecipientService,
-                                  IRecipientEmailService iRecipientEmailService) {
+                                  IRecipientEmailService iRecipientEmailService,
+                                  IConditionService iConditionService) {
         this.iUserInfoService = iUserInfoService;
         this.iNoteService = iNoteService;
         this.iTriggerService = iTriggerService;
         this.iRecipientService = iRecipientService;
         this.iRecipientEmailService = iRecipientEmailService;
+        this.iConditionService = iConditionService;
     }
 
     /**
@@ -108,7 +115,7 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         }
         if (email != null) {
             ArrayList<RecipientEmail> emailList = new ArrayList<>();
-            RecipientEmail recipientEmail=new RecipientEmail();
+            RecipientEmail recipientEmail = new RecipientEmail();
             recipientEmail.setRecipientId(recipient.getRecipientId());
             recipientEmail.setEmailId(GogoTools.UUID().toString());
             recipientEmail.setCreatedTime(new Date());
@@ -221,6 +228,11 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         }
 
         /**
+         * 读取所有触发条件
+         */
+        ArrayList<Condition> conditionList = iConditionService.listConditionByTriggerId(triggerId);
+
+        /**
          * 读取所有接收人
          */
         List<Recipient> recipientList = iRecipientService.listRecipientByTriggerId(triggerId);
@@ -228,41 +240,163 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         Map out = new HashMap();
         out.put("trigger", trigger);
         out.put("recipientList", recipientList);
-
+        out.put("conditionList", conditionList);
         return out;
     }
 
     /**
      * 根据接收人id，读取接收人信息
+     *
      * @param in
      * @return
      * @throws Exception
      */
     @Override
     public Map getRecipientByRecipientId(Map in) throws Exception {
-        String token=in.get("token").toString();
-        String recipientId=in.get("recipientId").toString();
+        String token = in.get("token").toString();
+        String recipientId = in.get("recipientId").toString();
 
         //首先检查当前登录用户是否存在
+        UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
+        if (userInfo == null) {
+            throw new Exception("10003");
+        }
+
+        //根据接班人id查询接收人
+        Recipient recipient = iRecipientService.getRecipientByRecipientId(recipientId);
+        if (recipient == null) {
+            throw new Exception("10019");
+        }
+
+        //查询接收人的email
+        ArrayList<RecipientEmail> emails = iRecipientEmailService.listRecipientEmailByRecipientId(recipientId);
+        if (emails.size() > 0) {
+            recipient.setEmailList(emails);
+        }
+
+
+        Trigger trigger = iTriggerService.getTriggerByTriggerId(recipient.getTriggerId());
+        if (trigger == null) {
+            throw new Exception("10017");
+        }
+        NoteInfo noteInfo = iNoteService.getNoteTinyByNoteId(trigger.getNoteId());
+        if (noteInfo == null) {
+            throw new Exception("10004");
+        }
+        if (!noteInfo.getUserId().equals(userInfo.getUserId())) {
+            throw new Exception("10011");
+        }
+
+        Map out = new HashMap();
+        out.put("recipient", recipient);
+        return out;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void addEmail(Map in) throws Exception {
+        String token = in.get("token").toString();
+        String recipientId = in.get("recipientId").toString();
+        String email = in.get("email").toString();
+
+        //检查登录用户
+        UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
+        if (userInfo == null) {
+            throw new Exception("10003");
+        }
+        //检查接收人
+        Recipient recipient = iRecipientService.getRecipientByRecipientId(recipientId);
+        if (recipient == null) {
+            throw new Exception("10019");
+        }
+        //检查接收人的触发器
+        Trigger trigger = iTriggerService.getTriggerByTriggerId(recipient.getTriggerId());
+        if (trigger == null) {
+            throw new Exception("10017");
+        }
+        //检查触发器的笔记
+        NoteInfo noteInfo = iNoteService.getNoteTinyByNoteId(trigger.getNoteId());
+        if (noteInfo == null) {
+            throw new Exception("10004");
+        }
+        //检查笔记是否为当前用户创建
+        if (!noteInfo.getUserId().equals(userInfo.getUserId())) {
+            throw new Exception("10011");
+        }
+
+        /**
+         * 保存email
+         */
+        RecipientEmail recipientEmail = new RecipientEmail();
+        recipientEmail.setCreatedTime(new Date());
+        recipientEmail.setEmail(email);
+        recipientEmail.setEmailId(GogoTools.UUID().toString());
+        recipientEmail.setRecipientId(recipientId);
+        iRecipientEmailService.addEmail(recipientEmail);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void addCondition(Map in) throws Exception {
+        String token = in.get("token").toString();
+        String triggerId = in.get("triggerId").toString();
+        String conditionName = in.get("conditionName").toString();
+        String conditionKey = in.get("conditionKey").toString();
+        Date conditionTime = (Date) in.get("conditionTime");
+        String remark = (String) in.get("remark");
+
+        if (conditionTime == null) {
+            throw new Exception("10020");
+        }
+
+        UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
+        if (userInfo == null) {
+            throw new Exception("10003");
+        }
+        Trigger trigger = iTriggerService.getTriggerByTriggerId(triggerId);
+        if (trigger == null) {
+            throw new Exception("10017");
+        }
+        NoteInfo noteInfo = iNoteService.getNoteTinyByNoteId(trigger.getNoteId());
+        if (noteInfo == null) {
+            throw new Exception("10004");
+        }
+        if (!noteInfo.getUserId().equals(userInfo.getUserId())) {
+            throw new Exception("10011");
+        }
+
+        Condition condition = new Condition();
+        condition.setConditionId(GogoTools.UUID().toString());
+        condition.setKey(conditionKey);
+        condition.setName(conditionName);
+//        condition.setRemark();
+        condition.setTriggerId(trigger.getTriggerId());
+        condition.setValue(conditionTime.toString());
+        condition.setRemark(remark);
+        iConditionService.createCondition(condition);
+    }
+
+    /**
+     * 根据conditionId查询触发条件信息
+     * @param in
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Map getConditionByConditionId(Map in) throws Exception {
+        String token=in.get("token").toString();
+        String conditionId=in.get("conditionId").toString();
+
         UserInfo userInfo=iUserInfoService.getUserByUserToken(token);
         if(userInfo==null){
             throw new Exception("10003");
         }
 
-        //根据接班人id查询接收人
-        Recipient recipient=iRecipientService.getRecipientByRecipientId(recipientId);
-        if(recipient==null){
-            throw new Exception("10019");
+        Condition condition=iConditionService.getConditionByConditionId(conditionId);
+        if(condition==null){
+            throw new Exception("10021");
         }
-
-        //查询接收人的email
-        ArrayList<RecipientEmail> emails=iRecipientEmailService.listRecipientEmailByRecipientId(recipientId);
-        if(emails.size()>0){
-            recipient.setEmailList(emails);
-        }
-
-
-        Trigger trigger=iTriggerService.getTriggerByTriggerId(recipient.getTriggerId());
+        Trigger trigger=iTriggerService.getTriggerByTriggerId(condition.getTriggerId());
         if(trigger==null){
             throw new Exception("10017");
         }
@@ -275,50 +409,7 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         }
 
         Map out=new HashMap();
-        out.put("recipient", recipient);
+        out.put("condition", condition);
         return out;
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public void addEmail(Map in) throws Exception {
-        String token=in.get("token").toString();
-        String recipientId=in.get("recipientId").toString();
-        String email=in.get("email").toString();
-
-        //检查登录用户
-        UserInfo userInfo=iUserInfoService.getUserByUserToken(token);
-        if(userInfo==null){
-            throw new Exception("10003");
-        }
-        //检查接收人
-        Recipient recipient=iRecipientService.getRecipientByRecipientId(recipientId);
-        if(recipient==null){
-            throw new Exception("10019");
-        }
-        //检查接收人的触发器
-        Trigger trigger=iTriggerService.getTriggerByTriggerId(recipient.getTriggerId());
-        if(trigger==null){
-            throw new Exception("10017");
-        }
-        //检查触发器的笔记
-        NoteInfo noteInfo=iNoteService.getNoteTinyByNoteId(trigger.getNoteId());
-        if(noteInfo==null){
-            throw new Exception("10004");
-        }
-        //检查笔记是否为当前用户创建
-        if(!noteInfo.getUserId().equals(userInfo.getUserId())){
-            throw new Exception("10011");
-        }
-
-        /**
-         * 保存email
-         */
-        RecipientEmail recipientEmail=new RecipientEmail();
-        recipientEmail.setCreatedTime(new Date());
-        recipientEmail.setEmail(email);
-        recipientEmail.setEmailId(GogoTools.UUID().toString());
-        recipientEmail.setRecipientId(recipientId);
-        iRecipientEmailService.addEmail(recipientEmail);
     }
 }

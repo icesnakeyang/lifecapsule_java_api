@@ -26,4 +26,14 @@ public interface ITriggerBusinessService {
     Map getRecipientByRecipientId(Map in) throws Exception;
 
     void addEmail(Map in) throws Exception;
+
+    void addCondition(Map in) throws Exception;
+
+    /**
+     * 根据conditionId查询触发条件信息
+     * @param in
+     * @return
+     * @throws Exception
+     */
+    Map getConditionByConditionId(Map in) throws Exception;
 }

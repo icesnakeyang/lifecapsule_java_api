@@ -115,6 +115,7 @@ public class TriggerController {
 
     /**
      * 根据触发器id，查询所有的接收人
+     *
      * @param request
      * @param httpServletRequest
      * @return
@@ -188,6 +189,61 @@ public class TriggerController {
             } catch (Exception ex2) {
                 response.setCode(10001);
                 logger.error(ex.getMessage());
+            }
+        }
+        return response;
+    }
+
+    @ResponseBody
+    @PostMapping("/addCondition")
+    public Response addCondition(@RequestBody TriggerRequest request,
+                                 HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            Map in = new HashMap();
+            in.put("token", token);
+            in.put("triggerId", request.getTriggerId());
+            in.put("conditionName", request.getConditionName());
+            in.put("conditionKey", request.getConditionKey());
+            in.put("conditionTime", request.getConditionTime());
+            in.put("remark", request.getRemark());
+            iTriggerBusinessService.addCondition(in);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                logger.error(ex.getMessage());
+            }
+        }
+        return response;
+    }
+
+    /**
+     * 根据conditionId查询触发条件信息
+     * @param request
+     * @param httpServletRequest
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/getConditionByConditionId")
+    public Response getConditionByConditionId(@RequestBody TriggerRequest request,
+                                              HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            Map in = new HashMap();
+            in.put("token", token);
+            in.put("conditionId", request.getConditionId());
+
+            Map out = iTriggerBusinessService.getConditionByConditionId(in);
+            response.setData(out);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
             }
         }
         return response;
