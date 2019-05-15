@@ -230,7 +230,7 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         /**
          * 读取所有触发条件
          */
-        ArrayList<Condition> conditionList = iConditionService.listConditionByTriggerId(triggerId);
+        List<Condition> conditionList = iConditionService.listConditionByTriggerId(triggerId);
 
         /**
          * 读取所有接收人
@@ -367,11 +367,9 @@ public class TriggerBusinessService implements ITriggerBusinessService {
 
         Condition condition = new Condition();
         condition.setConditionId(GogoTools.UUID().toString());
-        condition.setKey(conditionKey);
         condition.setName(conditionName);
-//        condition.setRemark();
         condition.setTriggerId(trigger.getTriggerId());
-        condition.setValue(conditionTime.toString());
+        condition.setGogoKey(conditionTime.toString());
         condition.setRemark(remark);
         iConditionService.createCondition(condition);
     }

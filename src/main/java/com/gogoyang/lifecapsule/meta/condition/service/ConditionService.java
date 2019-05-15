@@ -1,20 +1,20 @@
 package com.gogoyang.lifecapsule.meta.condition.service;
 
-import com.gogoyang.lifecapsule.meta.condition.dao.ConditionMapper;
+import com.gogoyang.lifecapsule.meta.condition.dao.repository.IConditionRepository;
 import com.gogoyang.lifecapsule.meta.condition.entity.Condition;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.aggregation.ConditionalOperators;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class ConditionService implements IConditionService {
-    private final ConditionMapper conditionMapper;
+    private final IConditionRepository iConditionRepository;
 
-    public ConditionService(ConditionMapper conditionMapper) {
-        this.conditionMapper = conditionMapper;
+    @Autowired
+    public ConditionService(IConditionRepository iConditionRepository) {
+        this.iConditionRepository = iConditionRepository;
     }
 
     /**
@@ -26,7 +26,7 @@ public class ConditionService implements IConditionService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void createCondition(Condition condition) throws Exception {
-        conditionMapper.createCondition(condition);
+        iConditionRepository.createCondition(condition);
     }
 
     /**
@@ -37,8 +37,8 @@ public class ConditionService implements IConditionService {
      * @throws Exception
      */
     @Override
-    public ArrayList<Condition> listConditionByTriggerId(String triggerId) throws Exception {
-        ArrayList<Condition> conditionList = conditionMapper.listConditionByTriggerId(triggerId);
+    public List<Condition> listConditionByTriggerId(String triggerId) throws Exception {
+        List<Condition> conditionList = iConditionRepository.listConditionByTriggerId(triggerId);
         return conditionList;
     }
 
@@ -50,7 +50,7 @@ public class ConditionService implements IConditionService {
      */
     @Override
     public Condition getConditionByConditionId(String conditionId) throws Exception {
-        Condition condition=conditionMapper.getConditionByConditionId(conditionId);
+        Condition condition=iConditionRepository.getConditionByConditionId(conditionId);
         return condition;
     }
 }

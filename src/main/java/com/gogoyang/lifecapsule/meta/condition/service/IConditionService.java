@@ -2,7 +2,7 @@ package com.gogoyang.lifecapsule.meta.condition.service;
 
 import com.gogoyang.lifecapsule.meta.condition.entity.Condition;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public interface IConditionService {
     /**
@@ -20,7 +20,7 @@ public interface IConditionService {
      * @return
      * @throws Exception
      */
-    ArrayList<Condition> listConditionByTriggerId(String triggerId) throws Exception;
+    List<Condition> listConditionByTriggerId(String triggerId) throws Exception;
 
     /**
      * 根据conditionId查询触发条件信息

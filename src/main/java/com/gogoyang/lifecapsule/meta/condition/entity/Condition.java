@@ -4,17 +4,14 @@ import lombok.Data;
 
 /**
  * 触发条件
- * 一个触发条件包含一对key/value
- * key=预定义的触发条件
- * value=触发条件的值
- * 一旦key获取的值==value指定的值。条件就被触发，返回true
+ * MongoDB集合
  */
 @Data
 public class Condition {
     /**
-     * 自增主键
+     * 唯一id
      */
-    private Integer ids;
+    private Integer _id;
 
     /**
      * 触发条件Id
@@ -34,24 +31,25 @@ public class Condition {
     /**
      * 触发条件
      */
-    private String key;
+    private String gogoKey;
 
     /**
      * 触发条件值
      */
-    private String value;
+    private Object params;
 
     /**
-     *
+     * 备注
      */
     private String remark;
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    public Integer getIds() {
-        return ids;
+
+    public Integer get_id() {
+        return _id;
     }
 
-    public void setIds(Integer ids) {
-        this.ids = ids;
+    public void set_id(Integer _id) {
+        this._id = _id;
     }
 
     public String getConditionId() {
@@ -78,20 +76,20 @@ public class Condition {
         this.name = name;
     }
 
-    public String getKey() {
-        return key;
+    public String getGogoKey() {
+        return gogoKey;
     }
 
-    public void setKey(String key) {
-        this.key = key;
+    public void setGogoKey(String gogoKey) {
+        this.gogoKey = gogoKey;
     }
 
-    public String getValue() {
-        return value;
+    public Object getParams() {
+        return params;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setParams(Object params) {
+        this.params = params;
     }
 
     public String getRemark() {
