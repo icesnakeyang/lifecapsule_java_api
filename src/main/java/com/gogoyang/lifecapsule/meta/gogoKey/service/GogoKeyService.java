@@ -8,10 +8,13 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
-public class GogoKeyService implements IGogoKeyService{
+public class GogoKeyService implements IGogoKeyService {
     private final IGogoKeyRepository iGogoKeyRepository;
     private final GogoKeyMapper gogoKeyMapper;
 
@@ -22,16 +25,28 @@ public class GogoKeyService implements IGogoKeyService{
         this.gogoKeyMapper = gogoKeyMapper;
     }
 
+    /**
+     * 创建一个GogoKey
+     * @param gogoKey
+     * @throws Exception
+     */
     @Override
     public void createGogoKey(GogoKey gogoKey) throws Exception {
         gogoKeyMapper.createGogoKey(gogoKey);
         iGogoKeyRepository.createGogoKey(gogoKey);
     }
 
+    /**
+     * 读取GogoKey列表
+     * @return
+     * @throws Exception
+     */
     @Override
     public List<GogoKey> listGogokey() throws Exception {
-        Query query=Query(Criteria.where())
-        List<GogoKey> list=
-        return null;
+        Map qIn = new HashMap();
+        qIn.put("indexStart", 0);
+        qIn.put("offset", 0);
+        ArrayList<GogoKey> gogoKeys = gogoKeyMapper.listGogoKey(qIn);
+        return gogoKeys;
     }
 }
