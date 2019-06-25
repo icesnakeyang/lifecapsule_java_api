@@ -2,10 +2,8 @@ package com.gogoyang.lifecapsule.meta.trigger.service;
 
 import com.gogoyang.lifecapsule.meta.trigger.dao.TriggerMapper;
 import com.gogoyang.lifecapsule.meta.trigger.entity.Trigger;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sun.text.normalizer.TrieIterator;
 
 import java.util.ArrayList;
 import java.util.HashMap;

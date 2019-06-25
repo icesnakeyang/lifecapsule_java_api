@@ -13,8 +13,6 @@ import com.gogoyang.lifecapsule.meta.trigger.service.ITriggerService;
 import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
 import com.gogoyang.lifecapsule.meta.user.service.IUserInfoService;
 import com.gogoyang.lifecapsule.utility.GogoTools;
-import com.sun.org.apache.xml.internal.resolver.readers.ExtendedXMLCatalogReader;
-import com.sun.tools.javap.TypeAnnotationWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
