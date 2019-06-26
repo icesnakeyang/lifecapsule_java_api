@@ -162,6 +162,7 @@ public class NoteController {
             in.put("title", request.getTitle());
             in.put("detail", request.getDetail());
             in.put("token", token);
+            in.put("encryptKey", request.getEncryptKey());
 
             Map out = iNoteBusinessService.updateNote(in);
             response.setData(out);

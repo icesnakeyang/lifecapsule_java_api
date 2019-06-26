@@ -201,6 +201,7 @@ public class NoteBusinessService implements INoteBusinessService {
         String title = in.get("title").toString();
         String detail = in.get("detail").toString();
         String noteId = in.get("noteId").toString();
+        String encryptKey = in.get("encryptKey").toString();
 
         if (token == null) {
             throw new Exception("10010");

@@ -45,7 +45,7 @@ public class NoteService implements INoteService {
          * 这里添加把detail打碎，加密的算法
          */
         fractureDetail(noteDetail);
-//        iNoteDetailRepository.createNoteDetail(noteDetail);
+        iNoteDetailRepository.createNoteDetail(noteDetail);
     }
 
     /**
@@ -65,7 +65,7 @@ public class NoteService implements INoteService {
         noteDetail.setNoteId(noteInfo.getNoteId());
         noteDetail.setDetail(noteInfo.getDetail());
         fractureDetail(noteDetail);
-//        iNoteDetailRepository.updateNoteDetail(noteDetail);
+        iNoteDetailRepository.updateNoteDetail(noteDetail);
     }
 
     /**

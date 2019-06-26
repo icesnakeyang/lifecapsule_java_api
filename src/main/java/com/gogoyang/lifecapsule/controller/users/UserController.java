@@ -3,6 +3,7 @@ package com.gogoyang.lifecapsule.controller.users;
 import com.gogoyang.lifecapsule.business.login.ILoginBusinessService;
 import com.gogoyang.lifecapsule.business.register.IRegisterBusinessService;
 import com.gogoyang.lifecapsule.controller.vo.Response;
+import com.gogoyang.lifecapsule.utility.GogoTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,6 +95,18 @@ public class UserController {
                 logger.error(ex.getMessage());
                 response.setCode(10001);
             }
+        }
+        return response;
+    }
+
+    @ResponseBody
+    @GetMapping("/getKey")
+    public Response getKey() {
+        Response response = new Response();
+        try {
+            response.setData(GogoTools.generateAESKey());
+        } catch (Exception ex) {
+
         }
         return response;
     }
