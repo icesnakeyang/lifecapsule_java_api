@@ -41,7 +41,11 @@ public class NoteService implements INoteService {
         NoteDetail noteDetail = new NoteDetail();
         noteDetail.setNoteId(noteInfo.getNoteId());
         noteDetail.setDetail(noteInfo.getDetail());
-        iNoteDetailRepository.createNoteDetail(noteDetail);
+        /**
+         * 这里添加把detail打碎，加密的算法
+         */
+        fractureDetail(noteDetail);
+//        iNoteDetailRepository.createNoteDetail(noteDetail);
     }
 
     /**
@@ -60,7 +64,8 @@ public class NoteService implements INoteService {
         NoteDetail noteDetail = new NoteDetail();
         noteDetail.setNoteId(noteInfo.getNoteId());
         noteDetail.setDetail(noteInfo.getDetail());
-        iNoteDetailRepository.updateNoteDetail(noteDetail);
+        fractureDetail(noteDetail);
+//        iNoteDetailRepository.updateNoteDetail(noteDetail);
     }
 
     /**
@@ -156,5 +161,15 @@ public class NoteService implements INoteService {
         qIn.put("pageSize", pageSize);
         List noteList = noteInfoMapper.listNoteByCategory(qIn);
         return noteList;
+    }
+
+    @Override
+    public void fractureDetail(NoteDetail noteDetail) throws Exception {
+        for(int i=0;i<noteDetail.getDetail().length();i++){
+            /**
+             * 打碎，加密，排序，保存
+             * 读取一个字节，进行hash256
+             */
+        }
     }
 }

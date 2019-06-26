@@ -1,6 +1,8 @@
 package com.gogoyang.lifecapsule.meta.note.service;
 
+import com.gogoyang.lifecapsule.meta.note.entity.NoteDetail;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteInfo;
+import com.sun.tools.javap.TypeAnnotationWriter;
 
 import java.util.List;
 
@@ -78,4 +80,6 @@ public interface INoteService {
      * @throws Exception
      */
     List<NoteInfo> listNoteByCategory(String categoryId, String userId, Integer offset, Integer pageSize) throws Exception;
+
+    void fractureDetail(NoteDetail noteDetail) throws Exception;
 }
