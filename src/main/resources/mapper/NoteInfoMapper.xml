@@ -9,13 +9,15 @@
       user_id,
       created_time,
       title,
-      category_id
+      category_id,
+      user_encode_key
       ) values (
       #{noteId},
       #{userId},
       #{createdTime},
       #{title},
-      #{categoryId}
+      #{categoryId},
+      #{userEncodeKey}
       )
     </insert>
 
@@ -25,6 +27,7 @@
         <result property="userId" column="user_id"/>
         <result property="createdTime" column="created_time"/>
         <result property="categoryId" column="category_id"/>
+        <result property="userEncodeKey" column="user_encode_key"/>
     </resultMap>
 
     <!--分页查询一个用户id的笔记列表-->
@@ -48,7 +51,8 @@
     <update id="updateNoteInfo"
             parameterType="com.gogoyang.lifecapsule.meta.note.entity.NoteInfo">
         update note_info set
-        title=#{title}
+        title=#{title},
+        user_encode_key=#{userEncodeKey}
         where note_id=#{noteId}
     </update>
 

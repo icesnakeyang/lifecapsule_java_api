@@ -41,5 +41,5 @@ public class NoteInfo {
      */
     private String categoryId;
 
-    private String encodedKey;
+    private String userEncodeKey;
 }

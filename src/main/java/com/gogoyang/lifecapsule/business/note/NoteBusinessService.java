@@ -47,6 +47,7 @@ public class NoteBusinessService implements INoteBusinessService {
         String token = (String) in.get("token");
         String detail = in.get("detail").toString();
         String categoryId = (String) in.get("categoryId");
+        String encryptKey = in.get("encryptKey").toString();
 
         /**
          * 根据token取用户信息
@@ -64,7 +65,7 @@ public class NoteBusinessService implements INoteBusinessService {
          */
         if (categoryId == null) {
             NoteCategory category = iCategoryService.getCategoryByCategoryName("Default", userInfo.getUserId());
-            categoryId=category.getCategoryId();
+            categoryId = category.getCategoryId();
         }
         NoteInfo noteInfo = new NoteInfo();
         noteInfo.setUserId(userInfo.getUserId());
@@ -73,6 +74,7 @@ public class NoteBusinessService implements INoteBusinessService {
         noteInfo.setDetail(detail);
         noteInfo.setTitle(title);
         noteInfo.setCategoryId(categoryId);
+        noteInfo.setUserEncodeKey(encryptKey);
         iNoteService.createNote(noteInfo);
 
         Map out = new HashMap();
@@ -231,6 +233,7 @@ public class NoteBusinessService implements INoteBusinessService {
         updateNote.setDetail(detail);
         updateNote.setTitle(title);
         updateNote.setNoteId(noteId);
+        updateNote.setUserEncodeKey(encryptKey);
         iNoteService.updateNote(updateNote);
 
         Map out = new HashMap();
