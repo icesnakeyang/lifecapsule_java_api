@@ -1,5 +1,6 @@
 package com.gogoyang.lifecapsule.utility;
 
+import com.sun.org.apache.xml.internal.security.utils.Base64;
 import org.omg.CORBA.PUBLIC_MEMBER;
 import sun.misc.BASE64Encoder;
 
@@ -46,6 +47,7 @@ public class GogoTools {
 
     /**
      * 生成一个AES秘钥
+     *
      * @return
      * @throws Exception
      */
@@ -71,8 +73,8 @@ public class GogoTools {
         RSAPublicKey rsaPublicKey = (RSAPublicKey) keyPair.getPublic();
         RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) keyPair.getPrivate();
         Map out = new HashMap();
-        out.put("publickKey", rsaPublicKey);
-        out.put("privateKey", rsaPrivateKey);
+        out.put("publicKey", Base64.encode(rsaPublicKey.getEncoded()));
+        out.put("privateKey", Base64.encode(rsaPrivateKey.getEncoded()));
         return out;
     }
 

@@ -48,4 +48,7 @@ public class NoteRequest {
 
     private String encryptKey;
 
+    private String data;
+    private String keyToken;
+
 }

@@ -160,11 +160,13 @@ public class NoteController {
         try {
             String token = httpServletRequest.getHeader("token");
             Map in = new HashMap();
-            in.put("noteId", request.getNoteId());
-            in.put("title", request.getTitle());
-            in.put("detail", request.getDetail());
-            in.put("token", token);
-            in.put("encryptKey", request.getEncryptKey());
+            in.put("data", request.getData());
+            in.put("keyToken", request.getKeyToken());
+//            in.put("noteId", request.getNoteId());
+//            in.put("title", request.getTitle());
+//            in.put("detail", request.getDetail());
+//            in.put("token", token);
+//            in.put("encryptKey", request.getEncryptKey());
 
             Map out = iNoteBusinessService.updateNote(in);
             response.setData(out);
