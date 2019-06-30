@@ -80,20 +80,21 @@ public class GogoTools {
 
     /**
      * 用私钥来解密
+     *
      * @param src
      * @param rsaPrivateKey
      * @return
      * @throws Exception
      */
     public static Map decryptRSAByPrivateKey(String src, String rsaPrivateKey) throws Exception {
-        PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(Base64.decode(rsaPrivateKey));
+        PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(Base64.decode(rsaPrivateKey.getBytes()));
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         PrivateKey privateKey = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
         Cipher cipher = Cipher.getInstance("RSA");
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
-        byte[] result = cipher.doFinal(src.getBytes());
+        byte[] result = cipher.doFinal(Base64.decode(src.getBytes()));
         Map out = new HashMap();
-        out.put("result", result);
+        out.put("result", new String(result));
         return out;
     }
 
