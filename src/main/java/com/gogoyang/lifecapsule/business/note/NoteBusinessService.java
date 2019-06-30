@@ -5,6 +5,8 @@ import com.gogoyang.lifecapsule.meta.category.service.ICategoryService;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteDetail;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteInfo;
 import com.gogoyang.lifecapsule.meta.note.service.INoteService;
+import com.gogoyang.lifecapsule.meta.security.entity.SecurityKey;
+import com.gogoyang.lifecapsule.meta.security.service.ISecurityService;
 import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
 import com.gogoyang.lifecapsule.meta.user.service.IUserInfoService;
 import com.gogoyang.lifecapsule.utility.GogoTools;
@@ -23,14 +25,17 @@ public class NoteBusinessService implements INoteBusinessService {
     private final INoteService iNoteService;
     private final IUserInfoService iUserInfoService;
     private final ICategoryService iCategoryService;
+    private final ISecurityService iSecurityService;
 
     @Autowired
     public NoteBusinessService(INoteService iNoteService,
                                IUserInfoService iUserInfoService,
-                               ICategoryService iCategoryService) {
+                               ICategoryService iCategoryService,
+                               ISecurityService iSecurityService) {
         this.iNoteService = iNoteService;
         this.iUserInfoService = iUserInfoService;
         this.iCategoryService = iCategoryService;
+        this.iSecurityService = iSecurityService;
     }
 
     /**
@@ -199,45 +204,54 @@ public class NoteBusinessService implements INoteBusinessService {
      */
     @Override
     public Map updateNote(Map in) throws Exception {
-        String token = (String) in.get("token");
-        String title = in.get("title").toString();
-        String detail = in.get("detail").toString();
-        String noteId = in.get("noteId").toString();
-        String encryptKey = (String)in.get("encryptKey");
-
-        if (token == null) {
-            throw new Exception("10010");
-        }
-
-        UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
-        if (userInfo == null) {
-            throw new Exception("10003");
-        }
-
+        String token=in.get("token").toString();
+        String data=in.get("data").toString();
+        String keyToken=in.get("keyToken").toString();
         /**
-         * 读取note，判断是否为当前user创建
+         * 根据keyToken读取私钥
          */
-        NoteInfo noteInfo = iNoteService.getNoteTinyByNoteId(noteId);
-        if (noteInfo == null) {
-            throw new Exception("10004");
-        }
-        if (!noteInfo.getUserId().equals(userInfo.getUserId())) {
-            //不是自己创建的note，不能修改
-            throw new Exception("10011");
-        }
+        String privateKey=iSecurityService.getRSAKey(keyToken);
+        Map dataMap=GogoTools.decryptRSAByPrivateKey(data, privateKey);
 
-        /**
-         * 修改note, 只能修改title,detail
-         */
-        NoteInfo updateNote = new NoteInfo();
-        updateNote.setDetail(detail);
-        updateNote.setTitle(title);
-        updateNote.setNoteId(noteId);
-        updateNote.setUserEncodeKey(encryptKey);
-        iNoteService.updateNote(updateNote);
+//        String token = (String) in.get("token");
+//        String title = in.get("title").toString();
+//        String detail = in.get("detail").toString();
+//        String noteId = in.get("noteId").toString();
+//        String encryptKey = (String)in.get("encryptKey");
 
+//        if (token == null) {
+//            throw new Exception("10010");
+//        }
+//
+//        UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
+//        if (userInfo == null) {
+//            throw new Exception("10003");
+//        }
+//
+//        /**
+//         * 读取note，判断是否为当前user创建
+//         */
+//        NoteInfo noteInfo = iNoteService.getNoteTinyByNoteId(noteId);
+//        if (noteInfo == null) {
+//            throw new Exception("10004");
+//        }
+//        if (!noteInfo.getUserId().equals(userInfo.getUserId())) {
+//            //不是自己创建的note，不能修改
+//            throw new Exception("10011");
+//        }
+//
+//        /**
+//         * 修改note, 只能修改title,detail
+//         */
+//        NoteInfo updateNote = new NoteInfo();
+//        updateNote.setDetail(detail);
+//        updateNote.setTitle(title);
+//        updateNote.setNoteId(noteId);
+//        updateNote.setUserEncodeKey(encryptKey);
+//        iNoteService.updateNote(updateNote);
+//
         Map out = new HashMap();
-        out.put("note", updateNote);
+//        out.put("note", updateNote);
         return out;
     }
 }

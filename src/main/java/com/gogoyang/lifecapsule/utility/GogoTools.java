@@ -78,12 +78,19 @@ public class GogoTools {
         return out;
     }
 
-    public static Map encryptRSA(String src, RSAPrivateKey rsaPrivateKey) throws Exception {
-        PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(rsaPrivateKey.getEncoded());
+    /**
+     * 用私钥来解密
+     * @param src
+     * @param rsaPrivateKey
+     * @return
+     * @throws Exception
+     */
+    public static Map decryptRSAByPrivateKey(String src, String rsaPrivateKey) throws Exception {
+        PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(Base64.decode(rsaPrivateKey));
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         PrivateKey privateKey = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
         Cipher cipher = Cipher.getInstance("RSA");
-        cipher.init(Cipher.ENCRYPT_MODE, privateKey);
+        cipher.init(Cipher.DECRYPT_MODE, privateKey);
         byte[] result = cipher.doFinal(src.getBytes());
         Map out = new HashMap();
         out.put("result", result);

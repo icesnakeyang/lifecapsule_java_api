@@ -2,7 +2,6 @@ package com.gogoyang.lifecapsule.meta.note.service;
 
 import com.gogoyang.lifecapsule.meta.note.entity.NoteDetail;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteInfo;
-import com.sun.tools.javap.TypeAnnotationWriter;
 
 import java.util.List;
 
