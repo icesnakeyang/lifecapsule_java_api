@@ -10,11 +10,14 @@ import com.gogoyang.lifecapsule.meta.security.service.ISecurityService;
 import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
 import com.gogoyang.lifecapsule.meta.user.service.IUserInfoService;
 import com.gogoyang.lifecapsule.utility.GogoTools;
+import com.sun.org.apache.xml.internal.security.utils.Base64;
 import org.omg.CORBA.INTERNAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -166,6 +169,18 @@ public class NoteBusinessService implements INoteBusinessService {
         String encryptKey=in.get("encryptKey").toString();
         String keyToken=in.get("keyToken").toString();
         String detail=in.get("detail").toString();
+
+        String decryptKey = encryptKey;
+        byte[] encryptBytes = Base64.decode(detail);
+
+
+        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+//        Cipher cipher = Cipher.getInstance("AES");
+        cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(decryptKey.getBytes(), "AES"));
+        byte[] decryptBytes = cipher.doFinal(encryptBytes);
+
+
+        String outStr = new String(decryptBytes);
 
         GogoTools.decryptAESKey(detail,encryptKey);
 
