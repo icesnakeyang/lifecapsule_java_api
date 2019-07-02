@@ -17,8 +17,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.crypto.Cipher;
+import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.PBEKeySpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
+import java.security.spec.KeySpec;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -167,9 +171,9 @@ public class NoteBusinessService implements INoteBusinessService {
     public Map getNoteDetailByNoteId(Map in) throws Exception {
         String token = (String) in.get("token");
         String noteId = in.get("noteId").toString();
-        String encryptKey=in.get("encryptKey").toString();
-        String keyToken=(String)in.get("keyToken");
-        String detail=(String)in.get("detail");
+        String encryptKey = in.get("encryptKey").toString();
+        String keyToken = (String) in.get("keyToken");
+        String detail = (String) in.get("detail");
 
         String decryptKey = encryptKey;
 
@@ -180,9 +184,7 @@ public class NoteBusinessService implements INoteBusinessService {
         //用AES加密note的AES，发送回前端
 
 
-
         byte[] encryptBytes = Base64.decode(detail);
-
 
 
 //        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
@@ -194,7 +196,6 @@ public class NoteBusinessService implements INoteBusinessService {
 //        String outStr = new String(decryptBytes);
 //
 //        GogoTools.decryptAESKey(detail,encryptKey);
-
 
 
         /**
@@ -225,20 +226,28 @@ public class NoteBusinessService implements INoteBusinessService {
 
         //用AES秘钥加密笔记内容的AES秘钥
 
+//        String data="hellow girls";
+        String data=noteInfo.getUserEncodeKey();
+//        String key="6twpxnxaunl7wsnv";
+        String key=strAESKey;
+        String iv=strAESKey;
+        Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");//"算法/模式/补码方式"
+        int blockSize = cipher.getBlockSize();
 
-        Key secretKeySpec = new SecretKeySpec(strAESKey.getBytes(), "AES");
-        AlgorithmParameterSpec ivParameterSpec = new IvParameterSpec(iv);
-        Cipher cipher = Cipher.getInstance(TRANSFORMATION);
-        cipher.init(opmode, secretKeySpec, ivParameterSpec);
-        return cipher.doFinal(context);
-        ---------------------
-                作者：Geek-Rs
-        来源：CSDN
-        原文：https://blog.csdn.net/qq_33512843/article/details/80938486
-        版权声明：本文为博主原创文章，转载请附上博文链接！
+        byte[] dataBytes = data.getBytes("UTF-8");//如果有中文，记得加密前的字符集
+        int plaintextLength = dataBytes.length;
+        if (plaintextLength % blockSize != 0) {
+            plaintextLength = plaintextLength + (blockSize - (plaintextLength % blockSize));
+        }
+        byte[] plaintext = new byte[plaintextLength];
+        System.arraycopy(dataBytes, 0, plaintext, 0, dataBytes.length);
+        SecretKeySpec keyspec = new SecretKeySpec(key.getBytes(), "AES");
+        IvParameterSpec ivspec = new IvParameterSpec(iv.getBytes());
+        cipher.init(Cipher.ENCRYPT_MODE, keyspec, ivspec);
+        byte[] encrypted = cipher.doFinal(plaintext);
+        String outCode= Base64.encode(encrypted);
 
-
-        noteInfo.setUserEncodeKey(GogoTools.encryptAESKey(noteInfo.getUserEncodeKey(), strAESKey));
+        noteInfo.setUserEncodeKey(outCode);
         Map out = new HashMap();
         out.put("note", noteInfo);
         return out;

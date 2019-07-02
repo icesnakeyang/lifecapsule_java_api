@@ -72,12 +72,10 @@ public class GogoTools {
      * @throws Exception
      */
     public static String encryptAESKey(String codec, String key) throws Exception {
-        KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
-        keyGenerator.init(128);
         Cipher cipher = Cipher.getInstance("AES");
         Key AESKEY = new SecretKeySpec(key.getBytes(), "AES");
         cipher.init(Cipher.ENCRYPT_MODE, AESKEY);
-        byte[] result = cipher.doFinal(codec.getBytes());
+        byte[] result = cipher.doFinal(codec.getBytes("UTF-8"));
         return Base64.encode(result);
     }
 
