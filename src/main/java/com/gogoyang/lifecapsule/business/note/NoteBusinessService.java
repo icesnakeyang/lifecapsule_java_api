@@ -2,17 +2,19 @@ package com.gogoyang.lifecapsule.business.note;
 
 import com.gogoyang.lifecapsule.meta.category.entity.NoteCategory;
 import com.gogoyang.lifecapsule.meta.category.service.ICategoryService;
-import com.gogoyang.lifecapsule.meta.note.entity.NoteDetail;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteInfo;
 import com.gogoyang.lifecapsule.meta.note.service.INoteService;
 import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
 import com.gogoyang.lifecapsule.meta.user.service.IUserInfoService;
 import com.gogoyang.lifecapsule.utility.GogoTools;
-import org.omg.CORBA.INTERNAL;
+import com.sun.org.apache.xml.internal.security.utils.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.spec.SecretKeySpec;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -203,7 +205,7 @@ public class NoteBusinessService implements INoteBusinessService {
         String title = in.get("title").toString();
         String detail = in.get("detail").toString();
         String noteId = in.get("noteId").toString();
-        String encryptKey = (String)in.get("encryptKey");
+        String encryptKey = (String) in.get("encryptKey");
 
         if (token == null) {
             throw new Exception("10010");

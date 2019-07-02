@@ -2,6 +2,7 @@ package com.gogoyang.lifecapsule.controller.notes;
 
 import com.gogoyang.lifecapsule.business.note.INoteBusinessService;
 import com.gogoyang.lifecapsule.controller.vo.Response;
+import com.gogoyang.lifecapsule.utility.GogoTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,10 +128,16 @@ public class NoteController {
                                           HttpServletRequest httpServletRequest) {
         Response response = new Response();
         try {
+
+            String strAesKey=GogoTools.generateAESKey();
+
             String token = httpServletRequest.getHeader("token");
             Map in = new HashMap();
             in.put("noteId", request.getNoteId());
             in.put("token", token);
+
+            in.put("encryptKey", request.getEncryptKey());
+            in.put("detail", request.getDetail());
 
             Map out = iNoteBusinessService.getNoteDetailByNoteId(in);
             response.setData(out);

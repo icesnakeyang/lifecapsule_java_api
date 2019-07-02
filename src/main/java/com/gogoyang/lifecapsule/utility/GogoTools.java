@@ -51,13 +51,14 @@ public class GogoTools {
      * @return
      * @throws Exception
      */
-    public static Key generateAESKey() throws Exception {
+    public static String generateAESKey() throws Exception {
         KeyGenerator kgen = KeyGenerator.getInstance("AES");
         kgen.init(256);
         SecretKey secretKey = kgen.generateKey();
         byte[] enCodeFormat = secretKey.getEncoded();
         SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
-        return key;
+
+        return Base64.encode(key.getEncoded());
     }
 
     /**
