@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
+import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -223,6 +224,20 @@ public class NoteBusinessService implements INoteBusinessService {
         }
 
         //用AES秘钥加密笔记内容的AES秘钥
+
+
+        Key secretKeySpec = new SecretKeySpec(strAESKey.getBytes(), "AES");
+        AlgorithmParameterSpec ivParameterSpec = new IvParameterSpec(iv);
+        Cipher cipher = Cipher.getInstance(TRANSFORMATION);
+        cipher.init(opmode, secretKeySpec, ivParameterSpec);
+        return cipher.doFinal(context);
+        ---------------------
+                作者：Geek-Rs
+        来源：CSDN
+        原文：https://blog.csdn.net/qq_33512843/article/details/80938486
+        版权声明：本文为博主原创文章，转载请附上博文链接！
+
+
         noteInfo.setUserEncodeKey(GogoTools.encryptAESKey(noteInfo.getUserEncodeKey(), strAESKey));
         Map out = new HashMap();
         out.put("note", noteInfo);
