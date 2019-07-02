@@ -3,10 +3,12 @@ package com.gogoyang.lifecapsule.utility;
 import com.sun.org.apache.xml.internal.security.utils.Base64;
 import org.omg.CORBA.PUBLIC_MEMBER;
 import sun.misc.BASE64Encoder;
+import sun.security.krb5.internal.crypto.Aes128;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
@@ -61,6 +63,44 @@ public class GogoTools {
     }
 
     /**
+     * AES加密
+     *
+     * @param codec
+     * @param key
+     * @return
+     * @throws Exception
+     */
+    public static String encryptAESKey(String codec, String key) throws Exception {
+        KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+        keyGenerator.init(256);
+        Cipher cipher = Cipher.getInstance("AES");
+        Key AESKEY = new SecretKeySpec(key.getBytes(), "AES");
+        cipher.init(Cipher.ENCRYPT_MODE, AESKEY);
+        byte[] result = cipher.doFinal(codec.getBytes());
+        return Base64.encode(result);
+    }
+
+    /**
+     * 用AES解密
+     *
+     * @param codec
+     * @param key
+     * @return
+     * @throws Exception
+     */
+    public static String decryptAESKey(String codec, String key) throws Exception {
+
+        Cipher cipher = Cipher.getInstance("AES/CBC/ISO10126Padding");
+        byte[] keyByte = Base64.decode(key);
+        key = "hctrsZ7+ZHFJoR5iWChnQA==";
+        Key AESKEY = new SecretKeySpec(Base64.decode(key), "AES");
+        cipher.init(Cipher.DECRYPT_MODE, AESKEY);
+        byte[] result = cipher.doFinal(Base64.decode(codec));
+        String src = new String(result);
+        return src;
+    }
+
+    /**
      * 生成一对RSA公钥和私钥
      *
      * @return
@@ -86,7 +126,7 @@ public class GogoTools {
      * @return
      * @throws Exception
      */
-    public static Map decryptRSAByPrivateKey(String src, String rsaPrivateKey) throws Exception {
+    public static String decryptRSAByPrivateKey(String src, String rsaPrivateKey) throws Exception {
         PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(Base64.decode(rsaPrivateKey.getBytes()));
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         PrivateKey privateKey = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
@@ -94,8 +134,7 @@ public class GogoTools {
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
         byte[] result = cipher.doFinal(Base64.decode(src.getBytes()));
         Map out = new HashMap();
-        out.put("result", new String(result));
-        return out;
+        return new String(result);
     }
 
     public static Map decryptRSA(String src, RSAPublicKey rsaPublicKey) throws Exception {

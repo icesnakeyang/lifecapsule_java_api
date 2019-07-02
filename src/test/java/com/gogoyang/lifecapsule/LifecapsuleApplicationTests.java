@@ -6,8 +6,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import sun.security.krb5.internal.crypto.Aes128;
 
 import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
@@ -75,6 +79,33 @@ public class LifecapsuleApplicationTests {
             result = cipher.doFinal(Base64.decode(strResult.getBytes()));
             strResult = new String(result);
             System.out.println("公钥加密，私钥解密，解密：" + strResult);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @Test
+    public void jdkAES() {
+        try {
+            KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+            keyGenerator.init(128);
+            SecretKey secretKey = keyGenerator.generateKey();
+            byte[] keyBytes = secretKey.getEncoded();
+
+            String AESKey = Base64.encode(keyBytes);
+            System.out.println("aes key:" + AESKey);
+            Key key = new SecretKeySpec(Base64.decode(AESKey), "AES");
+
+            Cipher cipher = Cipher.getInstance("AES");
+            cipher.init(Cipher.ENCRYPT_MODE, key);
+            byte[] result = cipher.doFinal(src.getBytes());
+            String codec = Base64.encode(result);
+            System.out.println("jdk aes encrypt:" + codec);
+
+            cipher.init(Cipher.DECRYPT_MODE, key);
+            result = cipher.doFinal(Base64.decode(codec));
+            System.out.println("jdk aes destrypt:" + new String(result));
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }

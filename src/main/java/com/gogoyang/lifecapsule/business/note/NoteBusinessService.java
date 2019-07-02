@@ -163,6 +163,16 @@ public class NoteBusinessService implements INoteBusinessService {
     public Map getNoteDetailByNoteId(Map in) throws Exception {
         String token = (String) in.get("token");
         String noteId = in.get("noteId").toString();
+        String encryptKey=in.get("encryptKey").toString();
+        String keyToken=in.get("keyToken").toString();
+        String detail=in.get("detail").toString();
+
+        GogoTools.decryptAESKey(detail,encryptKey);
+
+        //读取生成的RSA私钥
+        String privateKey = iSecurityService.getRSAKey(keyToken);
+        //用私钥解密用户上传的AES秘钥
+        String strAESKey = GogoTools.decryptRSAByPrivateKey(encryptKey, privateKey);
 
         /**
          * 1、检查token，查询登录用户
@@ -190,6 +200,8 @@ public class NoteBusinessService implements INoteBusinessService {
             throw new Exception("10011");
         }
 
+        //用AES秘钥加密笔记内容的AES秘钥
+        noteInfo.setUserEncodeKey(GogoTools.encryptAESKey(noteInfo.getUserEncodeKey(), strAESKey));
         Map out = new HashMap();
         out.put("note", noteInfo);
         return out;
@@ -204,54 +216,51 @@ public class NoteBusinessService implements INoteBusinessService {
      */
     @Override
     public Map updateNote(Map in) throws Exception {
-        String token=in.get("token").toString();
-        String data=in.get("data").toString();
-        String keyToken=in.get("keyToken").toString();
+        String token = in.get("token").toString();
+        String noteId = in.get("noteId").toString();
+        String title = in.get("title").toString();
+        String detail = in.get("detail").toString();
+        String encryptKey = in.get("encryptKey").toString();
+        String keyToken = in.get("keyToken").toString();
         /**
          * 根据keyToken读取私钥
          */
-        String privateKey=iSecurityService.getRSAKey(keyToken);
-        Map dataMap=GogoTools.decryptRSAByPrivateKey(data, privateKey);
+        String privateKey = iSecurityService.getRSAKey(keyToken);
+        String strAESKey = GogoTools.decryptRSAByPrivateKey(encryptKey, privateKey);
 
-//        String token = (String) in.get("token");
-//        String title = in.get("title").toString();
-//        String detail = in.get("detail").toString();
-//        String noteId = in.get("noteId").toString();
-//        String encryptKey = (String)in.get("encryptKey");
+        if (token == null) {
+            throw new Exception("10010");
+        }
+//
+        UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
+        if (userInfo == null) {
+            throw new Exception("10003");
+        }
 
-//        if (token == null) {
-//            throw new Exception("10010");
-//        }
-//
-//        UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
-//        if (userInfo == null) {
-//            throw new Exception("10003");
-//        }
-//
-//        /**
-//         * 读取note，判断是否为当前user创建
-//         */
-//        NoteInfo noteInfo = iNoteService.getNoteTinyByNoteId(noteId);
-//        if (noteInfo == null) {
-//            throw new Exception("10004");
-//        }
-//        if (!noteInfo.getUserId().equals(userInfo.getUserId())) {
-//            //不是自己创建的note，不能修改
-//            throw new Exception("10011");
-//        }
-//
-//        /**
-//         * 修改note, 只能修改title,detail
-//         */
-//        NoteInfo updateNote = new NoteInfo();
-//        updateNote.setDetail(detail);
-//        updateNote.setTitle(title);
-//        updateNote.setNoteId(noteId);
-//        updateNote.setUserEncodeKey(encryptKey);
-//        iNoteService.updateNote(updateNote);
-//
+        /**
+         * 读取note，判断是否为当前user创建
+         */
+        NoteInfo noteInfo = iNoteService.getNoteTinyByNoteId(noteId);
+        if (noteInfo == null) {
+            throw new Exception("10004");
+        }
+        if (!noteInfo.getUserId().equals(userInfo.getUserId())) {
+            //不是自己创建的note，不能修改
+            throw new Exception("10011");
+        }
+
+        /**
+         * 修改note, 只能修改title,detail
+         */
+        NoteInfo updateNote = new NoteInfo();
+        updateNote.setDetail(detail);
+        updateNote.setTitle(title);
+        updateNote.setNoteId(noteId);
+        updateNote.setUserEncodeKey(strAESKey);
+        iNoteService.updateNote(updateNote);
+
         Map out = new HashMap();
-//        out.put("note", updateNote);
+        out.put("note", updateNote);
         return out;
     }
 }
