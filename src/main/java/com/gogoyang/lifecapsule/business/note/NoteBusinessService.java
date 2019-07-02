@@ -167,27 +167,34 @@ public class NoteBusinessService implements INoteBusinessService {
         String token = (String) in.get("token");
         String noteId = in.get("noteId").toString();
         String encryptKey=in.get("encryptKey").toString();
-        String keyToken=in.get("keyToken").toString();
-        String detail=in.get("detail").toString();
+        String keyToken=(String)in.get("keyToken");
+        String detail=(String)in.get("detail");
 
         String decryptKey = encryptKey;
-        byte[] encryptBytes = Base64.decode(detail);
-
-
-        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-//        Cipher cipher = Cipher.getInstance("AES");
-        cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(decryptKey.getBytes(), "AES"));
-        byte[] decryptBytes = cipher.doFinal(encryptBytes);
-
-
-        String outStr = new String(decryptBytes);
-
-        GogoTools.decryptAESKey(detail,encryptKey);
 
         //读取生成的RSA私钥
         String privateKey = iSecurityService.getRSAKey(keyToken);
         //用私钥解密用户上传的AES秘钥
         String strAESKey = GogoTools.decryptRSAByPrivateKey(encryptKey, privateKey);
+        //用AES加密note的AES，发送回前端
+
+
+
+        byte[] encryptBytes = Base64.decode(detail);
+
+
+
+//        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+////        Cipher cipher = Cipher.getInstance("AES");
+//        cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(decryptKey.getBytes(), "AES"));
+//        byte[] decryptBytes = cipher.doFinal(encryptBytes);
+//
+//
+//        String outStr = new String(decryptBytes);
+//
+//        GogoTools.decryptAESKey(detail,encryptKey);
+
+
 
         /**
          * 1、检查token，查询登录用户

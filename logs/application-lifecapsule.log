@@ -293,3 +293,213 @@ Caused by: java.net.UnknownHostException: gogorpg.com
 2019-07-02 12:25:59.682  WARN 3389 --- [http-nio-8088-exec-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@613a5ad5 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
 2019-07-02 12:25:59.944  INFO 3389 --- [http-nio-8088-exec-1] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:2, serverValue:487}] to gogorpg.com:27017 because there was a socket exception raised on another connection from this pool.
 2019-07-02 12:26:00.324  INFO 3389 --- [http-nio-8088-exec-1] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:4, serverValue:491}] to gogorpg.com:27017
+2019-07-02 12:26:45.846  INFO 3389 --- [Thread-13] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-07-02 12:26:45.858  INFO 3389 --- [Thread-13] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:4, serverValue:491}] to gogorpg.com:27017 because the pool has been closed.
+2019-07-02 12:26:45.866  INFO 3389 --- [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-07-02 12:26:45.873  INFO 3389 --- [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-07-02 12:27:00.274  INFO 4574 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on icesnakedeMBP with PID 4574 (/Users/icesnake/gogoproject/lifecapsule/java/target/classes started by icesnake in /Users/icesnake/gogoproject/lifecapsule/java)
+2019-07-02 12:27:00.372  INFO 4574 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
+2019-07-02 12:27:02.714  INFO 4574 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-02 12:27:02.746  INFO 4574 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25ms. Found 0 repository interfaces.
+2019-07-02 12:27:03.233  INFO 4574 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$956be250] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-02 12:27:03.714  INFO 4574 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
+2019-07-02 12:27:03.749  INFO 4574 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-07-02 12:27:03.750  INFO 4574 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
+2019-07-02 12:27:03.898  INFO 4574 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-07-02 12:27:03.899  INFO 4574 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3139 ms
+2019-07-02 12:27:04.801  INFO 4574 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[gogorpg.com:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2019-07-02 12:27:04.802  INFO 4574 --- [main] org.mongodb.driver.cluster               : Adding discovered server gogorpg.com:27017 to client view of cluster
+2019-07-02 12:27:05.262  INFO 4574 --- [cluster-ClusterId{value='5d1add1808bcac11deb8df3a', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:492}] to gogorpg.com:27017
+2019-07-02 12:27:05.362  INFO 4574 --- [cluster-ClusterId{value='5d1add1808bcac11deb8df3a', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=gogorpg.com:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 19]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=97707631}
+2019-07-02 12:27:05.364  INFO 4574 --- [cluster-ClusterId{value='5d1add1808bcac11deb8df3a', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
+2019-07-02 12:27:05.780  INFO 4574 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-07-02 12:27:06.631  INFO 4574 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
+2019-07-02 12:27:06.671  INFO 4574 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 7.781 seconds (JVM running for 10.427)
+2019-07-02 12:27:41.538  INFO 4574 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-07-02 12:27:41.539  INFO 4574 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-07-02 12:27:41.555  INFO 4574 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 15 ms
+2019-07-02 12:27:41.913 ERROR 4574 --- [http-nio-8088-exec-1] c.g.l.controller.notes.NoteController    : null
+2019-07-02 12:30:09.527 ERROR 4574 --- [http-nio-8088-exec-5] c.g.l.controller.notes.NoteController    : null
+2019-07-02 12:30:09.635  INFO 4574 --- [Thread-19] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-07-02 12:30:18.067  INFO 4750 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on icesnakedeMBP with PID 4750 (/Users/icesnake/gogoproject/lifecapsule/java/target/classes started by icesnake in /Users/icesnake/gogoproject/lifecapsule/java)
+2019-07-02 12:30:18.079  INFO 4750 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
+2019-07-02 12:30:19.655  INFO 4750 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-02 12:30:19.691  INFO 4750 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31ms. Found 0 repository interfaces.
+2019-07-02 12:30:20.157  INFO 4750 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$4627b00a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-02 12:30:20.572  INFO 4750 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
+2019-07-02 12:30:20.612  INFO 4750 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-07-02 12:30:20.612  INFO 4750 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
+2019-07-02 12:30:20.748  INFO 4750 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-07-02 12:30:20.748  INFO 4750 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2538 ms
+2019-07-02 12:30:21.640  INFO 4750 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[gogorpg.com:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2019-07-02 12:30:21.641  INFO 4750 --- [main] org.mongodb.driver.cluster               : Adding discovered server gogorpg.com:27017 to client view of cluster
+2019-07-02 12:30:22.110  INFO 4750 --- [cluster-ClusterId{value='5d1adddd08bcac128e7e2c88', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:493}] to gogorpg.com:27017
+2019-07-02 12:30:22.210  INFO 4750 --- [cluster-ClusterId{value='5d1adddd08bcac128e7e2c88', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=gogorpg.com:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 19]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=96906632}
+2019-07-02 12:30:22.211  INFO 4750 --- [cluster-ClusterId{value='5d1adddd08bcac128e7e2c88', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
+2019-07-02 12:30:22.422  INFO 4750 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-07-02 12:30:22.806  INFO 4750 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
+2019-07-02 12:30:22.810  INFO 4750 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 5.766 seconds (JVM running for 7.046)
+2019-07-02 12:30:27.748  INFO 4750 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-07-02 12:30:27.749  INFO 4750 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-07-02 12:30:27.767  INFO 4750 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 18 ms
+2019-07-02 12:30:51.845 ERROR 4750 --- [http-nio-8088-exec-1] c.g.l.controller.notes.NoteController    : Parameters missing
+2019-07-02 12:40:49.973  INFO 4750 --- [http-nio-8088-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-07-02 12:40:51.422  INFO 4750 --- [http-nio-8088-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-07-02 12:40:52.279  INFO 4750 --- [http-nio-8088-exec-2] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:494}] to gogorpg.com:27017
+2019-07-02 12:41:11.709 ERROR 4750 --- [http-nio-8088-exec-5] c.g.l.controller.notes.NoteController    : null
+2019-07-02 12:41:11.813  INFO 4750 --- [Thread-14] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-07-02 12:41:11.820  INFO 4750 --- [Thread-14] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:2, serverValue:494}] to gogorpg.com:27017 because the pool has been closed.
+2019-07-02 12:41:11.826  INFO 4750 --- [Thread-14] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-07-02 12:41:12.309  INFO 4750 --- [Thread-14] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-07-02 12:41:20.010  INFO 5091 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on icesnakedeMBP with PID 5091 (/Users/icesnake/gogoproject/lifecapsule/java/target/classes started by icesnake in /Users/icesnake/gogoproject/lifecapsule/java)
+2019-07-02 12:41:20.020  INFO 5091 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
+2019-07-02 12:41:21.616  INFO 5091 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-02 12:41:21.651  INFO 5091 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 29ms. Found 0 repository interfaces.
+2019-07-02 12:41:22.105  INFO 5091 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$f40120e3] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-02 12:41:22.441  INFO 5091 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
+2019-07-02 12:41:22.467  INFO 5091 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-07-02 12:41:22.468  INFO 5091 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
+2019-07-02 12:41:22.579  INFO 5091 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-07-02 12:41:22.580  INFO 5091 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2450 ms
+2019-07-02 12:41:23.289  INFO 5091 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[gogorpg.com:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2019-07-02 12:41:23.289  INFO 5091 --- [main] org.mongodb.driver.cluster               : Adding discovered server gogorpg.com:27017 to client view of cluster
+2019-07-02 12:41:23.786  INFO 5091 --- [cluster-ClusterId{value='5d1ae07308bcac13e33ddf24', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:495}] to gogorpg.com:27017
+2019-07-02 12:41:23.852  INFO 5091 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-07-02 12:41:23.887  INFO 5091 --- [cluster-ClusterId{value='5d1ae07308bcac13e33ddf24', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=gogorpg.com:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 19]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=99420697}
+2019-07-02 12:41:23.890  INFO 5091 --- [cluster-ClusterId{value='5d1ae07308bcac13e33ddf24', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
+2019-07-02 12:41:24.190  INFO 5091 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
+2019-07-02 12:41:24.194  INFO 5091 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 5.123 seconds (JVM running for 6.3)
+2019-07-02 12:41:27.427  INFO 5091 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-07-02 12:41:27.427  INFO 5091 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-07-02 12:41:27.443  INFO 5091 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 15 ms
+2019-07-02 12:41:27.600  INFO 5091 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-07-02 12:41:28.849  INFO 5091 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-07-02 12:41:29.326  INFO 5091 --- [http-nio-8088-exec-1] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:496}] to gogorpg.com:27017
+2019-07-02 12:41:50.168 ERROR 5091 --- [http-nio-8088-exec-3] c.g.l.controller.notes.NoteController    : Invalid AES key length: 88 bytes
+2019-07-02 12:58:57.784  WARN 5091 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m58s821ms).
+2019-07-02 12:58:57.789 ERROR 5091 --- [http-nio-8088-exec-6] c.g.l.controller.notes.NoteController    : Invalid AES key length: 88 bytes
+2019-07-02 12:58:57.923  INFO 5091 --- [Thread-13] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-07-02 12:58:57.938  INFO 5091 --- [Thread-13] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:2, serverValue:496}] to gogorpg.com:27017 because the pool has been closed.
+2019-07-02 12:58:57.944  INFO 5091 --- [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-07-02 12:58:57.953  INFO 5091 --- [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-07-02 12:59:05.939  INFO 5570 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on icesnakedeMBP with PID 5570 (/Users/icesnake/gogoproject/lifecapsule/java/target/classes started by icesnake in /Users/icesnake/gogoproject/lifecapsule/java)
+2019-07-02 12:59:05.945  INFO 5570 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
+2019-07-02 12:59:07.325  INFO 5570 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-02 12:59:07.355  INFO 5570 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23ms. Found 0 repository interfaces.
+2019-07-02 12:59:07.803  INFO 5570 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$e2ad2301] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-02 12:59:08.170  INFO 5570 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
+2019-07-02 12:59:08.197  INFO 5570 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-07-02 12:59:08.197  INFO 5570 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
+2019-07-02 12:59:08.312  INFO 5570 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-07-02 12:59:08.312  INFO 5570 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2218 ms
+2019-07-02 12:59:08.974  INFO 5570 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[gogorpg.com:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2019-07-02 12:59:08.974  INFO 5570 --- [main] org.mongodb.driver.cluster               : Adding discovered server gogorpg.com:27017 to client view of cluster
+2019-07-02 12:59:09.521  INFO 5570 --- [cluster-ClusterId{value='5d1ae49c08bcac15c2e22349', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:497}] to gogorpg.com:27017
+2019-07-02 12:59:09.619  INFO 5570 --- [cluster-ClusterId{value='5d1ae49c08bcac15c2e22349', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=gogorpg.com:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 19]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=96866475}
+2019-07-02 12:59:09.621  INFO 5570 --- [cluster-ClusterId{value='5d1ae49c08bcac15c2e22349', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
+2019-07-02 12:59:09.684  INFO 5570 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-07-02 12:59:10.019  INFO 5570 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
+2019-07-02 12:59:10.025  INFO 5570 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 4.983 seconds (JVM running for 6.264)
+2019-07-02 12:59:18.030  INFO 5570 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-07-02 12:59:18.032  INFO 5570 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-07-02 12:59:18.048  INFO 5570 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 16 ms
+2019-07-02 12:59:18.177  INFO 5570 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-07-02 12:59:20.543  INFO 5570 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-07-02 12:59:21.130  INFO 5570 --- [http-nio-8088-exec-1] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:498}] to gogorpg.com:27017
+2019-07-02 13:01:56.643  WARN 5570 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m35s996ms).
+2019-07-02 13:01:56.658 ERROR 5570 --- [http-nio-8088-exec-3] c.g.l.controller.notes.NoteController    : Invalid AES key length: 88 bytes
+2019-07-02 13:01:56.775  INFO 5570 --- [Thread-12] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-07-02 13:01:56.781  INFO 5570 --- [Thread-12] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:2, serverValue:498}] to gogorpg.com:27017 because the pool has been closed.
+2019-07-02 13:01:56.787  INFO 5570 --- [Thread-12] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-07-02 13:01:57.563  INFO 5570 --- [Thread-12] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-07-02 13:02:06.006  INFO 5659 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on icesnakedeMBP with PID 5659 (/Users/icesnake/gogoproject/lifecapsule/java/target/classes started by icesnake in /Users/icesnake/gogoproject/lifecapsule/java)
+2019-07-02 13:02:06.023  INFO 5659 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
+2019-07-02 13:02:08.590  INFO 5659 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-02 13:02:08.634  INFO 5659 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 34ms. Found 0 repository interfaces.
+2019-07-02 13:02:09.377  INFO 5659 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$6f88f3e8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-02 13:02:09.911  INFO 5659 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
+2019-07-02 13:02:09.960  INFO 5659 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-07-02 13:02:09.961  INFO 5659 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
+2019-07-02 13:02:10.049  INFO 5659 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-07-02 13:02:10.049  INFO 5659 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3882 ms
+2019-07-02 13:02:11.754  INFO 5659 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[gogorpg.com:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2019-07-02 13:02:11.761  INFO 5659 --- [main] org.mongodb.driver.cluster               : Adding discovered server gogorpg.com:27017 to client view of cluster
+2019-07-02 13:02:12.398  INFO 5659 --- [cluster-ClusterId{value='5d1ae55308bcac161b0b0766', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:499}] to gogorpg.com:27017
+2019-07-02 13:02:12.500  INFO 5659 --- [cluster-ClusterId{value='5d1ae55308bcac161b0b0766', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=gogorpg.com:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 19]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=98329082}
+2019-07-02 13:02:12.502  INFO 5659 --- [cluster-ClusterId{value='5d1ae55308bcac161b0b0766', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
+2019-07-02 13:02:13.220  INFO 5659 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-07-02 13:02:13.667  INFO 5659 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
+2019-07-02 13:02:13.673  INFO 5659 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 8.636 seconds (JVM running for 10.127)
+2019-07-02 13:02:47.015  INFO 5659 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-07-02 13:02:47.016  INFO 5659 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-07-02 13:02:47.029  INFO 5659 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 12 ms
+2019-07-02 13:02:47.168  INFO 5659 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-07-02 13:02:48.419  INFO 5659 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-07-02 13:02:49.035  INFO 5659 --- [http-nio-8088-exec-1] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:500}] to gogorpg.com:27017
+2019-07-02 13:07:24.020 ERROR 5659 --- [http-nio-8088-exec-3] c.g.l.controller.notes.NoteController    : null
+2019-07-02 13:07:38.700 ERROR 5659 --- [http-nio-8088-exec-7] c.g.l.controller.notes.NoteController    : null
+2019-07-02 13:09:26.267  WARN 5659 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m32s316ms).
+2019-07-02 13:18:12.836  INFO 5659 --- [Thread-20] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-07-02 13:18:12.843  INFO 5659 --- [Thread-20] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:2, serverValue:500}] to gogorpg.com:27017 because the pool has been closed.
+2019-07-02 13:18:12.847  INFO 5659 --- [Thread-20] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-07-02 13:18:12.854  INFO 5659 --- [Thread-20] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-07-02 13:18:21.338  INFO 6145 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on icesnakedeMBP with PID 6145 (/Users/icesnake/gogoproject/lifecapsule/java/target/classes started by icesnake in /Users/icesnake/gogoproject/lifecapsule/java)
+2019-07-02 13:18:21.361  INFO 6145 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
+2019-07-02 13:18:23.342  INFO 6145 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-07-02 13:18:23.376  INFO 6145 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27ms. Found 0 repository interfaces.
+2019-07-02 13:18:23.958  INFO 6145 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$f9e17dcc] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-07-02 13:18:24.340  INFO 6145 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
+2019-07-02 13:18:24.368  INFO 6145 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-07-02 13:18:24.369  INFO 6145 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
+2019-07-02 13:18:24.487  INFO 6145 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-07-02 13:18:24.488  INFO 6145 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2885 ms
+2019-07-02 13:18:25.514  INFO 6145 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[gogorpg.com:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
+2019-07-02 13:18:25.515  INFO 6145 --- [main] org.mongodb.driver.cluster               : Adding discovered server gogorpg.com:27017 to client view of cluster
+2019-07-02 13:18:26.073  INFO 6145 --- [cluster-ClusterId{value='5d1ae92108bcac180101fecb', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:505}] to gogorpg.com:27017
+2019-07-02 13:18:26.175  INFO 6145 --- [cluster-ClusterId{value='5d1ae92108bcac180101fecb', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=gogorpg.com:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 19]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=99446312}
+2019-07-02 13:18:26.177  INFO 6145 --- [cluster-ClusterId{value='5d1ae92108bcac180101fecb', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
+2019-07-02 13:18:26.264  INFO 6145 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-07-02 13:18:26.857  INFO 6145 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
+2019-07-02 13:18:26.862  INFO 6145 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 6.769 seconds (JVM running for 8.006)
+2019-07-02 13:18:34.164  INFO 6145 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-07-02 13:18:34.165  INFO 6145 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-07-02 13:18:34.178  INFO 6145 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 12 ms
+2019-07-02 13:18:34.327  INFO 6145 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-07-02 13:18:35.670  INFO 6145 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-07-02 13:18:36.234  INFO 6145 --- [http-nio-8088-exec-1] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:506}] to gogorpg.com:27017
+2019-07-02 15:15:32.013  WARN 6145 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h3m25s531ms).
+2019-07-02 15:15:59.358  INFO 6145 --- [cluster-ClusterId{value='5d1ae92108bcac180101fecb', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:3, serverValue:514}] to gogorpg.com:27017
+2019-07-02 15:20:27.353  WARN 6145 --- [http-nio-8088-exec-5] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@1435f1d9 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2019-07-02 15:20:32.363  WARN 6145 --- [http-nio-8088-exec-5] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@4ab33d8a (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2019-07-02 15:20:36.644  WARN 6145 --- [http-nio-8088-exec-6] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@1673defc (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2019-07-02 15:20:37.371  WARN 6145 --- [http-nio-8088-exec-5] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@65c965be (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2019-07-02 15:20:41.650  WARN 6145 --- [http-nio-8088-exec-6] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@124c48ea (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2019-07-02 15:20:42.379  WARN 6145 --- [http-nio-8088-exec-5] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@a74eff6 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2019-07-02 15:20:46.662  WARN 6145 --- [http-nio-8088-exec-6] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@574ed4c7 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2019-07-02 15:20:47.389  WARN 6145 --- [http-nio-8088-exec-5] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@59f8cc5f (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2019-07-02 15:20:47.474  INFO 6145 --- [http-nio-8088-exec-5] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:2, serverValue:506}] to gogorpg.com:27017 because there was a socket exception raised on another connection from this pool.
+2019-07-02 15:20:47.628  INFO 6145 --- [http-nio-8088-exec-5] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:4, serverValue:519}] to gogorpg.com:27017
+2019-07-02 15:20:52.650  WARN 6145 --- [http-nio-8088-exec-6] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@6e5f9547 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2019-07-02 15:21:19.014  WARN 6145 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=46s377ms).
+2019-07-02 15:44:42.067  WARN 6145 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=23m23s53ms).
+2019-07-02 15:44:47.087  WARN 6145 --- [http-nio-8088-exec-3] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@1e7606bb (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2019-07-02 15:44:47.103  WARN 6145 --- [http-nio-8088-exec-10] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@271a82ab (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2019-07-02 15:44:47.104  WARN 6145 --- [http-nio-8088-exec-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@4758d4ad (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2019-07-02 15:44:52.092  WARN 6145 --- [http-nio-8088-exec-3] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@7a8ddffd (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2019-07-02 15:44:52.107  WARN 6145 --- [http-nio-8088-exec-10] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@29dd6838 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2019-07-02 15:44:52.111  WARN 6145 --- [http-nio-8088-exec-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@2e597c3a (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2019-07-02 15:44:57.100  WARN 6145 --- [http-nio-8088-exec-3] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@13fb29ba (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2019-07-02 15:44:57.115  WARN 6145 --- [http-nio-8088-exec-10] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@2de2e9db (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2019-07-02 15:44:57.118  WARN 6145 --- [http-nio-8088-exec-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@2c46531 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2019-07-02 15:44:57.526  WARN 6145 --- [http-nio-8088-exec-5] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@295bdf8e (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
+2019-07-02 15:44:57.688  INFO 6145 --- [http-nio-8088-exec-10] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:5, serverValue:523}] to gogorpg.com:27017
+2019-07-02 15:45:02.428  INFO 6145 --- [cluster-ClusterId{value='5d1ae92108bcac180101fecb', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:6, serverValue:524}] to gogorpg.com:27017
+2019-07-02 15:45:02.669  INFO 6145 --- [http-nio-8088-exec-8] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:5, serverValue:523}] to gogorpg.com:27017 because there was a socket exception raised on another connection from this pool.
+2019-07-02 15:45:03.040  INFO 6145 --- [http-nio-8088-exec-8] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:7, serverValue:525}] to gogorpg.com:27017
+2019-07-02 15:46:48.032  WARN 6145 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=57s647ms).
+2019-07-02 15:46:48.654  WARN 6145 --- [http-nio-8088-exec-1] org.mongodb.driver.connection            : Got socket exception on connection [connectionId{localValue:4, serverValue:519}] to gogorpg.com:27017. All connections to gogorpg.com:27017 will be closed.
+2019-07-02 15:46:48.655  INFO 6145 --- [http-nio-8088-exec-1] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:4, serverValue:519}] to gogorpg.com:27017 because there was a socket exception raised by this connection.
+2019-07-02 15:46:48.760  INFO 6145 --- [http-nio-8088-exec-6] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:7, serverValue:525}] to gogorpg.com:27017 because there was a socket exception raised on another connection from this pool.
+2019-07-02 15:46:49.706  INFO 6145 --- [http-nio-8088-exec-9] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:8, serverValue:528}] to gogorpg.com:27017
+2019-07-02 15:46:49.786  INFO 6145 --- [http-nio-8088-exec-2] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:9, serverValue:529}] to gogorpg.com:27017
+2019-07-02 15:46:49.966  INFO 6145 --- [http-nio-8088-exec-6] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:10, serverValue:530}] to gogorpg.com:27017

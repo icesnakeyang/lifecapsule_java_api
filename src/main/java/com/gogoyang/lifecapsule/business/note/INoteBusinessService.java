@@ -6,6 +6,7 @@ import java.util.Map;
 public interface INoteBusinessService {
     /**
      * 创建一个笔记
+     *
      * @param in
      * @return
      * @throws Exception
@@ -14,6 +15,7 @@ public interface INoteBusinessService {
 
     /**
      * 查询用户的笔记列表
+     *
      * @param in
      * @return
      * @throws Exception
@@ -22,6 +24,7 @@ public interface INoteBusinessService {
 
     /**
      * 查询一个笔记分类下的笔记列表
+     *
      * @param in
      * @return
      * @throws Exception
