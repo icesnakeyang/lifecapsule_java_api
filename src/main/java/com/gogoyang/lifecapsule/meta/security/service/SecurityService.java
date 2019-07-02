@@ -18,4 +18,10 @@ public class SecurityService implements ISecurityService {
     public void saveRSAKey(SecurityKey key) throws Exception {
         securityRepository.saveRSA(key);
     }
+
+    @Override
+    public String getRSAKey(String keyToken) throws Exception {
+        SecurityKey privateKey=securityRepository.getRSAPrivateKey(keyToken);
+        return privateKey.getPrivateRSA();
+    }
 }

@@ -2,19 +2,19 @@ package com.gogoyang.lifecapsule.business.note;
 
 import com.gogoyang.lifecapsule.meta.category.entity.NoteCategory;
 import com.gogoyang.lifecapsule.meta.category.service.ICategoryService;
+import com.gogoyang.lifecapsule.meta.note.entity.NoteDetail;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteInfo;
 import com.gogoyang.lifecapsule.meta.note.service.INoteService;
+import com.gogoyang.lifecapsule.meta.security.entity.SecurityKey;
+import com.gogoyang.lifecapsule.meta.security.service.ISecurityService;
 import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
 import com.gogoyang.lifecapsule.meta.user.service.IUserInfoService;
 import com.gogoyang.lifecapsule.utility.GogoTools;
-import com.sun.org.apache.xml.internal.security.utils.Base64;
+import org.omg.CORBA.INTERNAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
-import javax.crypto.spec.SecretKeySpec;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -25,14 +25,17 @@ public class NoteBusinessService implements INoteBusinessService {
     private final INoteService iNoteService;
     private final IUserInfoService iUserInfoService;
     private final ICategoryService iCategoryService;
+    private final ISecurityService iSecurityService;
 
     @Autowired
     public NoteBusinessService(INoteService iNoteService,
                                IUserInfoService iUserInfoService,
-                               ICategoryService iCategoryService) {
+                               ICategoryService iCategoryService,
+                               ISecurityService iSecurityService) {
         this.iNoteService = iNoteService;
         this.iUserInfoService = iUserInfoService;
         this.iCategoryService = iCategoryService;
+        this.iSecurityService = iSecurityService;
     }
 
     /**
@@ -160,6 +163,16 @@ public class NoteBusinessService implements INoteBusinessService {
     public Map getNoteDetailByNoteId(Map in) throws Exception {
         String token = (String) in.get("token");
         String noteId = in.get("noteId").toString();
+        String encryptKey=in.get("encryptKey").toString();
+        String keyToken=in.get("keyToken").toString();
+        String detail=in.get("detail").toString();
+
+        GogoTools.decryptAESKey(detail,encryptKey);
+
+        //读取生成的RSA私钥
+        String privateKey = iSecurityService.getRSAKey(keyToken);
+        //用私钥解密用户上传的AES秘钥
+        String strAESKey = GogoTools.decryptRSAByPrivateKey(encryptKey, privateKey);
 
         /**
          * 1、检查token，查询登录用户
@@ -187,6 +200,8 @@ public class NoteBusinessService implements INoteBusinessService {
             throw new Exception("10011");
         }
 
+        //用AES秘钥加密笔记内容的AES秘钥
+        noteInfo.setUserEncodeKey(GogoTools.encryptAESKey(noteInfo.getUserEncodeKey(), strAESKey));
         Map out = new HashMap();
         out.put("note", noteInfo);
         return out;
@@ -201,16 +216,22 @@ public class NoteBusinessService implements INoteBusinessService {
      */
     @Override
     public Map updateNote(Map in) throws Exception {
-        String token = (String) in.get("token");
+        String token = in.get("token").toString();
+        String noteId = in.get("noteId").toString();
         String title = in.get("title").toString();
         String detail = in.get("detail").toString();
-        String noteId = in.get("noteId").toString();
-        String encryptKey = (String) in.get("encryptKey");
+        String encryptKey = in.get("encryptKey").toString();
+        String keyToken = in.get("keyToken").toString();
+        /**
+         * 根据keyToken读取私钥
+         */
+        String privateKey = iSecurityService.getRSAKey(keyToken);
+        String strAESKey = GogoTools.decryptRSAByPrivateKey(encryptKey, privateKey);
 
         if (token == null) {
             throw new Exception("10010");
         }
-
+//
         UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
         if (userInfo == null) {
             throw new Exception("10003");
@@ -235,7 +256,7 @@ public class NoteBusinessService implements INoteBusinessService {
         updateNote.setDetail(detail);
         updateNote.setTitle(title);
         updateNote.setNoteId(noteId);
-        updateNote.setUserEncodeKey(encryptKey);
+        updateNote.setUserEncodeKey(strAESKey);
         iNoteService.updateNote(updateNote);
 
         Map out = new HashMap();
