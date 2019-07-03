@@ -2,6 +2,7 @@ package com.gogoyang.lifecapsule.business.register;
 
 import com.gogoyang.lifecapsule.meta.category.entity.NoteCategory;
 import com.gogoyang.lifecapsule.meta.category.service.ICategoryService;
+import com.gogoyang.lifecapsule.meta.security.service.ISecurityService;
 import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
 import com.gogoyang.lifecapsule.meta.user.service.IUserInfoService;
 import com.gogoyang.lifecapsule.utility.GogoTools;
@@ -17,12 +18,15 @@ import java.util.Map;
 public class RegisterBusinessService implements IRegisterBusinessService {
     private final IUserInfoService iUserInfoService;
     private final ICategoryService iCategoryService;
+    private final ISecurityService iSecurityService;
 
     @Autowired
     public RegisterBusinessService(IUserInfoService iUserInfoService,
-                                   ICategoryService iCategoryService) {
+                                   ICategoryService iCategoryService,
+                                   ISecurityService iSecurityService) {
         this.iUserInfoService = iUserInfoService;
         this.iCategoryService = iCategoryService;
+        this.iSecurityService = iSecurityService;
     }
 
     /**
@@ -38,6 +42,11 @@ public class RegisterBusinessService implements IRegisterBusinessService {
         String password = in.get("password").toString();
         String phone = (String) in.get("phone");
         String email = (String) in.get("email");
+        String keyToken = in.get("keyToken").toString();
+
+        String privateKey = iSecurityService.getRSAKey(keyToken);
+        password = GogoTools.decryptRSAByPrivateKey(password, privateKey);
+        iSecurityService.deleteRSAKey(keyToken);
 
         if (phone == null && email == null) {
             //如果既没有手机，也没有邮箱，返回错误
@@ -67,6 +76,7 @@ public class RegisterBusinessService implements IRegisterBusinessService {
         UserInfo user = new UserInfo();
         user.setEmail(email);
         user.setPhone(phone);
+        password = GogoTools.encoderBySHA256(password);
         password = GogoTools.encoderByMd5(password);
         user.setPassword(password);
         user.setUserId(GogoTools.UUID().toString());

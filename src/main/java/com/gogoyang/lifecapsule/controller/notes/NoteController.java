@@ -46,7 +46,7 @@ public class NoteController {
             in.put("token", token);
             in.put("categoryId", request.getCategoryId());
             in.put("encryptKey", request.getEncryptKey());
-
+            in.put("keyToken", request.getKeyToken());
 
             Map out = iNoteBusinessService.createNote(in);
             response.setData(out);

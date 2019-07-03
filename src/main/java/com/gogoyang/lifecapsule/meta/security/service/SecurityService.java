@@ -24,4 +24,9 @@ public class SecurityService implements ISecurityService {
         SecurityKey privateKey=securityRepository.getRSAPrivateKey(keyToken);
         return privateKey.getPrivateRSA();
     }
+
+    @Override
+    public void deleteRSAKey(String keyToken) throws Exception {
+        securityRepository.deleteRSAKey(keyToken);
+    }
 }

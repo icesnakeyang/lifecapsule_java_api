@@ -57,6 +57,7 @@ public class UserController {
             in.put("phone", request.getPhone());
             in.put("email", request.getEmail());
             in.put("password", request.getPassword());
+            in.put("keyToken", request.getKeyToken());
 
             Map out = iLoginBusinessService.loginUser(in);
             response.setData(out);
@@ -87,6 +88,7 @@ public class UserController {
             in.put("phone", request.getPhone());
             in.put("email", request.getEmail());
             in.put("password", request.getPassword());
+            in.put("keyToken", request.getKeyToken());
             Map out = iRegisterBusinessService.registerMe(in);
             response.setData(out);
         } catch (Exception ex) {

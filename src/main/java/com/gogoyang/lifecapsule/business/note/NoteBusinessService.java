@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.crypto.Cipher;
+import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.PBEKeySpec;
@@ -61,6 +62,14 @@ public class NoteBusinessService implements INoteBusinessService {
         String detail = in.get("detail").toString();
         String categoryId = (String) in.get("categoryId");
         String encryptKey = in.get("encryptKey").toString();
+        String keyToken = in.get("keyToken").toString();
+
+        /**
+         * 根据keyToken读取私钥
+         */
+        String privateKey = iSecurityService.getRSAKey(keyToken);
+        String strAESKey = GogoTools.decryptRSAByPrivateKey(encryptKey, privateKey);
+        iSecurityService.deleteRSAKey(keyToken);
 
         /**
          * 根据token取用户信息
@@ -87,7 +96,7 @@ public class NoteBusinessService implements INoteBusinessService {
         noteInfo.setDetail(detail);
         noteInfo.setTitle(title);
         noteInfo.setCategoryId(categoryId);
-        noteInfo.setUserEncodeKey(encryptKey);
+        noteInfo.setUserEncodeKey(strAESKey);
         iNoteService.createNote(noteInfo);
 
         Map out = new HashMap();
@@ -173,30 +182,11 @@ public class NoteBusinessService implements INoteBusinessService {
         String noteId = in.get("noteId").toString();
         String encryptKey = in.get("encryptKey").toString();
         String keyToken = (String) in.get("keyToken");
-        String detail = (String) in.get("detail");
 
-        String decryptKey = encryptKey;
-
-        //读取生成的RSA私钥
-        String privateKey = iSecurityService.getRSAKey(keyToken);
-        //用私钥解密用户上传的AES秘钥
-        String strAESKey = GogoTools.decryptRSAByPrivateKey(encryptKey, privateKey);
-        //用AES加密note的AES，发送回前端
-
-
-        byte[] encryptBytes = Base64.decode(detail);
-
-
-//        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
-////        Cipher cipher = Cipher.getInstance("AES");
-//        cipher.init(Cipher.DECRYPT_MODE, new SecretKeySpec(decryptKey.getBytes(), "AES"));
-//        byte[] decryptBytes = cipher.doFinal(encryptBytes);
-//
-//
-//        String outStr = new String(decryptBytes);
-//
-//        GogoTools.decryptAESKey(detail,encryptKey);
-
+        /**
+         * 获取用户临时上传的加密笔记AES秘钥的AES秘钥
+         */
+        String strAESKey=takeNoteAES(keyToken, encryptKey);
 
         /**
          * 1、检查token，查询登录用户
@@ -225,29 +215,10 @@ public class NoteBusinessService implements INoteBusinessService {
         }
 
         //用AES秘钥加密笔记内容的AES秘钥
-
-//        String data="hellow girls";
-        String data=noteInfo.getUserEncodeKey();
-//        String key="6twpxnxaunl7wsnv";
-        String key=strAESKey;
-        String iv=strAESKey;
-        Cipher cipher = Cipher.getInstance("AES/CBC/NoPadding");//"算法/模式/补码方式"
-        int blockSize = cipher.getBlockSize();
-
-        byte[] dataBytes = data.getBytes("UTF-8");//如果有中文，记得加密前的字符集
-        int plaintextLength = dataBytes.length;
-        if (plaintextLength % blockSize != 0) {
-            plaintextLength = plaintextLength + (blockSize - (plaintextLength % blockSize));
-        }
-        byte[] plaintext = new byte[plaintextLength];
-        System.arraycopy(dataBytes, 0, plaintext, 0, dataBytes.length);
-        SecretKeySpec keyspec = new SecretKeySpec(key.getBytes(), "AES");
-        IvParameterSpec ivspec = new IvParameterSpec(iv.getBytes());
-        cipher.init(Cipher.ENCRYPT_MODE, keyspec, ivspec);
-        byte[] encrypted = cipher.doFinal(plaintext);
-        String outCode= Base64.encode(encrypted);
-
+        String data = noteInfo.getUserEncodeKey();
+        String outCode = GogoTools.encryptAESKey(data, strAESKey);
         noteInfo.setUserEncodeKey(outCode);
+
         Map out = new HashMap();
         out.put("note", noteInfo);
         return out;
@@ -268,11 +239,9 @@ public class NoteBusinessService implements INoteBusinessService {
         String detail = in.get("detail").toString();
         String encryptKey = in.get("encryptKey").toString();
         String keyToken = in.get("keyToken").toString();
-        /**
-         * 根据keyToken读取私钥
-         */
-        String privateKey = iSecurityService.getRSAKey(keyToken);
-        String strAESKey = GogoTools.decryptRSAByPrivateKey(encryptKey, privateKey);
+
+        //读取还原加密detail的AES秘钥
+        String strAESKey=takeNoteAES(keyToken, encryptKey);
 
         if (token == null) {
             throw new Exception("10010");
@@ -308,5 +277,23 @@ public class NoteBusinessService implements INoteBusinessService {
         Map out = new HashMap();
         out.put("note", updateNote);
         return out;
+    }
+
+    /**
+     * 获取用户上传的AES秘钥
+     * 该秘钥用于加密解密用户笔记的AES，加密后传递到用户客户端
+     * @param keyToken
+     * @param encryptKey
+     * @return
+     * @throws Exception
+     */
+    private String takeNoteAES(String keyToken, String encryptKey) throws Exception{
+        //读取生成的RSA私钥
+        String privateKey = iSecurityService.getRSAKey(keyToken);
+        //用私钥解密用户上传的AES秘钥
+        String strAESKey = GogoTools.decryptRSAByPrivateKey(encryptKey, privateKey);
+        //删除RSA私钥
+        iSecurityService.deleteRSAKey(keyToken);
+        return strAESKey;
     }
 }

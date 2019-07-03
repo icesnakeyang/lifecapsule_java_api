@@ -46,6 +46,19 @@ public class GogoTools {
         return newpass;
     }
 
+    /**
+     * SHA256 加密
+     * @param password
+     * @return
+     * @throws Exception
+     */
+    public static String encoderBySHA256(String password) throws Exception {
+        MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
+        messageDigest.update(password.getBytes("UTF-8"));
+        password = Base64.encode(messageDigest.digest());
+        return password;
+    }
+
 
     /**
      * 生成一个AES秘钥
@@ -72,11 +85,13 @@ public class GogoTools {
      * @throws Exception
      */
     public static String encryptAESKey(String codec, String key) throws Exception {
-        Cipher cipher = Cipher.getInstance("AES");
-        Key AESKEY = new SecretKeySpec(key.getBytes(), "AES");
-        cipher.init(Cipher.ENCRYPT_MODE, AESKEY);
-        byte[] result = cipher.doFinal(codec.getBytes("UTF-8"));
-        return Base64.encode(result);
+        Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");//"算法/模式/补码方式"
+        byte[] dataBytes = codec.getBytes("UTF-8");//如果有中文，记得加密前的字符集
+        SecretKey keyspec = new SecretKeySpec(key.getBytes(), "AES");
+        cipher.init(Cipher.ENCRYPT_MODE, keyspec);
+        byte[] encrypted = cipher.doFinal(dataBytes);
+        String outCode = Base64.encode(encrypted);
+        return outCode;
     }
 
     /**

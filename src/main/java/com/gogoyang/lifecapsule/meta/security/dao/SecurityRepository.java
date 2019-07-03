@@ -28,4 +28,10 @@ public class SecurityRepository implements ISecurityRepository {
         SecurityKey securityKey = mongoTemplate.findOne(query, SecurityKey.class);
         return securityKey;
     }
+
+    @Override
+    public void deleteRSAKey(String keyToken) throws Exception{
+        Query query = new Query(Criteria.where("keyToken").is(keyToken));
+        mongoTemplate.findAndRemove(query, SecurityKey.class);
+    }
 }
