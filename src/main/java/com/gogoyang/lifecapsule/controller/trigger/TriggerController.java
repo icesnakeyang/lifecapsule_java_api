@@ -40,7 +40,7 @@ public class TriggerController {
             in.put("noteId", request.getNoteId());
             in.put("triggerId", request.getTriggerId());
             in.put("name", request.getRecipientName());
-            in.put("phoen", request.getPhone());
+            in.put("phone", request.getPhone());
             in.put("email", request.getEmail());
             in.put("address", request.getAddress());
             in.put("remark", request.getRemark());
@@ -156,32 +156,6 @@ public class TriggerController {
             in.put("recipientId", request.getRecipientId());
 
             Map out = iTriggerBusinessService.getRecipientByRecipientId(in);
-            response.setData(out);
-        } catch (Exception ex) {
-            try {
-                response.setCode(Integer.parseInt(ex.getMessage()));
-            } catch (Exception ex2) {
-                response.setCode(10001);
-                logger.error(ex.getMessage());
-            }
-        }
-        return response;
-    }
-
-    @ResponseBody
-    @PostMapping("addEmail")
-    public Response addEmail(@RequestBody TriggerRequest request,
-                             HttpServletRequest httpServletRequest) {
-        Response response = new Response();
-        try {
-            String token = httpServletRequest.getHeader("token");
-            Map in = new HashMap();
-            in.put("token", token);
-            in.put("recipientId", request.getRecipientId());
-            in.put("email", request.getEmail());
-
-            iTriggerBusinessService.addEmail(in);
-            Map out = new HashMap();
             response.setData(out);
         } catch (Exception ex) {
             try {

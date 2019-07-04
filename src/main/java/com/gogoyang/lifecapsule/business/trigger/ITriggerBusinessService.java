@@ -25,8 +25,6 @@ public interface ITriggerBusinessService {
 
     Map getRecipientByRecipientId(Map in) throws Exception;
 
-    void addEmail(Map in) throws Exception;
-
     void addCondition(Map in) throws Exception;
 
     /**

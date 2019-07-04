@@ -4,9 +4,11 @@
     <!--    创建一个接收人-->
     <insert id="createRecipient" parameterType="com.gogoyang.lifecapsule.meta.recipient.entity.Recipient">
         insert into recipient
-        (recipient_id, recipient_name, created_time, trigger_id)
+        (recipient_id, recipient_name, created_time, trigger_id,
+        email, phone, address, remark)
         values
-        (#{recipientId}, #{recipientName}, #{createdTime}, #{triggerId})
+        (#{recipientId}, #{recipientName}, #{createdTime}, #{triggerId},
+        #{email}, #{phone}, #{address}, #{remark})
     </insert>
 
     <!--配置recipient表和Recipient对象的字段映射 -->

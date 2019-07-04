@@ -2,8 +2,6 @@ package com.gogoyang.lifecapsule.business.trigger;
 
 import com.gogoyang.lifecapsule.meta.condition.entity.Condition;
 import com.gogoyang.lifecapsule.meta.condition.service.IConditionService;
-import com.gogoyang.lifecapsule.meta.email.entity.RecipientEmail;
-import com.gogoyang.lifecapsule.meta.email.service.IRecipientEmailService;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteInfo;
 import com.gogoyang.lifecapsule.meta.note.service.INoteService;
 import com.gogoyang.lifecapsule.meta.recipient.entity.Recipient;
@@ -25,7 +23,6 @@ public class TriggerBusinessService implements ITriggerBusinessService {
     private final INoteService iNoteService;
     private final ITriggerService iTriggerService;
     private final IRecipientService iRecipientService;
-    private final IRecipientEmailService iRecipientEmailService;
     private final IConditionService iConditionService;
 
     @Autowired
@@ -33,13 +30,11 @@ public class TriggerBusinessService implements ITriggerBusinessService {
                                   INoteService iNoteService,
                                   ITriggerService iTriggerService,
                                   IRecipientService iRecipientService,
-                                  IRecipientEmailService iRecipientEmailService,
                                   IConditionService iConditionService) {
         this.iUserInfoService = iUserInfoService;
         this.iNoteService = iNoteService;
         this.iTriggerService = iTriggerService;
         this.iRecipientService = iRecipientService;
-        this.iRecipientEmailService = iRecipientEmailService;
         this.iConditionService = iConditionService;
     }
 
@@ -106,27 +101,9 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         //创建一个接收人 recipient
         Recipient recipient = new Recipient();
         recipient.setRecipientId(GogoTools.UUID().toString());
-        if (address != null) {
-            ArrayList<String> addressList = new ArrayList<>();
-            addressList.add(address);
-            recipient.setAddressList(addressList);
-        }
-        if (email != null) {
-            ArrayList<RecipientEmail> emailList = new ArrayList<>();
-            RecipientEmail recipientEmail = new RecipientEmail();
-            recipientEmail.setRecipientId(recipient.getRecipientId());
-            recipientEmail.setEmailId(GogoTools.UUID().toString());
-            recipientEmail.setCreatedTime(new Date());
-            recipientEmail.setEmail(email);
-            emailList.add(recipientEmail);
-            recipient.setEmailList(emailList);
-            iRecipientEmailService.addEmail(recipientEmail);
-        }
-        if (phone != null) {
-            ArrayList<String> phoneList = new ArrayList<>();
-            phoneList.add(phone);
-            recipient.setPhoneList(phoneList);
-        }
+        recipient.setAddress(address);
+        recipient.setEmail(email);
+        recipient.setPhone(phone);
         recipient.setRecipientName(name);
         recipient.setRemark(remark);
         recipient.setTriggerId(trigger.getTriggerId());
@@ -266,21 +243,16 @@ public class TriggerBusinessService implements ITriggerBusinessService {
             throw new Exception("10019");
         }
 
-        //查询接收人的email
-        ArrayList<RecipientEmail> emails = iRecipientEmailService.listRecipientEmailByRecipientId(recipientId);
-        if (emails.size() > 0) {
-            recipient.setEmailList(emails);
-        }
-
-
         Trigger trigger = iTriggerService.getTriggerByTriggerId(recipient.getTriggerId());
         if (trigger == null) {
             throw new Exception("10017");
         }
+
         NoteInfo noteInfo = iNoteService.getNoteTinyByNoteId(trigger.getNoteId());
         if (noteInfo == null) {
             throw new Exception("10004");
         }
+
         if (!noteInfo.getUserId().equals(userInfo.getUserId())) {
             throw new Exception("10011");
         }
@@ -288,49 +260,6 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         Map out = new HashMap();
         out.put("recipient", recipient);
         return out;
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public void addEmail(Map in) throws Exception {
-        String token = in.get("token").toString();
-        String recipientId = in.get("recipientId").toString();
-        String email = in.get("email").toString();
-
-        //检查登录用户
-        UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
-        if (userInfo == null) {
-            throw new Exception("10003");
-        }
-        //检查接收人
-        Recipient recipient = iRecipientService.getRecipientByRecipientId(recipientId);
-        if (recipient == null) {
-            throw new Exception("10019");
-        }
-        //检查接收人的触发器
-        Trigger trigger = iTriggerService.getTriggerByTriggerId(recipient.getTriggerId());
-        if (trigger == null) {
-            throw new Exception("10017");
-        }
-        //检查触发器的笔记
-        NoteInfo noteInfo = iNoteService.getNoteTinyByNoteId(trigger.getNoteId());
-        if (noteInfo == null) {
-            throw new Exception("10004");
-        }
-        //检查笔记是否为当前用户创建
-        if (!noteInfo.getUserId().equals(userInfo.getUserId())) {
-            throw new Exception("10011");
-        }
-
-        /**
-         * 保存email
-         */
-        RecipientEmail recipientEmail = new RecipientEmail();
-        recipientEmail.setCreatedTime(new Date());
-        recipientEmail.setEmail(email);
-        recipientEmail.setEmailId(GogoTools.UUID().toString());
-        recipientEmail.setRecipientId(recipientId);
-        iRecipientEmailService.addEmail(recipientEmail);
     }
 
     @Transactional(rollbackFor = Exception.class)

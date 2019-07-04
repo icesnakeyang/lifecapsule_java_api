@@ -2,7 +2,6 @@ package com.gogoyang.lifecapsule.business.category;
 
 import com.gogoyang.lifecapsule.meta.category.entity.NoteCategory;
 import com.gogoyang.lifecapsule.meta.category.service.ICategoryService;
-import com.gogoyang.lifecapsule.meta.note.entity.NoteInfo;
 import com.gogoyang.lifecapsule.meta.note.service.INoteService;
 import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
 import com.gogoyang.lifecapsule.meta.user.service.IUserInfoService;
