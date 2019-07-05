@@ -1,5 +1,6 @@
 package com.gogoyang.lifecapsule.meta.trigger.entity;
 
+import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey;
 import lombok.Data;
 
 import java.util.Date;
@@ -41,53 +42,5 @@ public class Trigger {
      */
     private String remark;
 
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    public Integer getIds() {
-        return ids;
-    }
-
-    public void setIds(Integer ids) {
-        this.ids = ids;
-    }
-
-    public String getTriggerId() {
-        return triggerId;
-    }
-
-    public void setTriggerId(String triggerId) {
-        this.triggerId = triggerId;
-    }
-
-    public String getNoteId() {
-        return noteId;
-    }
-
-    public void setNoteId(String noteId) {
-        this.noteId = noteId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Date getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(Date createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
+    private GogoKey gogoKey;
 }
