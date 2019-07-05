@@ -52,4 +52,27 @@ public class RecipientService implements IRecipientService {
         Recipient recipient=recipientMapper.getRecipientByRecipientId(recipientId);
         return recipient;
     }
+
+    /**
+     * 修改接收人信息
+     * @param recipient
+     * @throws Exception
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void updateRecipient(Recipient recipient) throws Exception {
+        recipientMapper.updateRecipient(recipient);
+    }
+
+    /**
+     * 删除一个接收人
+     * @param recipientId
+     * @throws Exception
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void deleteRecipient(String recipientId) throws Exception {
+        recipientMapper.deleteRecipient(recipientId);
+
+    }
 }

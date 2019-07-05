@@ -32,4 +32,22 @@
         select * from recipient
         where recipient_id=#{recipientId}
     </select>
+
+    <!--修改接收人信息-->
+    <update id="updateRecipient" parameterType="com.gogoyang.lifecapsule.meta.recipient.entity.Recipient">
+        update recipient set
+        recipient_name=#{recipientName},
+        email=#{email},
+        phone=#{phone},
+        address=#{address},
+        remark=#{remark}
+        where 1=1
+        and recipient_id=#{recipientId}
+    </update>
+
+    <!--删除一个接收人-->
+    <delete id="deleteRecipient" parameterType="java.lang.String">
+        delete from recipient
+        where recipient_id=#{recipientId}
+    </delete>
 </mapper>

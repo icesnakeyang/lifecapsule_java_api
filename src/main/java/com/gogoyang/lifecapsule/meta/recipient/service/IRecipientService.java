@@ -31,4 +31,18 @@ public interface IRecipientService {
      * @throws Exception
      */
     Recipient getRecipientByRecipientId(String recipientId) throws Exception;
+
+    /**
+     * 修改接收人信息
+     * @param recipient
+     * @throws Exception
+     */
+    void updateRecipient(Recipient recipient) throws Exception;
+
+    /**
+     * 删除一个接收人
+     * @param recipientId
+     * @throws Exception
+     */
+    void deleteRecipient(String recipientId) throws Exception;
 }

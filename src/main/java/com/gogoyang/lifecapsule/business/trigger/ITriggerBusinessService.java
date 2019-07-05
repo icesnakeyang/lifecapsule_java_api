@@ -34,4 +34,13 @@ public interface ITriggerBusinessService {
      * @throws Exception
      */
     Map getConditionByConditionId(Map in) throws Exception;
+
+    Map updateRecipient(Map in) throws Exception;
+
+    /**
+     * 删除一个接收人
+     * @param in
+     * @throws Exception
+     */
+    void deleteRecipient(Map in) throws Exception;
 }

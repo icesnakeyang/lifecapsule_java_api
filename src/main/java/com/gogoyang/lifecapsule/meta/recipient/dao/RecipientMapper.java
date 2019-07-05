@@ -25,4 +25,16 @@ public interface RecipientMapper {
      * @return
      */
     Recipient getRecipientByRecipientId(String recipientId);
+
+    /**
+     * 修改接收人信息
+     * @param recipient
+     */
+    void updateRecipient(Recipient recipient);
+
+    /**
+     * 删除一个接收人
+     * @param recipientId
+     */
+    void deleteRecipient(String recipientId);
 }

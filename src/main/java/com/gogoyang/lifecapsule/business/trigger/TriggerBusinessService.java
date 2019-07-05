@@ -11,6 +11,7 @@ import com.gogoyang.lifecapsule.meta.trigger.service.ITriggerService;
 import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
 import com.gogoyang.lifecapsule.meta.user.service.IUserInfoService;
 import com.gogoyang.lifecapsule.utility.GogoTools;
+import com.sun.tools.javap.TypeAnnotationWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,6 +57,20 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         String email = (String) in.get("email");
         String address = (String) in.get("address");
         String remark = (String) in.get("remark");
+
+        int eof=0;
+        if(phone==null || phone.equals("")){
+            eof++;
+        }
+        if(email==null || email.equals("")){
+            eof++;
+        }
+        if(address==null || address.equals("")){
+            eof++;
+        }
+        if(eof==3){
+            throw new Exception("10022");
+        }
 
         //检查登录用户
         UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
@@ -336,5 +351,105 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         Map out=new HashMap();
         out.put("condition", condition);
         return out;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public Map updateRecipient(Map in) throws Exception {
+        String token = in.get("token").toString();
+        String recipientId=in.get("recipientId").toString();
+        String name = (String)in.get("name");
+        String phone = (String) in.get("phone");
+        String email = (String) in.get("email");
+        String address = (String) in.get("address");
+        String remark = (String) in.get("remark");
+
+        int eof=0;
+        if(phone==null || phone.equals("")){
+            eof++;
+        }
+        if(email==null || email.equals("")){
+            eof++;
+        }
+        if(address==null || address.equals("")){
+            eof++;
+        }
+        if(eof==3){
+            throw new Exception("10022");
+        }
+
+        //检查登录用户
+        UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
+        if (userInfo == null) {
+            throw new Exception("10003");
+        }
+
+        //检查当前编辑的recipient是否是当前用户创建的
+        Recipient recipient=iRecipientService.getRecipientByRecipientId(recipientId);
+        if(recipient==null){
+            throw new Exception("10019");
+        }
+        Trigger trigger=iTriggerService.getTriggerByTriggerId(recipient.getTriggerId());
+        if(trigger==null){
+            throw new Exception("10017");
+        }
+        NoteInfo noteInfo=iNoteService.getNoteTinyByNoteId(trigger.getNoteId());
+        if(noteInfo==null){
+            throw new Exception("10004");
+        }
+        if(!noteInfo.getUserId().equals(userInfo.getUserId())){
+            throw new Exception("10023");
+        }
+
+        //修改接收人 recipient
+        recipient.setAddress(address);
+        recipient.setEmail(email);
+        recipient.setPhone(phone);
+        recipient.setRecipientName(name);
+        recipient.setRemark(remark);
+        recipient.setCreatedTime(new Date());
+        iRecipientService.updateRecipient(recipient);
+
+        Map out = new HashMap();
+        out.put("trigger", trigger);
+        out.put("recipient", recipient);
+        return out;
+    }
+
+    /**
+     * 删除一个接收人
+     * @param in
+     * @throws Exception
+     */
+    @Override
+    public void deleteRecipient(Map in) throws Exception {
+        String token=in.get("token").toString();
+        String recipientId=in.get("recipientId").toString();
+
+        Recipient recipient=iRecipientService.getRecipientByRecipientId(recipientId);
+        if(recipient==null){
+            throw new Exception("10019");
+        }
+
+        UserInfo userInfo=iUserInfoService.getUserByUserToken(token);
+        if(userInfo==null){
+            throw new Exception("10003");
+        }
+
+        Trigger trigger=iTriggerService.getTriggerByTriggerId(recipient.getTriggerId());
+        if(trigger==null){
+            throw new Exception("10017");
+        }
+
+        NoteInfo noteInfo=iNoteService.getNoteTinyByNoteId(trigger.getNoteId());
+        if(noteInfo==null){
+            throw new Exception("10004");
+        }
+
+        if(!userInfo.getUserId().equals(noteInfo.getUserId())){
+            throw new Exception("10023");
+        }
+
+        iRecipientService.deleteRecipient(recipientId);
     }
 }

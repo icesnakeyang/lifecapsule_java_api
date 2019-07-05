@@ -59,6 +59,71 @@ public class TriggerController {
     }
 
     /**
+     * 修改接收人信息
+     * @param request
+     * @param httpServletRequest
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/updateRecipient")
+    public Response updateRecipient(@RequestBody TriggerRequest request,
+                                    HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            Map in = new HashMap();
+            in.put("token", token);
+            in.put("recipientId", request.getRecipientId());
+            in.put("name", request.getRecipientName());
+            in.put("phone", request.getPhone());
+            in.put("email", request.getEmail());
+            in.put("address", request.getAddress());
+            in.put("remark", request.getRemark());
+
+            Map out = iTriggerBusinessService.updateRecipient(in);
+            response.setData(out);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                logger.error(ex.getMessage());
+            }
+        }
+        return response;
+    }
+
+    /**
+     * 删除一个接收人
+     * @param request
+     * @param httpServletRequest
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/deleteRecipient")
+    public Response deleteRecipient(@RequestBody TriggerRequest request,
+                                    HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            Map in = new HashMap();
+            in.put("token", token);
+            in.put("recipientId", request.getRecipientId());
+            iTriggerBusinessService.deleteRecipient(in);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                logger.error(ex.getMessage());
+            }
+        }
+        return response;
+    }
+
+
+
+    /**
      * 根据笔记id查询所有的触发器
      *
      * @param request
