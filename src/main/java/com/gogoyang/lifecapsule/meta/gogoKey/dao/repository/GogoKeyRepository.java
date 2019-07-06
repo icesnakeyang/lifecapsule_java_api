@@ -18,4 +18,9 @@ public class GogoKeyRepository implements IGogoKeyRepository{
     public void createGogoKey(GogoKey gogoKey) throws Exception {
         mongoTemplate.save(gogoKey);
     }
+
+    @Override
+    public void createGogoPublicKey() throws Exception {
+//        mongoTemplate.save(gogoKey);
+    }
 }

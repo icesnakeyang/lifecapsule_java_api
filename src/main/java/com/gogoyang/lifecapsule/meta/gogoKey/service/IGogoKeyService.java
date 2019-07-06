@@ -7,5 +7,7 @@ import java.util.List;
 public interface IGogoKeyService {
     void createGogoKey(GogoKey gogoKey) throws Exception;
 
+    void createGogoPublicKey(GogoKey gogoKey) throws Exception;
+
     List<GogoKey> listGogokey() throws Exception;
 }

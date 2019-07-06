@@ -2,7 +2,8 @@ package com.gogoyang.lifecapsule.meta.gogoKey.entity;
 
 import lombok.Data;
 
-import java.util.Date;
+import java.util.List;
+
 
 /**
  * GogoKey 是一个由时空笔记官方预定义的一个触发条件
@@ -16,9 +17,6 @@ public class GogoKey {
     private String name;
     private String type;
     //triggerTime设置一个触发时间，即到时间就直接触发
-    private Date triggerTime;
-    private String url;
-    private Object params;
-    private Object values;
     private String description;
+    private List<KeyParams> paramsList;
 }

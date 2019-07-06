@@ -36,15 +36,6 @@ public class GogoKeyBusinessService implements IGogoKeyBusinessService {
         if (description != null) {
             gogoKey.setDescription(description);
         }
-        if (params != null) {
-            gogoKey.setParams(params);
-        }
-        if (triggerTime != null) {
-            gogoKey.setTriggerTime(triggerTime);
-        }
-        if (url != null) {
-            gogoKey.setUrl(url);
-        }
         iGogoKeyService.createGogoKey(gogoKey);
 
         Map out = new HashMap();
