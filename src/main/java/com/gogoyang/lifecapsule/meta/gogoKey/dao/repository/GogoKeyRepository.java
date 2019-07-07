@@ -1,6 +1,7 @@
 package com.gogoyang.lifecapsule.meta.gogoKey.dao.repository;
 
 import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey;
+import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoPublicKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
@@ -20,7 +21,7 @@ public class GogoKeyRepository implements IGogoKeyRepository{
     }
 
     @Override
-    public void createGogoPublicKey() throws Exception {
-//        mongoTemplate.save(gogoKey);
+    public void createGogoPublicKey(GogoPublicKey gogoPublicKey) throws Exception {
+        mongoTemplate.save(gogoPublicKey);
     }
 }

@@ -4,6 +4,7 @@ import com.gogoyang.lifecapsule.meta.gogoKey.dao.mapper.GogoKeyMapper;
 import com.gogoyang.lifecapsule.meta.gogoKey.dao.repository.IGogoKeyRepository;
 import com.gogoyang.lifecapsule.meta.gogoKey.entity.ApiTrigger;
 import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey;
+import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoPublicKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -38,9 +39,8 @@ public class GogoKeyService implements IGogoKeyService {
     }
 
     @Override
-    public void createGogoPublicKey(GogoKey gogoKey) throws Exception {
-
-        iGogoKeyRepository.createGogoPublicKey();
+    public void createGogoPublicKey(GogoPublicKey gogoPublicKey) throws Exception {
+        iGogoKeyRepository.createGogoPublicKey(gogoPublicKey);
     }
 
     /**
