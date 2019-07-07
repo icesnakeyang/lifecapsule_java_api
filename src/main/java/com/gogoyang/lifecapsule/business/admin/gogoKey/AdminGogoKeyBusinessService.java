@@ -8,6 +8,7 @@ import com.gogoyang.lifecapsule.utility.GogoTools;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,7 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
 
     /**
      * 创建一个模板触发器
+     *
      * @param in
      * @throws Exception
      */
@@ -32,13 +34,29 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
         String type = in.get("type").toString();
         List<KeyParams> params = (List<KeyParams>) in.get("params");
 
-        if (type.equals("TimeTrigger")) {
-            GogoPublicKey gogoPublicKey = new GogoPublicKey();
-            gogoPublicKey.setTitle(title);
-            gogoPublicKey.setType("TimeTrigger");
-            gogoPublicKey.setParams(params);
-            gogoPublicKey.setUuid(GogoTools.UUID().toString());
-            iGogoKeyService.createGogoPublicKey(gogoPublicKey);
-        }
+        GogoPublicKey gogoPublicKey = new GogoPublicKey();
+        gogoPublicKey.setTitle(title);
+        gogoPublicKey.setType("TimeTrigger");
+        gogoPublicKey.setParams(params);
+        gogoPublicKey.setUuid(GogoTools.UUID().toString());
+        gogoPublicKey.setStatus("active");
+        iGogoKeyService.createGogoPublicKey(gogoPublicKey);
+    }
+
+    @Override
+    public Map listGogoPublicKey() throws Exception {
+        List<GogoPublicKey> gogoPublicKeyList = iGogoKeyService.listGogoPublicKey();
+        Map out = new HashMap();
+        out.put("list", gogoPublicKeyList);
+        return out;
+    }
+
+    @Override
+    public Map getGogoPublicKey(Map in) throws Exception {
+        String uuid = in.get("uuid").toString();
+        GogoPublicKey gogoPublicKey = iGogoKeyService.getGogoPublicKey(uuid);
+        Map out = new HashMap();
+        out.put("key", gogoPublicKey);
+        return out;
     }
 }

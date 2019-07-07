@@ -2,12 +2,9 @@ package com.gogoyang.lifecapsule.meta.gogoKey.service;
 
 import com.gogoyang.lifecapsule.meta.gogoKey.dao.mapper.GogoKeyMapper;
 import com.gogoyang.lifecapsule.meta.gogoKey.dao.repository.IGogoKeyRepository;
-import com.gogoyang.lifecapsule.meta.gogoKey.entity.ApiTrigger;
 import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey;
 import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoPublicKey;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -55,5 +52,17 @@ public class GogoKeyService implements IGogoKeyService {
         qIn.put("offset", 0);
         ArrayList<GogoKey> gogoKeys = gogoKeyMapper.listGogoKey(qIn);
         return gogoKeys;
+    }
+
+    @Override
+    public List<GogoPublicKey> listGogoPublicKey() throws Exception {
+        List<GogoPublicKey> gogoPublicKeyList=iGogoKeyRepository.listGogoPublicKey();
+        return gogoPublicKeyList;
+    }
+
+    @Override
+    public GogoPublicKey getGogoPublicKey(String uuid) throws Exception {
+        GogoPublicKey gogoPublicKey=iGogoKeyRepository.getGogoPublicKey(uuid);
+        return gogoPublicKey;
     }
 }

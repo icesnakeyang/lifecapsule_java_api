@@ -1,5 +1,6 @@
 package com.gogoyang.lifecapsule.controller.admin.gogoKey;
 
+import ch.qos.logback.core.pattern.util.RegularEscapeUtil;
 import com.gogoyang.lifecapsule.business.admin.gogoKey.IAdminGogoKeyBusinessService;
 import com.gogoyang.lifecapsule.controller.vo.Response;
 import org.slf4j.Logger;
@@ -22,6 +23,13 @@ public class AdminGogoKeyController {
         this.iAdminGogoKeyBusinessService = iAdminGogoKeyBusinessService;
     }
 
+    /**
+     * 创建一个触发器模板
+     *
+     * @param request
+     * @param httpServletRequest
+     * @return
+     */
     @ResponseBody
     @PostMapping("createGogoPublicKey")
     public Response createGogoPublicKey(@RequestBody AdminGogoKeyRequest request,
@@ -40,6 +48,48 @@ public class AdminGogoKeyController {
             try {
                 response.setCode(Integer.parseInt(ex.getMessage()));
             } catch (Exception ex2) {
+                response.setCode(10001);
+                logger.error(ex.getMessage());
+            }
+        }
+        return response;
+    }
+
+    @ResponseBody
+    @PostMapping("/listGogoPublicKey")
+    public Response listGogoPublicKey() {
+        Response response = new Response();
+        try {
+            Map out = iAdminGogoKeyBusinessService.listGogoPublicKey();
+            response.setData(out);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                logger.error(ex.getMessage());
+            }
+        }
+        return response;
+    }
+
+    @ResponseBody
+    @PostMapping("getGogoPublicKey")
+    public Response getGogoPublicKey(@RequestBody AdminGogoKeyRequest request,
+                                     HttpServletRequest httpServletRequest){
+        Response response=new Response();
+        try {
+            String token=httpServletRequest.getHeader("token");
+            Map in=new HashMap();
+            in.put("token", token);
+            in.put("uuid", request.getUuid());
+
+            Map out=iAdminGogoKeyBusinessService.getGogoPublicKey(in);
+            response.setData(out);
+        }catch (Exception ex){
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            }catch (Exception ex2){
                 response.setCode(10001);
                 logger.error(ex.getMessage());
             }
