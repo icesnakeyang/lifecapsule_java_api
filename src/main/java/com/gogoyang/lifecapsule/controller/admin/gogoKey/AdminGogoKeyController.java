@@ -40,6 +40,7 @@ public class AdminGogoKeyController {
             in.put("title", request.getTitle());
             in.put("type", request.getType());
             in.put("params", request.getParams());
+            in.put("description", request.getDescription());
 
             iAdminGogoKeyBusinessService.createGogoPublicKey(in);
         } catch (Exception ex) {
@@ -80,7 +81,7 @@ public class AdminGogoKeyController {
             String token = httpServletRequest.getHeader("token");
             Map in = new HashMap();
             in.put("token", token);
-            in.put("gogoPublicKeyId", request.getUuid());
+            in.put("gogoPublicKeyId", request.getGogoPublicKeyId());
 
             Map out = iAdminGogoKeyBusinessService.getGogoPublicKey(in);
             response.setData(out);
@@ -103,7 +104,7 @@ public class AdminGogoKeyController {
         try {
             String token = httpServletRequest.getHeader("token");
             Map in = new HashMap();
-            in.put("uuid", request.getUuid());
+            in.put("gogoPublicKeyId", request.getGogoPublicKeyId());
             in.put("token", token);
             in.put("type", request.getType());
             in.put("title", request.getTitle());
@@ -129,7 +130,7 @@ public class AdminGogoKeyController {
             String token = httpServletRequest.getHeader("token");
             Map in = new HashMap();
             in.put("token", token);
-            in.put("uuid", request.getUuid());
+            in.put("gogoPublicKeyId", request.getGogoPublicKeyId());
             iAdminGogoKeyBusinessService.deleteGogoPublicKey(in);
         } catch (Exception ex) {
             try {

@@ -7,5 +7,6 @@ public class AdminGogoKeyRequest {
     private String title;
     private String type;
     private Object params;
-    private String uuid;
+    private String gogoPublicKeyId;
+    private String description;
 }

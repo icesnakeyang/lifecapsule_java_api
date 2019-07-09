@@ -7,9 +7,10 @@ import java.util.List;
 @Data
 public class GogoPublicKey {
     private String _id;
-    private String uuid;
+    private String gogoPublicKeyId;
     private String title;
     private String type;
     private List<KeyParams> params;
     private String status;
+    private String description;
 }
