@@ -25,7 +25,7 @@ public interface ITriggerBusinessService {
 
     Map getRecipientByRecipientId(Map in) throws Exception;
 
-    void addCondition(Map in) throws Exception;
+    void saveCondition(Map in) throws Exception;
 
     /**
      * 根据conditionId查询触发条件信息

@@ -2,6 +2,7 @@ package com.gogoyang.lifecapsule.business.trigger;
 
 import com.gogoyang.lifecapsule.meta.condition.entity.Condition;
 import com.gogoyang.lifecapsule.meta.condition.service.IConditionService;
+import com.gogoyang.lifecapsule.meta.gogoKey.entity.KeyParams;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteInfo;
 import com.gogoyang.lifecapsule.meta.note.service.INoteService;
 import com.gogoyang.lifecapsule.meta.recipient.entity.Recipient;
@@ -279,26 +280,37 @@ public class TriggerBusinessService implements ITriggerBusinessService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void addCondition(Map in) throws Exception {
+    public void saveCondition(Map in) throws Exception {
+        //用户token
         String token = in.get("token").toString();
-        String triggerId = in.get("triggerId").toString();
-        String conditionName = in.get("conditionName").toString();
-        String conditionKey = in.get("conditionKey").toString();
-        Date conditionTime = (Date) in.get("conditionTime");
-        String remark = (String) in.get("remark");
-
-        if (conditionTime == null) {
-            throw new Exception("10020");
-        }
+        //用户触发器Id
+        String triggerId =(String)in.get("triggerId");
+        //公共触发器模板的uuid
+        String uuid = in.get("uuid").toString();
+        //用户设置的触发器参数
+        List<KeyParams> paramList = (List<KeyParams>)in.get("params");
 
         UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
         if (userInfo == null) {
             throw new Exception("10003");
         }
-        Trigger trigger = iTriggerService.getTriggerByTriggerId(triggerId);
-        if (trigger == null) {
-            throw new Exception("10017");
+
+        Trigger trigger=null;
+        if(triggerId==null){
+            //没有触发器，创建一个
+            trigger.setCreatedTime(new Date());
+            trigger.setName("");
+            trigger.setNoteId();
+            trigger.setRemark();
+            trigger.setTriggerId(GogoTools.UUID().toString());
+            iTriggerService.createTrigger(trigger);
+        }else {
+            trigger = iTriggerService.getTriggerByTriggerId(triggerId);
+            if (trigger == null) {
+                throw new Exception("10017");
+            }
         }
+
         NoteInfo noteInfo = iNoteService.getNoteTinyByNoteId(trigger.getNoteId());
         if (noteInfo == null) {
             throw new Exception("10004");
@@ -309,10 +321,9 @@ public class TriggerBusinessService implements ITriggerBusinessService {
 
         Condition condition = new Condition();
         condition.setConditionId(GogoTools.UUID().toString());
-        condition.setName(conditionName);
         condition.setTriggerId(trigger.getTriggerId());
-        condition.setGogoKey(conditionTime.toString());
-        condition.setRemark(remark);
+        condition.setUuid(uuid);
+        condition.setParams(paramList);
         iConditionService.createCondition(condition);
     }
 

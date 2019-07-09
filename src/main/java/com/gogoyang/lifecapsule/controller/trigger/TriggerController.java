@@ -234,8 +234,8 @@ public class TriggerController {
     }
 
     @ResponseBody
-    @PostMapping("/addCondition")
-    public Response addCondition(@RequestBody TriggerRequest request,
+    @PostMapping("/saveCondition")
+    public Response saveCondition(@RequestBody TriggerRequest request,
                                  HttpServletRequest httpServletRequest) {
         Response response = new Response();
         try {
@@ -243,11 +243,9 @@ public class TriggerController {
             Map in = new HashMap();
             in.put("token", token);
             in.put("triggerId", request.getTriggerId());
-            in.put("conditionName", request.getConditionName());
-            in.put("conditionKey", request.getConditionKey());
-            in.put("conditionTime", request.getConditionTime());
-            in.put("remark", request.getRemark());
-            iTriggerBusinessService.addCondition(in);
+            in.put("uuid", request.getUuid());
+            in.put("params", request.getParams());
+            iTriggerBusinessService.saveCondition(in);
         } catch (Exception ex) {
             try {
                 response.setCode(Integer.parseInt(ex.getMessage()));
