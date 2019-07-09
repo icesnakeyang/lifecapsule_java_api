@@ -15,4 +15,8 @@ public interface IGogoKeyService {
     List<GogoPublicKey> listGogoPublicKey() throws Exception;
 
     GogoPublicKey getGogoPublicKey(String uuid) throws Exception;
+
+    void deleteGogoPublicKey(String uuid) throws Exception;
+
+    void updateGogoPublicKey(GogoPublicKey gogoPublicKey) throws Exception;
 }

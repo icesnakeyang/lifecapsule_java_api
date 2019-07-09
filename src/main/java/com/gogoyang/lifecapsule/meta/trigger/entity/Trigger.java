@@ -42,5 +42,7 @@ public class Trigger {
      */
     private String remark;
 
+    private String gogoKeyId;
+
     private GogoKey gogoKey;
 }

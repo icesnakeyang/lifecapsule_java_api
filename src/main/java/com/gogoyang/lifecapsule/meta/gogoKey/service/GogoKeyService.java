@@ -6,6 +6,7 @@ import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey;
 import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoPublicKey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -64,5 +65,16 @@ public class GogoKeyService implements IGogoKeyService {
     public GogoPublicKey getGogoPublicKey(String uuid) throws Exception {
         GogoPublicKey gogoPublicKey=iGogoKeyRepository.getGogoPublicKey(uuid);
         return gogoPublicKey;
+    }
+
+    @Override
+    public void deleteGogoPublicKey(String uuid) throws Exception {
+        iGogoKeyRepository.deleteGogoPublicKey(uuid);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void updateGogoPublicKey(GogoPublicKey gogoPublicKey) throws Exception {
+        iGogoKeyRepository.updateGogoPublicKey(gogoPublicKey);
     }
 }

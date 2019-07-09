@@ -14,9 +14,7 @@ import java.util.List;
 public class GogoKey {
     private String _id;
     private String gogoKeyId;
-    private String name;
+    private String gogoPublicKeyId;
     private String type;
-    //triggerTime设置一个触发时间，即到时间就直接触发
-    private String description;
     private List<KeyParams> paramsList;
 }

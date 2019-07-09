@@ -8,4 +8,8 @@ public interface IAdminGogoKeyBusinessService {
     Map listGogoPublicKey() throws Exception;
 
     Map getGogoPublicKey(Map in) throws Exception;
+
+    void updateGogoPublicKey(Map in) throws Exception;
+
+    void deleteGogoPublicKey(Map in) throws Exception;
 }
