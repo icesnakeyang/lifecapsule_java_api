@@ -60,6 +60,7 @@ public class TriggerController {
 
     /**
      * 修改接收人信息
+     *
      * @param request
      * @param httpServletRequest
      * @return
@@ -95,6 +96,7 @@ public class TriggerController {
 
     /**
      * 删除一个接收人
+     *
      * @param request
      * @param httpServletRequest
      * @return
@@ -120,7 +122,6 @@ public class TriggerController {
         }
         return response;
     }
-
 
 
     /**
@@ -234,53 +235,28 @@ public class TriggerController {
     }
 
     @ResponseBody
-    @PostMapping("/saveCondition")
-    public Response saveCondition(@RequestBody TriggerRequest request,
-                                 HttpServletRequest httpServletRequest) {
+    @PostMapping("/saveGogoKey")
+    public Response saveGogoKey(@RequestBody TriggerRequest request,
+                                HttpServletRequest httpServletRequest) {
         Response response = new Response();
         try {
             String token = httpServletRequest.getHeader("token");
             Map in = new HashMap();
             in.put("token", token);
             in.put("triggerId", request.getTriggerId());
-            in.put("uuid", request.getUuid());
+            in.put("gogoPublicKeyId", request.getGogoPublicKeyId());
+            in.put("title", request.getGogoKeyTitle());
             in.put("params", request.getParams());
-            iTriggerBusinessService.saveCondition(in);
+            in.put("noteId", request.getNoteId());
+            in.put("remark", request.getRemark());
+            in.put("triggerName", request.getTriggerName());
+            iTriggerBusinessService.saveGogoKey(in);
         } catch (Exception ex) {
             try {
                 response.setCode(Integer.parseInt(ex.getMessage()));
             } catch (Exception ex2) {
                 response.setCode(10001);
                 logger.error(ex.getMessage());
-            }
-        }
-        return response;
-    }
-
-    /**
-     * 根据conditionId查询触发条件信息
-     * @param request
-     * @param httpServletRequest
-     * @return
-     */
-    @ResponseBody
-    @PostMapping("/getConditionByConditionId")
-    public Response getConditionByConditionId(@RequestBody TriggerRequest request,
-                                              HttpServletRequest httpServletRequest) {
-        Response response = new Response();
-        try {
-            String token = httpServletRequest.getHeader("token");
-            Map in = new HashMap();
-            in.put("token", token);
-            in.put("conditionId", request.getConditionId());
-
-            Map out = iTriggerBusinessService.getConditionByConditionId(in);
-            response.setData(out);
-        } catch (Exception ex) {
-            try {
-                response.setCode(Integer.parseInt(ex.getMessage()));
-            } catch (Exception ex2) {
-                response.setCode(10001);
             }
         }
         return response;

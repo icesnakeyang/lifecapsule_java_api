@@ -80,7 +80,7 @@ public class AdminGogoKeyController {
             String token = httpServletRequest.getHeader("token");
             Map in = new HashMap();
             in.put("token", token);
-            in.put("uuid", request.getUuid());
+            in.put("gogoPublicKeyId", request.getUuid());
 
             Map out = iAdminGogoKeyBusinessService.getGogoPublicKey(in);
             response.setData(out);

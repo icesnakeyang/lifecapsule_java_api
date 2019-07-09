@@ -1,8 +1,8 @@
 package com.gogoyang.lifecapsule.business.trigger;
 
-import com.gogoyang.lifecapsule.meta.condition.entity.Condition;
-import com.gogoyang.lifecapsule.meta.condition.service.IConditionService;
+import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey;
 import com.gogoyang.lifecapsule.meta.gogoKey.entity.KeyParams;
+import com.gogoyang.lifecapsule.meta.gogoKey.service.IGogoKeyService;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteInfo;
 import com.gogoyang.lifecapsule.meta.note.service.INoteService;
 import com.gogoyang.lifecapsule.meta.recipient.entity.Recipient;
@@ -12,7 +12,6 @@ import com.gogoyang.lifecapsule.meta.trigger.service.ITriggerService;
 import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
 import com.gogoyang.lifecapsule.meta.user.service.IUserInfoService;
 import com.gogoyang.lifecapsule.utility.GogoTools;
-import com.sun.tools.javap.TypeAnnotationWriter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,19 +24,19 @@ public class TriggerBusinessService implements ITriggerBusinessService {
     private final INoteService iNoteService;
     private final ITriggerService iTriggerService;
     private final IRecipientService iRecipientService;
-    private final IConditionService iConditionService;
+    private final IGogoKeyService iGogoKeyService;
 
     @Autowired
     public TriggerBusinessService(IUserInfoService iUserInfoService,
                                   INoteService iNoteService,
                                   ITriggerService iTriggerService,
                                   IRecipientService iRecipientService,
-                                  IConditionService iConditionService) {
+                                  IGogoKeyService iGogoKeyService) {
         this.iUserInfoService = iUserInfoService;
         this.iNoteService = iNoteService;
         this.iTriggerService = iTriggerService;
         this.iRecipientService = iRecipientService;
-        this.iConditionService = iConditionService;
+        this.iGogoKeyService = iGogoKeyService;
     }
 
     /**
@@ -59,17 +58,17 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         String address = (String) in.get("address");
         String remark = (String) in.get("remark");
 
-        int eof=0;
-        if(phone==null || phone.equals("")){
+        int eof = 0;
+        if (phone == null || phone.equals("")) {
             eof++;
         }
-        if(email==null || email.equals("")){
+        if (email == null || email.equals("")) {
             eof++;
         }
-        if(address==null || address.equals("")){
+        if (address == null || address.equals("")) {
             eof++;
         }
-        if(eof==3){
+        if (eof == 3) {
             throw new Exception("10022");
         }
 
@@ -219,19 +218,19 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         }
 
         /**
-         * 读取所有触发条件
+         * 读取触发条件
          */
-        List<Condition> conditionList = iConditionService.listConditionByTriggerId(triggerId);
+        GogoKey gogoKey = iGogoKeyService.getGogoKeyByTriggerId(triggerId);
+        trigger.setGogoKey(gogoKey);
 
         /**
          * 读取所有接收人
          */
         List<Recipient> recipientList = iRecipientService.listRecipientByTriggerId(triggerId);
+        trigger.setRecipientList(recipientList);
 
         Map out = new HashMap();
         out.put("trigger", trigger);
-        out.put("recipientList", recipientList);
-        out.put("conditionList", conditionList);
         return out;
     }
 
@@ -280,31 +279,35 @@ public class TriggerBusinessService implements ITriggerBusinessService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void saveCondition(Map in) throws Exception {
+    public void saveGogoKey(Map in) throws Exception {
         //用户token
         String token = in.get("token").toString();
         //用户触发器Id
-        String triggerId =(String)in.get("triggerId");
+        String triggerId = (String) in.get("triggerId");
         //公共触发器模板的uuid
         String uuid = in.get("uuid").toString();
         //用户设置的触发器参数
-        List<KeyParams> paramList = (List<KeyParams>)in.get("params");
+        List<KeyParams> paramList = (List<KeyParams>) in.get("params");
+        String noteId = (String) in.get("noteId");
+        String remark = (String) in.get("remark");
+        String triggerName = (String) in.get("triggerName");
+        String gogoKeyId = (String) in.get("gogoKeyId");
 
         UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
         if (userInfo == null) {
             throw new Exception("10003");
         }
 
-        Trigger trigger=null;
-        if(triggerId==null){
+        Trigger trigger = null;
+        if (triggerId == null) {
             //没有触发器，创建一个
             trigger.setCreatedTime(new Date());
-            trigger.setName("");
-            trigger.setNoteId();
-            trigger.setRemark();
+            trigger.setName(triggerName);
+            trigger.setNoteId(noteId);
+            trigger.setRemark(remark);
             trigger.setTriggerId(GogoTools.UUID().toString());
             iTriggerService.createTrigger(trigger);
-        }else {
+        } else {
             trigger = iTriggerService.getTriggerByTriggerId(triggerId);
             if (trigger == null) {
                 throw new Exception("10017");
@@ -319,73 +322,43 @@ public class TriggerBusinessService implements ITriggerBusinessService {
             throw new Exception("10011");
         }
 
-        Condition condition = new Condition();
-        condition.setConditionId(GogoTools.UUID().toString());
-        condition.setTriggerId(trigger.getTriggerId());
-        condition.setUuid(uuid);
-        condition.setParams(paramList);
-        iConditionService.createCondition(condition);
-    }
-
-    /**
-     * 根据conditionId查询触发条件信息
-     * @param in
-     * @return
-     * @throws Exception
-     */
-    @Override
-    public Map getConditionByConditionId(Map in) throws Exception {
-        String token=in.get("token").toString();
-        String conditionId=in.get("conditionId").toString();
-
-        UserInfo userInfo=iUserInfoService.getUserByUserToken(token);
-        if(userInfo==null){
-            throw new Exception("10003");
+        GogoKey gogoKey = null;
+        if (gogoKeyId != null) {
+            gogoKey = iGogoKeyService.getGogoKey(gogoKeyId);
         }
-
-        Condition condition=iConditionService.getConditionByConditionId(conditionId);
-        if(condition==null){
-            throw new Exception("10021");
+        if (gogoKey == null) {
+            gogoKey = new GogoKey();
+            gogoKey.setGogoKeyId(GogoTools.UUID().toString());
+        } else {
+            gogoKey.setTriggerId(trigger.getTriggerId());
         }
-        Trigger trigger=iTriggerService.getTriggerByTriggerId(condition.getTriggerId());
-        if(trigger==null){
-            throw new Exception("10017");
-        }
-        NoteInfo noteInfo=iNoteService.getNoteTinyByNoteId(trigger.getNoteId());
-        if(noteInfo==null){
-            throw new Exception("10004");
-        }
-        if(!noteInfo.getUserId().equals(userInfo.getUserId())){
-            throw new Exception("10011");
-        }
-
-        Map out=new HashMap();
-        out.put("condition", condition);
-        return out;
+        gogoKey.setGogoPublicKeyId(uuid);
+        gogoKey.setParams(paramList);
+        iGogoKeyService.createGogoKey(gogoKey);
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
     public Map updateRecipient(Map in) throws Exception {
         String token = in.get("token").toString();
-        String recipientId=in.get("recipientId").toString();
-        String name = (String)in.get("name");
+        String recipientId = in.get("recipientId").toString();
+        String name = (String) in.get("name");
         String phone = (String) in.get("phone");
         String email = (String) in.get("email");
         String address = (String) in.get("address");
         String remark = (String) in.get("remark");
 
-        int eof=0;
-        if(phone==null || phone.equals("")){
+        int eof = 0;
+        if (phone == null || phone.equals("")) {
             eof++;
         }
-        if(email==null || email.equals("")){
+        if (email == null || email.equals("")) {
             eof++;
         }
-        if(address==null || address.equals("")){
+        if (address == null || address.equals("")) {
             eof++;
         }
-        if(eof==3){
+        if (eof == 3) {
             throw new Exception("10022");
         }
 
@@ -396,19 +369,19 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         }
 
         //检查当前编辑的recipient是否是当前用户创建的
-        Recipient recipient=iRecipientService.getRecipientByRecipientId(recipientId);
-        if(recipient==null){
+        Recipient recipient = iRecipientService.getRecipientByRecipientId(recipientId);
+        if (recipient == null) {
             throw new Exception("10019");
         }
-        Trigger trigger=iTriggerService.getTriggerByTriggerId(recipient.getTriggerId());
-        if(trigger==null){
+        Trigger trigger = iTriggerService.getTriggerByTriggerId(recipient.getTriggerId());
+        if (trigger == null) {
             throw new Exception("10017");
         }
-        NoteInfo noteInfo=iNoteService.getNoteTinyByNoteId(trigger.getNoteId());
-        if(noteInfo==null){
+        NoteInfo noteInfo = iNoteService.getNoteTinyByNoteId(trigger.getNoteId());
+        if (noteInfo == null) {
             throw new Exception("10004");
         }
-        if(!noteInfo.getUserId().equals(userInfo.getUserId())){
+        if (!noteInfo.getUserId().equals(userInfo.getUserId())) {
             throw new Exception("10023");
         }
 
@@ -429,35 +402,36 @@ public class TriggerBusinessService implements ITriggerBusinessService {
 
     /**
      * 删除一个接收人
+     *
      * @param in
      * @throws Exception
      */
     @Override
     public void deleteRecipient(Map in) throws Exception {
-        String token=in.get("token").toString();
-        String recipientId=in.get("recipientId").toString();
+        String token = in.get("token").toString();
+        String recipientId = in.get("recipientId").toString();
 
-        Recipient recipient=iRecipientService.getRecipientByRecipientId(recipientId);
-        if(recipient==null){
+        Recipient recipient = iRecipientService.getRecipientByRecipientId(recipientId);
+        if (recipient == null) {
             throw new Exception("10019");
         }
 
-        UserInfo userInfo=iUserInfoService.getUserByUserToken(token);
-        if(userInfo==null){
+        UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
+        if (userInfo == null) {
             throw new Exception("10003");
         }
 
-        Trigger trigger=iTriggerService.getTriggerByTriggerId(recipient.getTriggerId());
-        if(trigger==null){
+        Trigger trigger = iTriggerService.getTriggerByTriggerId(recipient.getTriggerId());
+        if (trigger == null) {
             throw new Exception("10017");
         }
 
-        NoteInfo noteInfo=iNoteService.getNoteTinyByNoteId(trigger.getNoteId());
-        if(noteInfo==null){
+        NoteInfo noteInfo = iNoteService.getNoteTinyByNoteId(trigger.getNoteId());
+        if (noteInfo == null) {
             throw new Exception("10004");
         }
 
-        if(!userInfo.getUserId().equals(noteInfo.getUserId())){
+        if (!userInfo.getUserId().equals(noteInfo.getUserId())) {
             throw new Exception("10023");
         }
 

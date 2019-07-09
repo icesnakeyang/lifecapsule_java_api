@@ -38,12 +38,4 @@ public class GogoKeyBusinessService implements IGogoKeyBusinessService {
         out.put("gogoKey", gogoKey);
         return out;
     }
-
-    @Override
-    public Map listGogoKey(Map in) throws Exception {
-        List<GogoKey> gogoKeyList = iGogoKeyService.listGogokey();
-        Map out = new HashMap();
-        out.put("gogoKeyList", gogoKeyList);
-        return out;
-    }
 }

@@ -15,6 +15,8 @@ public class GogoKey {
     private String _id;
     private String gogoKeyId;
     private String gogoPublicKeyId;
+    private String title;
     private String type;
-    private List<KeyParams> paramsList;
+    private List<KeyParams> params;
+    private String triggerId;
 }

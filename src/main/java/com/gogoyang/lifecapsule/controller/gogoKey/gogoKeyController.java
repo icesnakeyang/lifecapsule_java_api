@@ -2,7 +2,6 @@ package com.gogoyang.lifecapsule.controller.gogoKey;
 
 import com.gogoyang.lifecapsule.business.gogoKey.IGogoKeyBusinessService;
 import com.gogoyang.lifecapsule.controller.vo.Response;
-import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,27 +43,6 @@ public class gogoKeyController {
             try {
                 response.setCode(Integer.parseInt(ex.getMessage()));
             } catch (Exception ex2) {
-                response.setCode(10001);
-                logger.error(ex.getMessage());
-            }
-        }
-        return response;
-    }
-
-    @ResponseBody
-    @PostMapping("/listGogoKey")
-    public Response listGogoKey(@RequestBody GogoKeyRequest request,
-                                HttpServletRequest httpServletRequest){
-        Response response=new Response();
-        try {
-            Map in=new HashMap();
-
-            Map out=iGogoKeyBusinessService.listGogoKey(in);
-            response.setData(out);
-        }catch (Exception ex){
-            try {
-                response.setCode(Integer.parseInt(ex.getMessage()));
-            }catch (Exception ex2){
                 response.setCode(10001);
                 logger.error(ex.getMessage());
             }

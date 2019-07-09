@@ -21,5 +21,6 @@ public class TriggerRequest {
     private String triggerName;
     private String triggerId;
     private Object params;
-    private String uuid;
+    private String gogoPublicKeyId;
+    private String gogoKeyTitle;
 }

@@ -1,9 +1,11 @@
 package com.gogoyang.lifecapsule.meta.trigger.entity;
 
 import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey;
+import com.gogoyang.lifecapsule.meta.recipient.entity.Recipient;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * 触发器
@@ -42,7 +44,7 @@ public class Trigger {
      */
     private String remark;
 
-    private String gogoKeyId;
-
     private GogoKey gogoKey;
+
+    private List<Recipient> recipientList;
 }

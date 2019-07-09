@@ -25,15 +25,7 @@ public interface ITriggerBusinessService {
 
     Map getRecipientByRecipientId(Map in) throws Exception;
 
-    void saveCondition(Map in) throws Exception;
-
-    /**
-     * 根据conditionId查询触发条件信息
-     * @param in
-     * @return
-     * @throws Exception
-     */
-    Map getConditionByConditionId(Map in) throws Exception;
+    void saveGogoKey(Map in) throws Exception;
 
     Map updateRecipient(Map in) throws Exception;
 

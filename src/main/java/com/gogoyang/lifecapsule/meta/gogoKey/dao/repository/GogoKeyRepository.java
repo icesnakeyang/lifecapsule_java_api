@@ -36,22 +36,34 @@ public class GogoKeyRepository implements IGogoKeyRepository {
     }
 
     @Override
-    public GogoPublicKey getGogoPublicKey(String uuid) throws Exception {
-        Query query = new Query(Criteria.where("uuid").is(uuid));
+    public GogoPublicKey getGogoPublicKey(String gogoPublicKeyId) throws Exception {
+        Query query = new Query(Criteria.where("gogoPublicKeyId").is(gogoPublicKeyId));
         return mongoTemplate.findOne(query, GogoPublicKey.class);
     }
 
     @Override
     public void deleteGogoPublicKey(String uuid) throws Exception {
-        Query query = new Query(Criteria.where("uuid").is(uuid));
+        Query query = new Query(Criteria.where("gogoPublicKeyId").is(uuid));
         mongoTemplate.findAndRemove(query, GogoPublicKey.class);
     }
 
     @Override
     public void updateGogoPublicKey(GogoPublicKey gogoPublicKey) throws Exception {
-        if(gogoPublicKey.get_id()==null){
+        if (gogoPublicKey.get_id() == null) {
             return;
         }
         mongoTemplate.save(gogoPublicKey);
+    }
+
+    @Override
+    public GogoKey getGogoKey(String gogoKeyId) throws Exception {
+        Query query = new Query(Criteria.where("gogoKeyId").is(gogoKeyId));
+        return mongoTemplate.findOne(query, GogoKey.class);
+    }
+
+    @Override
+    public GogoKey getGogoKeyByTriggerId(String triggerId) throws Exception {
+        Query query = new Query(Criteria.where("triggerId").is(triggerId));
+        return mongoTemplate.findOne(query, GogoKey.class);
     }
 }
