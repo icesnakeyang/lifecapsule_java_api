@@ -34,17 +34,28 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void createGogoPublicKey(Map in) throws Exception {
-//        String token=in.get("token").toString();
+        String token = in.get("token").toString();
         String title = in.get("title").toString();
-        String type = in.get("type").toString();
         List<KeyParams> params = (List<KeyParams>) in.get("params");
+        String url = (String) in.get("url");
+        String description = (String) in.get("description");
+
+        UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
+        if (userInfo == null) {
+            throw new Exception("10003");
+        }
 
         GogoPublicKey gogoPublicKey = new GogoPublicKey();
+        if (url != null) {
+            gogoPublicKey.setType("ApiTrigger");
+        } else {
+            gogoPublicKey.setType("TimeTrigger");
+        }
         gogoPublicKey.setTitle(title);
-        gogoPublicKey.setType("TimeTrigger");
         gogoPublicKey.setParams(params);
-        gogoPublicKey.setUuid(GogoTools.UUID().toString());
+        gogoPublicKey.setGogoPublicKeyId(GogoTools.UUID().toString());
         gogoPublicKey.setStatus("active");
+        gogoPublicKey.setDescription(description);
         iGogoKeyService.createGogoPublicKey(gogoPublicKey);
     }
 

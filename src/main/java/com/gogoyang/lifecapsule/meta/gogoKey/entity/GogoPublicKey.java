@@ -13,4 +13,5 @@ public class GogoPublicKey {
     private List<KeyParams> params;
     private String status;
     private String description;
+    private String url;
 }

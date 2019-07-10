@@ -1,6 +1,7 @@
 package com.gogoyang.lifecapsule.business.trigger;
 
 import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey;
+import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoPublicKey;
 import com.gogoyang.lifecapsule.meta.gogoKey.entity.KeyParams;
 import com.gogoyang.lifecapsule.meta.gogoKey.service.IGogoKeyService;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteInfo;
@@ -285,7 +286,7 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         //用户触发器Id
         String triggerId = (String) in.get("triggerId");
         //公共触发器模板的uuid
-        String uuid = in.get("uuid").toString();
+        String gogoPublicKeyId = in.get("gogoPublicKeyId").toString();
         //用户设置的触发器参数
         List<KeyParams> paramList = (List<KeyParams>) in.get("params");
         String noteId = (String) in.get("noteId");
@@ -312,6 +313,9 @@ public class TriggerBusinessService implements ITriggerBusinessService {
             if (trigger == null) {
                 throw new Exception("10017");
             }
+            trigger.setName(triggerName);
+            trigger.setRemark(remark);
+            iTriggerService.updateTrigger(trigger);
         }
 
         NoteInfo noteInfo = iNoteService.getNoteTinyByNoteId(trigger.getNoteId());
@@ -329,10 +333,15 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         if (gogoKey == null) {
             gogoKey = new GogoKey();
             gogoKey.setGogoKeyId(GogoTools.UUID().toString());
-        } else {
             gogoKey.setTriggerId(trigger.getTriggerId());
         }
-        gogoKey.setGogoPublicKeyId(uuid);
+        GogoPublicKey gogoPublicKey = iGogoKeyService.getGogoPublicKey(gogoPublicKeyId);
+        if (gogoPublicKey == null) {
+            throw new Exception("10001");
+        }
+        gogoKey.setTitle(gogoPublicKey.getTitle());
+        gogoKey.setType(gogoPublicKey.getType());
+        gogoKey.setGogoPublicKeyId(gogoPublicKeyId);
         gogoKey.setParams(paramList);
         iGogoKeyService.createGogoKey(gogoKey);
     }

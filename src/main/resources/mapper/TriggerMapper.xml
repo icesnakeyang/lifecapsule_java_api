@@ -31,4 +31,12 @@
         and note_id=#{noteId}
         order by ids
     </select>
+
+    <!--修改触发器的名称和说明-->
+    <update id="updateTrigger" parameterType="com.gogoyang.lifecapsule.meta.trigger.entity.Trigger">
+        update `trigger` set
+        name=#{name},
+        remark=#{remark}
+        where trigger_id=#{triggerId}
+    </update>
 </mapper>

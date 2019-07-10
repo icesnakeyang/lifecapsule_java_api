@@ -9,4 +9,5 @@ public class AdminGogoKeyRequest {
     private Object params;
     private String gogoPublicKeyId;
     private String description;
+    private String url;
 }

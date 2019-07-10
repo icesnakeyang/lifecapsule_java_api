@@ -27,4 +27,11 @@ public interface ITriggerService {
      * @throws Exception
      */
     ArrayList<Trigger> listTriggerByNoteId(String noteId) throws Exception;
+
+    /**
+     * 修改触发器的名称和说明
+     * @param trigger
+     * @throws Exception
+     */
+    void updateTrigger(Trigger trigger) throws Exception;
 }
