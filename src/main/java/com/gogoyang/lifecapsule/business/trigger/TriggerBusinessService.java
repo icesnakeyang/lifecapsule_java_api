@@ -289,10 +289,10 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         String gogoPublicKeyId = in.get("gogoPublicKeyId").toString();
         //用户设置的触发器参数
         List<KeyParams> paramList = (List<KeyParams>) in.get("params");
+        String gogoKeyId = (String) in.get("gogoKeyId");
+        String title = (String) in.get("title");
         String noteId = (String) in.get("noteId");
         String remark = (String) in.get("remark");
-        String triggerName = (String) in.get("triggerName");
-        String gogoKeyId = (String) in.get("gogoKeyId");
 
         //检查用户是否登录
         UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
@@ -300,23 +300,21 @@ public class TriggerBusinessService implements ITriggerBusinessService {
             throw new Exception("10003");
         }
 
+        GogoPublicKey gogoPublicKey = iGogoKeyService.getGogoPublicKey(gogoPublicKeyId);
+        if (gogoPublicKey == null) {
+            //没有查询到触发器模板
+            throw new Exception("10022");
+        }
+
         Trigger trigger = null;
         if (triggerId == null) {
             //没有触发器，创建一个
             trigger.setCreatedTime(new Date());
-            trigger.setName(triggerName);
+            trigger.setName(gogoPublicKey.getTitle());
             trigger.setNoteId(noteId);
-            trigger.setRemark(remark);
+            trigger.setRemark(gogoPublicKey.getDescription());
             trigger.setTriggerId(GogoTools.UUID().toString());
             iTriggerService.createTrigger(trigger);
-        } else {
-            trigger = iTriggerService.getTriggerByTriggerId(triggerId);
-            if (trigger == null) {
-                throw new Exception("10017");
-            }
-            trigger.setName(triggerName);
-            trigger.setRemark(remark);
-            iTriggerService.updateTrigger(trigger);
         }
 
         NoteInfo noteInfo = iNoteService.getNoteTinyByNoteId(trigger.getNoteId());
@@ -336,7 +334,7 @@ public class TriggerBusinessService implements ITriggerBusinessService {
             gogoKey.setGogoKeyId(GogoTools.UUID().toString());
             gogoKey.setTriggerId(trigger.getTriggerId());
         }
-        GogoPublicKey gogoPublicKey = iGogoKeyService.getGogoPublicKey(gogoPublicKeyId);
+
         if (gogoPublicKey == null) {
             throw new Exception("10001");
         }
@@ -348,20 +346,20 @@ public class TriggerBusinessService implements ITriggerBusinessService {
 
     @Override
     public Map getGogoKeyByTriggerId(Map in) throws Exception {
-        String token=in.get("token").toString();
-        String triggerId=in.get("triggerId").toString();
+        String token = in.get("token").toString();
+        String triggerId = in.get("triggerId").toString();
 
-        UserInfo userInfo=iUserInfoService.getUserByUserToken(token);
-        if(userInfo==null){
+        UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
+        if (userInfo == null) {
             throw new Exception("10003");
         }
 
-        GogoKey gogoKey=iGogoKeyService.getGogoKeyByTriggerId(triggerId);
-        if(gogoKey==null){
+        GogoKey gogoKey = iGogoKeyService.getGogoKeyByTriggerId(triggerId);
+        if (gogoKey == null) {
             throw new Exception("10021");
         }
 
-        Map out=new HashMap();
+        Map out = new HashMap();
         out.put("gogoKey", gogoKey);
 
         return out;

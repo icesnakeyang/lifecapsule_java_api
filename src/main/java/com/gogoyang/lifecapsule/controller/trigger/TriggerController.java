@@ -190,10 +190,10 @@ public class TriggerController {
             in.put("triggerId", request.getTriggerId());
             in.put("gogoPublicKeyId", request.getGogoPublicKeyId());
             in.put("params", request.getParams());
+            in.put("gogoKeyId", request.getGogoKeyId());
+            in.put("title", request.getGogoKeyTitle());
             in.put("noteId", request.getNoteId());
             in.put("remark", request.getRemark());
-            in.put("triggerName", request.getTriggerName());
-            in.put("gogoKeyId", request.getGogoKeyId());
             iTriggerBusinessService.saveGogoKey(in);
         } catch (Exception ex) {
             try {

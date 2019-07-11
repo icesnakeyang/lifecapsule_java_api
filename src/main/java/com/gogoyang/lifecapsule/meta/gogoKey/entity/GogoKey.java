@@ -18,4 +18,5 @@ public class GogoKey {
     private String title;
     private List<KeyParams> params;
     private String triggerId;
+    private String description;
 }
