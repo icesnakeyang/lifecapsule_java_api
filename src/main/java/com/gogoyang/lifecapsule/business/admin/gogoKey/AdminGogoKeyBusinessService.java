@@ -77,8 +77,7 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
     @Override
     public void updateGogoPublicKey(Map in) throws Exception {
         String token = in.get("token").toString();
-        String uuid = in.get("uuid").toString();
-        String type = in.get("type").toString();
+        String uuid = in.get("gogoPublicKeyId").toString();
         String title = in.get("title").toString();
         List<KeyParams> params = (List<KeyParams>) in.get("params");
 

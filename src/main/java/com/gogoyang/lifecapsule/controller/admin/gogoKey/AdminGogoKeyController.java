@@ -111,7 +111,6 @@ public class AdminGogoKeyController {
             Map in = new HashMap();
             in.put("gogoPublicKeyId", request.getGogoPublicKeyId());
             in.put("token", token);
-            in.put("type", request.getType());
             in.put("title", request.getTitle());
             in.put("params", request.getParams());
             iAdminGogoKeyBusinessService.updateGogoPublicKey(in);
