@@ -56,10 +56,15 @@ public class AdminGogoKeyController {
 
     @ResponseBody
     @PostMapping("/listGogoPublicKey")
-    public Response listGogoPublicKey() {
+    public Response listGogoPublicKey(HttpServletRequest httpServletRequest) {
         Response response = new Response();
         try {
-            Map out = iAdminGogoKeyBusinessService.listGogoPublicKey();
+            String token=httpServletRequest.getHeader("token");
+            Map in=new HashMap();
+            in.put("token", token);
+
+            Map out = iAdminGogoKeyBusinessService.listGogoPublicKey(in);
+
             response.setData(out);
         } catch (Exception ex) {
             try {

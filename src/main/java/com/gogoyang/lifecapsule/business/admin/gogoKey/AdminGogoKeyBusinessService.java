@@ -46,11 +46,6 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
         }
 
         GogoPublicKey gogoPublicKey = new GogoPublicKey();
-        if (url != null) {
-            gogoPublicKey.setType("ApiTrigger");
-        } else {
-            gogoPublicKey.setType("TimeTrigger");
-        }
         gogoPublicKey.setTitle(title);
         gogoPublicKey.setParams(params);
         gogoPublicKey.setGogoPublicKeyId(GogoTools.UUID().toString());
@@ -60,10 +55,12 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
     }
 
     @Override
-    public Map listGogoPublicKey() throws Exception {
+    public Map listGogoPublicKey(Map in) throws Exception {
+        String token=in.get("token").toString();
+
         List<GogoPublicKey> gogoPublicKeyList = iGogoKeyService.listGogoPublicKey();
         Map out = new HashMap();
-        out.put("list", gogoPublicKeyList);
+        out.put("gogoPublicKeyList", gogoPublicKeyList);
         return out;
     }
 
@@ -96,7 +93,6 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
         }
         gogoPublicKey.setTitle(title);
         gogoPublicKey.setParams(params);
-        gogoPublicKey.setType(type);
 
         iGogoKeyService.updateGogoPublicKey(gogoPublicKey);
     }

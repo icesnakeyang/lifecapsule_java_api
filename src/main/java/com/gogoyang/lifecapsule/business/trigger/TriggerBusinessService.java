@@ -294,6 +294,7 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         String triggerName = (String) in.get("triggerName");
         String gogoKeyId = (String) in.get("gogoKeyId");
 
+        //检查用户是否登录
         UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
         if (userInfo == null) {
             throw new Exception("10003");
@@ -340,10 +341,30 @@ public class TriggerBusinessService implements ITriggerBusinessService {
             throw new Exception("10001");
         }
         gogoKey.setTitle(gogoPublicKey.getTitle());
-        gogoKey.setType(gogoPublicKey.getType());
         gogoKey.setGogoPublicKeyId(gogoPublicKeyId);
         gogoKey.setParams(paramList);
         iGogoKeyService.createGogoKey(gogoKey);
+    }
+
+    @Override
+    public Map getGogoKeyByTriggerId(Map in) throws Exception {
+        String token=in.get("token").toString();
+        String triggerId=in.get("triggerId").toString();
+
+        UserInfo userInfo=iUserInfoService.getUserByUserToken(token);
+        if(userInfo==null){
+            throw new Exception("10003");
+        }
+
+        GogoKey gogoKey=iGogoKeyService.getGogoKeyByTriggerId(triggerId);
+        if(gogoKey==null){
+            throw new Exception("10021");
+        }
+
+        Map out=new HashMap();
+        out.put("gogoKey", gogoKey);
+
+        return out;
     }
 
     @Transactional(rollbackFor = Exception.class)

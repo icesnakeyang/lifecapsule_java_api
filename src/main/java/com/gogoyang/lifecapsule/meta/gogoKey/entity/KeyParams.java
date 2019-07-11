@@ -6,4 +6,5 @@ import lombok.Data;
 public class KeyParams {
     private String param;
     private String value;
+    private String type;
 }
