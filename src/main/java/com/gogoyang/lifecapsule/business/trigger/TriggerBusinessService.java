@@ -273,6 +273,8 @@ public class TriggerBusinessService implements ITriggerBusinessService {
             if (gogoKey != null) {
                 trigger.setGogoKey(gogoKey);
             }
+            ArrayList<Recipient> recipients = iRecipientService.listRecipientByTriggerId(trigger.getTriggerId());
+            trigger.setRecipientList(recipients);
             out.put("trigger", trigger);
         }
 
@@ -363,6 +365,10 @@ public class TriggerBusinessService implements ITriggerBusinessService {
             trigger.setRemark(triggerRemark);
             trigger.setTriggerId(GogoTools.UUID().toString());
             iTriggerService.createTrigger(trigger);
+        } else {
+            trigger.setRemark(triggerRemark);
+            trigger.setName(triggerName);
+            iTriggerService.updateTrigger(trigger);
         }
 
         NoteInfo noteInfo = iNoteService.getNoteTinyByNoteId(trigger.getNoteId());
@@ -374,8 +380,8 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         }
 
         GogoKey gogoKey = null;
-        if (gogoKeyId != null) {
-            gogoKey = iGogoKeyService.getGogoKey(gogoKeyId);
+        if (trigger != null) {
+            gogoKey = iGogoKeyService.getGogoKeyByTriggerId(trigger.getTriggerId());
         }
         if (gogoKey == null) {
             gogoKey = new GogoKey();
@@ -387,6 +393,7 @@ public class TriggerBusinessService implements ITriggerBusinessService {
             throw new Exception("10001");
         }
         gogoKey.setTitle(gogoPublicKey.getTitle());
+        gogoKey.setDescription(gogoPublicKey.getDescription());
         gogoKey.setGogoPublicKeyId(gogoPublicKeyId);
         gogoKey.setParams(paramList);
         iGogoKeyService.createGogoKey(gogoKey);

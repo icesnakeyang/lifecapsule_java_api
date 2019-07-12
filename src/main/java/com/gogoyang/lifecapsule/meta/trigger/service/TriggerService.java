@@ -1,5 +1,6 @@
 package com.gogoyang.lifecapsule.meta.trigger.service;
 
+import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey;
 import com.gogoyang.lifecapsule.meta.trigger.dao.TriggerMapper;
 import com.gogoyang.lifecapsule.meta.trigger.entity.Trigger;
 import org.springframework.stereotype.Service;
