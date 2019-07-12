@@ -2,6 +2,7 @@ package com.gogoyang.lifecapsule.controller.trigger;
 
 import com.gogoyang.lifecapsule.business.trigger.ITriggerBusinessService;
 import com.gogoyang.lifecapsule.controller.vo.Response;
+import com.sun.org.apache.regexp.internal.RE;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -191,9 +192,9 @@ public class TriggerController {
             in.put("gogoPublicKeyId", request.getGogoPublicKeyId());
             in.put("params", request.getParams());
             in.put("gogoKeyId", request.getGogoKeyId());
-            in.put("title", request.getGogoKeyTitle());
+            in.put("triggerName", request.getTriggerName());
             in.put("noteId", request.getNoteId());
-            in.put("remark", request.getRemark());
+            in.put("triggerRemark", request.getTriggerRemark());
             iTriggerBusinessService.saveGogoKey(in);
         } catch (Exception ex) {
             try {
@@ -248,6 +249,36 @@ public class TriggerController {
             in.put("noteId", request.getNoteId());
 
             Map out = iTriggerBusinessService.listTriggerByNoteId(in);
+            response.setData(out);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                logger.error(ex.getMessage());
+            }
+        }
+        return response;
+    }
+
+    /**
+     * 根据noteId查询trigger
+     * @param request
+     * @param httpServletRequest
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/getTriggerByNoteId")
+    public Response getTriggerByNoteId(@RequestBody TriggerRequest request,
+                                       HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            Map in = new HashMap();
+            in.put("token", token);
+            in.put("noteId", request.getNoteId());
+
+            Map out = iTriggerBusinessService.getTriggerByNoteId(in);
             response.setData(out);
         } catch (Exception ex) {
             try {

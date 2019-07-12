@@ -39,4 +39,10 @@
         remark=#{remark}
         where trigger_id=#{triggerId}
     </update>
+
+    <!--根据noteId查询trigger-->
+    <select id="getTriggerByNoteId" parameterType="java.lang.String" resultMap="triggerMap">
+        select * from `trigger`
+        where note_id=#{noteId}
+    </select>
 </mapper>

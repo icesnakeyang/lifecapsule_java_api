@@ -236,6 +236,45 @@ public class TriggerBusinessService implements ITriggerBusinessService {
     }
 
     /**
+     * 根据noteId查询trigger
+     *
+     * @param in
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Map getTriggerByNoteId(Map in) throws Exception {
+        String token = in.get("token").toString();
+        String noteId = in.get("noteId").toString();
+
+        //检查当前用户是否登录
+        UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
+        if (userInfo == null) {
+            throw new Exception("10003");
+        }
+
+        //检查noteId是否有效
+        NoteInfo noteInfo = iNoteService.getNoteTinyByNoteId(noteId);
+        if (noteInfo == null) {
+            throw new Exception("10004");
+        }
+
+        //检查note是否当前用户的
+        if (!noteInfo.getUserId().equals(userInfo.getUserId())) {
+            throw new Exception("10011");
+        }
+
+        Map out = new HashMap();
+        //note是否有Trigger
+        Trigger trigger = iTriggerService.getTriggerByNoteId(noteId);
+        if (trigger != null) {
+            out.put("trigger", trigger);
+        }
+
+        return out;
+    }
+
+    /**
      * 根据接收人id，读取接收人信息
      *
      * @param in
@@ -290,9 +329,9 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         //用户设置的触发器参数
         List<KeyParams> paramList = (List<KeyParams>) in.get("params");
         String gogoKeyId = (String) in.get("gogoKeyId");
-        String title = (String) in.get("title");
+        String triggerName = (String) in.get("triggerName");
         String noteId = (String) in.get("noteId");
-        String remark = (String) in.get("remark");
+        String triggerRemark = (String) in.get("triggerRemark");
 
         //检查用户是否登录
         UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
@@ -307,12 +346,16 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         }
 
         Trigger trigger = null;
-        if (triggerId == null) {
+        if (triggerId != null) {
+            trigger = iTriggerService.getTriggerByTriggerId(triggerId);
+        }
+        if (trigger == null) {
             //没有触发器，创建一个
+            trigger = new Trigger();
             trigger.setCreatedTime(new Date());
-            trigger.setName(gogoPublicKey.getTitle());
+            trigger.setName(triggerName);
             trigger.setNoteId(noteId);
-            trigger.setRemark(gogoPublicKey.getDescription());
+            trigger.setRemark(triggerRemark);
             trigger.setTriggerId(GogoTools.UUID().toString());
             iTriggerService.createTrigger(trigger);
         }

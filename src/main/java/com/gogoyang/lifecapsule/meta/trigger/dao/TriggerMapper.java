@@ -33,4 +33,11 @@ public interface TriggerMapper {
      * @param trigger
      */
     void updateTrigger(Trigger trigger);
+
+    /**
+     * 根据noteId查询trigger
+     * @param noteId
+     * @return
+     */
+    Trigger getTriggerByNoteId(String noteId);
 }

@@ -34,4 +34,12 @@ public interface ITriggerService {
      * @throws Exception
      */
     void updateTrigger(Trigger trigger) throws Exception;
+
+    /**
+     * 根据noteId查询trigger
+     * @param noteId
+     * @return
+     * @throws Exception
+     */
+    Trigger getTriggerByNoteId(String noteId) throws Exception;
 }

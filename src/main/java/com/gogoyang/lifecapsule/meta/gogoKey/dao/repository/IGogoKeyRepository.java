@@ -14,7 +14,7 @@ public interface IGogoKeyRepository {
 
     GogoPublicKey getGogoPublicKey(String gogoPublicKeyId) throws Exception;
 
-    void deleteGogoPublicKey(String uuid) throws Exception;
+    void deleteGogoPublicKey(String gogoPublicKeyId) throws Exception;
 
     void updateGogoPublicKey(GogoPublicKey gogoPublicKey) throws Exception;
 

@@ -46,8 +46,8 @@ public class GogoKeyService implements IGogoKeyService {
     }
 
     @Override
-    public void deleteGogoPublicKey(String uuid) throws Exception {
-        iGogoKeyRepository.deleteGogoPublicKey(uuid);
+    public void deleteGogoPublicKey(String gogoPublicKeyId) throws Exception {
+        iGogoKeyRepository.deleteGogoPublicKey(gogoPublicKeyId);
     }
 
     @Transactional(rollbackFor = Exception.class)

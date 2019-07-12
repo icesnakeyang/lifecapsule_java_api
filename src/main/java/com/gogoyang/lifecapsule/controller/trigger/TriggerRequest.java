@@ -18,6 +18,7 @@ public class TriggerRequest {
     private String phone;
     private String address;
     private String remark;
+    private String triggerRemark;
     private String triggerName;
     private String triggerId;
     private Object params;

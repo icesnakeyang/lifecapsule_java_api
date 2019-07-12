@@ -42,8 +42,8 @@ public class GogoKeyRepository implements IGogoKeyRepository {
     }
 
     @Override
-    public void deleteGogoPublicKey(String uuid) throws Exception {
-        Query query = new Query(Criteria.where("gogoPublicKeyId").is(uuid));
+    public void deleteGogoPublicKey(String gogoPublicKeyId) throws Exception {
+        Query query = new Query(Criteria.where("gogoPublicKeyId").is(gogoPublicKeyId));
         mongoTemplate.findAndRemove(query, GogoPublicKey.class);
     }
 

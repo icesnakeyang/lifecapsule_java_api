@@ -100,13 +100,13 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
     @Override
     public void deleteGogoPublicKey(Map in) throws Exception {
         String token = in.get("token").toString();
-        String uuid = in.get("uuid").toString();
+        String gogoPublicKeyId = in.get("gogoPublicKeyId").toString();
 
         UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
         if (userInfo == null) {
             throw new Exception("10003");
         }
 
-        iGogoKeyService.deleteGogoPublicKey(uuid);
+        iGogoKeyService.deleteGogoPublicKey(gogoPublicKeyId);
     }
 }

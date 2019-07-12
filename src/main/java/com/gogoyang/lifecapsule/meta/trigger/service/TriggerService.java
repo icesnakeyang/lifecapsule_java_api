@@ -44,6 +44,7 @@ public class TriggerService implements ITriggerService {
 
     /**
      * 根据笔记id查询所有的触发器
+     *
      * @param noteId
      * @return
      * @throws Exception
@@ -58,11 +59,24 @@ public class TriggerService implements ITriggerService {
 
     /**
      * 修改触发器的名称和说明
+     *
      * @param trigger
      * @throws Exception
      */
     @Override
     public void updateTrigger(Trigger trigger) throws Exception {
         triggerMapper.updateTrigger(trigger);
+    }
+
+    /**
+     * 根据noteId查询trigger
+     * @param noteId
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Trigger getTriggerByNoteId(String noteId) throws Exception {
+        Trigger trigger = triggerMapper.getTriggerByNoteId(noteId);
+        return trigger;
     }
 }
