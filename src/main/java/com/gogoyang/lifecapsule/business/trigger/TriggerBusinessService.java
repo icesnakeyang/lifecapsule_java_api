@@ -268,6 +268,11 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         //note是否有Trigger
         Trigger trigger = iTriggerService.getTriggerByNoteId(noteId);
         if (trigger != null) {
+            //读取gogoKey
+            GogoKey gogoKey = iGogoKeyService.getGogoKeyByTriggerId(trigger.getTriggerId());
+            if (gogoKey != null) {
+                trigger.setGogoKey(gogoKey);
+            }
             out.put("trigger", trigger);
         }
 
