@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -279,6 +280,7 @@ public class TriggerController {
             in.put("noteId", request.getNoteId());
 
             Map out = iTriggerBusinessService.getTriggerByNoteId(in);
+
             response.setData(out);
         } catch (Exception ex) {
             try {

@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -270,7 +271,16 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         if (trigger != null) {
             //读取gogoKey
             GogoKey gogoKey = iGogoKeyService.getGogoKeyByTriggerId(trigger.getTriggerId());
+
             if (gogoKey != null) {
+                String utcTime = "2019-06-02T10:00:00.000Z";
+                String time = GogoTools.formatStrUTCToDateStr(utcTime);
+
+
+                String dateString="2019-06-02T10:00:00.000Z";
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Date date1 = sdf.parse(dateString);
+                gogoKey.setTt1(date1);
                 trigger.setGogoKey(gogoKey);
             }
             ArrayList<Recipient> recipients = iRecipientService.listRecipientByTriggerId(trigger.getTriggerId());

@@ -15,9 +15,9 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 public class GogoTools {
     /**
@@ -48,6 +48,7 @@ public class GogoTools {
 
     /**
      * SHA256 加密
+     *
      * @param password
      * @return
      * @throws Exception
@@ -161,5 +162,21 @@ public class GogoTools {
         Map out = new HashMap();
         out.put("result", result);
         return out;
+    }
+
+    public static String formatStrUTCToDateStr(String utcTime) {
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.CHINA);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        TimeZone utcZone = TimeZone.getTimeZone("UTC");
+        sf.setTimeZone(utcZone);
+        Date date = null;
+        String dateTime = "";
+        try {
+            date = sf.parse(utcTime);
+            dateTime = sdf.format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return dateTime;
     }
 }

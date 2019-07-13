@@ -17,6 +17,10 @@ import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.X509EncodedKeySpec;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.TimeZone;
 
 
 @RunWith(SpringRunner.class)
@@ -109,6 +113,24 @@ public class LifecapsuleApplicationTests {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    @Test
+    public void testDate() {
+        String utcTime = "2019-06-02T10:00:00Z";
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        TimeZone utcZone = TimeZone.getTimeZone("UTC");
+        sf.setTimeZone(utcZone);
+        Date date = null;
+        String dateTime = "";
+        try {
+            date = sf.parse(utcTime);
+            dateTime = sdf.format(date);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(dateTime.toString());
     }
 
 
