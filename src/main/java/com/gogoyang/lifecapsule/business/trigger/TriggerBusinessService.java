@@ -273,19 +273,19 @@ public class TriggerBusinessService implements ITriggerBusinessService {
             GogoKey gogoKey = iGogoKeyService.getGogoKeyByTriggerId(trigger.getTriggerId());
 
             if (gogoKey != null) {
-                String utcTime = "2019-06-02T10:00:00.000Z";
-                String time = GogoTools.formatStrUTCToDateStr(utcTime);
-
-
-                String dateString="2019-06-02T10:00:00.000Z";
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                Date date1 = sdf.parse(dateString);
-                gogoKey.setTt1(date1);
+                for (int i = 0; i < gogoKey.getParams().size(); i++) {
+                    if (gogoKey.getParams().get(i).getType().equals("datetime")) {
+//                        String utcTime = gogoKey.getParams().get(i).getValue();
+//                        Date time = GogoTools.formatStrUTCToDateStr(utcTime);
+//                        gogoKey.getParams().get(i).setDatetime(time);
+                    }
+                }
                 trigger.setGogoKey(gogoKey);
             }
             ArrayList<Recipient> recipients = iRecipientService.listRecipientByTriggerId(trigger.getTriggerId());
             trigger.setRecipientList(recipients);
             out.put("trigger", trigger);
+            out.put("ddd", "2019-07-28T11:09:09.000Z");
         }
 
         return out;
@@ -422,6 +422,14 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         GogoKey gogoKey = iGogoKeyService.getGogoKeyByTriggerId(triggerId);
         if (gogoKey == null) {
             throw new Exception("10021");
+        }
+
+        for (int i = 0; i < gogoKey.getParams().size(); i++) {
+            if (gogoKey.getParams().get(i).getType().equals("datetime")) {
+                String utcTime = gogoKey.getParams().get(i).getValue();
+                Date time = GogoTools.formatStrUTCToDateStr(utcTime);
+                gogoKey.getParams().get(i).setDatetime(time);
+            }
         }
 
         Map out = new HashMap();

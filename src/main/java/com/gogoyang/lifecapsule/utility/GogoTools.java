@@ -164,9 +164,11 @@ public class GogoTools {
         return out;
     }
 
-    public static String formatStrUTCToDateStr(String utcTime) {
-        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'", Locale.CHINA);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static Date formatStrUTCToDateStr(String utcTime) {
+        SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS'Z'");
+//        TimeZone utcZone = TimeZone.getTimeZone("GMT+00:00");
+//        TimeZone utcZone = TimeZone.getDefault();
         TimeZone utcZone = TimeZone.getTimeZone("UTC");
         sf.setTimeZone(utcZone);
         Date date = null;
@@ -177,6 +179,6 @@ public class GogoTools {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-        return dateTime;
+        return date;
     }
 }
