@@ -2,9 +2,7 @@ package com.gogoyang.lifecapsule.meta.gogoKey.entity;
 
 import lombok.Data;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 
 /**
@@ -21,5 +19,4 @@ public class GogoKey {
     private List<KeyParams> params;
     private String triggerId;
     private String description;
-    private Date tt1;
 }

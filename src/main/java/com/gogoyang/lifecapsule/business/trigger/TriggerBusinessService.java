@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
@@ -273,19 +272,11 @@ public class TriggerBusinessService implements ITriggerBusinessService {
             GogoKey gogoKey = iGogoKeyService.getGogoKeyByTriggerId(trigger.getTriggerId());
 
             if (gogoKey != null) {
-                for (int i = 0; i < gogoKey.getParams().size(); i++) {
-                    if (gogoKey.getParams().get(i).getType().equals("datetime")) {
-//                        String utcTime = gogoKey.getParams().get(i).getValue();
-//                        Date time = GogoTools.formatStrUTCToDateStr(utcTime);
-//                        gogoKey.getParams().get(i).setDatetime(time);
-                    }
-                }
                 trigger.setGogoKey(gogoKey);
             }
             ArrayList<Recipient> recipients = iRecipientService.listRecipientByTriggerId(trigger.getTriggerId());
             trigger.setRecipientList(recipients);
             out.put("trigger", trigger);
-            out.put("ddd", "2019-07-28T11:09:09.000Z");
         }
 
         return out;
@@ -422,14 +413,6 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         GogoKey gogoKey = iGogoKeyService.getGogoKeyByTriggerId(triggerId);
         if (gogoKey == null) {
             throw new Exception("10021");
-        }
-
-        for (int i = 0; i < gogoKey.getParams().size(); i++) {
-            if (gogoKey.getParams().get(i).getType().equals("datetime")) {
-                String utcTime = gogoKey.getParams().get(i).getValue();
-                Date time = GogoTools.formatStrUTCToDateStr(utcTime);
-                gogoKey.getParams().get(i).setDatetime(time);
-            }
         }
 
         Map out = new HashMap();
