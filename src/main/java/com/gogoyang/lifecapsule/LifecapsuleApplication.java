@@ -1,5 +1,6 @@
 package com.gogoyang.lifecapsule;
 
+import com.gogoyang.lifecapsule.business.admin.thread.MainThread;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -12,10 +13,15 @@ public class LifecapsuleApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(LifecapsuleApplication.class, args);
+
+        Thread mainThread = new MainThread();
+        mainThread.setName("MainThread");
+        mainThread.start();
     }
 
     /**
      * 设置服务器端准许客户端跨域
+     *
      * @return
      */
     private CorsConfiguration buildConfig() {
