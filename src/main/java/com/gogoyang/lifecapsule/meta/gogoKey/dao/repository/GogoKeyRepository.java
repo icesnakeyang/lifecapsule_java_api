@@ -66,4 +66,10 @@ public class GogoKeyRepository implements IGogoKeyRepository {
         Query query = new Query(Criteria.where("triggerId").is(triggerId));
         return mongoTemplate.findOne(query, GogoKey.class);
     }
+
+    @Override
+    public List<GogoKey> listGogoKey() {
+        Query query=new Query(Criteria.where("processed").is(false));
+        return mongoTemplate.find(query, GogoKey.class);
+    }
 }

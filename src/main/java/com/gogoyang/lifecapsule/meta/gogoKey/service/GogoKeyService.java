@@ -20,6 +20,7 @@ public class GogoKeyService implements IGogoKeyService {
 
     /**
      * 创建一个GogoKey
+     *
      * @param gogoKey
      * @throws Exception
      */
@@ -35,13 +36,13 @@ public class GogoKeyService implements IGogoKeyService {
 
     @Override
     public List<GogoPublicKey> listGogoPublicKey() throws Exception {
-        List<GogoPublicKey> gogoPublicKeyList=iGogoKeyRepository.listGogoPublicKey();
+        List<GogoPublicKey> gogoPublicKeyList = iGogoKeyRepository.listGogoPublicKey();
         return gogoPublicKeyList;
     }
 
     @Override
     public GogoPublicKey getGogoPublicKey(String gogoPublicKeyId) throws Exception {
-        GogoPublicKey gogoPublicKey=iGogoKeyRepository.getGogoPublicKey(gogoPublicKeyId);
+        GogoPublicKey gogoPublicKey = iGogoKeyRepository.getGogoPublicKey(gogoPublicKeyId);
         return gogoPublicKey;
     }
 
@@ -58,13 +59,19 @@ public class GogoKeyService implements IGogoKeyService {
 
     @Override
     public GogoKey getGogoKey(String gogoKeyId) throws Exception {
-        GogoKey gogoKey=iGogoKeyRepository.getGogoKey(gogoKeyId);
+        GogoKey gogoKey = iGogoKeyRepository.getGogoKey(gogoKeyId);
         return gogoKey;
     }
 
     @Override
     public GogoKey getGogoKeyByTriggerId(String triggerId) throws Exception {
-        GogoKey gogoKey=iGogoKeyRepository.getGogoKeyByTriggerId(triggerId);
+        GogoKey gogoKey = iGogoKeyRepository.getGogoKeyByTriggerId(triggerId);
         return gogoKey;
+    }
+
+    @Override
+    public List<GogoKey> listGogoKey() throws Exception {
+        List<GogoKey> gogoKeys = iGogoKeyRepository.listGogoKey();
+        return gogoKeys;
     }
 }

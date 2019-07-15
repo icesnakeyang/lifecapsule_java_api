@@ -11,5 +11,6 @@ public class TriggerProcessor extends Thread {
          * 5、装载email，noteId，创建用户，通知信息，接收人的email
          * 6、发送email
          */
+
     }
 }

@@ -21,4 +21,6 @@ public interface IGogoKeyService {
     GogoKey getGogoKey(String gogoKeyId) throws Exception;
 
     GogoKey getGogoKeyByTriggerId(String triggerId) throws Exception;
+
+    List<GogoKey> listGogoKey() throws Exception;
 }
