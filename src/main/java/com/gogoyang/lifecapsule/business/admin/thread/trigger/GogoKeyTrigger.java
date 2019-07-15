@@ -9,16 +9,10 @@ import java.util.List;
 
 @Service
 public class GogoKeyTrigger {
-    private final IGogoKeyService iGogoKeyService;
-
-    public GogoKeyTrigger(IGogoKeyService iGogoKeyService) {
-        this.iGogoKeyService = iGogoKeyService;
-    }
-
     public List<GogoKey> listGogoKey() {
         List<GogoKey> gogoKeys = null;
         try {
-            gogoKeys = iGogoKeyService.listGogoKey();
+
         } catch (Exception ex) {
             ex.printStackTrace();
         }
