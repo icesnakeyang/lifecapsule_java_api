@@ -7,7 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class HelloSchedule {
-    public static void main(String[] args) {
+    public static void startHello() {
         Date date = new Date();
         SimpleDateFormat sf = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
         System.out.println("主程序开始时间:" + sf.format(date));
@@ -29,7 +29,6 @@ public class HelloSchedule {
                 .newTrigger()
                 .withIdentity("myTrigger", "group1")
                 .startAt(date)
-                .endAt(endDate)
                 .withSchedule(
                         SimpleScheduleBuilder.simpleSchedule()
                                 .withIntervalInSeconds(2)

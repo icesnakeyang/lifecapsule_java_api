@@ -1,6 +1,6 @@
 package com.gogoyang.lifecapsule;
 
-import com.gogoyang.lifecapsule.business.admin.thread.MainThread;
+import com.gogoyang.lifecapsule.business.admin.thread.trigger.HelloSchedule;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -14,9 +14,7 @@ public class LifecapsuleApplication {
     public static void main(String[] args) {
         SpringApplication.run(LifecapsuleApplication.class, args);
 
-        Thread mainThread = new MainThread();
-        mainThread.setName("MainThread");
-        mainThread.start();
+        HelloSchedule.startHello();
     }
 
     /**
