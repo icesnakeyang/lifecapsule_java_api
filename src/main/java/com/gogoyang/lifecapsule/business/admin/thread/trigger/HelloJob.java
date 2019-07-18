@@ -5,7 +5,6 @@ import com.gogoyang.lifecapsule.meta.gogoKey.entity.KeyParams;
 import com.gogoyang.lifecapsule.meta.gogoKey.service.IGogoKeyService;
 import com.gogoyang.lifecapsule.utility.GogoTools;
 import lombok.Data;
-import org.apache.catalina.core.ApplicationContext;
 import org.quartz.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,14 +14,11 @@ import java.util.List;
 
 @Data
 public class HelloJob implements Job {
-    private GogoKeyTrigger gogoKeyTrigger;
-
-    public HelloJob(){
-        this.gogoKeyTrigger=new GogoKeyTrigger();
-    }
+    @Autowired
+    private IGogoKeyService iGogoKeyService;
 
     @Override
-    public void execute(JobExecutionContext context) throws JobExecutionException {
+    public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
         /**
          * 读取所有gogokey
          * 检查gogokey是否满足条件
@@ -31,9 +27,9 @@ public class HelloJob implements Job {
          */
         try {
             System.out.println("开始检查");
-            List<GogoKey> gogoKeyList=gogoKeyTrigger.listGogoKey();
-            for(int i=0;i<gogoKeyList.size();i++){
-                for(int k=0;k<gogoKeyList.get(i).getParams().size();k++) {
+            List<GogoKey> gogoKeyList = iGogoKeyService.listGogoKey();
+            for (int i = 0; i < gogoKeyList.size(); i++) {
+                for (int k = 0; k < gogoKeyList.get(i).getParams().size(); k++) {
                     KeyParams key = gogoKeyList.get(i).getParams().get(k);
                     if (key.getType().equals("datetime")) {
                         Date theDate = new Date();
@@ -44,7 +40,7 @@ public class HelloJob implements Job {
                     }
                 }
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

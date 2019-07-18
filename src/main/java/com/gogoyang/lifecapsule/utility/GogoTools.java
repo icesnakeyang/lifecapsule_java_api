@@ -1,14 +1,11 @@
 package com.gogoyang.lifecapsule.utility;
 
-import com.sun.org.apache.xml.internal.security.utils.Base64;
-import org.omg.CORBA.PUBLIC_MEMBER;
+import org.apache.tomcat.util.codec.binary.Base64;
 import sun.misc.BASE64Encoder;
-import sun.security.krb5.internal.crypto.Aes128;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
-import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
@@ -56,7 +53,7 @@ public class GogoTools {
     public static String encoderBySHA256(String password) throws Exception {
         MessageDigest messageDigest = MessageDigest.getInstance("SHA-256");
         messageDigest.update(password.getBytes("UTF-8"));
-        password = Base64.encode(messageDigest.digest());
+        password = Base64.encodeBase64String(messageDigest.digest());
         return password;
     }
 
@@ -74,7 +71,7 @@ public class GogoTools {
         byte[] enCodeFormat = secretKey.getEncoded();
         SecretKeySpec key = new SecretKeySpec(enCodeFormat, "AES");
 
-        return Base64.encode(key.getEncoded());
+        return Base64.encodeBase64String(key.getEncoded());
     }
 
     /**
@@ -91,7 +88,7 @@ public class GogoTools {
         SecretKey keyspec = new SecretKeySpec(key.getBytes(), "AES");
         cipher.init(Cipher.ENCRYPT_MODE, keyspec);
         byte[] encrypted = cipher.doFinal(dataBytes);
-        String outCode = Base64.encode(encrypted);
+        String outCode = Base64.encodeBase64String(encrypted);
         return outCode;
     }
 
@@ -106,11 +103,11 @@ public class GogoTools {
     public static String decryptAESKey(String codec, String key) throws Exception {
 
         Cipher cipher = Cipher.getInstance("AES/CBC/ISO10126Padding");
-        byte[] keyByte = Base64.decode(key);
+        byte[] keyByte = Base64.decodeBase64(key);
         key = "hctrsZ7+ZHFJoR5iWChnQA==";
-        Key AESKEY = new SecretKeySpec(Base64.decode(key), "AES");
+        Key AESKEY = new SecretKeySpec(Base64.decodeBase64(key), "AES");
         cipher.init(Cipher.DECRYPT_MODE, AESKEY);
-        byte[] result = cipher.doFinal(Base64.decode(codec));
+        byte[] result = cipher.doFinal(Base64.decodeBase64(codec));
         String src = new String(result);
         return src;
     }
@@ -128,8 +125,8 @@ public class GogoTools {
         RSAPublicKey rsaPublicKey = (RSAPublicKey) keyPair.getPublic();
         RSAPrivateKey rsaPrivateKey = (RSAPrivateKey) keyPair.getPrivate();
         Map out = new HashMap();
-        out.put("publicKey", Base64.encode(rsaPublicKey.getEncoded()));
-        out.put("privateKey", Base64.encode(rsaPrivateKey.getEncoded()));
+        out.put("publicKey", Base64.encodeBase64String(rsaPublicKey.getEncoded()));
+        out.put("privateKey", Base64.encodeBase64String(rsaPrivateKey.getEncoded()));
         return out;
     }
 
@@ -142,12 +139,12 @@ public class GogoTools {
      * @throws Exception
      */
     public static String decryptRSAByPrivateKey(String src, String rsaPrivateKey) throws Exception {
-        PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(Base64.decode(rsaPrivateKey.getBytes()));
+        PKCS8EncodedKeySpec pkcs8EncodedKeySpec = new PKCS8EncodedKeySpec(Base64.decodeBase64(rsaPrivateKey.getBytes()));
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
         PrivateKey privateKey = keyFactory.generatePrivate(pkcs8EncodedKeySpec);
         Cipher cipher = Cipher.getInstance("RSA");
         cipher.init(Cipher.DECRYPT_MODE, privateKey);
-        byte[] result = cipher.doFinal(Base64.decode(src.getBytes()));
+        byte[] result = cipher.doFinal(Base64.decodeBase64(src.getBytes()));
         Map out = new HashMap();
         return new String(result);
     }

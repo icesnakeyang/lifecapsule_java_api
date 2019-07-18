@@ -13,8 +13,6 @@ public class LifecapsuleApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(LifecapsuleApplication.class, args);
-
-        HelloSchedule.startHello();
     }
 
     /**

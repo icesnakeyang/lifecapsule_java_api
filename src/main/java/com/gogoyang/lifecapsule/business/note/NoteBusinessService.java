@@ -10,7 +10,6 @@ import com.gogoyang.lifecapsule.meta.security.service.ISecurityService;
 import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
 import com.gogoyang.lifecapsule.meta.user.service.IUserInfoService;
 import com.gogoyang.lifecapsule.utility.GogoTools;
-import com.sun.org.apache.xml.internal.security.utils.Base64;
 import org.omg.CORBA.INTERNAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
