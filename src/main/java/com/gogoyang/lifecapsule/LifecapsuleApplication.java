@@ -1,6 +1,5 @@
 package com.gogoyang.lifecapsule;
 
-import com.gogoyang.lifecapsule.business.admin.thread.trigger.HelloSchedule;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
