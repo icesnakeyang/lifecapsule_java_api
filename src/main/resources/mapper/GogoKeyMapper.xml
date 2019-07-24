@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gogoyang.lifecapsule.meta.gogoKey.dao.mapper.GogoKeyMapper">
+    <!--创建一个触发器条件 gogoKey-->
+    <insert id="createGogoKey" parameterType="com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey">
+        insert into gogo_key
+        (trigger_id, title, description, gogo_key_id, created_time)
+         values
+        (#{triggerId}, #{title}, #{description}, #{gogoKeyId}, #{createdTime})
+    </insert>
+
+    <!--新增一个参数对-->
+    <insert id="createGogoKeyParam" parameterType="map">
+        insert into gogo_key_params
+        (gogo_key_id, param, value, type)
+        VALUES
+        (#{gogoKeyId}, #{param}, #{value}, #{type})
+    </insert>
+
+    <!--配置gogo_key表和GogoKey对象的字段映射 -->
+    <resultMap id="gogoKeyMap" type="com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey">
+        <result property="gogoKeyId" column="gogo_key_id"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="keyStatus" column="key_status"/>
+    </resultMap>
+
+    <select id="listGogoKey" parameterType="map"
+            resultMap="gogoKeyMap">
+    </select>
+</mapper>

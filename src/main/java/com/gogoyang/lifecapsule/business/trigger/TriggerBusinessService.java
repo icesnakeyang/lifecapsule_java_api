@@ -1,8 +1,7 @@
 package com.gogoyang.lifecapsule.business.trigger;
 
 import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey;
-import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoPublicKey;
-import com.gogoyang.lifecapsule.meta.gogoKey.entity.KeyParams;
+import com.gogoyang.lifecapsule.meta.gogoKey.entity.KeyParam;
 import com.gogoyang.lifecapsule.meta.gogoKey.service.IGogoKeyService;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteInfo;
 import com.gogoyang.lifecapsule.meta.note.service.INoteService;
@@ -335,7 +334,7 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         //公共触发器模板的uuid
         String gogoPublicKeyId = in.get("gogoPublicKeyId").toString();
         //用户设置的触发器参数
-        List<KeyParams> paramList = (List<KeyParams>) in.get("params");
+        List<KeyParam> paramList = (List<KeyParam>) in.get("params");
         String gogoKeyId = (String) in.get("gogoKeyId");
         String triggerName = (String) in.get("triggerName");
         String noteId = (String) in.get("noteId");
@@ -347,7 +346,7 @@ public class TriggerBusinessService implements ITriggerBusinessService {
             throw new Exception("10003");
         }
 
-        GogoPublicKey gogoPublicKey = iGogoKeyService.getGogoPublicKey(gogoPublicKeyId);
+        GogoKey gogoPublicKey = iGogoKeyService.getGogoKey(gogoPublicKeyId);
         if (gogoPublicKey == null) {
             //没有查询到触发器模板
             throw new Exception("10022");
@@ -395,7 +394,6 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         }
         gogoKey.setTitle(gogoPublicKey.getTitle());
         gogoKey.setDescription(gogoPublicKey.getDescription());
-        gogoKey.setGogoPublicKeyId(gogoPublicKeyId);
         gogoKey.setParams(paramList);
         iGogoKeyService.createGogoKey(gogoKey);
     }

@@ -4,7 +4,7 @@ import lombok.Data;
 
 
 @Data
-public class KeyParams {
+public class KeyParam {
     private String param;
     private Object value;
     private String type;

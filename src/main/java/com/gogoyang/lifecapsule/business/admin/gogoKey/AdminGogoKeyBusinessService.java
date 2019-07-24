@@ -1,7 +1,7 @@
 package com.gogoyang.lifecapsule.business.admin.gogoKey;
 
 
-import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoPublicKey;
+import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey;
 import com.gogoyang.lifecapsule.meta.gogoKey.entity.KeyParams;
 import com.gogoyang.lifecapsule.meta.gogoKey.service.IGogoKeyService;
 import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
@@ -45,20 +45,20 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
             throw new Exception("10003");
         }
 
-        GogoPublicKey gogoPublicKey = new GogoPublicKey();
+        GogoKey gogoPublicKey = new GogoKey();
         gogoPublicKey.setTitle(title);
         gogoPublicKey.setParams(params);
-        gogoPublicKey.setGogoPublicKeyId(GogoTools.UUID().toString());
-        gogoPublicKey.setStatus("active");
+        gogoPublicKey.setGogoKeyId(GogoTools.UUID().toString());
+        gogoPublicKey.setKeyStatus("active");
         gogoPublicKey.setDescription(description);
-        iGogoKeyService.createGogoPublicKey(gogoPublicKey);
+        iGogoKeyService.createGogoKey(gogoPublicKey);
     }
 
     @Override
     public Map listGogoPublicKey(Map in) throws Exception {
         String token=in.get("token").toString();
 
-        List<GogoPublicKey> gogoPublicKeyList = iGogoKeyService.listGogoPublicKey();
+        List<GogoKey> gogoPublicKeyList = iGogoKeyService.listGogoKey();
         Map out = new HashMap();
         out.put("gogoPublicKeyList", gogoPublicKeyList);
         return out;
@@ -67,7 +67,7 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
     @Override
     public Map getGogoPublicKey(Map in) throws Exception {
         String gogoPublicKeyId = in.get("gogoPublicKeyId").toString();
-        GogoPublicKey gogoPublicKey = iGogoKeyService.getGogoPublicKey(gogoPublicKeyId);
+        GogoKey gogoPublicKey = iGogoKeyService.getGogoKey(gogoPublicKeyId);
         Map out = new HashMap();
         out.put("key", gogoPublicKey);
         return out;
@@ -86,14 +86,14 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
             throw new Exception("10003");
         }
 
-        GogoPublicKey gogoPublicKey = iGogoKeyService.getGogoPublicKey(uuid);
+        GogoKey gogoPublicKey = iGogoKeyService.getGogoKey(uuid);
         if (gogoPublicKey == null) {
             throw new Exception("no such gogo public key");
         }
         gogoPublicKey.setTitle(title);
         gogoPublicKey.setParams(params);
 
-        iGogoKeyService.updateGogoPublicKey(gogoPublicKey);
+        iGogoKeyService.updateGogoKey(gogoPublicKey);
     }
 
     @Transactional(rollbackFor = Exception.class)
@@ -107,6 +107,6 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
             throw new Exception("10003");
         }
 
-        iGogoKeyService.deleteGogoPublicKey(gogoPublicKeyId);
+        iGogoKeyService.deleteGogoKey(gogoPublicKeyId);
     }
 }

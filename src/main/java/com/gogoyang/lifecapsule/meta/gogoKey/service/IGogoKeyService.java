@@ -1,26 +1,20 @@
 package com.gogoyang.lifecapsule.meta.gogoKey.service;
 
 import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey;
-import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoPublicKey;
 
 import java.util.List;
+
 
 public interface IGogoKeyService {
     void createGogoKey(GogoKey gogoKey) throws Exception;
 
-    void createGogoPublicKey(GogoPublicKey gogoPublicKey) throws Exception;
+    List<GogoKey> listGogoKey() throws Exception;
 
-    List<GogoPublicKey> listGogoPublicKey() throws Exception;
+    GogoKey getGogoKey(String gogoPublicKeyId) throws Exception;
 
-    GogoPublicKey getGogoPublicKey(String gogoPublicKeyId) throws Exception;
+    void updateGogoKey(GogoKey gogoPublicKey) throws Exception;
 
-    void deleteGogoPublicKey(String gogoPublicKeyId) throws Exception;
-
-    void updateGogoPublicKey(GogoPublicKey gogoPublicKey) throws Exception;
-
-    GogoKey getGogoKey(String gogoKeyId) throws Exception;
+    void deleteGogoKey(String gogoPublicKeyId) throws Exception;
 
     GogoKey getGogoKeyByTriggerId(String triggerId) throws Exception;
-
-    List<GogoKey> listGogoKey() throws Exception;
 }
