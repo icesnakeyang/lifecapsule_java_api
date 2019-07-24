@@ -48,7 +48,7 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
 
         GogoKey gogoPublicKey = new GogoKey();
         gogoPublicKey.setTitle(title);
-        gogoPublicKey.setParams(params);
+        gogoPublicKey.setKeyParams(params);
         gogoPublicKey.setGogoKeyId(GogoTools.UUID().toString());
         gogoPublicKey.setKeyStatus("active");
         gogoPublicKey.setDescription(description);
@@ -61,7 +61,7 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
     public Map listGogoPublicKey(Map in) throws Exception {
         String token = in.get("token").toString();
 
-        List<GogoKey> gogoPublicKeyList = iGogoKeyService.listGogoKey();
+        List<GogoKey> gogoPublicKeyList = iGogoKeyService.listGogoPublicKeyAll();
         Map out = new HashMap();
         out.put("gogoPublicKeyList", gogoPublicKeyList);
         return out;
@@ -94,7 +94,7 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
             throw new Exception("no such gogo public key");
         }
         gogoPublicKey.setTitle(title);
-        gogoPublicKey.setParams(params);
+        gogoPublicKey.setKeyParams(params);
 
         iGogoKeyService.updateGogoKey(gogoPublicKey);
     }

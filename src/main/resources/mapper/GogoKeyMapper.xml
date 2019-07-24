@@ -4,9 +4,9 @@
     <!--创建一个触发器条件 gogoKey-->
     <insert id="createGogoKey" parameterType="com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey">
         insert into gogo_key
-        (trigger_id, title, description, gogo_key_id, created_time)
+        (trigger_id, title, description, gogo_key_id, created_time, key_status)
          values
-        (#{triggerId}, #{title}, #{description}, #{gogoKeyId}, #{createdTime})
+        (#{triggerId}, #{title}, #{description}, #{gogoKeyId}, #{createdTime}, #{keyStatus})
     </insert>
 
     <!--新增一个参数对-->
@@ -24,7 +24,21 @@
         <result property="keyStatus" column="key_status"/>
     </resultMap>
 
-    <select id="listGogoKey" parameterType="map"
+    <resultMap id="gogoKeyParamMap" type="com.gogoyang.lifecapsule.meta.gogoKey.entity.KeyParam">
+        <result property="gogoKeyId" column="gogo_key_id"/>
+    </resultMap>
+
+    <!--读取所有的公共触发器条件模板-->
+    <select id="listGogoPublicKeyAll" parameterType="map"
             resultMap="gogoKeyMap">
+        select * from gogo_key
+        where key_status='publicKey'
+    </select>
+
+    <!--根据gogoKeyId读取触发条件参数-->
+    <select id="listKeyParamsByGogoKeyId" parameterType="java.lang.String"
+            resultMap="gogoKeyParamMap">
+        select * from gogo_key_params
+        where gogo_key_id=#{gogoKeyId}
     </select>
 </mapper>

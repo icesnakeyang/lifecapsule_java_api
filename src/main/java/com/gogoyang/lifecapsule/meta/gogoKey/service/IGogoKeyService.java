@@ -8,13 +8,13 @@ import java.util.List;
 public interface IGogoKeyService {
     void createGogoKey(GogoKey gogoKey) throws Exception;
 
-    List<GogoKey> listGogoKey() throws Exception;
+    List<GogoKey> listGogoPublicKeyAll() throws Exception;
 
-    GogoKey getGogoKey(String gogoPublicKeyId) throws Exception;
+    GogoKey getGogoKeyByTriggerId(String triggerId);
 
-    void updateGogoKey(GogoKey gogoPublicKey) throws Exception;
+    GogoKey getGogoKey(String gogoPublicKeyId);
 
-    void deleteGogoKey(String gogoPublicKeyId) throws Exception;
+    void updateGogoKey(GogoKey gogoPublicKey);
 
-    GogoKey getGogoKeyByTriggerId(String triggerId) throws Exception;
+    void deleteGogoKey(String gogoPublicKeyId);
 }

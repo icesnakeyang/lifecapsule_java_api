@@ -30,7 +30,7 @@ public class GogoKey {
     /**
      * 触发器条件参数
      */
-    private List<KeyParam> params;
+    private List<KeyParam> keyParams;
 
     /**
      * 触发器条件描述

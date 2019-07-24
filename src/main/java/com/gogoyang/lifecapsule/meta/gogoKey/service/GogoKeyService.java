@@ -40,7 +40,7 @@ public class GogoKeyService implements IGogoKeyService {
         }
 
         gogoKeyMapper.createGogoKey(gogoKey);
-        List<KeyParam> keyParams = gogoKey.getParams();
+        List<KeyParam> keyParams = gogoKey.getKeyParams();
         for (int i = 0; i < keyParams.size(); i++) {
             Map qIn = new HashMap();
             qIn.put("gogoKeyId", gogoKey.getGogoKeyId());
@@ -60,32 +60,32 @@ public class GogoKeyService implements IGogoKeyService {
     }
 
     @Override
-    public List<GogoKey> listGogoKey() throws Exception {
-        Map qIn = new HashMap();
-        qIn.put("keyStatus", "public");
-        List<GogoKey> gogoKeys = gogoKeyMapper.listGogoKey(qIn);
+    public List<GogoKey> listGogoPublicKeyAll() throws Exception {
+        List<GogoKey> gogoKeys = gogoKeyMapper.listGogoPublicKeyAll();
+        for(int i=0;i<gogoKeys.size();i++){
+            List<KeyParam> keyParams=gogoKeyMapper.listKeyParamsByGogoKeyId(gogoKeys.get(i).getGogoKeyId());
+            gogoKeys.get(i).setKeyParams(keyParams);
+        }
         return gogoKeys;
     }
 
     @Override
-    public GogoKey getGogoKey(String gogoPublicKeyId) throws Exception {
+    public GogoKey getGogoKeyByTriggerId(String triggerId) {
         return null;
     }
 
-    @Transactional(rollbackFor = Exception.class)
     @Override
-    public void updateGogoKey(GogoKey gogoPublicKey) throws Exception {
-
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public void deleteGogoKey(String gogoPublicKeyId) throws Exception {
-
-    }
-
-    @Override
-    public GogoKey getGogoKeyByTriggerId(String triggerId) throws Exception {
+    public GogoKey getGogoKey(String gogoPublicKeyId) {
         return null;
+    }
+
+    @Override
+    public void updateGogoKey(GogoKey gogoPublicKey) {
+
+    }
+
+    @Override
+    public void deleteGogoKey(String gogoPublicKeyId) {
+
     }
 }
