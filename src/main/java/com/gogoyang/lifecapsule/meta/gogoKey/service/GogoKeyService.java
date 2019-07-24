@@ -2,7 +2,7 @@ package com.gogoyang.lifecapsule.meta.gogoKey.service;
 
 import com.gogoyang.lifecapsule.meta.gogoKey.dao.mapper.GogoKeyMapper;
 import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey;
-import com.gogoyang.lifecapsule.meta.gogoKey.entity.KeyParams;
+import com.gogoyang.lifecapsule.meta.gogoKey.entity.KeyParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -40,7 +40,7 @@ public class GogoKeyService implements IGogoKeyService {
         }
 
         gogoKeyMapper.createGogoKey(gogoKey);
-        List<KeyParams> keyParams = gogoKey.getParams();
+        List<KeyParam> keyParams = gogoKey.getParams();
         for (int i = 0; i < keyParams.size(); i++) {
             Map qIn = new HashMap();
             qIn.put("gogoKeyId", gogoKey.getGogoKeyId());

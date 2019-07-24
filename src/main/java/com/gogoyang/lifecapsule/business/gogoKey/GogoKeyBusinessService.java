@@ -31,6 +31,7 @@ public class GogoKeyBusinessService implements IGogoKeyBusinessService {
 
         GogoKey gogoKey = new GogoKey();
         gogoKey.setGogoKeyId(GogoTools.UUID().toString());
+
         iGogoKeyService.createGogoKey(gogoKey);
 
         Map out = new HashMap();

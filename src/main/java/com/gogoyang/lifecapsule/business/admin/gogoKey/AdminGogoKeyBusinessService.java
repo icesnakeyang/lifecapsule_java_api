@@ -2,7 +2,7 @@ package com.gogoyang.lifecapsule.business.admin.gogoKey;
 
 
 import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey;
-import com.gogoyang.lifecapsule.meta.gogoKey.entity.KeyParams;
+import com.gogoyang.lifecapsule.meta.gogoKey.entity.KeyParam;
 import com.gogoyang.lifecapsule.meta.gogoKey.service.IGogoKeyService;
 import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
 import com.gogoyang.lifecapsule.meta.user.service.IUserInfoService;
@@ -10,6 +10,7 @@ import com.gogoyang.lifecapsule.utility.GogoTools;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +37,7 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
     public void createGogoPublicKey(Map in) throws Exception {
         String token = in.get("token").toString();
         String title = in.get("title").toString();
-        List<KeyParams> params = (List<KeyParams>) in.get("params");
+        List<KeyParam> params = (List<KeyParam>) in.get("params");
         String url = (String) in.get("url");
         String description = (String) in.get("description");
 
@@ -51,12 +52,14 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
         gogoPublicKey.setGogoKeyId(GogoTools.UUID().toString());
         gogoPublicKey.setKeyStatus("active");
         gogoPublicKey.setDescription(description);
+        gogoPublicKey.setCreatedTime(new Date());
+        gogoPublicKey.setKeyStatus("publicKey");
         iGogoKeyService.createGogoKey(gogoPublicKey);
     }
 
     @Override
     public Map listGogoPublicKey(Map in) throws Exception {
-        String token=in.get("token").toString();
+        String token = in.get("token").toString();
 
         List<GogoKey> gogoPublicKeyList = iGogoKeyService.listGogoKey();
         Map out = new HashMap();
@@ -79,7 +82,7 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
         String token = in.get("token").toString();
         String uuid = in.get("gogoPublicKeyId").toString();
         String title = in.get("title").toString();
-        List<KeyParams> params = (List<KeyParams>) in.get("params");
+        List<KeyParam> params = (List<KeyParam>) in.get("params");
 
         UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
         if (userInfo == null) {
