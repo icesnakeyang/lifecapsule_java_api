@@ -38,7 +38,7 @@ public class AdminGogoKeyController {
             Map in = new HashMap();
             in.put("token", token);
             in.put("title", request.getTitle());
-            in.put("params", request.getParams());
+            in.put("keyParams", request.getKeyParams());
             in.put("description", request.getDescription());
             in.put("url", request.getUrl());
 
@@ -59,8 +59,8 @@ public class AdminGogoKeyController {
     public Response listGogoPublicKey(HttpServletRequest httpServletRequest) {
         Response response = new Response();
         try {
-            String token=httpServletRequest.getHeader("token");
-            Map in=new HashMap();
+            String token = httpServletRequest.getHeader("token");
+            Map in = new HashMap();
             in.put("token", token);
 
             Map out = iAdminGogoKeyBusinessService.listGogoPublicKey(in);
@@ -86,7 +86,7 @@ public class AdminGogoKeyController {
             String token = httpServletRequest.getHeader("token");
             Map in = new HashMap();
             in.put("token", token);
-            in.put("gogoPublicKeyId", request.getGogoPublicKeyId());
+            in.put("gogoKeyId", request.getGogoKeyId());
 
             Map out = iAdminGogoKeyBusinessService.getGogoPublicKey(in);
             response.setData(out);
@@ -109,10 +109,11 @@ public class AdminGogoKeyController {
         try {
             String token = httpServletRequest.getHeader("token");
             Map in = new HashMap();
-            in.put("gogoPublicKeyId", request.getGogoPublicKeyId());
+            in.put("gogoKeyId", request.getGogoKeyId());
             in.put("token", token);
             in.put("title", request.getTitle());
-            in.put("params", request.getParams());
+            in.put("description", request.getDescription());
+            in.put("keyParams", request.getKeyParams());
             iAdminGogoKeyBusinessService.updateGogoPublicKey(in);
         } catch (Exception ex) {
             try {
@@ -134,7 +135,7 @@ public class AdminGogoKeyController {
             String token = httpServletRequest.getHeader("token");
             Map in = new HashMap();
             in.put("token", token);
-            in.put("gogoPublicKeyId", request.getGogoPublicKeyId());
+            in.put("gogoKeyId", request.getGogoKeyId());
             iAdminGogoKeyBusinessService.deleteGogoPublicKey(in);
         } catch (Exception ex) {
             try {

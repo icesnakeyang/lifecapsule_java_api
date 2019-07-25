@@ -18,11 +18,11 @@ public interface IGogoKeyService {
      */
     GogoKey getGogoKeyByGogoKeyId(String gogoKeyId) throws Exception;
 
-    GogoKey getGogoKeyByTriggerId(String triggerId);
+    GogoKey getGogoKeyByTriggerId(String triggerId) throws Exception;
 
-    GogoKey getGogoKey(String gogoPublicKeyId);
+    GogoKey getGogoKey(String gogoPublicKeyId) throws Exception;
 
-    void updateGogoKey(GogoKey gogoPublicKey);
+    void updateGogoKey(GogoKey gogoPublicKey) throws Exception;
 
-    void deleteGogoKey(String gogoPublicKeyId);
+    void deleteGogoKey(String gogoPublicKeyId) throws Exception;
 }

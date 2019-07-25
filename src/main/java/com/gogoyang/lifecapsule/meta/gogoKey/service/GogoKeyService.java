@@ -67,6 +67,7 @@ public class GogoKeyService implements IGogoKeyService {
 
     /**
      * 根据gogoKeyId查询触发器条件详情
+     *
      * @param gogoKeyId
      * @return
      * @throws Exception
@@ -85,13 +86,26 @@ public class GogoKeyService implements IGogoKeyService {
     }
 
     @Override
-    public GogoKey getGogoKey(String gogoPublicKeyId) {
-        return null;
+    public GogoKey getGogoKey(String gogoPublicKeyId) throws Exception {
+        GogoKey gogoKey = gogoKeyMapper.getGogoKeyByGogoKeyId(gogoPublicKeyId);
+        return gogoKey;
     }
 
     @Override
-    public void updateGogoKey(GogoKey gogoPublicKey) {
-
+    public void updateGogoKey(GogoKey gogoKey) throws Exception {
+        if (gogoKey.getGogoKeyId() == null) {
+            throw new Exception("10001");
+        }
+        gogoKeyMapper.updateGogoKey(gogoKey);
+        List<KeyParam> keyParams = gogoKey.getKeyParams();
+        for (int i = 0; i < keyParams.size(); i++) {
+            Map qIn = new HashMap();
+            qIn.put("gogoKeyId", gogoKey.getGogoKeyId());
+            qIn.put("type", keyParams.get(i).getType());
+            qIn.put("param", keyParams.get(i).getParam());
+            qIn.put("value", keyParams.get(i).getValue());
+            gogoKeyMapper.updateGogoKeyParam(qIn);
+        }
     }
 
     @Override

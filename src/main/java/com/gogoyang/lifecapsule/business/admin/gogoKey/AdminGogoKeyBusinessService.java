@@ -37,7 +37,7 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
     public void createGogoPublicKey(Map in) throws Exception {
         String token = in.get("token").toString();
         String title = in.get("title").toString();
-        List<KeyParam> params = (List<KeyParam>) in.get("params");
+        List<KeyParam> keyParams = (List<KeyParam>) in.get("keyParams");
         String url = (String) in.get("url");
         String description = (String) in.get("description");
 
@@ -48,7 +48,7 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
 
         GogoKey gogoPublicKey = new GogoKey();
         gogoPublicKey.setTitle(title);
-        gogoPublicKey.setKeyParams(params);
+        gogoPublicKey.setKeyParams(keyParams);
         gogoPublicKey.setGogoKeyId(GogoTools.UUID().toString());
         gogoPublicKey.setKeyStatus("active");
         gogoPublicKey.setDescription(description);
@@ -69,7 +69,7 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
 
     @Override
     public Map getGogoPublicKey(Map in) throws Exception {
-        String gogoPublicKeyId = in.get("gogoPublicKeyId").toString();
+        String gogoPublicKeyId = in.get("gogoKeyId").toString();
         GogoKey gogoPublicKey = iGogoKeyService.getGogoKeyByGogoKeyId(gogoPublicKeyId);
         Map out = new HashMap();
         out.put("key", gogoPublicKey);
@@ -80,9 +80,10 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
     @Override
     public void updateGogoPublicKey(Map in) throws Exception {
         String token = in.get("token").toString();
-        String uuid = in.get("gogoPublicKeyId").toString();
+        String uuid = in.get("gogoKeyId").toString();
         String title = in.get("title").toString();
-        List<KeyParam> params = (List<KeyParam>) in.get("params");
+        String description = in.get("description").toString();
+        List<KeyParam> keyParams = (List<KeyParam>) in.get("keyParams");
 
         UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
         if (userInfo == null) {
@@ -94,7 +95,7 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
             throw new Exception("no such gogo public key");
         }
         gogoPublicKey.setTitle(title);
-        gogoPublicKey.setKeyParams(params);
+        gogoPublicKey.setKeyParams(keyParams);
 
         iGogoKeyService.updateGogoKey(gogoPublicKey);
     }
@@ -103,7 +104,7 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
     @Override
     public void deleteGogoPublicKey(Map in) throws Exception {
         String token = in.get("token").toString();
-        String gogoPublicKeyId = in.get("gogoPublicKeyId").toString();
+        String gogoPublicKeyId = in.get("gogoKeyId").toString();
 
         UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
         if (userInfo == null) {

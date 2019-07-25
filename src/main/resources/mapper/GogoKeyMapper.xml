@@ -44,8 +44,23 @@
 
     <!--根据gogoKeyId查询触发器条件详情-->
     <select id="getGogoKeyByGogoKeyId" parameterType="java.lang.String"
-            resultMap="gogoKeyParamMap">
+            resultMap="gogoKeyMap">
         select * from gogo_key
         where gogo_key_id=#{gogoKeyId}
     </select>
+
+    <update id="updateGogoKey" parameterType="com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey">
+        update gogo_key set
+        title=#{title},
+        description=#{description}
+        where gogo_key_id=#{gogoKeyId}
+    </update>
+
+    <update id="updateGogoKeyParam" parameterType="map">
+        update gogo_key_params set
+        param=#{param},
+        value=#{value},
+        type=#{type}
+        where gogo_key_id=#{gogoKeyId};
+    </update>
 </mapper>

@@ -9,8 +9,8 @@ import java.util.List;
 public class AdminGogoKeyRequest {
     private String title;
     private String type;
-    private List<KeyParam> params;
-    private String gogoPublicKeyId;
+    private List<KeyParam> keyParams;
+    private String gogoKeyId;
     private String description;
     private String url;
 }

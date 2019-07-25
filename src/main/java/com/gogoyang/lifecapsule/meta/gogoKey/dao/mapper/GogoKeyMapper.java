@@ -23,4 +23,8 @@ public interface GogoKeyMapper {
      * @return
      */
     GogoKey getGogoKeyByGogoKeyId(String gogoKeyId);
+
+    void updateGogoKey(GogoKey gogoKey);
+
+    void updateGogoKeyParam(Map qIn);
 }
