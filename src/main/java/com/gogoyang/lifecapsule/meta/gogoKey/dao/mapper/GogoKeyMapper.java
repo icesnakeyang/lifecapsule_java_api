@@ -3,6 +3,7 @@ package com.gogoyang.lifecapsule.meta.gogoKey.dao.mapper;
 import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey;
 import com.gogoyang.lifecapsule.meta.gogoKey.entity.KeyParam;
 import org.apache.ibatis.annotations.Mapper;
+import sun.swing.StringUIClientPropertyKey;
 
 import java.util.List;
 import java.util.Map;
@@ -27,4 +28,6 @@ public interface GogoKeyMapper {
     void updateGogoKey(GogoKey gogoKey);
 
     void updateGogoKeyParam(Map qIn);
+
+    void deleteGogoKeyParamByGogoKeyId(String gogoKeyId);
 }

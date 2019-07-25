@@ -3,6 +3,7 @@ package com.gogoyang.lifecapsule.meta.gogoKey.service;
 import com.gogoyang.lifecapsule.meta.gogoKey.dao.mapper.GogoKeyMapper;
 import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey;
 import com.gogoyang.lifecapsule.meta.gogoKey.entity.KeyParam;
+import com.gogoyang.lifecapsule.utility.GogoTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,6 +44,7 @@ public class GogoKeyService implements IGogoKeyService {
         List<KeyParam> keyParams = gogoKey.getKeyParams();
         for (int i = 0; i < keyParams.size(); i++) {
             Map qIn = new HashMap();
+            qIn.put("paramId", GogoTools.UUID().toString());
             qIn.put("gogoKeyId", gogoKey.getGogoKeyId());
             if (keyParams.get(i).getParam() == null) {
                 throw new Exception("10001");
@@ -91,6 +93,7 @@ public class GogoKeyService implements IGogoKeyService {
         return gogoKey;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void updateGogoKey(GogoKey gogoKey) throws Exception {
         if (gogoKey.getGogoKeyId() == null) {
@@ -98,13 +101,18 @@ public class GogoKeyService implements IGogoKeyService {
         }
         gogoKeyMapper.updateGogoKey(gogoKey);
         List<KeyParam> keyParams = gogoKey.getKeyParams();
+        /**
+         * 先把数据库原来的所有数据都删除，再新增回去
+         */
+        gogoKeyMapper.deleteGogoKeyParamByGogoKeyId(gogoKey.getGogoKeyId());
         for (int i = 0; i < keyParams.size(); i++) {
             Map qIn = new HashMap();
+            qIn.put("paramId", GogoTools.UUID().toString());
             qIn.put("gogoKeyId", gogoKey.getGogoKeyId());
             qIn.put("type", keyParams.get(i).getType());
             qIn.put("param", keyParams.get(i).getParam());
             qIn.put("value", keyParams.get(i).getValue());
-            gogoKeyMapper.updateGogoKeyParam(qIn);
+            gogoKeyMapper.createGogoKeyParam(qIn);
         }
     }
 

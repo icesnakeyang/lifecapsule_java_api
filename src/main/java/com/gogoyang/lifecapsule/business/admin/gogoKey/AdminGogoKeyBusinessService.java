@@ -95,6 +95,7 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
             throw new Exception("no such gogo public key");
         }
         gogoPublicKey.setTitle(title);
+        gogoPublicKey.setDescription(description);
         gogoPublicKey.setKeyParams(keyParams);
 
         iGogoKeyService.updateGogoKey(gogoPublicKey);

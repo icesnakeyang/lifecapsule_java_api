@@ -12,9 +12,9 @@
     <!--新增一个参数对-->
     <insert id="createGogoKeyParam" parameterType="map">
         insert into gogo_key_params
-        (gogo_key_id, param, value, type)
+        (gogo_key_id, param, value, type, param_id)
         VALUES
-        (#{gogoKeyId}, #{param}, #{value}, #{type})
+        (#{gogoKeyId}, #{param}, #{value}, #{type}, #{paramId})
     </insert>
 
     <!--配置gogo_key表和GogoKey对象的字段映射 -->
@@ -26,6 +26,7 @@
 
     <resultMap id="gogoKeyParamMap" type="com.gogoyang.lifecapsule.meta.gogoKey.entity.KeyParam">
         <result property="gogoKeyId" column="gogo_key_id"/>
+        <result property="paramId" column="param_id"/>
     </resultMap>
 
     <!--读取所有的公共触发器条件模板-->
@@ -61,6 +62,11 @@
         param=#{param},
         value=#{value},
         type=#{type}
-        where gogo_key_id=#{gogoKeyId};
+        where param_id=#{paramId};
     </update>
+
+    <delete id="deleteGogoKeyParamByGogoKeyId" parameterType="map">
+        delete from gogo_key_params
+        where gogo_key_id=#{gogoKeyId}
+    </delete>
 </mapper>
