@@ -10,6 +10,14 @@ public interface IGogoKeyService {
 
     List<GogoKey> listGogoPublicKeyAll() throws Exception;
 
+    /**
+     * 根据gogoKeyId查询触发器条件详情
+     * @param gogoKeyId
+     * @return
+     * @throws Exception
+     */
+    GogoKey getGogoKeyByGogoKeyId(String gogoKeyId) throws Exception;
+
     GogoKey getGogoKeyByTriggerId(String triggerId);
 
     GogoKey getGogoKey(String gogoPublicKeyId);

@@ -41,4 +41,11 @@
         select * from gogo_key_params
         where gogo_key_id=#{gogoKeyId}
     </select>
+
+    <!--根据gogoKeyId查询触发器条件详情-->
+    <select id="getGogoKeyByGogoKeyId" parameterType="java.lang.String"
+            resultMap="gogoKeyParamMap">
+        select * from gogo_key
+        where gogo_key_id=#{gogoKeyId}
+    </select>
 </mapper>

@@ -8,4 +8,5 @@ public class KeyParam {
     private String param;
     private Object value;
     private String type;
+    private String gogoKeyId;
 }

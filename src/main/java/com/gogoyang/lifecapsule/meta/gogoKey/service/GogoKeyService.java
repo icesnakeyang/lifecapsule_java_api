@@ -62,11 +62,21 @@ public class GogoKeyService implements IGogoKeyService {
     @Override
     public List<GogoKey> listGogoPublicKeyAll() throws Exception {
         List<GogoKey> gogoKeys = gogoKeyMapper.listGogoPublicKeyAll();
-        for(int i=0;i<gogoKeys.size();i++){
-            List<KeyParam> keyParams=gogoKeyMapper.listKeyParamsByGogoKeyId(gogoKeys.get(i).getGogoKeyId());
-            gogoKeys.get(i).setKeyParams(keyParams);
-        }
         return gogoKeys;
+    }
+
+    /**
+     * 根据gogoKeyId查询触发器条件详情
+     * @param gogoKeyId
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public GogoKey getGogoKeyByGogoKeyId(String gogoKeyId) throws Exception {
+        GogoKey gogoKey = gogoKeyMapper.getGogoKeyByGogoKeyId(gogoKeyId);
+        List<KeyParam> keyParams = gogoKeyMapper.listKeyParamsByGogoKeyId(gogoKeyId);
+        gogoKey.setKeyParams(keyParams);
+        return gogoKey;
     }
 
     @Override

@@ -70,7 +70,7 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
     @Override
     public Map getGogoPublicKey(Map in) throws Exception {
         String gogoPublicKeyId = in.get("gogoPublicKeyId").toString();
-        GogoKey gogoPublicKey = iGogoKeyService.getGogoKey(gogoPublicKeyId);
+        GogoKey gogoPublicKey = iGogoKeyService.getGogoKeyByGogoKeyId(gogoPublicKeyId);
         Map out = new HashMap();
         out.put("key", gogoPublicKey);
         return out;

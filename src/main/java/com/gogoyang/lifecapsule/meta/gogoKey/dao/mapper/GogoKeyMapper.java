@@ -16,4 +16,11 @@ public interface GogoKeyMapper {
     List<GogoKey> listGogoPublicKeyAll();
 
     List<KeyParam> listKeyParamsByGogoKeyId(String gogoKeyId);
+
+    /**
+     * 根据gogoKeyId查询触发器条件详情
+     * @param gogoKeyId
+     * @return
+     */
+    GogoKey getGogoKeyByGogoKeyId(String gogoKeyId);
 }
