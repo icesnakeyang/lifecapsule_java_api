@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gogoyang.lifecapsule.meta.note.dao.mapper.NoteInfoMapper">
+<mapper namespace="com.gogoyang.lifecapsule.meta.note.dao.NoteInfoMapper">
     <insert id="createNoteInfo"
             parameterType="com.gogoyang.lifecapsule.meta.note.entity.NoteInfo">
       insert into note_info
@@ -28,6 +28,11 @@
         <result property="createdTime" column="created_time"/>
         <result property="categoryId" column="category_id"/>
         <result property="userEncodeKey" column="user_encode_key"/>
+    </resultMap>
+
+    <resultMap id="noteDetailMap" type="com.gogoyang.lifecapsule.meta.note.entity.NoteDetail">
+        <result property="noteId" column="note_id"></result>
+        <result property="contentId" column="content_id"></result>
     </resultMap>
 
     <!--分页查询一个用户id的笔记列表-->
@@ -71,6 +76,26 @@
         and user_id=#{userId}
         order by ids desc
         limit #{pageSize} offset #{offset}
+    </select>
+
+    <!--新增笔记的详细信息-->
+    <insert id="createNoteDetail"
+            parameterType="com.gogoyang.lifecapsule.meta.note.entity.NoteDetail">
+        insert into note_detail
+        (note_id, content_id, content)
+        values
+        (#{noteId}, #{contentId}, #{content})
+    </insert>
+
+    <delete id="deleteNoteDetail" parameterType="java.lang.String">
+        delete from note_detail
+        where note_id=#{noteId}
+    </delete>
+
+    <select id="getNoteDetail" parameterType="java.lang.String"
+            resultMap="noteDetailMap">
+        select * from note_detail
+        where note_id=#{noteId}
     </select>
 
 </mapper>

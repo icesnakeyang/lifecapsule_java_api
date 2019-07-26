@@ -337,8 +337,8 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         String triggerName = (String) in.get("triggerName");
         String noteId = (String) in.get("noteId");
         String triggerRemark = (String) in.get("triggerRemark");
-        String gogoKeyTitle=(String)in.get("title");
-        String gogoKeyDescription=(String)in.get("description");
+        String gogoKeyTitle = (String) in.get("title");
+        String gogoKeyDescription = (String) in.get("description");
 
         //检查用户是否登录
         UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
@@ -354,10 +354,10 @@ public class TriggerBusinessService implements ITriggerBusinessService {
             //没有触发器，创建一个
             trigger = new Trigger();
             trigger.setCreatedTime(new Date());
-            if(triggerName!=null) {
+            if (triggerName != null) {
                 trigger.setName(triggerName);
                 trigger.setRemark(triggerRemark);
-            }else {
+            } else {
                 trigger.setName(gogoKeyTitle);
                 trigger.setRemark(gogoKeyDescription);
             }
@@ -387,11 +387,16 @@ public class TriggerBusinessService implements ITriggerBusinessService {
             gogoKey.setGogoKeyId(GogoTools.UUID().toString());
             gogoKey.setTriggerId(trigger.getTriggerId());
             gogoKey.setCreatedTime(new Date());
+            gogoKey.setTitle(gogoKeyTitle);
+            gogoKey.setDescription(gogoKeyDescription);
+            gogoKey.setKeyParams(keyParams);
+            iGogoKeyService.createGogoKey(gogoKey);
+        } else {
+            gogoKey.setKeyParams(keyParams);
+            gogoKey.setDescription(gogoKeyDescription);
+            gogoKey.setTitle(gogoKeyTitle);
+            iGogoKeyService.updateGogoKey(gogoKey);
         }
-        gogoKey.setTitle(gogoKeyTitle);
-        gogoKey.setDescription(gogoKeyDescription);
-        gogoKey.setKeyParams(keyParams);
-        iGogoKeyService.createGogoKey(gogoKey);
     }
 
     @Override

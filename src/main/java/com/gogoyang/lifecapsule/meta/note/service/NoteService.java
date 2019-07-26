@@ -1,7 +1,6 @@
 package com.gogoyang.lifecapsule.meta.note.service;
 
-import com.gogoyang.lifecapsule.meta.note.dao.mapper.NoteInfoMapper;
-import com.gogoyang.lifecapsule.meta.note.dao.repository.INoteDetailRepository;
+import com.gogoyang.lifecapsule.meta.note.dao.NoteInfoMapper;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteDetail;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +14,10 @@ import java.util.Map;
 @Service
 public class NoteService implements INoteService {
     private final NoteInfoMapper noteInfoMapper;
-    private final INoteDetailRepository iNoteDetailRepository;
 
     @Autowired
-    public NoteService(NoteInfoMapper noteInfoMapper,
-                       INoteDetailRepository iNoteDetailRepository) {
+    public NoteService(NoteInfoMapper noteInfoMapper) {
         this.noteInfoMapper = noteInfoMapper;
-        this.iNoteDetailRepository = iNoteDetailRepository;
     }
 
     /**
@@ -40,12 +36,12 @@ public class NoteService implements INoteService {
 
         NoteDetail noteDetail = new NoteDetail();
         noteDetail.setNoteId(noteInfo.getNoteId());
-        noteDetail.setDetail(noteInfo.getDetail());
+        noteDetail.setContent(noteInfo.getDetail());
         /**
          * 这里添加把detail打碎，加密的算法
          */
         fractureDetail(noteDetail);
-        iNoteDetailRepository.createNoteDetail(noteDetail);
+        noteInfoMapper.createNoteDetail(noteDetail);
     }
 
     /**
@@ -63,9 +59,14 @@ public class NoteService implements INoteService {
         //修改NoteDetail
         NoteDetail noteDetail = new NoteDetail();
         noteDetail.setNoteId(noteInfo.getNoteId());
-        noteDetail.setDetail(noteInfo.getDetail());
+        noteDetail.setContent(noteInfo.getDetail());
         fractureDetail(noteDetail);
-        iNoteDetailRepository.updateNoteDetail(noteDetail);
+
+        /**
+         * 在碎片化功能实现之前，直接删除旧的，创建新的
+         */
+        noteInfoMapper.deleteNoteDetail(noteDetail.getNoteId());
+        noteInfoMapper.createNoteDetail(noteDetail);
     }
 
     /**
@@ -105,9 +106,12 @@ public class NoteService implements INoteService {
         if (noteInfo == null) {
             return null;
         }
-        NoteDetail noteDetail = iNoteDetailRepository.getNoteDetail(noteId);
+        /**
+         * 没有实现碎片功能前，暂时直接读取
+         */
+        NoteDetail noteDetail = noteInfoMapper.getNoteDetail(noteId);
         if (noteDetail != null) {
-            noteInfo.setDetail(noteDetail.getDetail());
+            noteInfo.setDetail(noteDetail.getContent());
         }
         return noteInfo;
     }
@@ -165,7 +169,7 @@ public class NoteService implements INoteService {
 
     @Override
     public void fractureDetail(NoteDetail noteDetail) throws Exception {
-        for(int i=0;i<noteDetail.getDetail().length();i++){
+        for (int i = 0; i < noteDetail.getContent().length(); i++) {
             /**
              * 打碎，加密，排序，保存
              * 读取一个字节，进行hash256

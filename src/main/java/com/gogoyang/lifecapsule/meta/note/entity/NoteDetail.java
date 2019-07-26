@@ -9,45 +9,19 @@ import lombok.Data;
  */
 @Data
 public class NoteDetail {
+    private Integer ids;
     /**
      * 全局id
      */
     private String noteId;
 
     /**
-     * 详细内容
+     * 碎片id
      */
-    private String detail;
+    private String contentId;
 
     /**
-     * MongoDB自动生成的主键
+     * 详细内容
      */
-    private String _id;
-
-    /////////////////////////////////////////////////////////////////////////////////
-
-
-    public String getNoteId() {
-        return noteId;
-    }
-
-    public void setNoteId(String noteId) {
-        this.noteId = noteId;
-    }
-
-    public String getDetail() {
-        return detail;
-    }
-
-    public void setDetail(String detail) {
-        this.detail = detail;
-    }
-
-    public String get_id() {
-        return _id;
-    }
-
-    public void set_id(String _id) {
-        this._id = _id;
-    }
+    private String content;
 }

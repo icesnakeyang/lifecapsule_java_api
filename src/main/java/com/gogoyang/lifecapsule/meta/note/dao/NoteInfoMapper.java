@@ -1,5 +1,6 @@
-package com.gogoyang.lifecapsule.meta.note.dao.mapper;
+package com.gogoyang.lifecapsule.meta.note.dao;
 
+import com.gogoyang.lifecapsule.meta.note.entity.NoteDetail;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteInfo;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -46,4 +47,12 @@ public interface NoteInfoMapper {
      * @return
      */
     List listNoteByCategory(Map qIn);
+
+    void createNoteDetail(NoteDetail noteDetail);
+
+    void updateNoteDetail(NoteDetail noteDetail);
+
+    void deleteNoteDetail(String noteId);
+
+    NoteDetail getNoteDetail(String noteId);
 }
