@@ -331,25 +331,19 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         String token = in.get("token").toString();
         //用户触发器Id
         String triggerId = (String) in.get("triggerId");
-        //公共触发器模板的uuid
-        String gogoPublicKeyId = in.get("gogoPublicKeyId").toString();
         //用户设置的触发器参数
-        List<KeyParam> paramList = (List<KeyParam>) in.get("params");
+        List<KeyParam> keyParams = (List<KeyParam>) in.get("keyParams");
         String gogoKeyId = (String) in.get("gogoKeyId");
         String triggerName = (String) in.get("triggerName");
         String noteId = (String) in.get("noteId");
         String triggerRemark = (String) in.get("triggerRemark");
+        String gogoKeyTitle=(String)in.get("title");
+        String gogoKeyDescription=(String)in.get("description");
 
         //检查用户是否登录
         UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
         if (userInfo == null) {
             throw new Exception("10003");
-        }
-
-        GogoKey gogoPublicKey = iGogoKeyService.getGogoKey(gogoPublicKeyId);
-        if (gogoPublicKey == null) {
-            //没有查询到触发器模板
-            throw new Exception("10022");
         }
 
         Trigger trigger = null;
@@ -360,9 +354,14 @@ public class TriggerBusinessService implements ITriggerBusinessService {
             //没有触发器，创建一个
             trigger = new Trigger();
             trigger.setCreatedTime(new Date());
-            trigger.setName(triggerName);
+            if(triggerName!=null) {
+                trigger.setName(triggerName);
+                trigger.setRemark(triggerRemark);
+            }else {
+                trigger.setName(gogoKeyTitle);
+                trigger.setRemark(gogoKeyDescription);
+            }
             trigger.setNoteId(noteId);
-            trigger.setRemark(triggerRemark);
             trigger.setTriggerId(GogoTools.UUID().toString());
             iTriggerService.createTrigger(trigger);
         } else {
@@ -387,14 +386,11 @@ public class TriggerBusinessService implements ITriggerBusinessService {
             gogoKey = new GogoKey();
             gogoKey.setGogoKeyId(GogoTools.UUID().toString());
             gogoKey.setTriggerId(trigger.getTriggerId());
+            gogoKey.setCreatedTime(new Date());
         }
-
-        if (gogoPublicKey == null) {
-            throw new Exception("10001");
-        }
-        gogoKey.setTitle(gogoPublicKey.getTitle());
-        gogoKey.setDescription(gogoPublicKey.getDescription());
-        gogoKey.setKeyParams(paramList);
+        gogoKey.setTitle(gogoKeyTitle);
+        gogoKey.setDescription(gogoKeyDescription);
+        gogoKey.setKeyParams(keyParams);
         iGogoKeyService.createGogoKey(gogoKey);
     }
 

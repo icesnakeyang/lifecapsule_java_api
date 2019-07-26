@@ -22,6 +22,7 @@
         <result property="gogoKeyId" column="gogo_key_id"/>
         <result property="createdTime" column="created_time"/>
         <result property="keyStatus" column="key_status"/>
+        <result property="triggerId" column="trigger_id"/>
     </resultMap>
 
     <resultMap id="gogoKeyParamMap" type="com.gogoyang.lifecapsule.meta.gogoKey.entity.KeyParam">
@@ -69,4 +70,10 @@
         delete from gogo_key_params
         where gogo_key_id=#{gogoKeyId}
     </delete>
+
+    <select id="getGogoKeyByTriggerid" parameterType="java.lang.String"
+            resultMap="gogoKeyMap">
+        select * from gogo_key
+        where trigger_id=#{triggerid}
+    </select>
 </mapper>

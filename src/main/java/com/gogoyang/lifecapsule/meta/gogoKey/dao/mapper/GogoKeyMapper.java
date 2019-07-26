@@ -30,4 +30,6 @@ public interface GogoKeyMapper {
     void updateGogoKeyParam(Map qIn);
 
     void deleteGogoKeyParamByGogoKeyId(String gogoKeyId);
+
+    GogoKey getGogoKeyByTriggerid(String triggerId);
 }

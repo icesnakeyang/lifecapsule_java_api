@@ -1,10 +1,12 @@
 package com.gogoyang.lifecapsule.controller.trigger;
 
+import com.gogoyang.lifecapsule.meta.gogoKey.entity.KeyParam;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -21,8 +23,10 @@ public class TriggerRequest {
     private String triggerRemark;
     private String triggerName;
     private String triggerId;
-    private Object params;
+    private List<KeyParam> keyParams;
     private String gogoPublicKeyId;
     private String gogoKeyTitle;
     private String gogoKeyId;
+    private String title;
+    private String description;
 }

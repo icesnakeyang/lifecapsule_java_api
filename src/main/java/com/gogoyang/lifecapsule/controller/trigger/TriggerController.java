@@ -189,8 +189,10 @@ public class TriggerController {
             Map in = new HashMap();
             in.put("token", token);
             in.put("triggerId", request.getTriggerId());
+            in.put("title", request.getTitle());
+            in.put("description", request.getDescription());
             in.put("gogoPublicKeyId", request.getGogoPublicKeyId());
-            in.put("params", request.getParams());
+            in.put("keyParams", request.getKeyParams());
             in.put("gogoKeyId", request.getGogoKeyId());
             in.put("triggerName", request.getTriggerName());
             in.put("noteId", request.getNoteId());
@@ -263,6 +265,7 @@ public class TriggerController {
 
     /**
      * 根据noteId查询trigger
+     *
      * @param request
      * @param httpServletRequest
      * @return
