@@ -278,6 +278,28 @@ public class NoteBusinessService implements INoteBusinessService {
         return out;
     }
 
+    @Override
+    public void deleteNoteByNoteId(Map in) throws Exception {
+        String token=in.get("token").toString();
+        String noteId=in.get("noteId").toString();
+
+        UserInfo userInfo=iUserInfoService.getUserByUserToken(token);
+        if(userInfo==null){
+            throw new Exception("10003");
+        }
+
+        NoteInfo noteInfo=iNoteService.getNoteTinyByNoteId(noteId);
+        if(userInfo==null){
+            throw new Exception("10004");
+        }
+
+        if(!userInfo.getUserId().equals(noteInfo.getUserId())){
+            throw new Exception("10011");
+        }
+
+        iNoteService.deleteNote(noteId);
+    }
+
     /**
      * 获取用户上传的AES秘钥
      * 该秘钥用于加密解密用户笔记的AES，加密后传递到用户客户端

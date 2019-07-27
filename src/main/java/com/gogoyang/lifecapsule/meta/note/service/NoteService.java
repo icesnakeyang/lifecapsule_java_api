@@ -77,7 +77,8 @@ public class NoteService implements INoteService {
      */
     @Override
     public void deleteNote(String noteId) throws Exception {
-
+        noteInfoMapper.deleteNoteInfo(noteId);
+        noteInfoMapper.deleteNoteDetail(noteId);
     }
 
     /**

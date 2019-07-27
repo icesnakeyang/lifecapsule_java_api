@@ -55,4 +55,6 @@ public interface NoteInfoMapper {
     void deleteNoteDetail(String noteId);
 
     NoteDetail getNoteDetail(String noteId);
+
+    void deleteNoteInfo(String noteId);
 }

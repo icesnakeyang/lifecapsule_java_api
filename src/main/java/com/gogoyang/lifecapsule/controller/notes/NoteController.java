@@ -3,6 +3,7 @@ package com.gogoyang.lifecapsule.controller.notes;
 import com.gogoyang.lifecapsule.business.note.INoteBusinessService;
 import com.gogoyang.lifecapsule.controller.vo.Response;
 import com.gogoyang.lifecapsule.utility.GogoTools;
+import com.sun.org.apache.regexp.internal.RE;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -129,7 +130,7 @@ public class NoteController {
         Response response = new Response();
         try {
 
-            String strAesKey=GogoTools.generateAESKey();
+            String strAesKey = GogoTools.generateAESKey();
 
             String token = httpServletRequest.getHeader("token");
             Map in = new HashMap();
@@ -184,6 +185,28 @@ public class NoteController {
             } catch (Exception ex2) {
                 response.setCode(10001);
                 logger.error(ex.getMessage());
+            }
+        }
+        return response;
+    }
+
+    @ResponseBody
+    @PostMapping("/deleteNote")
+    public Response deleteNote(@RequestBody NoteRequest request,
+                               HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            Map in = new HashMap();
+            in.put("token", token);
+            in.put("noteId", request.getNoteId());
+
+            iNoteBusinessService.deleteNoteByNoteId(in);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
             }
         }
         return response;

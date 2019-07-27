@@ -92,6 +92,11 @@
         where note_id=#{noteId}
     </delete>
 
+    <delete id="deleteNoteInfo" parameterType="java.lang.String">
+        delete from note_info
+        where note_id=#{noteId}
+    </delete>
+
     <select id="getNoteDetail" parameterType="java.lang.String"
             resultMap="noteDetailMap">
         select * from note_detail
