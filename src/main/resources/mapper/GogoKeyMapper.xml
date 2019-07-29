@@ -76,4 +76,10 @@
         select * from gogo_key
         where trigger_id=#{triggerid}
     </select>
+
+    <select id="listUserGogoKey" parameterType="map"
+            resultMap="gogoKeyMap">
+        select * from gogo_key
+        where key_status='userKey';
+    </select>
 </mapper>

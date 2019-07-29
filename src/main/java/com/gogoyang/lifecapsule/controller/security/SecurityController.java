@@ -3,6 +3,8 @@ package com.gogoyang.lifecapsule.controller.security;
 import com.gogoyang.lifecapsule.business.security.ISecurityBusinessService;
 import com.gogoyang.lifecapsule.controller.vo.Response;
 import com.gogoyang.lifecapsule.utility.GogoTools;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -15,6 +17,8 @@ import java.util.Map;
 @RequestMapping("/security")
 public class SecurityController {
     private final ISecurityBusinessService iSecurityBusinessService;
+
+    private Logger logger = LoggerFactory.getLogger(getClass());
 
     public SecurityController(ISecurityBusinessService iSecurityBusinessService) {
         this.iSecurityBusinessService = iSecurityBusinessService;
@@ -40,8 +44,9 @@ public class SecurityController {
         } catch (Exception ex) {
             try {
                 response.setCode(Integer.parseInt(ex.getMessage()));
-            }catch (Exception ex2){
+            } catch (Exception ex2) {
                 response.setCode(10001);
+                logger.error(ex.getMessage());
             }
         }
         return response;

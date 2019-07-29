@@ -12,6 +12,7 @@ public interface IGogoKeyService {
 
     /**
      * 根据gogoKeyId查询触发器条件详情
+     *
      * @param gogoKeyId
      * @return
      * @throws Exception
@@ -25,4 +26,11 @@ public interface IGogoKeyService {
     void updateGogoKey(GogoKey gogoPublicKey) throws Exception;
 
     void deleteGogoKey(String gogoPublicKeyId) throws Exception;
+
+    /**
+     * 读取用户设置的gogoKey，让后台检查处理
+     * @return
+     * @throws Exception
+     */
+    List<GogoKey> listGogoKeyAll() throws Exception;
 }

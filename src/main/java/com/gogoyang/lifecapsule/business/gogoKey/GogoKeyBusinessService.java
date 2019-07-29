@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -31,6 +30,7 @@ public class GogoKeyBusinessService implements IGogoKeyBusinessService {
 
         GogoKey gogoKey = new GogoKey();
         gogoKey.setGogoKeyId(GogoTools.UUID().toString());
+        gogoKey.setKeyStatus("userKey");
 
         iGogoKeyService.createGogoKey(gogoKey);
 

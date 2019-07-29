@@ -390,6 +390,7 @@ public class TriggerBusinessService implements ITriggerBusinessService {
             gogoKey.setTitle(gogoKeyTitle);
             gogoKey.setDescription(gogoKeyDescription);
             gogoKey.setKeyParams(keyParams);
+            gogoKey.setKeyStatus("userKey");
             iGogoKeyService.createGogoKey(gogoKey);
         } else {
             gogoKey.setKeyParams(keyParams);

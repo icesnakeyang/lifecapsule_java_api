@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gogoyang.lifecapsule.meta.security.dao.SecurityKeyMapper">
+    <!--保存一个私钥-->
+    <insert id="saveRSA" parameterType="com.gogoyang.lifecapsule.meta.security.entity.SecurityKey">
+        insert into security_key
+        (key_token, private_rsa)
+        values
+        (#{keyToken}, #{privateRSA})
+    </insert>
+
+    <!--配置security_key表和SecurityKey对象的字段映射 -->
+    <resultMap id="securityKeyMap" type="com.gogoyang.lifecapsule.meta.security.entity.SecurityKey">
+        <result property="keyToken" column="key_token"/>
+        <result property="privateRSA" column="private_rsa"/>
+    </resultMap>
+
+    <!--读取一个私钥-->
+    <select id="getRSAPrivateKey" parameterType="java.lang.String"
+            resultMap="securityKeyMap">
+        select * from security_key
+        where key_token=#{keyToken}
+    </select>
+
+    <!--删除一个私钥-->
+    <delete id="deleteRSAKey" parameterType="java.lang.String">
+        delete from security_key
+        where key_token=#{keyToken}
+    </delete>
+</mapper>

@@ -85,8 +85,10 @@ public class GogoKeyService implements IGogoKeyService {
     @Override
     public GogoKey getGogoKeyByTriggerId(String triggerId) {
         GogoKey gogoKey = gogoKeyMapper.getGogoKeyByTriggerid(triggerId);
-        List<KeyParam> keyParams = gogoKeyMapper.listKeyParamsByGogoKeyId(gogoKey.getGogoKeyId());
-        gogoKey.setKeyParams(keyParams);
+        if (gogoKey != null) {
+            List<KeyParam> keyParams = gogoKeyMapper.listKeyParamsByGogoKeyId(gogoKey.getGogoKeyId());
+            gogoKey.setKeyParams(keyParams);
+        }
         return gogoKey;
     }
 
@@ -124,5 +126,14 @@ public class GogoKeyService implements IGogoKeyService {
     @Override
     public void deleteGogoKey(String gogoPublicKeyId) {
 
+    }
+
+    @Override
+    public List<GogoKey> listGogoKeyAll() throws Exception {
+        Map qIn = new HashMap();
+        qIn.put("offset", 0);
+        qIn.put("size", 10000);
+        List<GogoKey> gogoKeys = gogoKeyMapper.listUserGogoKey(qIn);
+        return gogoKeys;
     }
 }

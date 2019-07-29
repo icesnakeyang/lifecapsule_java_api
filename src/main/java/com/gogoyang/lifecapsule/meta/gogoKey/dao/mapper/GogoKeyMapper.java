@@ -32,4 +32,6 @@ public interface GogoKeyMapper {
     void deleteGogoKeyParamByGogoKeyId(String gogoKeyId);
 
     GogoKey getGogoKeyByTriggerid(String triggerId);
+
+    List<GogoKey> listUserGogoKey(Map qIn);
 }
