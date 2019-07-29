@@ -54,7 +54,8 @@ public class UserInfoService implements IUserInfoService {
 
     @Override
     public UserInfo getUserByUserId(String userId) throws Exception {
-        return null;
+        UserInfo userInfo = userInfoDao.getUserByUserId(userId);
+        return userInfo;
     }
 
     /**

@@ -9,6 +9,7 @@ import java.util.List;
 public class AdminGogoKeyRequest {
     private String title;
     private String type;
+//    private Object keyParams;
     private List<KeyParam> keyParams;
     private String gogoKeyId;
     private String description;
