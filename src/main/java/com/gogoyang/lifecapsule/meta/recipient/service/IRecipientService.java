@@ -45,4 +45,6 @@ public interface IRecipientService {
      * @throws Exception
      */
     void deleteRecipient(String recipientId) throws Exception;
+
+    void deleteRecipientByTriggerId(String triggerId) throws Exception;
 }

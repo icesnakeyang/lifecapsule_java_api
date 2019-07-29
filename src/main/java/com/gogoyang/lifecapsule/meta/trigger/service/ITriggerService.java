@@ -3,6 +3,7 @@ package com.gogoyang.lifecapsule.meta.trigger.service;
 import com.gogoyang.lifecapsule.meta.trigger.entity.Trigger;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public interface ITriggerService {
     /**
@@ -42,4 +43,6 @@ public interface ITriggerService {
      * @throws Exception
      */
     Trigger getTriggerByNoteId(String noteId) throws Exception;
+
+    void deleteTrigger(String triggerId) throws Exception;
 }

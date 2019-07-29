@@ -45,4 +45,10 @@
         select * from `trigger`
         where note_id=#{noteId}
     </select>
+
+    <!--根据triggerId删除一个触发器trigger-->
+    <delete id="deleteTrigger" parameterType="java.lang.String">
+        delete from `trigger`
+        where trigger_id=#{triggerId}
+    </delete>
 </mapper>

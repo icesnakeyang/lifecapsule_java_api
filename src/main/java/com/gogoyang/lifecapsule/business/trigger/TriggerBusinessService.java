@@ -282,6 +282,44 @@ public class TriggerBusinessService implements ITriggerBusinessService {
     }
 
     /**
+     * 删除一个触发器trigger
+     * @param in
+     * @throws Exception
+     */
+    @Override
+    public void deleteTrigger(Map in) throws Exception {
+        String token=in.get("token").toString();
+        String triggerId=in.get("triggerId").toString();
+
+        UserInfo userInfo=iUserInfoService.getUserByUserToken(token);
+        if(userInfo==null){
+            throw new Exception("10003");
+        }
+
+        Trigger trigger=iTriggerService.getTriggerByTriggerId(triggerId);
+        if(trigger==null){
+            throw new Exception("10017");
+        }
+
+        NoteInfo noteInfo=iNoteService.getNoteTinyByNoteId(trigger.getNoteId());
+        if(noteInfo==null){
+            throw new Exception("10018");
+        }
+
+        if(!userInfo.getUserId().equals(noteInfo.getUserId())){
+            throw new Exception("10011");
+        }
+
+        iTriggerService.deleteTrigger(triggerId);
+        iRecipientService.deleteRecipientByTriggerId(triggerId);
+        GogoKey gogoKey=iGogoKeyService.getGogoKeyByTriggerId(triggerId);
+        if(gogoKey!=null) {
+            iGogoKeyService.deleteGogoKeyByTriggerId(triggerId);
+            iGogoKeyService.deleteKeyParamsByGogokeyId(gogoKey.getGogoKeyId());
+        }
+    }
+
+    /**
      * 根据接收人id，读取接收人信息
      *
      * @param in

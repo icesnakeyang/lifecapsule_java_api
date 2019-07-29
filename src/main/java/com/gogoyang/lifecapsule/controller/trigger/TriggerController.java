@@ -2,6 +2,7 @@ package com.gogoyang.lifecapsule.controller.trigger;
 
 import com.gogoyang.lifecapsule.business.trigger.ITriggerBusinessService;
 import com.gogoyang.lifecapsule.controller.vo.Response;
+import com.sun.org.apache.regexp.internal.RE;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -308,6 +309,28 @@ public class TriggerController {
 
             Map out = iTriggerBusinessService.getTriggerByTriggerId(in);
             response.setData(out);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                logger.error(ex.getMessage());
+            }
+        }
+        return response;
+    }
+
+    @ResponseBody
+    @PostMapping("/deleteTrigger")
+    public Response deleteTrigger(@RequestBody TriggerRequest request,
+                                  HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            Map in = new HashMap();
+            in.put("token", token);
+            in.put("triggerId", request.getTriggerId());
+            iTriggerBusinessService.deleteTrigger(in);
         } catch (Exception ex) {
             try {
                 response.setCode(Integer.parseInt(ex.getMessage()));

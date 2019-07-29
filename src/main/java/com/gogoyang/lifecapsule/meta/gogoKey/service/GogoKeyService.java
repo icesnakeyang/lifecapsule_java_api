@@ -136,4 +136,25 @@ public class GogoKeyService implements IGogoKeyService {
         List<GogoKey> gogoKeys = gogoKeyMapper.listUserGogoKey(qIn);
         return gogoKeys;
     }
+
+    /**
+     * gogoKey已经被处理了，设置为processed
+     *
+     * @param gogoKeyId
+     * @throws Exception
+     */
+    @Override
+    public void setGogoKeyTriggered(String gogoKeyId) throws Exception {
+        gogoKeyMapper.setGogoKeyTriggered(gogoKeyId);
+    }
+
+    @Override
+    public void deleteGogoKeyByTriggerId(String triggerId) throws Exception {
+        gogoKeyMapper.deleteGogoKeyByTriggerId();
+    }
+
+    @Override
+    public void deleteKeyParamsByGogokeyId(String gogoKeyId) throws Exception {
+        gogoKeyMapper.deleteGogoKeyParamByGogoKeyId(gogoKeyId);
+    }
 }

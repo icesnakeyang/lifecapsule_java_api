@@ -82,4 +82,16 @@
         select * from gogo_key
         where key_status='userKey';
     </select>
+
+    <update id="setGogoKeyTriggered" parameterType="java.lang.String">
+        update gogo_key set
+        key_status = 'processed'
+        where gogo_key_id=#{gogoKeyId}
+    </update>
+
+    <!--根据triggerId删除gogoKey-->
+    <delete id="deleteGogoKeyByTriggerId" parameterType="java.lang.String">
+        delete from gogo_key
+        where trigger_id=#{triggerId}
+    </delete>
 </mapper>

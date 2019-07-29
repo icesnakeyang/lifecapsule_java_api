@@ -40,4 +40,6 @@ public interface TriggerMapper {
      * @return
      */
     Trigger getTriggerByNoteId(String noteId);
+
+    void deleteTrigger(String triggerId);
 }

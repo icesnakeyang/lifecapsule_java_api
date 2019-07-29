@@ -95,4 +95,5 @@ public interface ITriggerBusinessService {
      */
     Map getTriggerByNoteId(Map in) throws Exception;
 
+    void deleteTrigger(Map in) throws Exception;
 }

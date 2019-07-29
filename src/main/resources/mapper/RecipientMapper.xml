@@ -50,4 +50,10 @@
         delete from recipient
         where recipient_id=#{recipientId}
     </delete>
+
+    <!--根据triggerId删除接收人-->
+    <delete id="deleteRecipientByTriggerId" parameterType="java.lang.String">
+        delete from recipient
+        where trigger_id=#{triggerId}
+    </delete>
 </mapper>

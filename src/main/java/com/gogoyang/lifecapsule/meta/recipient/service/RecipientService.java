@@ -75,4 +75,9 @@ public class RecipientService implements IRecipientService {
         recipientMapper.deleteRecipient(recipientId);
 
     }
+
+    @Override
+    public void deleteRecipientByTriggerId(String triggerId) throws Exception {
+        recipientMapper.deleteRecipientByTriggerId(triggerId);
+    }
 }

@@ -70,6 +70,7 @@ public class TriggerService implements ITriggerService {
 
     /**
      * 根据noteId查询trigger
+     *
      * @param noteId
      * @return
      * @throws Exception
@@ -78,5 +79,10 @@ public class TriggerService implements ITriggerService {
     public Trigger getTriggerByNoteId(String noteId) throws Exception {
         Trigger trigger = triggerMapper.getTriggerByNoteId(noteId);
         return trigger;
+    }
+
+    @Override
+    public void deleteTrigger(String triggerId) throws Exception {
+        triggerMapper.deleteTrigger(triggerId);
     }
 }

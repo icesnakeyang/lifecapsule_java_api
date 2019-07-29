@@ -33,4 +33,10 @@ public interface IGogoKeyService {
      * @throws Exception
      */
     List<GogoKey> listGogoKeyAll() throws Exception;
+
+    void setGogoKeyTriggered(String gogoKeyId) throws Exception;
+
+    void deleteGogoKeyByTriggerId(String triggerId) throws Exception;
+
+    void deleteKeyParamsByGogokeyId(String gogoKeyId) throws Exception;
 }

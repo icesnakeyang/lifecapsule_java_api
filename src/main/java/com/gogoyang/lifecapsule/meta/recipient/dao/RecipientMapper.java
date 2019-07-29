@@ -37,4 +37,6 @@ public interface RecipientMapper {
      * @param recipientId
      */
     void deleteRecipient(String recipientId);
+
+    void deleteRecipientByTriggerId(String triggerId);
 }
