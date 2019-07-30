@@ -42,12 +42,15 @@ public class GogoKeyProcessor extends QuartzJobBean {
                 NoteInfo theNote = iNoteService.getNoteTinyByNoteId(theTrigger.getNoteId());
                 for (int k = 0; k < theGogoKey.getKeyParams().size(); k++) {
                     KeyParam theKeyParam = theGogoKey.getKeyParams().get(k);
-                    Date theDate = new Date();
-                    String dateValue = (String) theKeyParam.getValue();
-                    Date valueTime = GogoTools.formatStrUTCToDateStr(dateValue);
-                    if (GogoTools.compare_date(theDate, valueTime)) {
-                        logger.info(theNote.getTitle() + " 被触发了");
-                        iGogoKeyService.setGogoKeyTriggered(theGogoKey.getGogoKeyId());
+                    if (theKeyParam.getParam().equals("datetime")) {
+                        //时间触发器，检查当前时间是否已经符合条件
+                        Date theDate = new Date();
+                        String dateValue = (String) theKeyParam.getValue();
+                        Date valueTime = GogoTools.formatStrUTCToDateStr(dateValue);
+                        if (GogoTools.compare_date(theDate, valueTime)) {
+                            logger.info(theNote.getTitle() + " 被触发了");
+                            iGogoKeyService.setGogoKeyTriggered(theGogoKey.getGogoKeyId());
+                        }
                     }
                 }
             }
