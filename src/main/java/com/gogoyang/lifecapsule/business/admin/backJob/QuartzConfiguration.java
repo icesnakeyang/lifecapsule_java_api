@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class QuartzConfiguration {
-    private static final int TIME = 10;
+    private static final int TIME =24 ;
 
     @Bean
     public JobDetail gogoKeyProcessorJobDetail() {
@@ -20,7 +20,7 @@ public class QuartzConfiguration {
     public Trigger gogoKeyProcessorTrigger() {
         SimpleScheduleBuilder scheduleBuilder = SimpleScheduleBuilder
                 .simpleSchedule()
-                .withIntervalInSeconds(TIME)
+                .withIntervalInHours(TIME)
                 .repeatForever();
 
         return TriggerBuilder.newTrigger().forJob(gogoKeyProcessorJobDetail())

@@ -46,4 +46,6 @@ public interface UserInfoDao {
      * @return
      */
     UserInfo getUserByUserToken(String token);
+
+    UserInfo getUserByUserId(String userId);
 }
