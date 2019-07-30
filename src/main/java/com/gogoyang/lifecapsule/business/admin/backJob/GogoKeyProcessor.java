@@ -49,6 +49,9 @@ public class GogoKeyProcessor extends QuartzJobBean {
             for (int i = 0; i < gogoKeys.size(); i++) {
                 GogoKey theGogoKey = iGogoKeyService.getGogoKeyByGogoKeyId(gogoKeys.get(i).getGogoKeyId());
                 Trigger theTrigger = iTriggerService.getTriggerByTriggerId(theGogoKey.getTriggerId());
+                if(theTrigger==null){
+                    continue;
+                }
                 NoteInfo theNote = iNoteService.getNoteTinyByNoteId(theTrigger.getNoteId());
                 for (int k = 0; k < theGogoKey.getKeyParams().size(); k++) {
                     KeyParam theKeyParam = theGogoKey.getKeyParams().get(k);

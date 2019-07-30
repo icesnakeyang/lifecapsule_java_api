@@ -37,5 +37,5 @@ public interface GogoKeyMapper {
 
     void setGogoKeyTriggered(String gogoKeyId);
 
-    void deleteGogoKeyByTriggerId();
+    void deleteGogoKeyByTriggerId(String triggerId);
 }

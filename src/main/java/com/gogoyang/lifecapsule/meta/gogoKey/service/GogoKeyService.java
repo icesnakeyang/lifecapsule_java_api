@@ -150,7 +150,7 @@ public class GogoKeyService implements IGogoKeyService {
 
     @Override
     public void deleteGogoKeyByTriggerId(String triggerId) throws Exception {
-        gogoKeyMapper.deleteGogoKeyByTriggerId();
+        gogoKeyMapper.deleteGogoKeyByTriggerId(triggerId);
     }
 
     @Override
