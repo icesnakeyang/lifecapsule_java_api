@@ -49,7 +49,7 @@ public class GogoKeyProcessor extends QuartzJobBean {
             for (int i = 0; i < gogoKeys.size(); i++) {
                 GogoKey theGogoKey = iGogoKeyService.getGogoKeyByGogoKeyId(gogoKeys.get(i).getGogoKeyId());
                 Trigger theTrigger = iTriggerService.getTriggerByTriggerId(theGogoKey.getTriggerId());
-                if(theTrigger==null){
+                if (theTrigger == null) {
                     continue;
                 }
                 NoteInfo theNote = iNoteService.getNoteTinyByNoteId(theTrigger.getNoteId());
@@ -69,6 +69,12 @@ public class GogoKeyProcessor extends QuartzJobBean {
                             //读取接收人信息，发送邮件
                             for (int r = 0; r < recipients.size(); r++) {
                                 Map in = new HashMap();
+                                if (recipients.get(r).getEmail() == null) {
+                                    continue;
+                                }
+                                if (recipients.get(r).getEmail().equals("")) {
+                                    continue;
+                                }
                                 in.put("recipientEmail", recipients.get(r).getEmail());
                                 in.put("subject", theUser.getEmail() + " send you a mail from LifeCapsule");
                                 in.put("context", theNote.getTitle() + ", register to check the mail");
@@ -95,7 +101,7 @@ public class GogoKeyProcessor extends QuartzJobBean {
                     }
                 }
             }
-        }catch (Exception ex) {
+        } catch (Exception ex) {
             logger.error(ex.getMessage());
         }
     }
