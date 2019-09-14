@@ -65,4 +65,21 @@ public class LoginBusinessService implements ILoginBusinessService {
         out.put("user", userInfo);
         return out;
     }
+
+    @Override
+    public Map loginBlankUser(String token) throws Exception {
+        UserInfo userInfo = null;
+
+        userInfo=iUserInfoService.getUserByUserToken(token);
+        if (userInfo == null) {
+            throw new Exception("10002");
+        }
+
+        //todo
+        //这里需要检查用户的token是否已经过期
+
+        Map out = new HashMap();
+        out.put("user", userInfo);
+        return out;
+    }
 }

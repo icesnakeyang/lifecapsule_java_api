@@ -101,4 +101,39 @@ public class RegisterBusinessService implements IRegisterBusinessService {
         out.put("user", user);
         return out;
     }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public Map createBlankUser() throws Exception {
+        /**
+         * 创建一个临时用户
+         * 该方法目的是自动创建一个临时账户，让首次使用的用户免去注册登录的麻烦
+         * 如果用户终端上没有lifecapsule_token，就自动创建一个账户，让用户可以使用该token使用app的各种功能。
+         * 用户可通过登录已有账户，把临时账户的数据合并到原有的账户里去。
+         * 用户可在账号管理页面，把用户信息添加完善，也可以绑定手机、邮箱，或者修改登录密码。
+         * 如果用户没有设置登录密码，则只需通过用户终端保存的token即可自动登录使用
+         */
+        UserInfo user = new UserInfo();
+        user.setUserId(GogoTools.UUID().toString());
+        user.setToken(GogoTools.UUID().toString());
+        user.setStatus(2);
+        user.setCreatedTime(new Date());
+        user.setTokenTime(new Date());
+
+        iUserInfoService.createUser(user);
+
+        /**
+         * 创建用户后，自动为用户创建一个默认笔记分类
+         * Default
+         */
+        NoteCategory noteCategory = new NoteCategory();
+        noteCategory.setCategoryName("Default");
+        noteCategory.setCategoryId(GogoTools.UUID().toString());
+        noteCategory.setUserId(user.getUserId());
+        iCategoryService.createCategory(noteCategory);
+
+        Map out = new HashMap();
+        out.put("user", user);
+        return out;
+    }
 }

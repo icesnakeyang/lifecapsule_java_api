@@ -10,4 +10,6 @@ public interface ILoginBusinessService {
      * @throws Exception
      */
     Map loginUser(Map in) throws Exception;
+
+    Map loginBlankUser(String token) throws Exception;
 }

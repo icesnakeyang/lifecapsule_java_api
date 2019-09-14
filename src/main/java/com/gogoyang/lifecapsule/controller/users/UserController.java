@@ -2,14 +2,13 @@ package com.gogoyang.lifecapsule.controller.users;
 
 import com.gogoyang.lifecapsule.business.login.ILoginBusinessService;
 import com.gogoyang.lifecapsule.business.register.IRegisterBusinessService;
-import com.gogoyang.lifecapsule.business.security.ISecurityBusinessService;
 import com.gogoyang.lifecapsule.controller.vo.Response;
-import com.gogoyang.lifecapsule.utility.GogoTools;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -97,6 +96,54 @@ public class UserController {
             } catch (Exception ex2) {
                 logger.error(ex.getMessage());
                 response.setCode(10001);
+            }
+        }
+        return response;
+    }
+
+    /**
+     * 创建一个临时用户，实现新用户的自动注册登录
+     *
+     * @param request
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/createNewUser")
+    public Response createNewUser(@RequestBody UserRequest request) {
+        Response response = new Response();
+        try {
+            Map out = iRegisterBusinessService.createBlankUser();
+            response.setData(out);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                logger.error(ex.getMessage());
+                response.setCode(10001);
+            }
+        }
+        return response;
+    }
+
+    /**
+     * 临时用户登录
+     * @param httpServletRequest
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/loginBlankUser")
+    public Response loginBlankUser(HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            Map out = iLoginBusinessService.loginBlankUser(token);
+            response.setData(out);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                logger.error(ex.getMessage());
             }
         }
         return response;
