@@ -53,9 +53,10 @@ public class LoginBusinessService implements ILoginBusinessService {
         UserInfo userInfo = null;
         if (phone != null) {
             userInfo = iUserInfoService.getUserByPhonePassword(phone, password);
-        }
-        if (email != null) {
-            userInfo = iUserInfoService.getUserByEmailPassword(email, password);
+        }else {
+            if (email != null) {
+                userInfo = iUserInfoService.getUserByEmailPassword(email, password);
+            }
         }
         if (userInfo == null) {
             throw new Exception("10002");
