@@ -73,7 +73,37 @@ public class CategoryController {
             response.setData(out);
         } catch (Exception ex) {
             try {
-                response.setCode(Integer.getInteger(ex.getMessage()));
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                logger.error(ex.getMessage());
+            }
+        }
+        return response;
+    }
+
+    /**
+     * 获取一个分类详情
+     * @param httpServletRequest
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/getCategory")
+    public Response getCategory(@RequestBody CategoryRequest request,
+            HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            Map in = new HashMap();
+            in.put("token", token);
+            in.put("categoryName",request.getCategoryName());
+            in.put("categoryId", request.getCategoryId());
+
+            Map out = iCategoryBusinessService.getCategory(in);
+            response.setData(out);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
             } catch (Exception ex2) {
                 response.setCode(10001);
                 logger.error(ex.getMessage());

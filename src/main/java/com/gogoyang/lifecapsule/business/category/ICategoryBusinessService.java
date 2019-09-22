@@ -34,4 +34,12 @@ public interface ICategoryBusinessService {
      * @throws Exception
      */
     void deleteCategory(Map in) throws Exception;
+
+    /**
+     * 读取分类详情
+     * @param in
+     * @return
+     * @throws Exception
+     */
+    Map getCategory(Map in) throws Exception;
 }
