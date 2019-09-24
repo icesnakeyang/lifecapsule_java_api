@@ -12,7 +12,8 @@
       token,
       token_time,
       status,
-      password
+      password,
+      nick_name
       ) values (
       #{userId},
       #{phone},
@@ -21,7 +22,8 @@
       #{token},
       #{tokenTime},
       #{status},
-      #{password}
+      #{password},
+      #{nickName}
       )
     </insert>
 
@@ -36,6 +38,7 @@
         <result property="userId" column="user_id"/>
         <result property="createdTime" column="created_time"/>
         <result property="tokenTime" column="token_time"/>
+        <result property="nickName" column="nick_name"/>
     </resultMap>
 
     <!--根据用户手机号码和登录密码查询用户-->
@@ -79,4 +82,12 @@
         select * from user_info
         where user_id=#{userId}
     </select>
+
+    <!--更新用户token-->
+    <update id="updateUserToken" parameterType="com.gogoyang.lifecapsule.meta.user.entity.UserInfo">
+        update user_info set
+        token=#{token}
+        token_time=#{tokenTime}
+        where user_id=#{userId}
+    </update>
 </mapper>

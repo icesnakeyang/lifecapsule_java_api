@@ -1,5 +1,6 @@
 package com.gogoyang.lifecapsule.business.login;
 
+import com.gogoyang.lifecapsule.business.common.ICommonService;
 import com.gogoyang.lifecapsule.meta.security.service.ISecurityService;
 import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
 import com.gogoyang.lifecapsule.meta.user.service.IUserInfoService;
@@ -7,6 +8,7 @@ import com.gogoyang.lifecapsule.utility.GogoTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,12 +16,15 @@ import java.util.Map;
 public class LoginBusinessService implements ILoginBusinessService {
     private final IUserInfoService iUserInfoService;
     private final ISecurityService iSecurityService;
+    private final ICommonService iCommonService;
 
     @Autowired
     public LoginBusinessService(IUserInfoService iUserInfoService,
-                                ISecurityService iSecurityService) {
+                                ISecurityService iSecurityService,
+                                ICommonService iCommonService) {
         this.iUserInfoService = iUserInfoService;
         this.iSecurityService = iSecurityService;
+        this.iCommonService = iCommonService;
     }
 
     /**
@@ -82,5 +87,22 @@ public class LoginBusinessService implements ILoginBusinessService {
         Map out = new HashMap();
         out.put("user", userInfo);
         return out;
+    }
+
+    /**
+     * 重新申请一个用户token
+     * @param in
+     * @throws Exception
+     */
+    @Override
+    public void resignUserToken(Map in) throws Exception {
+        String token=in.get("token").toString();
+
+        UserInfo userInfo=iCommonService.getUserByToken(token);
+
+        userInfo.setToken(GogoTools.UUID().toString());
+        userInfo.setTokenTime(new Date());
+
+        iUserInfoService.updateUserToken(userInfo);
     }
 }

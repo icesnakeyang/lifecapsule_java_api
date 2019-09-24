@@ -48,4 +48,10 @@ public interface UserInfoDao {
     UserInfo getUserByUserToken(String token);
 
     UserInfo getUserByUserId(String userId);
+
+    /**
+     * 更新用户token
+     * @param userInfo
+     */
+    void updateUserToken(UserInfo userInfo);
 }

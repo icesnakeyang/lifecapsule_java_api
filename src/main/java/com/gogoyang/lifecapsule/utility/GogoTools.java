@@ -29,6 +29,23 @@ public class GogoTools {
     }
 
     /**
+     * 生成一个随机字符串
+     * @param length
+     * @return
+     * @throws Exception
+     */
+    public static String generateString(int length) throws Exception{
+        String str="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        Random random=new Random();
+        StringBuffer sb=new StringBuffer();
+        for(int i=0;i<length;i++){
+            int number=random.nextInt(62);
+            sb.append(str.charAt(number));
+        }
+        return sb.toString();
+    }
+
+    /**
      * 对用户密码进行MD5加密
      *
      * @param password
@@ -57,7 +74,6 @@ public class GogoTools {
         password = Base64.encodeBase64String(messageDigest.digest());
         return password;
     }
-
 
     /**
      * 生成一个AES秘钥
@@ -188,11 +204,11 @@ public class GogoTools {
             if (dt1.getTime() > dt2.getTime()) {
                 System.out.println("dt1 在dt2前");
                 return 1;
-            } else if (dt1.getTime() < dt2.getTime()) {
-                System.out.println("dt1在dt2后");
-                return -1;
             } else {
-                return 0;
+                if (dt1.getTime() < dt2.getTime()) {
+                    System.out.println("dt1在dt2后");
+                    return -1;
+                }
             }
         } catch (Exception exception) {
             exception.printStackTrace();

@@ -127,6 +127,7 @@ public class UserController {
 
     /**
      * 临时用户登录
+     *
      * @param httpServletRequest
      * @return
      */
@@ -138,6 +139,33 @@ public class UserController {
             String token = httpServletRequest.getHeader("token");
             Map out = iLoginBusinessService.loginBlankUser(token);
             response.setData(out);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                logger.error(ex.getMessage());
+            }
+        }
+        return response;
+    }
+
+    /**
+     * 重新申请一个用户token
+     * @param request
+     * @param httpServletRequest
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/resignUserToken")
+    public Response resignUserToken(@RequestBody UserRequest request,
+                                    HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        Map in = new HashMap();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            in.put("token", token);
+            iLoginBusinessService.resignUserToken(in);
         } catch (Exception ex) {
             try {
                 response.setCode(Integer.parseInt(ex.getMessage()));

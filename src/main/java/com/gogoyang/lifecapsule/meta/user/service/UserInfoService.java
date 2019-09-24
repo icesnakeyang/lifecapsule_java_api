@@ -130,4 +130,14 @@ public class UserInfoService implements IUserInfoService {
         UserInfo userInfo = userInfoDao.getUserByEmail(email);
         return userInfo;
     }
+
+    /**
+     * 更新用户token
+     * @param userInfo
+     * @throws Exception
+     */
+    @Override
+    public void updateUserToken(UserInfo userInfo) throws Exception {
+        userInfoDao.updateUserToken(userInfo);
+    }
 }

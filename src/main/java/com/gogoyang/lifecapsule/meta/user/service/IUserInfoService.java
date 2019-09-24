@@ -70,4 +70,11 @@ public interface IUserInfoService {
      * @throws Exception
      */
     UserInfo getUserByEmail(String email) throws Exception;
+
+    /**
+     * 更新token
+     * @param userInfo
+     * @throws Exception
+     */
+    void updateUserToken(UserInfo userInfo) throws Exception;
 }
