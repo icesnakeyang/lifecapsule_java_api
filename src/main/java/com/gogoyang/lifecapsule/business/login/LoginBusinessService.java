@@ -58,7 +58,8 @@ public class LoginBusinessService implements ILoginBusinessService {
         UserInfo userInfo = null;
         if (phone != null) {
             userInfo = iUserInfoService.getUserByPhonePassword(phone, password);
-        }else {
+        }
+        if(userInfo==null){
             if (email != null) {
                 userInfo = iUserInfoService.getUserByEmailPassword(email, password);
             }
