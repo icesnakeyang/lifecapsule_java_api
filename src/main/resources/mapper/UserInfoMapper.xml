@@ -13,7 +13,8 @@
       token_time,
       status,
       password,
-      nick_name
+      nick_name,
+      device_id
       ) values (
       #{userId},
       #{phone},
@@ -23,15 +24,16 @@
       #{tokenTime},
       #{status},
       #{password},
-      #{nickName}
+      #{nickName},
+      #{deviceId}
       )
     </insert>
 
     <update id="updateUserPassword" parameterType="map">
-    update user_info set
-    password=#{password}
-    where user_id=#{userId}
-  </update>
+        update user_info set
+        password=#{password}
+        where user_id=#{userId}
+    </update>
 
     <!--配置user_info表和UserInfo对象的字段映射 -->
     <resultMap id="userInfoMap" type="com.gogoyang.lifecapsule.meta.user.entity.UserInfo">
@@ -39,6 +41,7 @@
         <result property="createdTime" column="created_time"/>
         <result property="tokenTime" column="token_time"/>
         <result property="nickName" column="nick_name"/>
+        <result property="deviceId" column="device_id"/>
     </resultMap>
 
     <!--根据用户手机号码和登录密码查询用户-->

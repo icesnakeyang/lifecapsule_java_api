@@ -11,5 +11,5 @@ public interface IRegisterBusinessService {
      */
     Map registerMe(Map in) throws Exception;
 
-    Map createBlankUser() throws Exception;
+    Map createBlankUser(Map in) throws Exception;
 }

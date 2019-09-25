@@ -104,7 +104,8 @@ public class RegisterBusinessService implements IRegisterBusinessService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public Map createBlankUser() throws Exception {
+    public Map createBlankUser(Map in) throws Exception {
+        String deviceId = (String) in.get("deviceId");
         /**
          * 创建一个临时用户
          * 该方法目的是自动创建一个临时账户，让首次使用的用户免去注册登录的麻烦
@@ -113,10 +114,14 @@ public class RegisterBusinessService implements IRegisterBusinessService {
          * 用户可在账号管理页面，把用户信息添加完善，也可以绑定手机、邮箱，或者修改登录密码。
          * 如果用户没有设置登录密码，则只需通过用户终端保存的token即可自动登录使用
          */
+
+        deviceId = GogoTools.encoderByMd5(deviceId);
+
         UserInfo user = new UserInfo();
         user.setUserId(GogoTools.UUID().toString());
         user.setNickName(GogoTools.generateString(16));
         user.setToken(GogoTools.UUID().toString());
+        user.setDeviceId(deviceId);
         user.setStatus(2);
         user.setCreatedTime(new Date());
         user.setTokenTime(new Date());

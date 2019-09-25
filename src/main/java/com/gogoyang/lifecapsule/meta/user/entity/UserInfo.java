@@ -50,4 +50,6 @@ public class UserInfo {
     private String email;
 
     private String nickName;
+
+    private String deviceId;
 }

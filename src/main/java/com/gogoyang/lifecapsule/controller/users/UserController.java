@@ -112,7 +112,9 @@ public class UserController {
     public Response createNewUser(@RequestBody UserRequest request) {
         Response response = new Response();
         try {
-            Map out = iRegisterBusinessService.createBlankUser();
+            Map in=new HashMap();
+            in.put("deviceId", request.getDeviceId());
+            Map out = iRegisterBusinessService.createBlankUser(in);
             response.setData(out);
         } catch (Exception ex) {
             try {
