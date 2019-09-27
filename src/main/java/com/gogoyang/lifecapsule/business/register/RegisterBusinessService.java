@@ -119,7 +119,7 @@ public class RegisterBusinessService implements IRegisterBusinessService {
 
         UserInfo user = new UserInfo();
         user.setUserId(GogoTools.UUID().toString());
-        user.setNickName(GogoTools.generateString(16));
+        user.setNickname(GogoTools.generateString(16));
         user.setToken(GogoTools.UUID().toString());
         user.setDeviceId(deviceId);
         user.setStatus(2);

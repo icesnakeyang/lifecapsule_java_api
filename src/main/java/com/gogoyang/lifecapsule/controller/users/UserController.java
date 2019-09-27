@@ -2,6 +2,7 @@ package com.gogoyang.lifecapsule.controller.users;
 
 import com.gogoyang.lifecapsule.business.login.ILoginBusinessService;
 import com.gogoyang.lifecapsule.business.register.IRegisterBusinessService;
+import com.gogoyang.lifecapsule.business.user.profile.IUserProfileBusinessService;
 import com.gogoyang.lifecapsule.controller.vo.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,14 +26,17 @@ import java.util.Map;
 public class UserController {
     private final ILoginBusinessService iLoginBusinessService;
     private final IRegisterBusinessService iRegisterBusinessService;
+    private final IUserProfileBusinessService iUserProfileBusinessService;
 
     Logger logger = LoggerFactory.getLogger(getClass());
 
     @Autowired
     public UserController(ILoginBusinessService iLoginBusinessService,
-                          IRegisterBusinessService iRegisterBusinessService) {
+                          IRegisterBusinessService iRegisterBusinessService,
+                          IUserProfileBusinessService iUserProfileBusinessService) {
         this.iLoginBusinessService = iLoginBusinessService;
         this.iRegisterBusinessService = iRegisterBusinessService;
+        this.iUserProfileBusinessService = iUserProfileBusinessService;
     }
 
     /**
@@ -112,7 +116,7 @@ public class UserController {
     public Response createNewUser(@RequestBody UserRequest request) {
         Response response = new Response();
         try {
-            Map in=new HashMap();
+            Map in = new HashMap();
             in.put("deviceId", request.getDeviceId());
             Map out = iRegisterBusinessService.createBlankUser(in);
             response.setData(out);
@@ -138,7 +142,7 @@ public class UserController {
     public Response loginBlankUser(HttpServletRequest httpServletRequest) {
         Response response = new Response();
         try {
-            Map in=new HashMap();
+            Map in = new HashMap();
             String token = httpServletRequest.getHeader("token");
             in.put("token", token);
             Map out = iLoginBusinessService.loginBlankUser(in);
@@ -156,6 +160,7 @@ public class UserController {
 
     /**
      * 重新申请一个用户token
+     *
      * @param request
      * @param httpServletRequest
      * @return
@@ -170,6 +175,28 @@ public class UserController {
             String token = httpServletRequest.getHeader("token");
             in.put("token", token);
             iLoginBusinessService.resignUserToken(in);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                logger.error(ex.getMessage());
+            }
+        }
+        return response;
+    }
+
+    @ResponseBody
+    @PostMapping("/saveNickname")
+    public Response saveNickname(@RequestBody UserRequest request,
+                                 HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        try {
+            Map in = new HashMap();
+            String token = httpServletRequest.getHeader("token");
+            in.put("token", token);
+            in.put("nickname", request.getNickname());
+            iUserProfileBusinessService.saveNickname(in);
         } catch (Exception ex) {
             try {
                 response.setCode(Integer.parseInt(ex.getMessage()));

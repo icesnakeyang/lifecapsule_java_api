@@ -54,4 +54,10 @@ public interface UserInfoDao {
      * @param userInfo
      */
     void updateUserToken(UserInfo userInfo);
+
+    /**
+     * 修改nickname
+     * @param userInfo
+     */
+    void updateNickname(UserInfo userInfo);
 }

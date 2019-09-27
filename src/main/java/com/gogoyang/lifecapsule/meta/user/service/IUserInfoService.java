@@ -77,4 +77,7 @@ public interface IUserInfoService {
      * @throws Exception
      */
     void updateUserToken(UserInfo userInfo) throws Exception;
+
+
+    void updateNickname(UserInfo userInfo) throws Exception;
 }

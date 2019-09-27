@@ -24,7 +24,7 @@
       #{tokenTime},
       #{status},
       #{password},
-      #{nickName},
+      #{nickname},
       #{deviceId}
       )
     </insert>
@@ -40,7 +40,7 @@
         <result property="userId" column="user_id"/>
         <result property="createdTime" column="created_time"/>
         <result property="tokenTime" column="token_time"/>
-        <result property="nickName" column="nick_name"/>
+        <result property="nickname" column="nick_name"/>
         <result property="deviceId" column="device_id"/>
     </resultMap>
 
@@ -91,6 +91,12 @@
         update user_info set
         token=#{token}
         token_time=#{tokenTime}
+        where user_id=#{userId}
+    </update>
+
+    <update id="updateNickname" parameterType="com.gogoyang.lifecapsule.meta.user.entity.UserInfo">
+        update user_info set
+        nick_name=#{nickname}
         where user_id=#{userId}
     </update>
 </mapper>

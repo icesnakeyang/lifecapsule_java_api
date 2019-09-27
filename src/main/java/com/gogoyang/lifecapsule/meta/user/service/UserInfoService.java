@@ -137,7 +137,14 @@ public class UserInfoService implements IUserInfoService {
      * @throws Exception
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void updateUserToken(UserInfo userInfo) throws Exception {
         userInfoDao.updateUserToken(userInfo);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void updateNickname(UserInfo userInfo) throws Exception {
+        userInfoDao.updateNickname(userInfo);
     }
 }
