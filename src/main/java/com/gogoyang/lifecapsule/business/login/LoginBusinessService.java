@@ -73,8 +73,17 @@ public class LoginBusinessService implements ILoginBusinessService {
         return out;
     }
 
+    /**
+     * 仅仅使用token登录
+     * 需要做相关验证
+     * @param in
+     * @return
+     * @throws Exception
+     */
     @Override
-    public Map loginBlankUser(String token) throws Exception {
+    public Map loginBlankUser(Map in) throws Exception {
+        String token=in.get("token").toString();
+
         UserInfo userInfo = null;
 
         userInfo=iUserInfoService.getUserByUserToken(token);

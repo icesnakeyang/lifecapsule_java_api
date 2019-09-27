@@ -11,7 +11,7 @@ public interface ILoginBusinessService {
      */
     Map loginUser(Map in) throws Exception;
 
-    Map loginBlankUser(String token) throws Exception;
+    Map loginBlankUser(Map in) throws Exception;
 
     /**
      * 重新申请一个用户token

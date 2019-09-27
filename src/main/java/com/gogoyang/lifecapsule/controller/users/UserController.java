@@ -138,8 +138,10 @@ public class UserController {
     public Response loginBlankUser(HttpServletRequest httpServletRequest) {
         Response response = new Response();
         try {
+            Map in=new HashMap();
             String token = httpServletRequest.getHeader("token");
-            Map out = iLoginBusinessService.loginBlankUser(token);
+            in.put("token", token);
+            Map out = iLoginBusinessService.loginBlankUser(in);
             response.setData(out);
         } catch (Exception ex) {
             try {
