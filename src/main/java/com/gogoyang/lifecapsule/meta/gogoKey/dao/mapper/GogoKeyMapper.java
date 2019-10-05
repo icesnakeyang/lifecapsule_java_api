@@ -38,4 +38,16 @@ public interface GogoKeyMapper {
     void setGogoKeyTriggered(String gogoKeyId);
 
     void deleteGogoKeyByTriggerId(String triggerId);
+
+    /**
+     * 创建一个公共触发器模板
+     * @param gogoKey
+     */
+    void createGogoPublicKey(GogoKey gogoKey);
+
+    /**
+     * 创建公共触发器模板的参数
+     * @param qIn
+     */
+    void createGogoPublicKeyParam(Map qIn);
 }

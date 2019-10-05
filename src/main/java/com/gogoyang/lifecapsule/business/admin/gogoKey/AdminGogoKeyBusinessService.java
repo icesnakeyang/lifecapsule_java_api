@@ -38,7 +38,6 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
         String token = in.get("token").toString();
         String title = in.get("title").toString();
         List<KeyParam> keyParams = (List<KeyParam>) in.get("keyParams");
-        String url = (String) in.get("url");
         String description = (String) in.get("description");
 
         UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
@@ -50,17 +49,14 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
         gogoPublicKey.setTitle(title);
         gogoPublicKey.setKeyParams(keyParams);
         gogoPublicKey.setGogoKeyId(GogoTools.UUID().toString());
-        gogoPublicKey.setKeyStatus("active");
         gogoPublicKey.setDescription(description);
         gogoPublicKey.setCreatedTime(new Date());
-        gogoPublicKey.setKeyStatus("publicKey");
-        iGogoKeyService.createGogoKey(gogoPublicKey);
+        gogoPublicKey.setKeyStatus("active");
+        iGogoKeyService.createGogoPublicKey(gogoPublicKey);
     }
 
     @Override
     public Map listGogoPublicKey(Map in) throws Exception {
-        String token = in.get("token").toString();
-
         List<GogoKey> gogoPublicKeyList = iGogoKeyService.listGogoPublicKeyAll();
         Map out = new HashMap();
         out.put("gogoPublicKeyList", gogoPublicKeyList);
@@ -69,7 +65,7 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
 
     @Override
     public Map getGogoPublicKey(Map in) throws Exception {
-        String gogoPublicKeyId = in.get("gogoKeyId").toString();
+        String gogoPublicKeyId = in.get("gogoPublicKeyId").toString();
         GogoKey gogoPublicKey = iGogoKeyService.getGogoKeyByGogoKeyId(gogoPublicKeyId);
         Map out = new HashMap();
         out.put("key", gogoPublicKey);

@@ -6,8 +6,25 @@ import java.util.List;
 
 
 public interface IGogoKeyService {
+    /**
+     * 创建一个用户的触发器GogoKey
+     * @param gogoKey
+     * @throws Exception
+     */
     void createGogoKey(GogoKey gogoKey) throws Exception;
 
+    /**
+     * 创建一个公共触发器模板
+     * @param gogoKey
+     * @throws Exception
+     */
+    void createGogoPublicKey(GogoKey gogoKey) throws Exception;
+
+    /**
+     * 读取公共模板触发器列表
+     * @return
+     * @throws Exception
+     */
     List<GogoKey> listGogoPublicKeyAll() throws Exception;
 
     /**

@@ -28,7 +28,7 @@ public class GogoKeyService implements IGogoKeyService {
     }
 
     /**
-     * 创建一个GogoKey
+     * 创建一个用户的触发器GogoKey
      *
      * @param gogoKey
      * @throws Exception
@@ -58,6 +58,39 @@ public class GogoKeyService implements IGogoKeyService {
             }
             qIn.put("type", keyParams.get(i).getType());
             gogoKeyMapper.createGogoKeyParam(qIn);
+        }
+    }
+
+    /**
+     * 创建一个公共触发器模板
+     * @param gogoKey
+     * @throws Exception
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void createGogoPublicKey(GogoKey gogoKey) throws Exception {
+        if (gogoKey.getGogoKeyId() == null) {
+            throw new Exception("10001");
+        }
+
+        gogoKeyMapper.createGogoPublicKey(gogoKey);
+        List<KeyParam> keyParams = gogoKey.getKeyParams();
+        for (int i = 0; i < keyParams.size(); i++) {
+            Map qIn = new HashMap();
+            qIn.put("paramId", GogoTools.UUID().toString());
+            qIn.put("gogoPublicKeyId", gogoKey.getGogoKeyId());
+            if (keyParams.get(i).getParam() == null) {
+                throw new Exception("10001");
+            }
+            qIn.put("param", keyParams.get(i).getParam());
+            if (keyParams.get(i).getValue() != null) {
+                qIn.put("value", keyParams.get(i).getValue());
+            }
+            if (keyParams.get(i).getType() == null) {
+                throw new Exception("10001");
+            }
+            qIn.put("type", keyParams.get(i).getType());
+            gogoKeyMapper.createGogoPublicKeyParam(qIn);
         }
     }
 

@@ -33,8 +33,8 @@
     <!--读取所有的公共触发器条件模板-->
     <select id="listGogoPublicKeyAll" parameterType="map"
             resultMap="gogoKeyMap">
-        select * from gogo_key
-        where key_status='publicKey'
+        select * from public_key
+        order by ids desc
     </select>
 
     <!--根据gogoKeyId读取触发条件参数-->
@@ -94,4 +94,20 @@
         delete from gogo_key
         where trigger_id=#{triggerId}
     </delete>
+
+    <!--创建一个公共触发器模板-->
+    <insert id="createGogoPublicKey" parameterType="com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey">
+        insert into public_key
+        (public_key_id, title, description, created_time, key_status)
+        values
+        (#{gogoKeyId}, #{title},#{description}, #{createdTime}, #{keyStatus})
+    </insert>
+
+    <!--创建公共触发器模板的参数-->
+    <insert id="createGogoPublicKeyParam" parameterType="map">
+        insert into public_key_params
+        (public_key_id, param, value, type, param_id)
+        values
+        (#{gogoPublicKeyId},#{param},#{value},#{type},#{paramId})
+    </insert>
 </mapper>
