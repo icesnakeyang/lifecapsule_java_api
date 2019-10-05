@@ -25,14 +25,26 @@
         <result property="triggerId" column="trigger_id"/>
     </resultMap>
 
+    <!--配置public_key表和GogoKey对象的字段映射 -->
+    <resultMap id="publicKeyMap" type="com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey">
+        <result property="gogoKeyId" column="public_key_id"/>
+        <result property="createdTime" column="created_time"/>
+        <result property="keyStatus" column="key_status"/>
+    </resultMap>
+
     <resultMap id="gogoKeyParamMap" type="com.gogoyang.lifecapsule.meta.gogoKey.entity.KeyParam">
         <result property="gogoKeyId" column="gogo_key_id"/>
         <result property="paramId" column="param_id"/>
     </resultMap>
 
+    <resultMap id="publicKeyParamMap" type="com.gogoyang.lifecapsule.meta.gogoKey.entity.KeyParam">
+        <result property="gogoKeyId" column="public_key_id"/>
+        <result property="paramId" column="param_id"/>
+    </resultMap>
+
     <!--读取所有的公共触发器条件模板-->
     <select id="listGogoPublicKeyAll" parameterType="map"
-            resultMap="gogoKeyMap">
+            resultMap="publicKeyMap">
         select * from public_key
         order by ids desc
     </select>
@@ -110,4 +122,16 @@
         values
         (#{gogoPublicKeyId},#{param},#{value},#{type},#{paramId})
     </insert>
+
+    <select id="getPublicKeyByPublicKeyId" parameterType="java.lang.String"
+            resultMap="publicKeyMap">
+        select * from public_key
+        where public_key_id=#{gogoPublicKeyId}
+    </select>
+
+    <select id="listPublicKeyParamsByPublicKeyId" parameterType="java.lang.String"
+            resultMap="publicKeyParamMap">
+        select * from public_key_params
+        where public_key_id=#{gogoPublicKeyId}
+    </select>
 </mapper>

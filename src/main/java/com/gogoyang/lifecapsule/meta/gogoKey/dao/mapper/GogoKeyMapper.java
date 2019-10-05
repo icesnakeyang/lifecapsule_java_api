@@ -50,4 +50,14 @@ public interface GogoKeyMapper {
      * @param qIn
      */
     void createGogoPublicKeyParam(Map qIn);
+
+    /**
+     * 根据publicKeyId读取公共触发器模板内容
+     * @param gogoPublicKeyId
+     * @return
+     * @throws Exception
+     */
+    GogoKey getPublicKeyByPublicKeyId(String gogoPublicKeyId);
+
+    List<KeyParam> listPublicKeyParamsByPublicKeyId(String gogoPublicKeyId);
 }

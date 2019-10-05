@@ -126,11 +126,11 @@ public class GogoKeyService implements IGogoKeyService {
     }
 
     @Override
-    public GogoKey getGogoKey(String gogoPublicKeyId) throws Exception {
-        GogoKey gogoKey = gogoKeyMapper.getGogoKeyByGogoKeyId(gogoPublicKeyId);
-        List<KeyParam> keyParams = gogoKeyMapper.listKeyParamsByGogoKeyId(gogoKey.getGogoKeyId());
-        gogoKey.setKeyParams(keyParams);
-        return gogoKey;
+    public GogoKey getPublicKey(String gogoPublicKeyId) throws Exception {
+        GogoKey publicKey = gogoKeyMapper.getPublicKeyByPublicKeyId(gogoPublicKeyId);
+        List<KeyParam> keyParams = gogoKeyMapper.listPublicKeyParamsByPublicKeyId(publicKey.getGogoKeyId());
+        publicKey.setKeyParams(keyParams);
+        return publicKey;
     }
 
     @Transactional(rollbackFor = Exception.class)

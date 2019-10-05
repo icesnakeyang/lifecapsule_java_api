@@ -52,4 +52,9 @@ public class GogoKey {
      * 创建时间
      */
     private Date createdTime;
+
+    /**
+     * 用户备注
+     */
+    private String userRemark;
 }

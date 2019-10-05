@@ -38,7 +38,7 @@ public interface IGogoKeyService {
 
     GogoKey getGogoKeyByTriggerId(String triggerId) throws Exception;
 
-    GogoKey getGogoKey(String gogoPublicKeyId) throws Exception;
+    GogoKey getPublicKey(String gogoPublicKeyId) throws Exception;
 
     void updateGogoKey(GogoKey gogoPublicKey) throws Exception;
 

@@ -66,7 +66,7 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
     @Override
     public Map getGogoPublicKey(Map in) throws Exception {
         String gogoPublicKeyId = in.get("gogoPublicKeyId").toString();
-        GogoKey gogoPublicKey = iGogoKeyService.getGogoKeyByGogoKeyId(gogoPublicKeyId);
+        GogoKey gogoPublicKey = iGogoKeyService.getPublicKey(gogoPublicKeyId);
         Map out = new HashMap();
         out.put("key", gogoPublicKey);
         return out;
@@ -86,7 +86,7 @@ public class AdminGogoKeyBusinessService implements IAdminGogoKeyBusinessService
             throw new Exception("10003");
         }
 
-        GogoKey gogoPublicKey = iGogoKeyService.getGogoKey(uuid);
+        GogoKey gogoPublicKey = iGogoKeyService.getPublicKey(uuid);
         if (gogoPublicKey == null) {
             throw new Exception("no such gogo public key");
         }
