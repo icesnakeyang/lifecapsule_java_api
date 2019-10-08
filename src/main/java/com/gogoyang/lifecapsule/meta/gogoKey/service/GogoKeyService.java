@@ -128,7 +128,7 @@ public class GogoKeyService implements IGogoKeyService {
     @Override
     public GogoKey getPublicKey(String gogoPublicKeyId) throws Exception {
         GogoKey publicKey = gogoKeyMapper.getPublicKeyByPublicKeyId(gogoPublicKeyId);
-        List<KeyParam> keyParams = gogoKeyMapper.listPublicKeyParamsByPublicKeyId(publicKey.getGogoKeyId());
+        List<KeyParam> keyParams = gogoKeyMapper.listPublicKeyParamsByPublicKeyId(gogoPublicKeyId);
         publicKey.setKeyParams(keyParams);
         return publicKey;
     }

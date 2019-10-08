@@ -52,4 +52,9 @@ public class GogoKey {
      * 创建时间
      */
     private Date createdTime;
+
+    /**
+     * 触发器对应的public模板id
+     */
+    private String publicKeyId;
 }

@@ -27,7 +27,7 @@
 
     <!--配置public_key表和GogoKey对象的字段映射 -->
     <resultMap id="publicKeyMap" type="com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey">
-        <result property="gogoKeyId" column="public_key_id"/>
+        <result property="publicKeyId" column="public_key_id"/>
         <result property="createdTime" column="created_time"/>
         <result property="keyStatus" column="key_status"/>
     </resultMap>
@@ -38,7 +38,7 @@
     </resultMap>
 
     <resultMap id="publicKeyParamMap" type="com.gogoyang.lifecapsule.meta.gogoKey.entity.KeyParam">
-        <result property="gogoKeyId" column="public_key_id"/>
+        <result property="publicKeyId" column="public_key_id"/>
         <result property="paramId" column="param_id"/>
     </resultMap>
 
@@ -112,7 +112,7 @@
         insert into public_key
         (public_key_id, title, description, created_time, key_status)
         values
-        (#{gogoKeyId}, #{title},#{description}, #{createdTime}, #{keyStatus})
+        (#{publicKeyId}, #{title},#{description}, #{createdTime}, #{keyStatus})
     </insert>
 
     <!--创建公共触发器模板的参数-->
