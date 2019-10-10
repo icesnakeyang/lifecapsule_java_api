@@ -1,5 +1,6 @@
 package com.gogoyang.lifecapsule.controller.trigger;
 
+import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey;
 import com.gogoyang.lifecapsule.meta.gogoKey.entity.KeyParam;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -29,4 +30,5 @@ public class TriggerRequest {
     private String gogoKeyId;
     private String title;
     private String description;
+    private GogoKey gogoKey;
 }

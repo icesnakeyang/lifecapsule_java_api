@@ -183,7 +183,11 @@ public class GogoKeyService implements IGogoKeyService {
 
     @Override
     public void deleteGogoKeyByTriggerId(String triggerId) throws Exception {
-        gogoKeyMapper.deleteGogoKeyByTriggerId(triggerId);
+        GogoKey gogoKey=getGogoKeyByTriggerId(triggerId);
+        if(gogoKey!=null) {
+            gogoKeyMapper.deleteGogoKeyParamByGogoKeyId(gogoKey.getGogoKeyId());
+            gogoKeyMapper.deleteGogoKeyByTriggerId(triggerId);
+        }
     }
 
     @Override

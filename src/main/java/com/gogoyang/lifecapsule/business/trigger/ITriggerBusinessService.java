@@ -96,4 +96,6 @@ public interface ITriggerBusinessService {
     Map getTriggerByNoteId(Map in) throws Exception;
 
     void deleteTrigger(Map in) throws Exception;
+
+    void saveTrigger(Map in) throws Exception;
 }
