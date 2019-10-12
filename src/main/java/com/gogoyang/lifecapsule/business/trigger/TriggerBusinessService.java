@@ -92,17 +92,12 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         //检查当前编辑的接收人是否已经有上级触发器
         //如果没有，就创建一个上级触发器
         Trigger trigger = null;
-        if (triggerId != null) {
-            //有触发器id，读取触发器
-            trigger = iTriggerService.getTriggerByTriggerId(triggerId);
-            if (trigger == null) {
-                throw new Exception("10017");
-            }
-            //触发器是否属于当前的笔记
-            if (!trigger.getNoteId().equals(noteInfo.getNoteId())) {
-                throw new Exception("10018");
-            }
-        } else {
+        /**
+         * 首先根据noteId读取trigger，检查是否已经有trigger
+         * 如果有trigger就修改，没有就新新增
+         */
+        trigger = iTriggerService.getTriggerByNoteId(noteId);
+        if (trigger == null) {
             //先创建一个触发器trigger
             trigger = new Trigger();
             trigger.setTriggerId(GogoTools.UUID().toString());
