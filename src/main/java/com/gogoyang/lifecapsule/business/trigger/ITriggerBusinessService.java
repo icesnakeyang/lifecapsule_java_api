@@ -98,4 +98,11 @@ public interface ITriggerBusinessService {
     void deleteTrigger(Map in) throws Exception;
 
     void saveTrigger(Map in) throws Exception;
+
+    /**
+     * 保存trigger的remark
+     * @param in
+     * @throws Exception
+     */
+    void saveTriggerRemark(Map in) throws Exception;
 }

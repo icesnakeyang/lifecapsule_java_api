@@ -1,5 +1,6 @@
 package com.gogoyang.lifecapsule.business.trigger;
 
+import com.gogoyang.lifecapsule.business.common.ICommonService;
 import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey;
 import com.gogoyang.lifecapsule.meta.gogoKey.entity.KeyParam;
 import com.gogoyang.lifecapsule.meta.gogoKey.service.IGogoKeyService;
@@ -25,18 +26,21 @@ public class TriggerBusinessService implements ITriggerBusinessService {
     private final ITriggerService iTriggerService;
     private final IRecipientService iRecipientService;
     private final IGogoKeyService iGogoKeyService;
+    private final ICommonService iCommonService;
 
     @Autowired
     public TriggerBusinessService(IUserInfoService iUserInfoService,
                                   INoteService iNoteService,
                                   ITriggerService iTriggerService,
                                   IRecipientService iRecipientService,
-                                  IGogoKeyService iGogoKeyService) {
+                                  IGogoKeyService iGogoKeyService,
+                                  ICommonService iCommonService) {
         this.iUserInfoService = iUserInfoService;
         this.iNoteService = iNoteService;
         this.iTriggerService = iTriggerService;
         this.iRecipientService = iRecipientService;
         this.iGogoKeyService = iGogoKeyService;
+        this.iCommonService = iCommonService;
     }
 
     /**
@@ -363,6 +367,60 @@ public class TriggerBusinessService implements ITriggerBusinessService {
             gogoKey.setGogoKeyId(GogoTools.UUID().toString());
             gogoKey.setKeyStatus("active");
             iGogoKeyService.createGogoKey(gogoKey);
+        }
+    }
+
+    /**
+     * 修改trigger的remark
+     * 如果没有trigger就创建一个
+     * @param in
+     * @throws Exception
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void saveTriggerRemark(Map in) throws Exception {
+        String token = in.get("token").toString();
+        String triggerId = (String) in.get("triggerId");
+        String noteId = in.get("noteId").toString();
+        String remark = in.get("remark").toString();
+
+        UserInfo userInfo = iCommonService.getUserByToken(token);
+
+        NoteInfo noteInfo = iCommonService.getNoteByNoteId(noteId);
+
+        if (userInfo.getUserId() != noteInfo.getUserId()) {
+            /**
+             * 当前编辑的笔记不是当前用户创建的
+             */
+            throw new Exception("10024");
+        }
+
+        Trigger trigger = iTriggerService.getTriggerByNoteId(noteId);
+        if (trigger == null) {
+            if (triggerId != null) {
+                /**
+                 * 用户提交的triggerId无效，终止操作
+                 */
+                throw new Exception("10025");
+            }
+            /**
+             * 该笔记还没有trigger，创建一个
+             */
+            trigger = new Trigger();
+            trigger.setCreatedTime(new Date());
+            trigger.setNoteId(noteInfo.getNoteId());
+            trigger.setRemark(remark);
+            trigger.setTriggerId(GogoTools.UUID().toString());
+            iTriggerService.createTrigger(trigger);
+        } else {
+            if (!trigger.getTriggerId().equals(triggerId)) {
+                /**
+                 * 用户提交的triggerId和note的trigger不一致
+                 */
+                throw new Exception("10025");
+            }
+            trigger.setRemark(remark);
+            iTriggerService.updateTriggerRemark(trigger);
         }
     }
 

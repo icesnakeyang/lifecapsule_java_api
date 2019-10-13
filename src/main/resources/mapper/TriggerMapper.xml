@@ -40,6 +40,12 @@
         where trigger_id=#{triggerId}
     </update>
 
+    <update id="updateTriggerRemark" parameterType="com.gogoyang.lifecapsule.meta.trigger.entity.Trigger">
+        update `trigger` set
+        remark=#{remark}
+        where trigger_id=#{triggerId}
+    </update>
+
     <!--根据noteId查询trigger-->
     <select id="getTriggerByNoteId" parameterType="java.lang.String" resultMap="triggerMap">
         select * from `trigger`

@@ -36,6 +36,8 @@ public interface ITriggerService {
      */
     void updateTrigger(Trigger trigger) throws Exception;
 
+    void updateTriggerRemark(Trigger trigger) throws Exception;
+
     /**
      * 根据noteId查询trigger
      * @param noteId

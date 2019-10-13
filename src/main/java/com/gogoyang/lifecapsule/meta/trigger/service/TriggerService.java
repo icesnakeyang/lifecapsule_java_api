@@ -68,6 +68,11 @@ public class TriggerService implements ITriggerService {
         triggerMapper.updateTrigger(trigger);
     }
 
+    @Override
+    public void updateTriggerRemark(Trigger trigger) throws Exception {
+        triggerMapper.updateTriggerRemark(trigger);
+    }
+
     /**
      * 根据noteId查询trigger
      *

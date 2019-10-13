@@ -211,7 +211,8 @@ public class TriggerController {
     @ResponseBody
     @PostMapping("/saveTrigger")
     public Response saveTrigger(@RequestBody TriggerRequest request,
-                                HttpServletRequest httpServletRequest) {
+                                HttpServletRequest httpServletRequest)
+    {
         Response response = new Response();
         try {
             String token = httpServletRequest.getHeader("token");
@@ -222,6 +223,30 @@ public class TriggerController {
             in.put("noteId", request.getNoteId());
             in.put("gogoKey", request.getGogoKey());
             iTriggerBusinessService.saveTrigger(in);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                logger.error(ex.getMessage());
+            }
+        }
+        return response;
+    }
+
+    @ResponseBody
+    @PostMapping("/saveTriggerRemark")
+    public Response saveTriggerRemark(@RequestBody TriggerRequest request,
+                                HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            Map in = new HashMap();
+            in.put("token", token);
+            in.put("triggerId", request.getTriggerId());
+            in.put("remark", request.getRemark());
+            in.put("noteId", request.getNoteId());
+            iTriggerBusinessService.saveTriggerRemark(in);
         } catch (Exception ex) {
             try {
                 response.setCode(Integer.parseInt(ex.getMessage()));

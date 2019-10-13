@@ -42,4 +42,6 @@ public interface TriggerMapper {
     Trigger getTriggerByNoteId(String noteId);
 
     void deleteTrigger(String triggerId);
+
+    void updateTriggerRemark(Trigger trigger);
 }
