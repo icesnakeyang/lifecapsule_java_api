@@ -373,6 +373,7 @@ public class TriggerBusinessService implements ITriggerBusinessService {
     /**
      * 修改trigger的remark
      * 如果没有trigger就创建一个
+     *
      * @param in
      * @throws Exception
      */
@@ -388,7 +389,7 @@ public class TriggerBusinessService implements ITriggerBusinessService {
 
         NoteInfo noteInfo = iCommonService.getNoteByNoteId(noteId);
 
-        if (userInfo.getUserId() != noteInfo.getUserId()) {
+        if (!userInfo.getUserId().equals(noteInfo.getUserId())) {
             /**
              * 当前编辑的笔记不是当前用户创建的
              */
@@ -422,6 +423,103 @@ public class TriggerBusinessService implements ITriggerBusinessService {
             trigger.setRemark(remark);
             iTriggerService.updateTriggerRemark(trigger);
         }
+    }
+
+    @Override
+    public Map saveRecipient(Map in) throws Exception {
+        String token = in.get("token").toString();
+        String noteId = (String) in.get("noteId");
+        String triggerId = (String) in.get("triggerId");
+        String name = in.get("name").toString();
+        String phone = (String) in.get("phone");
+        String email = (String) in.get("email");
+        String address = (String) in.get("address");
+        String remark = (String) in.get("remark");
+        String recipientId = (String) in.get("recipientId");
+
+        int eof = 0;
+        if (phone == null || phone.equals("")) {
+            eof++;
+        }
+        if (email == null || email.equals("")) {
+            eof++;
+        }
+        if (address == null || address.equals("")) {
+            eof++;
+        }
+        if (eof == 3) {
+            throw new Exception("10022");
+        }
+
+        //检查登录用户
+        UserInfo userInfo = iCommonService.getUserByToken(token);
+
+        //检查当前编辑的笔记
+        NoteInfo noteInfo = iCommonService.getNoteByNoteId(noteId);
+
+        //检查当前编辑的笔记的创建人是否当前登录用户
+        if (!noteInfo.getUserId().equals(userInfo.getUserId())) {
+            throw new Exception("10011");
+        }
+
+        //检查当前编辑的接收人是否已经有上级触发器
+        //如果没有，就创建一个上级触发器
+        Trigger trigger = null;
+        /**
+         * 首先根据noteId读取trigger，检查是否已经有trigger
+         * 如果有trigger就修改，没有就新新增
+         */
+        trigger = iTriggerService.getTriggerByNoteId(noteId);
+        if (triggerId != null && trigger != null) {
+            if (!trigger.getTriggerId().equals(triggerId)) {
+                throw new Exception("10025");
+            }
+        }
+        if (trigger == null) {
+            //先创建一个触发器trigger
+            trigger = new Trigger();
+            trigger.setTriggerId(GogoTools.UUID().toString());
+            trigger.setCreatedTime(new Date());
+            trigger.setNoteId(noteId);
+            iTriggerService.createTrigger(trigger);
+        } else {
+            if (recipientId != null) {
+                /**
+                 * 已存在recipient，检查是否属于当前的trigger
+                 */
+                int cc = 0;
+                ArrayList<Recipient> recipientArrayList = iRecipientService.listRecipientByTriggerId(triggerId);
+                if (recipientArrayList.size() > 0) {
+                    for (int i = 0; i < recipientArrayList.size(); i++) {
+                        if (recipientArrayList.get(i).getRecipientId().equals(recipientId)) {
+                            cc++;
+                        }
+                    }
+                }
+                if (cc == 0) {
+                    throw new Exception("10026");
+                }
+                //删除原有的接收人，再新增
+                iRecipientService.deleteRecipient(recipientId);
+            }
+        }
+
+        //创建一个接收人 recipient
+        Recipient recipient = new Recipient();
+        recipient.setRecipientId(GogoTools.UUID().toString());
+        recipient.setAddress(address);
+        recipient.setEmail(email);
+        recipient.setPhone(phone);
+        recipient.setRecipientName(name);
+        recipient.setRemark(remark);
+        recipient.setTriggerId(trigger.getTriggerId());
+        recipient.setCreatedTime(new Date());
+        iRecipientService.createRecipient(recipient);
+
+        Map out = new HashMap();
+        out.put("trigger", trigger);
+        out.put("recipient", recipient);
+        return out;
     }
 
     /**

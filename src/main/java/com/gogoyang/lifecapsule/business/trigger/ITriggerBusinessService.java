@@ -14,6 +14,7 @@ public interface ITriggerBusinessService {
      * @throws Exception
      */
     Map createRecipient(Map in) throws Exception;
+
     /**
      * 修改一个接收人
      *
@@ -22,6 +23,7 @@ public interface ITriggerBusinessService {
      * @throws Exception
      */
     Map updateRecipient(Map in) throws Exception;
+
     /**
      * 删除一个接收人
      *
@@ -29,6 +31,7 @@ public interface ITriggerBusinessService {
      * @throws Exception
      */
     void deleteRecipient(Map in) throws Exception;
+
     /**
      * 根据接收人Id读取接收人
      *
@@ -37,6 +40,7 @@ public interface ITriggerBusinessService {
      * @throws Exception
      */
     Map getRecipientByRecipientId(Map in) throws Exception;
+
     /**
      * 根据触发器Id读取所有接收人
      *
@@ -57,6 +61,7 @@ public interface ITriggerBusinessService {
      * @throws Exception
      */
     void saveGogoKey(Map in) throws Exception;
+
     /**
      * 根据triggerId读取gogoKey
      *
@@ -78,6 +83,7 @@ public interface ITriggerBusinessService {
      * @throws Exception
      */
     Map listTriggerByNoteId(Map in) throws Exception;
+
     /**
      * 读取一个触发器详情
      *
@@ -86,6 +92,7 @@ public interface ITriggerBusinessService {
      * @throws Exception
      */
     Map getTriggerByTriggerId(Map in) throws Exception;
+
     /**
      * 根据笔记Id读取触发器详情
      *
@@ -101,8 +108,11 @@ public interface ITriggerBusinessService {
 
     /**
      * 保存trigger的remark
+     *
      * @param in
      * @throws Exception
      */
     void saveTriggerRemark(Map in) throws Exception;
+
+    Map saveRecipient(Map in) throws Exception;
 }

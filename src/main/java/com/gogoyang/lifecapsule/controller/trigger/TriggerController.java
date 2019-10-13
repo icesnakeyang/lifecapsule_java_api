@@ -58,6 +58,37 @@ public class TriggerController {
         return response;
     }
 
+    @ResponseBody
+    @PostMapping("/saveRecipient")
+    public Response saveRecipient(@RequestBody TriggerRequest request,
+                                    HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            Map in = new HashMap();
+            in.put("token", token);
+            in.put("noteId", request.getNoteId());
+            in.put("triggerId", request.getTriggerId());
+            in.put("name", request.getRecipientName());
+            in.put("phone", request.getPhone());
+            in.put("email", request.getEmail());
+            in.put("address", request.getAddress());
+            in.put("remark", request.getRemark());
+            in.put("recipientId", request.getRecipientId());
+
+            Map out = iTriggerBusinessService.saveRecipient(in);
+            response.setData(out);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                logger.error(ex.getMessage());
+            }
+        }
+        return response;
+    }
+
     /**
      * 修改接收人信息
      *
