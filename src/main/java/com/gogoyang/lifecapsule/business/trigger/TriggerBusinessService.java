@@ -106,7 +106,6 @@ public class TriggerBusinessService implements ITriggerBusinessService {
             trigger = new Trigger();
             trigger.setTriggerId(GogoTools.UUID().toString());
             trigger.setCreatedTime(new Date());
-            trigger.setName(name);
             trigger.setNoteId(noteId);
             trigger.setRemark(remark);
             iTriggerService.createTrigger(trigger);
@@ -319,57 +318,6 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         }
     }
 
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public void saveTrigger(Map in) throws Exception {
-        String token = in.get("token").toString();
-        GogoKey gogoKey = (GogoKey) in.get("gogoKey");
-        String triggerId = (String) in.get("triggerId");
-        String remark = (String) in.get("remark");
-        String noteId = (String) in.get("noteId");
-
-        UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
-        if (userInfo == null) {
-            throw new Exception("10003");
-        }
-
-        Trigger trigger = null;
-        if (triggerId != null) {
-            /**
-             * 如果有triggerId，就读取trigger，再修改
-             */
-            trigger = iTriggerService.getTriggerByTriggerId(triggerId);
-            trigger.setRemark(remark);
-            iTriggerService.updateTrigger(trigger);
-            /**
-             * 把trigger的gogoKey删除，再新增一个
-             */
-            iGogoKeyService.deleteGogoKeyByTriggerId(triggerId);
-            gogoKey.setTriggerId(triggerId);
-            gogoKey.setCreatedTime(new Date());
-            gogoKey.setGogoKeyId(GogoTools.UUID().toString());
-            gogoKey.setKeyStatus("active");
-            iGogoKeyService.createGogoKey(gogoKey);
-        } else {
-            /**
-             * 如果没有triggerId，就新建一个trigger
-             */
-            trigger = new Trigger();
-            trigger.setTriggerId(GogoTools.UUID().toString());
-            trigger.setGogoKey(gogoKey);
-            trigger.setRemark(remark);
-            trigger.setNoteId(noteId);
-            trigger.setCreatedTime(new Date());
-            iTriggerService.createTrigger(trigger);
-            //新增一个gogoKey
-            gogoKey.setTriggerId(trigger.getTriggerId());
-            gogoKey.setCreatedTime(new Date());
-            gogoKey.setGogoKeyId(GogoTools.UUID().toString());
-            gogoKey.setKeyStatus("active");
-            iGogoKeyService.createGogoKey(gogoKey);
-        }
-    }
-
     /**
      * 修改trigger的remark
      * 如果没有trigger就创建一个
@@ -387,14 +335,7 @@ public class TriggerBusinessService implements ITriggerBusinessService {
 
         UserInfo userInfo = iCommonService.getUserByToken(token);
 
-        NoteInfo noteInfo = iCommonService.getNoteByNoteId(noteId);
-
-        if (!userInfo.getUserId().equals(noteInfo.getUserId())) {
-            /**
-             * 当前编辑的笔记不是当前用户创建的
-             */
-            throw new Exception("10024");
-        }
+        NoteInfo noteInfo = iCommonService.getNoteByNoteId(noteId,userInfo.getUserId());
 
         Trigger trigger = iTriggerService.getTriggerByNoteId(noteId);
         if (trigger == null) {
@@ -425,6 +366,14 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         }
     }
 
+    /**
+     * 保存一个接收人
+     * 自动校验，自动判断新增还是修改
+     *
+     * @param in
+     * @return
+     * @throws Exception
+     */
     @Override
     public Map saveRecipient(Map in) throws Exception {
         String token = in.get("token").toString();
@@ -565,6 +514,12 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         return out;
     }
 
+    /**
+     * 保存gogoKey
+     * 检查，校验，删除旧的，增加新的
+     * @param in
+     * @throws Exception
+     */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void saveGogoKey(Map in) throws Exception {
@@ -574,71 +529,54 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         String triggerId = (String) in.get("triggerId");
         //用户设置的触发器参数
         List<KeyParam> keyParams = (List<KeyParam>) in.get("keyParams");
-        String gogoKeyId = (String) in.get("gogoKeyId");
-        String triggerName = (String) in.get("triggerName");
+        //公共模板id
+        String gogoPublicKeyId = (String) in.get("gogoPublicKeyId");
+        //笔记id
         String noteId = (String) in.get("noteId");
-        String triggerRemark = (String) in.get("triggerRemark");
-        String gogoKeyTitle = (String) in.get("title");
-        String gogoKeyDescription = (String) in.get("description");
-
         //检查用户是否登录
-        UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
-        if (userInfo == null) {
-            throw new Exception("10003");
-        }
-
-        Trigger trigger = null;
-        if (triggerId != null) {
-            trigger = iTriggerService.getTriggerByTriggerId(triggerId);
-        }
+        UserInfo userInfo = iCommonService.getUserByToken(token);
+        //检查笔记
+        NoteInfo noteInfo = iCommonService.getNoteByNoteId(noteId, userInfo.getUserId());
+        //根据笔记读取触发器
+        Trigger trigger = iTriggerService.getTriggerByNoteId(noteInfo.getNoteId());
         if (trigger == null) {
-            //没有触发器，创建一个
-            trigger = new Trigger();
-            trigger.setCreatedTime(new Date());
-            if (triggerName != null) {
-                trigger.setName(triggerName);
-                trigger.setRemark(triggerRemark);
-            } else {
-                trigger.setName(gogoKeyTitle);
-                trigger.setRemark(gogoKeyDescription);
+            if (triggerId != null) {
+                //用户上传一个无效triggerId
+                throw new Exception("10025");
             }
-            trigger.setNoteId(noteId);
+            //创建一个trigger
+            trigger.setCreatedTime(new Date());
+            trigger.setNoteId(noteInfo.getNoteId());
             trigger.setTriggerId(GogoTools.UUID().toString());
             iTriggerService.createTrigger(trigger);
         } else {
-            trigger.setRemark(triggerRemark);
-            trigger.setName(triggerName);
-            iTriggerService.updateTrigger(trigger);
+            if (!triggerId.equals(trigger.getTriggerId())) {
+                //用户上传的triggerId无效
+                throw new Exception("10025");
+            }
         }
-
-        NoteInfo noteInfo = iNoteService.getNoteTinyByNoteId(trigger.getNoteId());
-        if (noteInfo == null) {
-            throw new Exception("10004");
+        /**
+         * 检查publicKey
+         * 用户的触发器只能从publicKey里面选择，没有publicKey，就不能创建gogoKey
+         */
+        GogoKey publicKey = iCommonService.getPublicKey(gogoPublicKeyId);
+        /**
+         * 这里已经有了trigger，如果gogokey已存在，先删除，然后直接增加gogoKey
+         */
+        GogoKey gogoKey=iGogoKeyService.getGogoKeyByTriggerId(trigger.getTriggerId());
+        if (gogoKey != null) {
+            iGogoKeyService.deleteGogoKeyByTriggerId(trigger.getTriggerId());
         }
-        if (!noteInfo.getUserId().equals(userInfo.getUserId())) {
-            throw new Exception("10011");
-        }
-
-        GogoKey gogoKey = null;
-        if (trigger != null) {
-            gogoKey = iGogoKeyService.getGogoKeyByTriggerId(trigger.getTriggerId());
-        }
-        if (gogoKey == null) {
-            gogoKey = new GogoKey();
-            gogoKey.setGogoKeyId(GogoTools.UUID().toString());
-            gogoKey.setTriggerId(trigger.getTriggerId());
-            gogoKey.setCreatedTime(new Date());
-            gogoKey.setTitle(gogoKeyTitle);
-            gogoKey.setDescription(gogoKeyDescription);
-            gogoKey.setKeyParams(keyParams);
-            gogoKey.setKeyStatus("userKey");
-            iGogoKeyService.createGogoKey(gogoKey);
-        } else {
-            gogoKey.setKeyParams(keyParams);
-            gogoKey.setDescription(gogoKeyDescription);
-            gogoKey.setTitle(gogoKeyTitle);
-            iGogoKeyService.updateGogoKey(gogoKey);
-        }
+        //增加gogokey
+        gogoKey = new GogoKey();
+        gogoKey.setGogoKeyId(GogoTools.UUID().toString());
+        gogoKey.setTriggerId(trigger.getTriggerId());
+        gogoKey.setCreatedTime(new Date());
+        gogoKey.setPublicKeyId(publicKey.getPublicKeyId());
+        gogoKey.setTitle(publicKey.getTitle());
+        gogoKey.setDescription(publicKey.getDescription());
+        gogoKey.setKeyParams(keyParams);
+        iGogoKeyService.createGogoKey(gogoKey);
     }
 
     @Override

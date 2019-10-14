@@ -22,42 +22,12 @@ public class TriggerController {
     }
 
     /**
-     * 创建一个接收人
-     *
+     * 保存一个接收人
+     * 自动校验，自动判断新增还是修改
      * @param request
      * @param httpServletRequest
      * @return
      */
-    @ResponseBody
-    @PostMapping("/createRecipient")
-    public Response createRecipient(@RequestBody TriggerRequest request,
-                                    HttpServletRequest httpServletRequest) {
-        Response response = new Response();
-        try {
-            String token = httpServletRequest.getHeader("token");
-            Map in = new HashMap();
-            in.put("token", token);
-            in.put("noteId", request.getNoteId());
-            in.put("triggerId", request.getTriggerId());
-            in.put("name", request.getRecipientName());
-            in.put("phone", request.getPhone());
-            in.put("email", request.getEmail());
-            in.put("address", request.getAddress());
-            in.put("remark", request.getRemark());
-
-            Map out = iTriggerBusinessService.createRecipient(in);
-            response.setData(out);
-        } catch (Exception ex) {
-            try {
-                response.setCode(Integer.parseInt(ex.getMessage()));
-            } catch (Exception ex2) {
-                response.setCode(10001);
-                logger.error(ex.getMessage());
-            }
-        }
-        return response;
-    }
-
     @ResponseBody
     @PostMapping("/saveRecipient")
     public Response saveRecipient(@RequestBody TriggerRequest request,
@@ -77,42 +47,6 @@ public class TriggerController {
             in.put("recipientId", request.getRecipientId());
 
             Map out = iTriggerBusinessService.saveRecipient(in);
-            response.setData(out);
-        } catch (Exception ex) {
-            try {
-                response.setCode(Integer.parseInt(ex.getMessage()));
-            } catch (Exception ex2) {
-                response.setCode(10001);
-                logger.error(ex.getMessage());
-            }
-        }
-        return response;
-    }
-
-    /**
-     * 修改接收人信息
-     *
-     * @param request
-     * @param httpServletRequest
-     * @return
-     */
-    @ResponseBody
-    @PostMapping("/updateRecipient")
-    public Response updateRecipient(@RequestBody TriggerRequest request,
-                                    HttpServletRequest httpServletRequest) {
-        Response response = new Response();
-        try {
-            String token = httpServletRequest.getHeader("token");
-            Map in = new HashMap();
-            in.put("token", token);
-            in.put("recipientId", request.getRecipientId());
-            in.put("name", request.getRecipientName());
-            in.put("phone", request.getPhone());
-            in.put("email", request.getEmail());
-            in.put("address", request.getAddress());
-            in.put("remark", request.getRemark());
-
-            Map out = iTriggerBusinessService.updateRecipient(in);
             response.setData(out);
         } catch (Exception ex) {
             try {
@@ -219,41 +153,10 @@ public class TriggerController {
             Map in = new HashMap();
             in.put("token", token);
             in.put("triggerId", request.getTriggerId());
-            in.put("title", request.getTitle());
-            in.put("description", request.getDescription());
             in.put("gogoPublicKeyId", request.getGogoPublicKeyId());
             in.put("keyParams", request.getKeyParams());
-            in.put("gogoKeyId", request.getGogoKeyId());
-            in.put("triggerName", request.getTriggerName());
             in.put("noteId", request.getNoteId());
-            in.put("triggerRemark", request.getTriggerRemark());
             iTriggerBusinessService.saveGogoKey(in);
-        } catch (Exception ex) {
-            try {
-                response.setCode(Integer.parseInt(ex.getMessage()));
-            } catch (Exception ex2) {
-                response.setCode(10001);
-                logger.error(ex.getMessage());
-            }
-        }
-        return response;
-    }
-
-    @ResponseBody
-    @PostMapping("/saveTrigger")
-    public Response saveTrigger(@RequestBody TriggerRequest request,
-                                HttpServletRequest httpServletRequest)
-    {
-        Response response = new Response();
-        try {
-            String token = httpServletRequest.getHeader("token");
-            Map in = new HashMap();
-            in.put("token", token);
-            in.put("triggerId", request.getTriggerId());
-            in.put("remark", request.getRemark());
-            in.put("noteId", request.getNoteId());
-            in.put("gogoKey", request.getGogoKey());
-            iTriggerBusinessService.saveTrigger(in);
         } catch (Exception ex) {
             try {
                 response.setCode(Integer.parseInt(ex.getMessage()));

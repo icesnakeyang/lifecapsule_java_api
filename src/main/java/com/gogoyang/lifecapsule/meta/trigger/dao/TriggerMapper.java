@@ -29,12 +29,6 @@ public interface TriggerMapper {
     ArrayList<Trigger> listTriggerByNoteId(Map qIn);
 
     /**
-     * 修改触发器的名称和说明
-     * @param trigger
-     */
-    void updateTrigger(Trigger trigger);
-
-    /**
      * 根据noteId查询trigger
      * @param noteId
      * @return

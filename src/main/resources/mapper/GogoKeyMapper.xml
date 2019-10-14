@@ -4,9 +4,9 @@
     <!--创建一个触发器条件 gogoKey-->
     <insert id="createGogoKey" parameterType="com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey">
         insert into gogo_key
-        (trigger_id, title, description, gogo_key_id, created_time, key_status)
+        (trigger_id, title, description, gogo_key_id, created_time, key_status, public_key_id)
          values
-        (#{triggerId}, #{title}, #{description}, #{gogoKeyId}, #{createdTime}, #{keyStatus})
+        (#{triggerId}, #{title}, #{description}, #{gogoKeyId}, #{createdTime}, #{keyStatus}, #{publicKeyId})
     </insert>
 
     <!--新增一个参数对-->
@@ -23,6 +23,7 @@
         <result property="createdTime" column="created_time"/>
         <result property="keyStatus" column="key_status"/>
         <result property="triggerId" column="trigger_id"/>
+        <result property="publicKeyId" column="public_key_id"/>
     </resultMap>
 
     <!--配置public_key表和GogoKey对象的字段映射 -->

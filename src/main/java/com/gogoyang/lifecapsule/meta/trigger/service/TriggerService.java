@@ -57,17 +57,6 @@ public class TriggerService implements ITriggerService {
         return triggerList;
     }
 
-    /**
-     * 修改触发器的名称和说明
-     *
-     * @param trigger
-     * @throws Exception
-     */
-    @Override
-    public void updateTrigger(Trigger trigger) throws Exception {
-        triggerMapper.updateTrigger(trigger);
-    }
-
     @Override
     public void updateTriggerRemark(Trigger trigger) throws Exception {
         triggerMapper.updateTriggerRemark(trigger);

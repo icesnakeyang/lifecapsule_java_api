@@ -30,11 +30,6 @@ public class Trigger {
     private String noteId;
 
     /**
-     * 触发器名称
-     */
-    private String name;
-
-    /**
      * 创建时间
      */
     private Date createdTime;
