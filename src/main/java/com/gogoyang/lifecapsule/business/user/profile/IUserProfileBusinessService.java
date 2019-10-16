@@ -4,4 +4,10 @@ import java.util.Map;
 
 public interface IUserProfileBusinessService {
     void saveNickname(Map in) throws Exception;
+
+    void savePassword(Map in) throws Exception;
+
+    void bindPhone1(Map in) throws Exception;
+
+    void bindPhone2(Map in) throws Exception;
 }

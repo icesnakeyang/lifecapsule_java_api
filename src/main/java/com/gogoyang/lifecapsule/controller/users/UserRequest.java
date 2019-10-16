@@ -14,4 +14,5 @@ public class UserRequest {
     private String keyToken;
     private String deviceId;
     private String nickname;
+    private String code;
 }

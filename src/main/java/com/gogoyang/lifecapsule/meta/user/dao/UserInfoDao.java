@@ -60,4 +60,10 @@ public interface UserInfoDao {
      * @param userInfo
      */
     void updateNickname(UserInfo userInfo);
+
+    /**
+     * 修改用户手机号码
+     * @param userInfo
+     */
+    void updateUserPhone(UserInfo userInfo);
 }

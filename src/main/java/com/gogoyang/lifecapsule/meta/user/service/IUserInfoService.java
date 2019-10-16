@@ -80,4 +80,6 @@ public interface IUserInfoService {
 
 
     void updateNickname(UserInfo userInfo) throws Exception;
+
+    void updateUserPhone(UserInfo bindUser) throws Exception;
 }

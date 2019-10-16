@@ -99,4 +99,10 @@
         nick_name=#{nickname}
         where user_id=#{userId}
     </update>
+
+    <update id="updateUserPhone" parameterType="com.gogoyang.lifecapsule.meta.user.entity.UserInfo">
+        update user_info set
+        phone=#{phone}
+        where user_id=#{userId}
+    </update>
 </mapper>

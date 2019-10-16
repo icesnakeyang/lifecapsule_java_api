@@ -147,4 +147,9 @@ public class UserInfoService implements IUserInfoService {
     public void updateNickname(UserInfo userInfo) throws Exception {
         userInfoDao.updateNickname(userInfo);
     }
+
+    @Override
+    public void updateUserPhone(UserInfo bindUser) throws Exception {
+        userInfoDao.updateUserPhone(bindUser);
+    }
 }
