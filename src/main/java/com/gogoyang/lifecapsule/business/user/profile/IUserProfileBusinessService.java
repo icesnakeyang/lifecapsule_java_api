@@ -10,4 +10,6 @@ public interface IUserProfileBusinessService {
     void bindPhone1(Map in) throws Exception;
 
     void bindPhone2(Map in) throws Exception;
+
+    void bindEmail1(Map in) throws Exception;
 }

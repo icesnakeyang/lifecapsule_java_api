@@ -66,4 +66,6 @@ public interface UserInfoDao {
      * @param userInfo
      */
     void updateUserPhone(UserInfo userInfo);
+
+    void updateUserEmail(UserInfo bindUser);
 }

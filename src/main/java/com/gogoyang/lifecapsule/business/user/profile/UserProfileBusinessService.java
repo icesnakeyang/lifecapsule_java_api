@@ -45,18 +45,19 @@ public class UserProfileBusinessService implements IUserProfileBusinessService {
 
     /**
      * 绑定手机号码
+     *
      * @param in
      * @throws Exception
      */
     @Override
     public void bindPhone1(Map in) throws Exception {
-        String token=in.get("token").toString();
-        String phone=in.get("phone").toString();
+        String token = in.get("token").toString();
+        String phone = in.get("phone").toString();
 
-        UserInfo currentUser=iCommonService.getUserByToken(token);
-        UserInfo bindUser=iUserInfoService.getUserByPhone(phone);
-        if(bindUser!=null){
-            if(!bindUser.getUserId().equals(currentUser.getUserId())){
+        UserInfo currentUser = iCommonService.getUserByToken(token);
+        UserInfo bindUser = iUserInfoService.getUserByPhone(phone);
+        if (bindUser != null) {
+            if (!bindUser.getUserId().equals(currentUser.getUserId())) {
                 throw new Exception("10027");
             }
         }
@@ -65,7 +66,7 @@ public class UserProfileBusinessService implements IUserProfileBusinessService {
          * 手机号码有效，可以绑定，发送验证码
          */
         //临时代码，先直接把phone写入userinfo表
-        bindUser=new UserInfo();
+        bindUser = new UserInfo();
         bindUser.setPhone(phone);
         bindUser.setUserId(currentUser.getUserId());
         iUserInfoService.updateUserPhone(bindUser);
@@ -73,11 +74,38 @@ public class UserProfileBusinessService implements IUserProfileBusinessService {
 
     /**
      * 绑定手机验证码
+     *
      * @param in
      * @throws Exception
      */
     @Override
     public void bindPhone2(Map in) throws Exception {
 
+    }
+
+    /**
+     * 绑定Email
+     *
+     * @param in
+     * @throws Exception
+     */
+    @Override
+    public void bindEmail1(Map in) throws Exception {
+        String token = in.get("token").toString();
+        String email = in.get("email").toString();
+
+        UserInfo currentUser = iCommonService.getUserByToken(token);
+        UserInfo bindUser = iUserInfoService.getUserByEmail(email);
+
+        if (bindUser != null) {
+            if (!bindUser.getUserId().equals(currentUser.getUserId())) {
+                throw new Exception("10028");
+            }
+        }
+
+        bindUser = new UserInfo();
+        bindUser.setUserId(currentUser.getUserId());
+        bindUser.setEmail(email);
+        iUserInfoService.updateUserEmail(bindUser);
     }
 }

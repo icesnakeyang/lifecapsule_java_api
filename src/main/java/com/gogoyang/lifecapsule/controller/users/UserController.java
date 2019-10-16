@@ -1,5 +1,6 @@
 package com.gogoyang.lifecapsule.controller.users;
 
+import ch.qos.logback.core.encoder.EchoEncoder;
 import com.gogoyang.lifecapsule.business.login.ILoginBusinessService;
 import com.gogoyang.lifecapsule.business.register.IRegisterBusinessService;
 import com.gogoyang.lifecapsule.business.user.profile.IUserProfileBusinessService;
@@ -7,6 +8,7 @@ import com.gogoyang.lifecapsule.controller.vo.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -233,6 +235,7 @@ public class UserController {
 
     /**
      * 用户输入需要绑定的手机号码
+     *
      * @param request
      * @param httpServletRequest
      * @return
@@ -261,6 +264,7 @@ public class UserController {
 
     /**
      * 用户输入收到的手机验证码
+     *
      * @param request
      * @param httpServletRequest
      * @return
@@ -276,6 +280,28 @@ public class UserController {
             in.put("token", token);
             in.put("code", request.getPhone());
             iUserProfileBusinessService.bindPhone2(in);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                logger.error(ex.getMessage());
+            }
+        }
+        return response;
+    }
+
+    @ResponseBody
+    @PostMapping("/bindEmail1")
+    public Response bindEmail1(@RequestBody UserRequest request,
+                               HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            Map in = new HashMap();
+            in.put("token", token);
+            in.put("email", request.getEmail());
+            iUserProfileBusinessService.bindEmail1(in);
         } catch (Exception ex) {
             try {
                 response.setCode(Integer.parseInt(ex.getMessage()));

@@ -105,4 +105,10 @@
         phone=#{phone}
         where user_id=#{userId}
     </update>
+
+    <update id="updateUserEmail" parameterType="com.gogoyang.lifecapsule.meta.user.entity.UserInfo">
+        update user_info set
+        email=#{email}
+        where user_id=#{userId}
+    </update>
 </mapper>

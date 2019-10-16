@@ -133,6 +133,7 @@ public class UserInfoService implements IUserInfoService {
 
     /**
      * 更新用户token
+     *
      * @param userInfo
      * @throws Exception
      */
@@ -151,5 +152,10 @@ public class UserInfoService implements IUserInfoService {
     @Override
     public void updateUserPhone(UserInfo bindUser) throws Exception {
         userInfoDao.updateUserPhone(bindUser);
+    }
+
+    @Override
+    public void updateUserEmail(UserInfo bindUser) throws Exception {
+        userInfoDao.updateUserEmail(bindUser);
     }
 }
