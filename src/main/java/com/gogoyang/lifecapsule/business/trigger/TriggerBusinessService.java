@@ -335,7 +335,7 @@ public class TriggerBusinessService implements ITriggerBusinessService {
 
         UserInfo userInfo = iCommonService.getUserByToken(token);
 
-        NoteInfo noteInfo = iCommonService.getNoteByNoteId(noteId,userInfo.getUserId());
+        NoteInfo noteInfo = iCommonService.getNoteByNoteId(noteId, userInfo.getUserId());
 
         Trigger trigger = iTriggerService.getTriggerByNoteId(noteId);
         if (trigger == null) {
@@ -517,6 +517,7 @@ public class TriggerBusinessService implements ITriggerBusinessService {
     /**
      * 保存gogoKey
      * 检查，校验，删除旧的，增加新的
+     *
      * @param in
      * @throws Exception
      */
@@ -545,6 +546,7 @@ public class TriggerBusinessService implements ITriggerBusinessService {
                 throw new Exception("10025");
             }
             //创建一个trigger
+            trigger = new Trigger();
             trigger.setCreatedTime(new Date());
             trigger.setNoteId(noteInfo.getNoteId());
             trigger.setTriggerId(GogoTools.UUID().toString());
@@ -563,7 +565,7 @@ public class TriggerBusinessService implements ITriggerBusinessService {
         /**
          * 这里已经有了trigger，如果gogokey已存在，先删除，然后直接增加gogoKey
          */
-        GogoKey gogoKey=iGogoKeyService.getGogoKeyByTriggerId(trigger.getTriggerId());
+        GogoKey gogoKey = iGogoKeyService.getGogoKeyByTriggerId(trigger.getTriggerId());
         if (gogoKey != null) {
             iGogoKeyService.deleteGogoKeyByTriggerId(trigger.getTriggerId());
         }
