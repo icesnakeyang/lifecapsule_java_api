@@ -12,4 +12,6 @@ public interface IUserProfileBusinessService {
     void bindPhone2(Map in) throws Exception;
 
     void bindEmail1(Map in) throws Exception;
+
+    Map getUserByToken(Map in) throws Exception;
 }

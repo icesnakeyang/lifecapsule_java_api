@@ -8,6 +8,7 @@ import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Service
@@ -107,5 +108,14 @@ public class UserProfileBusinessService implements IUserProfileBusinessService {
         bindUser.setUserId(currentUser.getUserId());
         bindUser.setEmail(email);
         iUserInfoService.updateUserEmail(bindUser);
+    }
+
+    @Override
+    public Map getUserByToken(Map in) throws Exception {
+        String token = in.get("token").toString();
+        UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
+        Map out = new HashMap();
+        out.put("userInfo", userInfo);
+        return out;
     }
 }
