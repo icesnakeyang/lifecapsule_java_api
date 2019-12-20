@@ -1,505 +1,497 @@
-2019-07-02 09:12:03.977  INFO 1924 --- [cluster-ClusterId{value='5d1a23a608bcac07841c2d00', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Exception in monitor thread while connecting to server gogorpg.com:27017
+2019-12-20 05:39:23.295  WARN 50845 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=32m6s708ms).
+2019-12-20 10:52:30.435  INFO 50845 --- [Thread-52] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+2019-12-20 10:52:30.463  INFO 50845 --- [Thread-52] o.s.s.quartz.SchedulerFactoryBean        : Shutting down Quartz Scheduler
+2019-12-20 10:52:30.471  INFO 50845 --- [Thread-52] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED shutting down.
+2019-12-20 10:52:30.476  INFO 50845 --- [Thread-52] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+2019-12-20 10:52:30.488  INFO 50845 --- [Thread-52] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED shutdown complete.
+2019-12-20 10:52:30.512  INFO 50845 --- [Thread-52] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-12-20 10:52:30.540  INFO 50845 --- [Thread-52] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-12-20 10:52:30.575  INFO 50845 --- [Thread-52] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-12-20 10:52:46.127  INFO 99454 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on snakes-mbp with PID 99454 (/Users/snake/jobs/projects/lifecapsule/api/target/classes started by snake in /Users/snake/jobs/projects/lifecapsule/api)
+2019-12-20 10:52:46.137  INFO 99454 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
+2019-12-20 10:52:48.397  INFO 99454 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
+2019-12-20 10:52:48.428  INFO 99454 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-20 10:52:48.429  INFO 99454 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
+2019-12-20 10:52:48.549  INFO 99454 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-20 10:52:48.549  INFO 99454 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2312 ms
+2019-12-20 10:52:50.389  INFO 99454 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-20 10:52:50.753  INFO 99454 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-12-20 10:52:51.520  INFO 99454 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-12-20 10:52:51.569  INFO 99454 --- [main] org.quartz.impl.StdSchedulerFactory      : Using default implementation for ThreadExecutor
+2019-12-20 10:52:51.586  INFO 99454 --- [main] org.quartz.core.SchedulerSignalerImpl    : Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2019-12-20 10:52:51.586  INFO 99454 --- [main] org.quartz.core.QuartzScheduler          : Quartz Scheduler v.2.3.1 created.
+2019-12-20 10:52:51.587  INFO 99454 --- [main] org.quartz.simpl.RAMJobStore             : RAMJobStore initialized.
+2019-12-20 10:52:51.589  INFO 99454 --- [main] org.quartz.core.QuartzScheduler          : Scheduler meta-data: Quartz Scheduler (v2.3.1) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
 
-com.mongodb.MongoSocketException: gogorpg.com: unknown error
-	at com.mongodb.ServerAddress.getSocketAddress(ServerAddress.java:188) ~[mongodb-driver-core-3.8.2.jar:na]
-	at com.mongodb.internal.connection.SocketStreamHelper.initialize(SocketStreamHelper.java:64) ~[mongodb-driver-core-3.8.2.jar:na]
-	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:62) ~[mongodb-driver-core-3.8.2.jar:na]
-	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:126) ~[mongodb-driver-core-3.8.2.jar:na]
-	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:131) ~[mongodb-driver-core-3.8.2.jar:na]
-	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_51]
-Caused by: java.net.UnknownHostException: gogorpg.com: unknown error
-	at java.net.Inet6AddressImpl.lookupAllHostAddr(Native Method) ~[na:1.8.0_51]
-	at java.net.InetAddress$2.lookupAllHostAddr(InetAddress.java:928) ~[na:1.8.0_51]
-	at java.net.InetAddress.getAddressesFromNameService(InetAddress.java:1323) ~[na:1.8.0_51]
-	at java.net.InetAddress.getAllByName0(InetAddress.java:1276) ~[na:1.8.0_51]
-	at java.net.InetAddress.getAllByName(InetAddress.java:1192) ~[na:1.8.0_51]
-	at java.net.InetAddress.getAllByName(InetAddress.java:1126) ~[na:1.8.0_51]
-	at java.net.InetAddress.getByName(InetAddress.java:1076) ~[na:1.8.0_51]
-	at com.mongodb.ServerAddress.getSocketAddress(ServerAddress.java:186) ~[mongodb-driver-core-3.8.2.jar:na]
-	... 5 common frames omitted
+2019-12-20 10:52:51.589  INFO 99454 --- [main] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2019-12-20 10:52:51.589  INFO 99454 --- [main] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler version: 2.3.1
+2019-12-20 10:52:51.590  INFO 99454 --- [main] org.quartz.core.QuartzScheduler          : JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@12d40609
+2019-12-20 10:52:51.663  INFO 99454 --- [main] o.s.s.quartz.SchedulerFactoryBean        : Starting Quartz Scheduler now
+2019-12-20 10:52:51.664  INFO 99454 --- [main] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2019-12-20 10:52:51.679  INFO 99454 --- [quartzScheduler_Worker-1] c.g.l.b.admin.backJob.GogoKeyProcessor   : Trigger processor started
+2019-12-20 10:52:51.892  INFO 99454 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
+2019-12-20 10:52:51.900  INFO 99454 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 6.883 seconds (JVM running for 8.368)
+2019-12-20 10:52:52.204  INFO 99454 --- [quartzScheduler_Worker-1] c.g.l.b.admin.backJob.GogoKeyProcessor   : 时间 trigger triggered
+2019-12-20 10:52:52.350  INFO 99454 --- [quartzScheduler_Worker-1] c.g.l.b.admin.backJob.GogoKeyProcessor   : send failed
+2019-12-20 10:52:52.633  INFO 99454 --- [quartzScheduler_Worker-1] c.g.l.b.admin.backJob.GogoKeyProcessor   : 2332 trigger triggered
+2019-12-20 10:52:55.597  INFO 99454 --- [quartzScheduler_Worker-1] c.g.l.b.admin.backJob.GogoKeyProcessor   : send failed
+2019-12-20 10:52:55.839 ERROR 99454 --- [quartzScheduler_Worker-1] c.g.l.b.admin.backJob.GogoKeyProcessor   : null
+2019-12-20 10:55:38.989  INFO 99454 --- [http-nio-8088-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-12-20 10:55:38.993  INFO 99454 --- [http-nio-8088-exec-2] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-12-20 10:55:39.031  INFO 99454 --- [http-nio-8088-exec-2] o.s.web.servlet.DispatcherServlet        : Completed initialization in 36 ms
+2019-12-20 11:10:52.918  INFO 99454 --- [Thread-16] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+2019-12-20 11:10:52.923  INFO 99454 --- [Thread-16] o.s.s.quartz.SchedulerFactoryBean        : Shutting down Quartz Scheduler
+2019-12-20 11:10:52.924  INFO 99454 --- [Thread-16] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED shutting down.
+2019-12-20 11:10:52.924  INFO 99454 --- [Thread-16] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+2019-12-20 11:10:52.926  INFO 99454 --- [Thread-16] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED shutdown complete.
+2019-12-20 11:10:52.930  INFO 99454 --- [Thread-16] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-12-20 11:10:52.935  INFO 99454 --- [Thread-16] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-12-20 11:10:52.949  INFO 99454 --- [Thread-16] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-12-20 11:11:13.336  INFO 3404 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on snakes-mbp with PID 3404 (/Users/snake/jobs/projects/lifecapsule/api/target/classes started by snake in /Users/snake/jobs/projects/lifecapsule/api)
+2019-12-20 11:11:13.344  INFO 3404 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
+2019-12-20 11:11:15.657  INFO 3404 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
+2019-12-20 11:11:15.687  INFO 3404 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-20 11:11:15.687  INFO 3404 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
+2019-12-20 11:11:15.799  INFO 3404 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-20 11:11:15.800  INFO 3404 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2355 ms
+2019-12-20 11:11:16.715  INFO 3404 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-20 11:11:16.958  INFO 3404 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-12-20 11:11:17.691  INFO 3404 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-12-20 11:11:17.736  INFO 3404 --- [main] org.quartz.impl.StdSchedulerFactory      : Using default implementation for ThreadExecutor
+2019-12-20 11:11:17.750  INFO 3404 --- [main] org.quartz.core.SchedulerSignalerImpl    : Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2019-12-20 11:11:17.750  INFO 3404 --- [main] org.quartz.core.QuartzScheduler          : Quartz Scheduler v.2.3.1 created.
+2019-12-20 11:11:17.752  INFO 3404 --- [main] org.quartz.simpl.RAMJobStore             : RAMJobStore initialized.
+2019-12-20 11:11:17.753  INFO 3404 --- [main] org.quartz.core.QuartzScheduler          : Scheduler meta-data: Quartz Scheduler (v2.3.1) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
 
-2019-07-02 09:12:12.268  INFO 1924 --- [cluster-ClusterId{value='5d1a23a608bcac07841c2d00', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Exception in monitor thread while connecting to server gogorpg.com:27017
+2019-12-20 11:11:17.753  INFO 3404 --- [main] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2019-12-20 11:11:17.753  INFO 3404 --- [main] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler version: 2.3.1
+2019-12-20 11:11:17.753  INFO 3404 --- [main] org.quartz.core.QuartzScheduler          : JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@28babeca
+2019-12-20 11:11:17.823  INFO 3404 --- [main] o.s.s.quartz.SchedulerFactoryBean        : Starting Quartz Scheduler now
+2019-12-20 11:11:17.824  INFO 3404 --- [main] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2019-12-20 11:11:17.842  INFO 3404 --- [quartzScheduler_Worker-1] c.g.l.b.admin.backJob.GogoKeyProcessor   : Trigger processor started
+2019-12-20 11:11:17.888  INFO 3404 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
+2019-12-20 11:11:17.894  INFO 3404 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 5.374 seconds (JVM running for 6.639)
+2019-12-20 11:11:18.231  INFO 3404 --- [quartzScheduler_Worker-1] c.g.l.b.admin.backJob.GogoKeyProcessor   : 时间 trigger triggered
+2019-12-20 11:11:18.332  INFO 3404 --- [quartzScheduler_Worker-1] c.g.l.b.admin.backJob.GogoKeyProcessor   : send failed
+2019-12-20 11:11:18.523  INFO 3404 --- [quartzScheduler_Worker-1] c.g.l.b.admin.backJob.GogoKeyProcessor   : 2332 trigger triggered
+2019-12-20 11:11:21.233  INFO 3404 --- [quartzScheduler_Worker-1] c.g.l.b.admin.backJob.GogoKeyProcessor   : send failed
+2019-12-20 11:11:21.469 ERROR 3404 --- [quartzScheduler_Worker-1] c.g.l.b.admin.backJob.GogoKeyProcessor   : null
+2019-12-20 11:11:38.130  INFO 3404 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-12-20 11:11:38.130  INFO 3404 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-12-20 11:11:38.139  INFO 3404 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 9 ms
+2019-12-20 11:12:29.641  WARN 3404 --- [http-nio-8088-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Failure while trying to resolve exception [org.springframework.web.HttpMediaTypeNotAcceptableException]
 
-com.mongodb.MongoSocketException: gogorpg.com
-	at com.mongodb.ServerAddress.getSocketAddress(ServerAddress.java:188) ~[mongodb-driver-core-3.8.2.jar:na]
-	at com.mongodb.internal.connection.SocketStreamHelper.initialize(SocketStreamHelper.java:64) ~[mongodb-driver-core-3.8.2.jar:na]
-	at com.mongodb.internal.connection.SocketStream.open(SocketStream.java:62) ~[mongodb-driver-core-3.8.2.jar:na]
-	at com.mongodb.internal.connection.InternalStreamConnection.open(InternalStreamConnection.java:126) ~[mongodb-driver-core-3.8.2.jar:na]
-	at com.mongodb.internal.connection.DefaultServerMonitor$ServerMonitorRunnable.run(DefaultServerMonitor.java:117) ~[mongodb-driver-core-3.8.2.jar:na]
-	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_51]
-Caused by: java.net.UnknownHostException: gogorpg.com
-	at java.net.InetAddress.getAllByName0(InetAddress.java:1280) ~[na:1.8.0_51]
-	at java.net.InetAddress.getAllByName(InetAddress.java:1192) ~[na:1.8.0_51]
-	at java.net.InetAddress.getAllByName(InetAddress.java:1126) ~[na:1.8.0_51]
-	at java.net.InetAddress.getByName(InetAddress.java:1076) ~[na:1.8.0_51]
-	at com.mongodb.ServerAddress.getSocketAddress(ServerAddress.java:186) ~[mongodb-driver-core-3.8.2.jar:na]
-	... 5 common frames omitted
+java.lang.IllegalStateException: Cannot call sendError() after the response has been committed
+	at org.apache.catalina.connector.ResponseFacade.sendError(ResponseFacade.java:472) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver.handleHttpMediaTypeNotAcceptable(DefaultHandlerExceptionResolver.java:304) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver.doResolveException(DefaultHandlerExceptionResolver.java:181) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.resolveException(AbstractHandlerExceptionResolver.java:139) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.handler.HandlerExceptionResolverComposite.resolveException(HandlerExceptionResolverComposite.java:79) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.processHandlerException(DispatcherServlet.java:1297) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1109) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1055) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) [tomcat-embed-websocket-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:96) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:200) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:834) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1415) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_221]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_221]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_221]
 
-2019-07-02 09:12:22.722  INFO 1924 --- [cluster-ClusterId{value='5d1a23a608bcac07841c2d00', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:4, serverValue:474}] to gogorpg.com:27017
-2019-07-02 09:12:22.800  INFO 1924 --- [cluster-ClusterId{value='5d1a23a608bcac07841c2d00', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=gogorpg.com:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 19]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=75174107}
-2019-07-02 09:12:41.294  INFO 1924 --- [Thread-12] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-07-02 09:12:47.121  INFO 2079 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on icesnakedeMBP with PID 2079 (/Users/icesnake/gogoproject/lifecapsule/java/target/classes started by icesnake in /Users/icesnake/gogoproject/lifecapsule/java)
-2019-07-02 09:12:47.131  INFO 2079 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
-2019-07-02 09:12:48.708  INFO 2079 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2019-07-02 09:12:48.740  INFO 2079 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25ms. Found 0 repository interfaces.
-2019-07-02 09:12:49.238  INFO 2079 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$b1a21a65] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-07-02 09:12:49.686  INFO 2079 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
-2019-07-02 09:12:49.720  INFO 2079 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2019-07-02 09:12:49.720  INFO 2079 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
-2019-07-02 09:12:49.861  INFO 2079 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2019-07-02 09:12:49.861  INFO 2079 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2591 ms
-2019-07-02 09:12:50.724  INFO 2079 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[gogorpg.com:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
-2019-07-02 09:12:50.724  INFO 2079 --- [main] org.mongodb.driver.cluster               : Adding discovered server gogorpg.com:27017 to client view of cluster
-2019-07-02 09:12:51.260  INFO 2079 --- [cluster-ClusterId{value='5d1aaf9208bcac081fe0fe2e', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:475}] to gogorpg.com:27017
-2019-07-02 09:12:51.359  INFO 2079 --- [cluster-ClusterId{value='5d1aaf9208bcac081fe0fe2e', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=gogorpg.com:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 19]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=96900194}
-2019-07-02 09:12:51.361  INFO 2079 --- [cluster-ClusterId{value='5d1aaf9208bcac081fe0fe2e', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
-2019-07-02 09:12:51.422  INFO 2079 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2019-07-02 09:12:51.779  INFO 2079 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
-2019-07-02 09:12:51.784  INFO 2079 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 5.603 seconds (JVM running for 6.832)
-2019-07-02 09:12:58.126  INFO 2079 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2019-07-02 09:12:58.126  INFO 2079 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2019-07-02 09:12:58.138  INFO 2079 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 11 ms
-2019-07-02 09:12:58.297  INFO 2079 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2019-07-02 09:12:59.614  INFO 2079 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2019-07-02 09:13:00.198  INFO 2079 --- [http-nio-8088-exec-1] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:476}] to gogorpg.com:27017
-2019-07-02 09:13:44.268 ERROR 2079 --- [http-nio-8088-exec-4] c.g.l.controller.notes.NoteController    : Invalid AES key length: 19 bytes
-2019-07-02 09:14:21.772 ERROR 2079 --- [http-nio-8088-exec-7] c.g.l.controller.notes.NoteController    : Invalid AES key length: 19 bytes
-2019-07-02 09:14:21.865  INFO 2079 --- [Thread-14] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-07-02 09:14:21.869  INFO 2079 --- [Thread-14] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:2, serverValue:476}] to gogorpg.com:27017 because the pool has been closed.
-2019-07-02 09:14:21.872  INFO 2079 --- [Thread-14] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2019-07-02 09:14:21.879  INFO 2079 --- [Thread-14] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2019-07-02 09:14:29.620  INFO 2126 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on icesnakedeMBP with PID 2126 (/Users/icesnake/gogoproject/lifecapsule/java/target/classes started by icesnake in /Users/icesnake/gogoproject/lifecapsule/java)
-2019-07-02 09:14:29.626  INFO 2126 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
-2019-07-02 09:14:30.962  INFO 2126 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2019-07-02 09:14:30.992  INFO 2126 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 24ms. Found 0 repository interfaces.
-2019-07-02 09:14:31.413  INFO 2126 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$5017d3b0] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-07-02 09:14:31.795  INFO 2126 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
-2019-07-02 09:14:31.823  INFO 2126 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2019-07-02 09:14:31.824  INFO 2126 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
-2019-07-02 09:14:31.940  INFO 2126 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2019-07-02 09:14:31.941  INFO 2126 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2153 ms
-2019-07-02 09:14:32.675  INFO 2126 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[gogorpg.com:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
-2019-07-02 09:14:32.675  INFO 2126 --- [main] org.mongodb.driver.cluster               : Adding discovered server gogorpg.com:27017 to client view of cluster
-2019-07-02 09:14:33.112  INFO 2126 --- [cluster-ClusterId{value='5d1aaff808bcac084ee3d09a', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:477}] to gogorpg.com:27017
-2019-07-02 09:14:33.215  INFO 2126 --- [cluster-ClusterId{value='5d1aaff808bcac084ee3d09a', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=gogorpg.com:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 19]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=99552846}
-2019-07-02 09:14:33.217  INFO 2126 --- [cluster-ClusterId{value='5d1aaff808bcac084ee3d09a', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
-2019-07-02 09:14:33.244  INFO 2126 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2019-07-02 09:14:33.575  INFO 2126 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
-2019-07-02 09:14:33.579  INFO 2126 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 4.819 seconds (JVM running for 6.096)
-2019-07-02 09:15:06.329  INFO 2126 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2019-07-02 09:15:06.330  INFO 2126 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2019-07-02 09:15:06.382  INFO 2126 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 52 ms
-2019-07-02 09:16:33.255  INFO 2126 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2019-07-02 09:16:34.489  INFO 2126 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2019-07-02 09:16:35.216  INFO 2126 --- [http-nio-8088-exec-1] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:478}] to gogorpg.com:27017
-2019-07-02 09:18:42.541 ERROR 2126 --- [http-nio-8088-exec-3] c.g.l.controller.notes.NoteController    : Given final block not properly padded
-2019-07-02 09:19:09.192 ERROR 2126 --- [http-nio-8088-exec-6] c.g.l.controller.notes.NoteController    : Given final block not properly padded
-2019-07-02 09:20:33.214 ERROR 2126 --- [http-nio-8088-exec-9] c.g.l.controller.notes.NoteController    : Given final block not properly padded
-2019-07-02 09:22:36.177 ERROR 2126 --- [http-nio-8088-exec-5] c.g.l.controller.notes.NoteController    : Given final block not properly padded
-2019-07-02 09:23:46.505 ERROR 2126 --- [http-nio-8088-exec-8] c.g.l.controller.notes.NoteController    : Given final block not properly padded
-2019-07-02 09:25:15.173  WARN 2126 --- [http-nio-8088-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize instance of `java.lang.String` out of START_OBJECT token; nested exception is com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot deserialize instance of `java.lang.String` out of START_OBJECT token
- at [Source: (PushbackInputStream); line: 1, column: 63] (through reference chain: com.gogoyang.lifecapsule.controller.notes.NoteRequest["encryptKey"])]
-2019-07-02 09:25:48.616  INFO 2126 --- [Thread-12] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-07-02 09:25:48.624  INFO 2126 --- [Thread-12] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:2, serverValue:478}] to gogorpg.com:27017 because the pool has been closed.
-2019-07-02 09:25:48.639  INFO 2126 --- [Thread-12] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2019-07-02 09:25:48.656  INFO 2126 --- [Thread-12] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2019-07-02 09:25:56.210  INFO 2419 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on icesnakedeMBP with PID 2419 (/Users/icesnake/gogoproject/lifecapsule/java/target/classes started by icesnake in /Users/icesnake/gogoproject/lifecapsule/java)
-2019-07-02 09:25:56.221  INFO 2419 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
-2019-07-02 09:25:58.183  INFO 2419 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2019-07-02 09:25:58.232  INFO 2419 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31ms. Found 0 repository interfaces.
-2019-07-02 09:25:58.818  INFO 2419 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$887f02cf] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-07-02 09:25:59.384  INFO 2419 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
-2019-07-02 09:25:59.421  INFO 2419 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2019-07-02 09:25:59.422  INFO 2419 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
-2019-07-02 09:25:59.560  INFO 2419 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2019-07-02 09:25:59.560  INFO 2419 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3127 ms
-2019-07-02 09:26:00.269  INFO 2419 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[gogorpg.com:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
-2019-07-02 09:26:00.270  INFO 2419 --- [main] org.mongodb.driver.cluster               : Adding discovered server gogorpg.com:27017 to client view of cluster
-2019-07-02 09:26:00.823  INFO 2419 --- [cluster-ClusterId{value='5d1ab2a808bcac09739ddbe1', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:479}] to gogorpg.com:27017
-2019-07-02 09:26:00.837  INFO 2419 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2019-07-02 09:26:00.922  INFO 2419 --- [cluster-ClusterId{value='5d1ab2a808bcac09739ddbe1', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=gogorpg.com:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 19]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=97292992}
-2019-07-02 09:26:00.924  INFO 2419 --- [cluster-ClusterId{value='5d1ab2a808bcac09739ddbe1', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
-2019-07-02 09:26:01.189  INFO 2419 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
-2019-07-02 09:26:01.194  INFO 2419 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 6.245 seconds (JVM running for 7.844)
-2019-07-02 09:26:05.175  INFO 2419 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2019-07-02 09:26:05.176  INFO 2419 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2019-07-02 09:26:05.190  INFO 2419 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 14 ms
-2019-07-02 09:26:05.376  WARN 2419 --- [http-nio-8088-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize instance of `java.lang.String` out of START_OBJECT token; nested exception is com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot deserialize instance of `java.lang.String` out of START_OBJECT token
- at [Source: (PushbackInputStream); line: 1, column: 63] (through reference chain: com.gogoyang.lifecapsule.controller.notes.NoteRequest["encryptKey"])]
-2019-07-02 09:26:09.763  WARN 2419 --- [http-nio-8088-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize instance of `java.lang.String` out of START_OBJECT token; nested exception is com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot deserialize instance of `java.lang.String` out of START_OBJECT token
- at [Source: (PushbackInputStream); line: 1, column: 63] (through reference chain: com.gogoyang.lifecapsule.controller.notes.NoteRequest["encryptKey"])]
-2019-07-02 09:27:26.554  WARN 2419 --- [http-nio-8088-exec-4] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize instance of `java.lang.String` out of START_OBJECT token; nested exception is com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot deserialize instance of `java.lang.String` out of START_OBJECT token
- at [Source: (PushbackInputStream); line: 1, column: 63] (through reference chain: com.gogoyang.lifecapsule.controller.notes.NoteRequest["encryptKey"])]
-2019-07-02 09:28:46.702 ERROR 2419 --- [http-nio-8088-exec-6] c.g.l.controller.notes.NoteController    : Invalid AES key length: 22 bytes
-2019-07-02 09:36:53.405 ERROR 2419 --- [http-nio-8088-exec-9] c.g.l.controller.notes.NoteController    : Invalid AES key length: 29 bytes
-2019-07-02 09:36:57.041 ERROR 2419 --- [http-nio-8088-exec-10] c.g.l.controller.notes.NoteController    : Invalid AES key length: 29 bytes
-2019-07-02 09:37:08.367 ERROR 2419 --- [http-nio-8088-exec-3] c.g.l.controller.notes.NoteController    : Invalid AES key length: 29 bytes
-2019-07-02 09:37:59.778 ERROR 2419 --- [http-nio-8088-exec-6] c.g.l.controller.notes.NoteController    : Given final block not properly padded
-2019-07-02 09:39:33.106 ERROR 2419 --- [http-nio-8088-exec-8] c.g.l.controller.notes.NoteController    : Illegal key size or default parameters
-2019-07-02 09:40:18.692 ERROR 2419 --- [http-nio-8088-exec-1] c.g.l.controller.notes.NoteController    : null
-2019-07-02 09:40:30.329 ERROR 2419 --- [http-nio-8088-exec-4] c.g.l.controller.notes.NoteController    : null
-2019-07-02 09:40:54.534 ERROR 2419 --- [http-nio-8088-exec-7] c.g.l.controller.notes.NoteController    : Illegal key size or default parameters
-2019-07-02 09:42:04.763 ERROR 2419 --- [http-nio-8088-exec-10] c.g.l.controller.notes.NoteController    : Illegal key size or default parameters
-2019-07-02 09:42:15.872  INFO 2419 --- [Thread-16] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-07-02 09:42:22.988  INFO 2883 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on icesnakedeMBP with PID 2883 (/Users/icesnake/gogoproject/lifecapsule/java/target/classes started by icesnake in /Users/icesnake/gogoproject/lifecapsule/java)
-2019-07-02 09:42:23.000  INFO 2883 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
-2019-07-02 09:42:24.469  INFO 2883 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2019-07-02 09:42:24.507  INFO 2883 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 29ms. Found 0 repository interfaces.
-2019-07-02 09:42:25.070  INFO 2883 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$de5fa88e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-07-02 09:42:25.479  INFO 2883 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
-2019-07-02 09:42:25.508  INFO 2883 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2019-07-02 09:42:25.508  INFO 2883 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
-2019-07-02 09:42:25.633  INFO 2883 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2019-07-02 09:42:25.633  INFO 2883 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2504 ms
-2019-07-02 09:42:26.440  INFO 2883 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[gogorpg.com:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
-2019-07-02 09:42:26.440  INFO 2883 --- [main] org.mongodb.driver.cluster               : Adding discovered server gogorpg.com:27017 to client view of cluster
-2019-07-02 09:42:26.967  INFO 2883 --- [cluster-ClusterId{value='5d1ab68208bcac0b43f445f5', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:480}] to gogorpg.com:27017
-2019-07-02 09:42:27.068  INFO 2883 --- [cluster-ClusterId{value='5d1ab68208bcac0b43f445f5', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=gogorpg.com:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 19]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=98814763}
-2019-07-02 09:42:27.070  INFO 2883 --- [cluster-ClusterId{value='5d1ab68208bcac0b43f445f5', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
-2019-07-02 09:42:27.245  INFO 2883 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2019-07-02 09:42:27.592  INFO 2883 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
-2019-07-02 09:42:27.598  INFO 2883 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 5.436 seconds (JVM running for 6.481)
-2019-07-02 09:42:31.859  INFO 2883 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2019-07-02 09:42:31.859  INFO 2883 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2019-07-02 09:42:31.873  INFO 2883 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 13 ms
-2019-07-02 09:42:49.146  INFO 2883 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2019-07-02 09:42:50.447  INFO 2883 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2019-07-02 09:42:51.248  INFO 2883 --- [http-nio-8088-exec-1] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:481}] to gogorpg.com:27017
-2019-07-02 09:43:00.396  INFO 2883 --- [Thread-13] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-07-02 09:43:00.403  INFO 2883 --- [Thread-13] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:2, serverValue:481}] to gogorpg.com:27017 because the pool has been closed.
-2019-07-02 09:43:00.408  INFO 2883 --- [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2019-07-02 09:43:00.440  INFO 2883 --- [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2019-07-02 09:43:11.475  INFO 2912 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on icesnakedeMBP with PID 2912 (/Users/icesnake/gogoproject/lifecapsule/java/target/classes started by icesnake in /Users/icesnake/gogoproject/lifecapsule/java)
-2019-07-02 09:43:11.480  INFO 2912 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
-2019-07-02 09:43:15.635  INFO 2912 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2019-07-02 09:43:15.704  INFO 2912 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 53ms. Found 0 repository interfaces.
-2019-07-02 09:43:16.626  INFO 2912 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$e836c25b] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-07-02 09:43:17.158  INFO 2912 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
-2019-07-02 09:43:17.227  INFO 2912 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2019-07-02 09:43:17.227  INFO 2912 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
-2019-07-02 09:43:17.426  INFO 2912 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2019-07-02 09:43:17.426  INFO 2912 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 5821 ms
-2019-07-02 09:43:18.663  INFO 2912 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[gogorpg.com:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
-2019-07-02 09:43:18.664  INFO 2912 --- [main] org.mongodb.driver.cluster               : Adding discovered server gogorpg.com:27017 to client view of cluster
-2019-07-02 09:43:19.189  INFO 2912 --- [cluster-ClusterId{value='5d1ab6b608bcac0b60c3fde1', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:482}] to gogorpg.com:27017
-2019-07-02 09:43:19.289  INFO 2912 --- [cluster-ClusterId{value='5d1ab6b608bcac0b60c3fde1', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=gogorpg.com:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 19]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=97911648}
-2019-07-02 09:43:19.291  INFO 2912 --- [cluster-ClusterId{value='5d1ab6b608bcac0b60c3fde1', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
-2019-07-02 09:43:19.354  INFO 2912 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2019-07-02 09:43:19.754  INFO 2912 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
-2019-07-02 09:43:19.759  INFO 2912 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 9.124 seconds (JVM running for 11.079)
-2019-07-02 09:43:35.976  INFO 2912 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2019-07-02 09:43:35.977  INFO 2912 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2019-07-02 09:43:35.988  INFO 2912 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 11 ms
-2019-07-02 09:43:48.477  INFO 2912 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2019-07-02 09:43:49.722  INFO 2912 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2019-07-02 09:43:50.478  INFO 2912 --- [http-nio-8088-exec-1] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:483}] to gogorpg.com:27017
-2019-07-02 09:47:23.176  WARN 2912 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m3s301ms).
-2019-07-02 09:47:23.266  INFO 2912 --- [Thread-21] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-07-02 09:47:23.269  INFO 2912 --- [Thread-21] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:2, serverValue:483}] to gogorpg.com:27017 because the pool has been closed.
-2019-07-02 09:47:23.272  INFO 2912 --- [Thread-21] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2019-07-02 09:47:23.299  INFO 2912 --- [Thread-21] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2019-07-02 09:47:23.299 ERROR 2912 --- [http-nio-8088-exec-6] c.g.l.controller.notes.NoteController    : nested exception is org.apache.ibatis.exceptions.PersistenceException: 
-### Error querying database.  Cause: java.lang.NullPointerException
-### The error may exist in file [/Users/icesnake/gogoproject/lifecapsule/java/target/classes/mapper/UserInfoMapper.xml]
-### The error may involve com.gogoyang.lifecapsule.meta.user.dao.UserInfoDao.getUserByUserToken
-### The error occurred while executing a query
-### Cause: java.lang.NullPointerException
-2019-07-02 09:47:32.639  INFO 3031 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on icesnakedeMBP with PID 3031 (/Users/icesnake/gogoproject/lifecapsule/java/target/classes started by icesnake in /Users/icesnake/gogoproject/lifecapsule/java)
-2019-07-02 09:47:32.644  INFO 3031 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
-2019-07-02 09:47:34.102  INFO 3031 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2019-07-02 09:47:34.134  INFO 3031 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23ms. Found 0 repository interfaces.
-2019-07-02 09:47:34.589  INFO 3031 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$333c1d5b] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-07-02 09:47:34.952  INFO 3031 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
-2019-07-02 09:47:34.980  INFO 3031 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2019-07-02 09:47:34.980  INFO 3031 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
-2019-07-02 09:47:35.093  INFO 3031 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2019-07-02 09:47:35.093  INFO 3031 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2350 ms
-2019-07-02 09:47:35.757  INFO 3031 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[gogorpg.com:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
-2019-07-02 09:47:35.758  INFO 3031 --- [main] org.mongodb.driver.cluster               : Adding discovered server gogorpg.com:27017 to client view of cluster
-2019-07-02 09:47:36.211  INFO 3031 --- [cluster-ClusterId{value='5d1ab7b708bcac0bd7730b9b', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:484}] to gogorpg.com:27017
-2019-07-02 09:47:36.310  INFO 3031 --- [cluster-ClusterId{value='5d1ab7b708bcac0bd7730b9b', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=gogorpg.com:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 19]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=97839860}
-2019-07-02 09:47:36.312  INFO 3031 --- [cluster-ClusterId{value='5d1ab7b708bcac0bd7730b9b', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
-2019-07-02 09:47:36.343  INFO 3031 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2019-07-02 09:47:36.685  INFO 3031 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
-2019-07-02 09:47:36.690  INFO 3031 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 5.045 seconds (JVM running for 6.123)
-2019-07-02 09:47:44.514  INFO 3031 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2019-07-02 09:47:44.515  INFO 3031 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2019-07-02 09:47:44.528  INFO 3031 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 13 ms
-2019-07-02 09:48:20.220 ERROR 3031 --- [http-nio-8088-exec-2] c.g.l.controller.notes.NoteController    : Illegal key size or default parameters
-2019-07-02 09:49:54.891  WARN 3031 --- [http-nio-8088-exec-4] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize instance of `java.lang.String` out of START_OBJECT token; nested exception is com.fasterxml.jackson.databind.exc.MismatchedInputException: Cannot deserialize instance of `java.lang.String` out of START_OBJECT token
- at [Source: (PushbackInputStream); line: 1, column: 63] (through reference chain: com.gogoyang.lifecapsule.controller.notes.NoteRequest["encryptKey"])]
-2019-07-02 09:56:42.905 ERROR 3031 --- [http-nio-8088-exec-6] c.g.l.controller.notes.NoteController    : Illegal key size or default parameters
-2019-07-02 09:56:43.005  INFO 3031 --- [Thread-12] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-07-02 09:56:50.104  INFO 3270 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on icesnakedeMBP with PID 3270 (/Users/icesnake/gogoproject/lifecapsule/java/target/classes started by icesnake in /Users/icesnake/gogoproject/lifecapsule/java)
-2019-07-02 09:56:50.108  INFO 3270 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
-2019-07-02 09:56:51.604  INFO 3270 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2019-07-02 09:56:51.634  INFO 3270 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23ms. Found 0 repository interfaces.
-2019-07-02 09:56:52.121  INFO 3270 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$a2e3d825] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-07-02 09:56:52.524  INFO 3270 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
-2019-07-02 09:56:52.556  INFO 3270 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2019-07-02 09:56:52.556  INFO 3270 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
-2019-07-02 09:56:52.724  INFO 3270 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2019-07-02 09:56:52.725  INFO 3270 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2466 ms
-2019-07-02 09:56:53.471  INFO 3270 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[gogorpg.com:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
-2019-07-02 09:56:53.471  INFO 3270 --- [main] org.mongodb.driver.cluster               : Adding discovered server gogorpg.com:27017 to client view of cluster
-2019-07-02 09:56:54.031  INFO 3270 --- [cluster-ClusterId{value='5d1ab9e508bcac0cc6614bc9', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:485}] to gogorpg.com:27017
-2019-07-02 09:56:54.053  INFO 3270 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2019-07-02 09:56:54.131  INFO 3270 --- [cluster-ClusterId{value='5d1ab9e508bcac0cc6614bc9', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=gogorpg.com:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 19]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=97524450}
-2019-07-02 09:56:54.132  INFO 3270 --- [cluster-ClusterId{value='5d1ab9e508bcac0cc6614bc9', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
-2019-07-02 09:56:54.390  INFO 3270 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
-2019-07-02 09:56:54.394  INFO 3270 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 5.188 seconds (JVM running for 6.35)
-2019-07-02 09:56:59.693  INFO 3270 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2019-07-02 09:56:59.693  INFO 3270 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2019-07-02 09:56:59.704  INFO 3270 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 11 ms
-2019-07-02 09:57:12.883 ERROR 3270 --- [http-nio-8088-exec-2] c.g.l.controller.notes.NoteController    : Illegal key size or default parameters
-2019-07-02 09:57:58.894 ERROR 3270 --- [http-nio-8088-exec-4] c.g.l.controller.notes.NoteController    : Illegal key size or default parameters
-2019-07-02 10:01:17.621 ERROR 3270 --- [http-nio-8088-exec-6] c.g.l.controller.notes.NoteController    : Illegal key size or default parameters
-2019-07-02 10:01:17.694  INFO 3270 --- [http-nio-8088-exec-10] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2019-07-02 10:01:17.756  INFO 3270 --- [Thread-12] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-07-02 10:01:19.027  INFO 3270 --- [http-nio-8088-exec-10] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2019-07-02 10:01:19.179 ERROR 3270 --- [http-nio-8088-exec-10] c.g.l.controller.notes.NoteController    : nested exception is org.apache.ibatis.exceptions.PersistenceException: 
-### Error querying database.  Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: HikariDataSource HikariDataSource (HikariPool-1) has been closed.
-### The error may exist in file [/Users/icesnake/gogoproject/lifecapsule/java/target/classes/mapper/NoteInfoMapper.xml]
-### The error may involve com.gogoyang.lifecapsule.meta.note.dao.mapper.NoteInfoMapper.getNoteByNoteId
-### The error occurred while executing a query
-### Cause: org.springframework.jdbc.CannotGetJdbcConnectionException: Failed to obtain JDBC Connection; nested exception is java.sql.SQLException: HikariDataSource HikariDataSource (HikariPool-1) has been closed.
-2019-07-02 10:01:27.174  INFO 3389 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on icesnakedeMBP with PID 3389 (/Users/icesnake/gogoproject/lifecapsule/java/target/classes started by icesnake in /Users/icesnake/gogoproject/lifecapsule/java)
-2019-07-02 10:01:27.180  INFO 3389 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
-2019-07-02 10:01:28.525  INFO 3389 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2019-07-02 10:01:28.564  INFO 3389 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 30ms. Found 0 repository interfaces.
-2019-07-02 10:01:29.015  INFO 3389 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$fa26c7bc] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-07-02 10:01:29.382  INFO 3389 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
-2019-07-02 10:01:29.408  INFO 3389 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2019-07-02 10:01:29.408  INFO 3389 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
-2019-07-02 10:01:29.525  INFO 3389 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2019-07-02 10:01:29.525  INFO 3389 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2226 ms
-2019-07-02 10:01:30.249  INFO 3389 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[gogorpg.com:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
-2019-07-02 10:01:30.250  INFO 3389 --- [main] org.mongodb.driver.cluster               : Adding discovered server gogorpg.com:27017 to client view of cluster
-2019-07-02 10:01:30.723  INFO 3389 --- [cluster-ClusterId{value='5d1abafa08bcac0d3d31203b', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:486}] to gogorpg.com:27017
-2019-07-02 10:01:30.801  INFO 3389 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2019-07-02 10:01:30.824  INFO 3389 --- [cluster-ClusterId{value='5d1abafa08bcac0d3d31203b', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=gogorpg.com:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 19]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=99570590}
-2019-07-02 10:01:30.826  INFO 3389 --- [cluster-ClusterId{value='5d1abafa08bcac0d3d31203b', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
-2019-07-02 10:01:31.146  INFO 3389 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
-2019-07-02 10:01:31.151  INFO 3389 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 5.17 seconds (JVM running for 6.359)
-2019-07-02 10:01:36.251  INFO 3389 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2019-07-02 10:01:36.251  INFO 3389 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2019-07-02 10:01:36.262  INFO 3389 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 11 ms
-2019-07-02 10:01:52.365  INFO 3389 --- [http-nio-8088-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2019-07-02 10:01:53.617  INFO 3389 --- [http-nio-8088-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2019-07-02 10:01:54.283  INFO 3389 --- [http-nio-8088-exec-2] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:487}] to gogorpg.com:27017
-2019-07-02 10:13:28.248 ERROR 3389 --- [http-nio-8088-exec-8] c.g.l.controller.notes.NoteController    : Illegal key size or default parameters
-2019-07-02 12:24:33.940  WARN 3389 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h54m36s932ms).
-2019-07-02 12:24:41.124  INFO 3389 --- [cluster-ClusterId{value='5d1abafa08bcac0d3d31203b', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:3, serverValue:490}] to gogorpg.com:27017
-2019-07-02 12:25:59.682  WARN 3389 --- [http-nio-8088-exec-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@613a5ad5 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2019-07-02 12:25:59.944  INFO 3389 --- [http-nio-8088-exec-1] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:2, serverValue:487}] to gogorpg.com:27017 because there was a socket exception raised on another connection from this pool.
-2019-07-02 12:26:00.324  INFO 3389 --- [http-nio-8088-exec-1] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:4, serverValue:491}] to gogorpg.com:27017
-2019-07-02 12:26:45.846  INFO 3389 --- [Thread-13] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-07-02 12:26:45.858  INFO 3389 --- [Thread-13] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:4, serverValue:491}] to gogorpg.com:27017 because the pool has been closed.
-2019-07-02 12:26:45.866  INFO 3389 --- [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2019-07-02 12:26:45.873  INFO 3389 --- [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2019-07-02 12:27:00.274  INFO 4574 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on icesnakedeMBP with PID 4574 (/Users/icesnake/gogoproject/lifecapsule/java/target/classes started by icesnake in /Users/icesnake/gogoproject/lifecapsule/java)
-2019-07-02 12:27:00.372  INFO 4574 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
-2019-07-02 12:27:02.714  INFO 4574 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2019-07-02 12:27:02.746  INFO 4574 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 25ms. Found 0 repository interfaces.
-2019-07-02 12:27:03.233  INFO 4574 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$956be250] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-07-02 12:27:03.714  INFO 4574 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
-2019-07-02 12:27:03.749  INFO 4574 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2019-07-02 12:27:03.750  INFO 4574 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
-2019-07-02 12:27:03.898  INFO 4574 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2019-07-02 12:27:03.899  INFO 4574 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3139 ms
-2019-07-02 12:27:04.801  INFO 4574 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[gogorpg.com:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
-2019-07-02 12:27:04.802  INFO 4574 --- [main] org.mongodb.driver.cluster               : Adding discovered server gogorpg.com:27017 to client view of cluster
-2019-07-02 12:27:05.262  INFO 4574 --- [cluster-ClusterId{value='5d1add1808bcac11deb8df3a', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:492}] to gogorpg.com:27017
-2019-07-02 12:27:05.362  INFO 4574 --- [cluster-ClusterId{value='5d1add1808bcac11deb8df3a', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=gogorpg.com:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 19]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=97707631}
-2019-07-02 12:27:05.364  INFO 4574 --- [cluster-ClusterId{value='5d1add1808bcac11deb8df3a', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
-2019-07-02 12:27:05.780  INFO 4574 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2019-07-02 12:27:06.631  INFO 4574 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
-2019-07-02 12:27:06.671  INFO 4574 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 7.781 seconds (JVM running for 10.427)
-2019-07-02 12:27:41.538  INFO 4574 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2019-07-02 12:27:41.539  INFO 4574 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2019-07-02 12:27:41.555  INFO 4574 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 15 ms
-2019-07-02 12:27:41.913 ERROR 4574 --- [http-nio-8088-exec-1] c.g.l.controller.notes.NoteController    : null
-2019-07-02 12:30:09.527 ERROR 4574 --- [http-nio-8088-exec-5] c.g.l.controller.notes.NoteController    : null
-2019-07-02 12:30:09.635  INFO 4574 --- [Thread-19] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-07-02 12:30:18.067  INFO 4750 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on icesnakedeMBP with PID 4750 (/Users/icesnake/gogoproject/lifecapsule/java/target/classes started by icesnake in /Users/icesnake/gogoproject/lifecapsule/java)
-2019-07-02 12:30:18.079  INFO 4750 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
-2019-07-02 12:30:19.655  INFO 4750 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2019-07-02 12:30:19.691  INFO 4750 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31ms. Found 0 repository interfaces.
-2019-07-02 12:30:20.157  INFO 4750 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$4627b00a] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-07-02 12:30:20.572  INFO 4750 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
-2019-07-02 12:30:20.612  INFO 4750 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2019-07-02 12:30:20.612  INFO 4750 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
-2019-07-02 12:30:20.748  INFO 4750 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2019-07-02 12:30:20.748  INFO 4750 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2538 ms
-2019-07-02 12:30:21.640  INFO 4750 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[gogorpg.com:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
-2019-07-02 12:30:21.641  INFO 4750 --- [main] org.mongodb.driver.cluster               : Adding discovered server gogorpg.com:27017 to client view of cluster
-2019-07-02 12:30:22.110  INFO 4750 --- [cluster-ClusterId{value='5d1adddd08bcac128e7e2c88', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:493}] to gogorpg.com:27017
-2019-07-02 12:30:22.210  INFO 4750 --- [cluster-ClusterId{value='5d1adddd08bcac128e7e2c88', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=gogorpg.com:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 19]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=96906632}
-2019-07-02 12:30:22.211  INFO 4750 --- [cluster-ClusterId{value='5d1adddd08bcac128e7e2c88', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
-2019-07-02 12:30:22.422  INFO 4750 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2019-07-02 12:30:22.806  INFO 4750 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
-2019-07-02 12:30:22.810  INFO 4750 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 5.766 seconds (JVM running for 7.046)
-2019-07-02 12:30:27.748  INFO 4750 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2019-07-02 12:30:27.749  INFO 4750 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2019-07-02 12:30:27.767  INFO 4750 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 18 ms
-2019-07-02 12:30:51.845 ERROR 4750 --- [http-nio-8088-exec-1] c.g.l.controller.notes.NoteController    : Parameters missing
-2019-07-02 12:40:49.973  INFO 4750 --- [http-nio-8088-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2019-07-02 12:40:51.422  INFO 4750 --- [http-nio-8088-exec-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2019-07-02 12:40:52.279  INFO 4750 --- [http-nio-8088-exec-2] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:494}] to gogorpg.com:27017
-2019-07-02 12:41:11.709 ERROR 4750 --- [http-nio-8088-exec-5] c.g.l.controller.notes.NoteController    : null
-2019-07-02 12:41:11.813  INFO 4750 --- [Thread-14] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-07-02 12:41:11.820  INFO 4750 --- [Thread-14] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:2, serverValue:494}] to gogorpg.com:27017 because the pool has been closed.
-2019-07-02 12:41:11.826  INFO 4750 --- [Thread-14] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2019-07-02 12:41:12.309  INFO 4750 --- [Thread-14] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2019-07-02 12:41:20.010  INFO 5091 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on icesnakedeMBP with PID 5091 (/Users/icesnake/gogoproject/lifecapsule/java/target/classes started by icesnake in /Users/icesnake/gogoproject/lifecapsule/java)
-2019-07-02 12:41:20.020  INFO 5091 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
-2019-07-02 12:41:21.616  INFO 5091 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2019-07-02 12:41:21.651  INFO 5091 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 29ms. Found 0 repository interfaces.
-2019-07-02 12:41:22.105  INFO 5091 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$f40120e3] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-07-02 12:41:22.441  INFO 5091 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
-2019-07-02 12:41:22.467  INFO 5091 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2019-07-02 12:41:22.468  INFO 5091 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
-2019-07-02 12:41:22.579  INFO 5091 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2019-07-02 12:41:22.580  INFO 5091 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2450 ms
-2019-07-02 12:41:23.289  INFO 5091 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[gogorpg.com:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
-2019-07-02 12:41:23.289  INFO 5091 --- [main] org.mongodb.driver.cluster               : Adding discovered server gogorpg.com:27017 to client view of cluster
-2019-07-02 12:41:23.786  INFO 5091 --- [cluster-ClusterId{value='5d1ae07308bcac13e33ddf24', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:495}] to gogorpg.com:27017
-2019-07-02 12:41:23.852  INFO 5091 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2019-07-02 12:41:23.887  INFO 5091 --- [cluster-ClusterId{value='5d1ae07308bcac13e33ddf24', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=gogorpg.com:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 19]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=99420697}
-2019-07-02 12:41:23.890  INFO 5091 --- [cluster-ClusterId{value='5d1ae07308bcac13e33ddf24', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
-2019-07-02 12:41:24.190  INFO 5091 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
-2019-07-02 12:41:24.194  INFO 5091 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 5.123 seconds (JVM running for 6.3)
-2019-07-02 12:41:27.427  INFO 5091 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2019-07-02 12:41:27.427  INFO 5091 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2019-07-02 12:41:27.443  INFO 5091 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 15 ms
-2019-07-02 12:41:27.600  INFO 5091 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2019-07-02 12:41:28.849  INFO 5091 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2019-07-02 12:41:29.326  INFO 5091 --- [http-nio-8088-exec-1] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:496}] to gogorpg.com:27017
-2019-07-02 12:41:50.168 ERROR 5091 --- [http-nio-8088-exec-3] c.g.l.controller.notes.NoteController    : Invalid AES key length: 88 bytes
-2019-07-02 12:58:57.784  WARN 5091 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=16m58s821ms).
-2019-07-02 12:58:57.789 ERROR 5091 --- [http-nio-8088-exec-6] c.g.l.controller.notes.NoteController    : Invalid AES key length: 88 bytes
-2019-07-02 12:58:57.923  INFO 5091 --- [Thread-13] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-07-02 12:58:57.938  INFO 5091 --- [Thread-13] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:2, serverValue:496}] to gogorpg.com:27017 because the pool has been closed.
-2019-07-02 12:58:57.944  INFO 5091 --- [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2019-07-02 12:58:57.953  INFO 5091 --- [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2019-07-02 12:59:05.939  INFO 5570 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on icesnakedeMBP with PID 5570 (/Users/icesnake/gogoproject/lifecapsule/java/target/classes started by icesnake in /Users/icesnake/gogoproject/lifecapsule/java)
-2019-07-02 12:59:05.945  INFO 5570 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
-2019-07-02 12:59:07.325  INFO 5570 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2019-07-02 12:59:07.355  INFO 5570 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 23ms. Found 0 repository interfaces.
-2019-07-02 12:59:07.803  INFO 5570 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$e2ad2301] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-07-02 12:59:08.170  INFO 5570 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
-2019-07-02 12:59:08.197  INFO 5570 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2019-07-02 12:59:08.197  INFO 5570 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
-2019-07-02 12:59:08.312  INFO 5570 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2019-07-02 12:59:08.312  INFO 5570 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2218 ms
-2019-07-02 12:59:08.974  INFO 5570 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[gogorpg.com:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
-2019-07-02 12:59:08.974  INFO 5570 --- [main] org.mongodb.driver.cluster               : Adding discovered server gogorpg.com:27017 to client view of cluster
-2019-07-02 12:59:09.521  INFO 5570 --- [cluster-ClusterId{value='5d1ae49c08bcac15c2e22349', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:497}] to gogorpg.com:27017
-2019-07-02 12:59:09.619  INFO 5570 --- [cluster-ClusterId{value='5d1ae49c08bcac15c2e22349', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=gogorpg.com:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 19]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=96866475}
-2019-07-02 12:59:09.621  INFO 5570 --- [cluster-ClusterId{value='5d1ae49c08bcac15c2e22349', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
-2019-07-02 12:59:09.684  INFO 5570 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2019-07-02 12:59:10.019  INFO 5570 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
-2019-07-02 12:59:10.025  INFO 5570 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 4.983 seconds (JVM running for 6.264)
-2019-07-02 12:59:18.030  INFO 5570 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2019-07-02 12:59:18.032  INFO 5570 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2019-07-02 12:59:18.048  INFO 5570 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 16 ms
-2019-07-02 12:59:18.177  INFO 5570 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2019-07-02 12:59:20.543  INFO 5570 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2019-07-02 12:59:21.130  INFO 5570 --- [http-nio-8088-exec-1] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:498}] to gogorpg.com:27017
-2019-07-02 13:01:56.643  WARN 5570 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m35s996ms).
-2019-07-02 13:01:56.658 ERROR 5570 --- [http-nio-8088-exec-3] c.g.l.controller.notes.NoteController    : Invalid AES key length: 88 bytes
-2019-07-02 13:01:56.775  INFO 5570 --- [Thread-12] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-07-02 13:01:56.781  INFO 5570 --- [Thread-12] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:2, serverValue:498}] to gogorpg.com:27017 because the pool has been closed.
-2019-07-02 13:01:56.787  INFO 5570 --- [Thread-12] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2019-07-02 13:01:57.563  INFO 5570 --- [Thread-12] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2019-07-02 13:02:06.006  INFO 5659 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on icesnakedeMBP with PID 5659 (/Users/icesnake/gogoproject/lifecapsule/java/target/classes started by icesnake in /Users/icesnake/gogoproject/lifecapsule/java)
-2019-07-02 13:02:06.023  INFO 5659 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
-2019-07-02 13:02:08.590  INFO 5659 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2019-07-02 13:02:08.634  INFO 5659 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 34ms. Found 0 repository interfaces.
-2019-07-02 13:02:09.377  INFO 5659 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$6f88f3e8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-07-02 13:02:09.911  INFO 5659 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
-2019-07-02 13:02:09.960  INFO 5659 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2019-07-02 13:02:09.961  INFO 5659 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
-2019-07-02 13:02:10.049  INFO 5659 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2019-07-02 13:02:10.049  INFO 5659 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 3882 ms
-2019-07-02 13:02:11.754  INFO 5659 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[gogorpg.com:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
-2019-07-02 13:02:11.761  INFO 5659 --- [main] org.mongodb.driver.cluster               : Adding discovered server gogorpg.com:27017 to client view of cluster
-2019-07-02 13:02:12.398  INFO 5659 --- [cluster-ClusterId{value='5d1ae55308bcac161b0b0766', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:499}] to gogorpg.com:27017
-2019-07-02 13:02:12.500  INFO 5659 --- [cluster-ClusterId{value='5d1ae55308bcac161b0b0766', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=gogorpg.com:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 19]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=98329082}
-2019-07-02 13:02:12.502  INFO 5659 --- [cluster-ClusterId{value='5d1ae55308bcac161b0b0766', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
-2019-07-02 13:02:13.220  INFO 5659 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2019-07-02 13:02:13.667  INFO 5659 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
-2019-07-02 13:02:13.673  INFO 5659 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 8.636 seconds (JVM running for 10.127)
-2019-07-02 13:02:47.015  INFO 5659 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2019-07-02 13:02:47.016  INFO 5659 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2019-07-02 13:02:47.029  INFO 5659 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 12 ms
-2019-07-02 13:02:47.168  INFO 5659 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2019-07-02 13:02:48.419  INFO 5659 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2019-07-02 13:02:49.035  INFO 5659 --- [http-nio-8088-exec-1] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:500}] to gogorpg.com:27017
-2019-07-02 13:07:24.020 ERROR 5659 --- [http-nio-8088-exec-3] c.g.l.controller.notes.NoteController    : null
-2019-07-02 13:07:38.700 ERROR 5659 --- [http-nio-8088-exec-7] c.g.l.controller.notes.NoteController    : null
-2019-07-02 13:09:26.267  WARN 5659 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m32s316ms).
-2019-07-02 13:18:12.836  INFO 5659 --- [Thread-20] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
-2019-07-02 13:18:12.843  INFO 5659 --- [Thread-20] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:2, serverValue:500}] to gogorpg.com:27017 because the pool has been closed.
-2019-07-02 13:18:12.847  INFO 5659 --- [Thread-20] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
-2019-07-02 13:18:12.854  INFO 5659 --- [Thread-20] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
-2019-07-02 13:18:21.338  INFO 6145 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on icesnakedeMBP with PID 6145 (/Users/icesnake/gogoproject/lifecapsule/java/target/classes started by icesnake in /Users/icesnake/gogoproject/lifecapsule/java)
-2019-07-02 13:18:21.361  INFO 6145 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
-2019-07-02 13:18:23.342  INFO 6145 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2019-07-02 13:18:23.376  INFO 6145 --- [main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 27ms. Found 0 repository interfaces.
-2019-07-02 13:18:23.958  INFO 6145 --- [main] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$f9e17dcc] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-07-02 13:18:24.340  INFO 6145 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
-2019-07-02 13:18:24.368  INFO 6145 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2019-07-02 13:18:24.369  INFO 6145 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
-2019-07-02 13:18:24.487  INFO 6145 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2019-07-02 13:18:24.488  INFO 6145 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2885 ms
-2019-07-02 13:18:25.514  INFO 6145 --- [main] org.mongodb.driver.cluster               : Cluster created with settings {hosts=[gogorpg.com:27017], mode=MULTIPLE, requiredClusterType=UNKNOWN, serverSelectionTimeout='30000 ms', maxWaitQueueSize=500}
-2019-07-02 13:18:25.515  INFO 6145 --- [main] org.mongodb.driver.cluster               : Adding discovered server gogorpg.com:27017 to client view of cluster
-2019-07-02 13:18:26.073  INFO 6145 --- [cluster-ClusterId{value='5d1ae92108bcac180101fecb', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:1, serverValue:505}] to gogorpg.com:27017
-2019-07-02 13:18:26.175  INFO 6145 --- [cluster-ClusterId{value='5d1ae92108bcac180101fecb', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Monitor thread successfully connected to server with description ServerDescription{address=gogorpg.com:27017, type=STANDALONE, state=CONNECTED, ok=true, version=ServerVersion{versionList=[3, 2, 19]}, minWireVersion=0, maxWireVersion=4, maxDocumentSize=16777216, logicalSessionTimeoutMinutes=null, roundTripTimeNanos=99446312}
-2019-07-02 13:18:26.177  INFO 6145 --- [cluster-ClusterId{value='5d1ae92108bcac180101fecb', description='null'}-gogorpg.com:27017] org.mongodb.driver.cluster               : Discovered cluster type of STANDALONE
-2019-07-02 13:18:26.264  INFO 6145 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2019-07-02 13:18:26.857  INFO 6145 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
-2019-07-02 13:18:26.862  INFO 6145 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 6.769 seconds (JVM running for 8.006)
-2019-07-02 13:18:34.164  INFO 6145 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2019-07-02 13:18:34.165  INFO 6145 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2019-07-02 13:18:34.178  INFO 6145 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 12 ms
-2019-07-02 13:18:34.327  INFO 6145 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2019-07-02 13:18:35.670  INFO 6145 --- [http-nio-8088-exec-1] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2019-07-02 13:18:36.234  INFO 6145 --- [http-nio-8088-exec-1] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:2, serverValue:506}] to gogorpg.com:27017
-2019-07-02 15:15:32.013  WARN 6145 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h3m25s531ms).
-2019-07-02 15:15:59.358  INFO 6145 --- [cluster-ClusterId{value='5d1ae92108bcac180101fecb', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:3, serverValue:514}] to gogorpg.com:27017
-2019-07-02 15:20:27.353  WARN 6145 --- [http-nio-8088-exec-5] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@1435f1d9 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2019-07-02 15:20:32.363  WARN 6145 --- [http-nio-8088-exec-5] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@4ab33d8a (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2019-07-02 15:20:36.644  WARN 6145 --- [http-nio-8088-exec-6] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@1673defc (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2019-07-02 15:20:37.371  WARN 6145 --- [http-nio-8088-exec-5] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@65c965be (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2019-07-02 15:20:41.650  WARN 6145 --- [http-nio-8088-exec-6] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@124c48ea (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2019-07-02 15:20:42.379  WARN 6145 --- [http-nio-8088-exec-5] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@a74eff6 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2019-07-02 15:20:46.662  WARN 6145 --- [http-nio-8088-exec-6] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@574ed4c7 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2019-07-02 15:20:47.389  WARN 6145 --- [http-nio-8088-exec-5] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@59f8cc5f (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2019-07-02 15:20:47.474  INFO 6145 --- [http-nio-8088-exec-5] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:2, serverValue:506}] to gogorpg.com:27017 because there was a socket exception raised on another connection from this pool.
-2019-07-02 15:20:47.628  INFO 6145 --- [http-nio-8088-exec-5] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:4, serverValue:519}] to gogorpg.com:27017
-2019-07-02 15:20:52.650  WARN 6145 --- [http-nio-8088-exec-6] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@6e5f9547 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2019-07-02 15:21:19.014  WARN 6145 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=46s377ms).
-2019-07-02 15:44:42.067  WARN 6145 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=23m23s53ms).
-2019-07-02 15:44:47.087  WARN 6145 --- [http-nio-8088-exec-3] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@1e7606bb (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2019-07-02 15:44:47.103  WARN 6145 --- [http-nio-8088-exec-10] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@271a82ab (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2019-07-02 15:44:47.104  WARN 6145 --- [http-nio-8088-exec-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@4758d4ad (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2019-07-02 15:44:52.092  WARN 6145 --- [http-nio-8088-exec-3] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@7a8ddffd (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2019-07-02 15:44:52.107  WARN 6145 --- [http-nio-8088-exec-10] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@29dd6838 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2019-07-02 15:44:52.111  WARN 6145 --- [http-nio-8088-exec-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@2e597c3a (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2019-07-02 15:44:57.100  WARN 6145 --- [http-nio-8088-exec-3] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@13fb29ba (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2019-07-02 15:44:57.115  WARN 6145 --- [http-nio-8088-exec-10] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@2de2e9db (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2019-07-02 15:44:57.118  WARN 6145 --- [http-nio-8088-exec-1] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@2c46531 (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2019-07-02 15:44:57.526  WARN 6145 --- [http-nio-8088-exec-5] com.zaxxer.hikari.pool.PoolBase          : HikariPool-1 - Failed to validate connection com.mysql.cj.jdbc.ConnectionImpl@295bdf8e (No operations allowed after connection closed.). Possibly consider using a shorter maxLifetime value.
-2019-07-02 15:44:57.688  INFO 6145 --- [http-nio-8088-exec-10] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:5, serverValue:523}] to gogorpg.com:27017
-2019-07-02 15:45:02.428  INFO 6145 --- [cluster-ClusterId{value='5d1ae92108bcac180101fecb', description='null'}-gogorpg.com:27017] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:6, serverValue:524}] to gogorpg.com:27017
-2019-07-02 15:45:02.669  INFO 6145 --- [http-nio-8088-exec-8] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:5, serverValue:523}] to gogorpg.com:27017 because there was a socket exception raised on another connection from this pool.
-2019-07-02 15:45:03.040  INFO 6145 --- [http-nio-8088-exec-8] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:7, serverValue:525}] to gogorpg.com:27017
-2019-07-02 15:46:48.032  WARN 6145 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=57s647ms).
-2019-07-02 15:46:48.654  WARN 6145 --- [http-nio-8088-exec-1] org.mongodb.driver.connection            : Got socket exception on connection [connectionId{localValue:4, serverValue:519}] to gogorpg.com:27017. All connections to gogorpg.com:27017 will be closed.
-2019-07-02 15:46:48.655  INFO 6145 --- [http-nio-8088-exec-1] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:4, serverValue:519}] to gogorpg.com:27017 because there was a socket exception raised by this connection.
-2019-07-02 15:46:48.760  INFO 6145 --- [http-nio-8088-exec-6] org.mongodb.driver.connection            : Closed connection [connectionId{localValue:7, serverValue:525}] to gogorpg.com:27017 because there was a socket exception raised on another connection from this pool.
-2019-07-02 15:46:49.706  INFO 6145 --- [http-nio-8088-exec-9] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:8, serverValue:528}] to gogorpg.com:27017
-2019-07-02 15:46:49.786  INFO 6145 --- [http-nio-8088-exec-2] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:9, serverValue:529}] to gogorpg.com:27017
-2019-07-02 15:46:49.966  INFO 6145 --- [http-nio-8088-exec-6] org.mongodb.driver.connection            : Opened connection [connectionId{localValue:10, serverValue:530}] to gogorpg.com:27017
+2019-12-20 11:12:29.656 ERROR 3404 --- [http-nio-8088-exec-6] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Could not find acceptable representation] with root cause
+
+org.springframework.web.HttpMediaTypeNotAcceptableException: Could not find acceptable representation
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:307) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.handleReturnValue(RequestResponseBodyMethodProcessor.java:180) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:82) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:119) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:892) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:96) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:200) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:834) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1415) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_221]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_221]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_221]
+
+2019-12-20 11:12:29.719  WARN 3404 --- [http-nio-8088-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpMediaTypeNotAcceptableException: Could not find acceptable representation]
+2019-12-20 11:29:19.730  WARN 3404 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=15m20s162ms).
+2019-12-20 11:29:19.786  WARN 3404 --- [http-nio-8088-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Failure while trying to resolve exception [org.springframework.web.HttpMediaTypeNotAcceptableException]
+
+java.lang.IllegalStateException: Cannot call sendError() after the response has been committed
+	at org.apache.catalina.connector.ResponseFacade.sendError(ResponseFacade.java:472) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver.handleHttpMediaTypeNotAcceptable(DefaultHandlerExceptionResolver.java:304) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver.doResolveException(DefaultHandlerExceptionResolver.java:181) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.resolveException(AbstractHandlerExceptionResolver.java:139) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.handler.HandlerExceptionResolverComposite.resolveException(HandlerExceptionResolverComposite.java:79) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.processHandlerException(DispatcherServlet.java:1297) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1109) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1055) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) [tomcat-embed-websocket-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:96) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:200) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:834) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1415) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_221]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_221]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_221]
+
+2019-12-20 11:29:19.821 ERROR 3404 --- [http-nio-8088-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Could not find acceptable representation] with root cause
+
+org.springframework.web.HttpMediaTypeNotAcceptableException: Could not find acceptable representation
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:307) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.handleReturnValue(RequestResponseBodyMethodProcessor.java:180) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:82) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:119) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:892) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:96) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:200) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:834) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1415) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_221]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_221]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_221]
+
+2019-12-20 11:29:19.879  WARN 3404 --- [http-nio-8088-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpMediaTypeNotAcceptableException: Could not find acceptable representation]
+2019-12-20 11:29:32.889  WARN 3404 --- [http-nio-8088-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Failure while trying to resolve exception [org.springframework.web.HttpMediaTypeNotAcceptableException]
+
+java.lang.IllegalStateException: Cannot call sendError() after the response has been committed
+	at org.apache.catalina.connector.ResponseFacade.sendError(ResponseFacade.java:472) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver.handleHttpMediaTypeNotAcceptable(DefaultHandlerExceptionResolver.java:304) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.mvc.support.DefaultHandlerExceptionResolver.doResolveException(DefaultHandlerExceptionResolver.java:181) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver.resolveException(AbstractHandlerExceptionResolver.java:139) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.handler.HandlerExceptionResolverComposite.resolveException(HandlerExceptionResolverComposite.java:79) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.processHandlerException(DispatcherServlet.java:1297) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.processDispatchResult(DispatcherServlet.java:1109) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1055) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882) [spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) [tomcat-embed-websocket-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:96) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) [spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:200) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:834) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1415) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_221]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_221]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_221]
+
+2019-12-20 11:29:32.897 ERROR 3404 --- [http-nio-8088-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Could not find acceptable representation] with root cause
+
+org.springframework.web.HttpMediaTypeNotAcceptableException: Could not find acceptable representation
+	at org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor.writeWithMessageConverters(AbstractMessageConverterMethodProcessor.java:307) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestResponseBodyMethodProcessor.handleReturnValue(RequestResponseBodyMethodProcessor.java:180) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:82) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:119) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:892) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:797) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1005) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:897) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:634) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:882) ~[spring-webmvc-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.CorsFilter.doFilterInternal(CorsFilter.java:96) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.6.RELEASE.jar:5.1.6.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:200) ~[tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:834) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1415) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [na:1.8.0_221]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [na:1.8.0_221]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.17.jar:9.0.17]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_221]
+
+2019-12-20 11:29:32.900  WARN 3404 --- [http-nio-8088-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.HttpMediaTypeNotAcceptableException: Could not find acceptable representation]
+2019-12-20 11:30:03.798  INFO 3404 --- [Thread-13] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+2019-12-20 11:30:03.803  INFO 3404 --- [Thread-13] o.s.s.quartz.SchedulerFactoryBean        : Shutting down Quartz Scheduler
+2019-12-20 11:30:03.804  INFO 3404 --- [Thread-13] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED shutting down.
+2019-12-20 11:30:03.805  INFO 3404 --- [Thread-13] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+2019-12-20 11:30:03.810  INFO 3404 --- [Thread-13] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED shutdown complete.
+2019-12-20 11:30:03.842  INFO 3404 --- [Thread-13] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-12-20 11:30:03.846  INFO 3404 --- [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-12-20 11:30:03.864  INFO 3404 --- [Thread-13] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-12-20 11:30:12.426  INFO 3467 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on snakes-mbp with PID 3467 (/Users/snake/jobs/projects/lifecapsule/api/target/classes started by snake in /Users/snake/jobs/projects/lifecapsule/api)
+2019-12-20 11:30:12.448  INFO 3467 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
+2019-12-20 11:30:15.158  INFO 3467 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
+2019-12-20 11:30:15.188  INFO 3467 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-12-20 11:30:15.188  INFO 3467 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.17]
+2019-12-20 11:30:15.328  INFO 3467 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-12-20 11:30:15.328  INFO 3467 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2688 ms
+2019-12-20 11:30:16.348  INFO 3467 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-12-20 11:30:16.600  INFO 3467 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-12-20 11:30:17.355  INFO 3467 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-12-20 11:30:17.431  INFO 3467 --- [main] org.quartz.impl.StdSchedulerFactory      : Using default implementation for ThreadExecutor
+2019-12-20 11:30:17.443  INFO 3467 --- [main] org.quartz.core.SchedulerSignalerImpl    : Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2019-12-20 11:30:17.444  INFO 3467 --- [main] org.quartz.core.QuartzScheduler          : Quartz Scheduler v.2.3.1 created.
+2019-12-20 11:30:17.446  INFO 3467 --- [main] org.quartz.simpl.RAMJobStore             : RAMJobStore initialized.
+2019-12-20 11:30:17.447  INFO 3467 --- [main] org.quartz.core.QuartzScheduler          : Scheduler meta-data: Quartz Scheduler (v2.3.1) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2019-12-20 11:30:17.447  INFO 3467 --- [main] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2019-12-20 11:30:17.447  INFO 3467 --- [main] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler version: 2.3.1
+2019-12-20 11:30:17.448  INFO 3467 --- [main] org.quartz.core.QuartzScheduler          : JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@6097fca9
+2019-12-20 11:30:17.514  INFO 3467 --- [main] o.s.s.quartz.SchedulerFactoryBean        : Starting Quartz Scheduler now
+2019-12-20 11:30:17.515  INFO 3467 --- [main] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2019-12-20 11:30:17.529  INFO 3467 --- [quartzScheduler_Worker-1] c.g.l.b.admin.backJob.GogoKeyProcessor   : Trigger processor started
+2019-12-20 11:30:17.786  INFO 3467 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
+2019-12-20 11:30:17.811  INFO 3467 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 6.444 seconds (JVM running for 8.244)
+2019-12-20 11:30:17.975  INFO 3467 --- [quartzScheduler_Worker-1] c.g.l.b.admin.backJob.GogoKeyProcessor   : 时间 trigger triggered
+2019-12-20 11:30:18.115  INFO 3467 --- [quartzScheduler_Worker-1] c.g.l.b.admin.backJob.GogoKeyProcessor   : send failed
+2019-12-20 11:30:18.301  INFO 3467 --- [quartzScheduler_Worker-1] c.g.l.b.admin.backJob.GogoKeyProcessor   : 2332 trigger triggered
+2019-12-20 11:30:21.122  INFO 3467 --- [quartzScheduler_Worker-1] c.g.l.b.admin.backJob.GogoKeyProcessor   : send failed
+2019-12-20 11:30:21.372 ERROR 3467 --- [quartzScheduler_Worker-1] c.g.l.b.admin.backJob.GogoKeyProcessor   : null
+2019-12-20 11:30:24.626  INFO 3467 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-12-20 11:30:24.626  INFO 3467 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-12-20 11:30:24.637  INFO 3467 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 11 ms

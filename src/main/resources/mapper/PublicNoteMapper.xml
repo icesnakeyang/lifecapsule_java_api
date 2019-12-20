@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gogoyang.lifecapsule.meta.publicNote.dao.PublicNoteDao">
+    <!--创建一个新的公开笔记-->
+    <insert id="createPublicNote" parameterType="com.gogoyang.lifecapsule.meta.publicNote.entity.PublicNote">
+        insert into public_note
+        (note_id, title, content, create_time, user_id)
+        values
+        (#{noteId}, #{title}, #{content}, #{createTime}, #{userId})
+    </insert>
+
+    <!--配置public_note表和PublicNote对象的字段映射 -->
+    <resultMap id="publicNoteMap" type="com.gogoyang.lifecapsule.meta.publicNote.entity.PublicNote">
+        <result property="noteId" column="note_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="userId" column="user_id"/>
+    </resultMap>
+
+    <!--根据noteId读取公开笔记信息-->
+    <select id="getPublicNote" parameterType="java.lang.String"
+            resultMap="publicNoteMap">
+        select * from public_note
+        where note_id=#{noteId}
+    </select>
+
+    <select id="listPublicNote" parameterType="java.lang.String"
+            resultMap="publicNoteMap">
+        select * from public_note
+        where user_id=#{userId}
+    </select>
+
+    <select id="getPublicNoteByNoteId" parameterType="java.lang.String"
+            resultMap="publicNoteMap">
+        select * from public_note
+        where note_id=#{noteId}
+    </select>
+</mapper>
