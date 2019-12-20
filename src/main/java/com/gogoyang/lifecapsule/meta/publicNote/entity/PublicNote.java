@@ -15,4 +15,9 @@ public class PublicNote {
     private String content;
     private Date createTime;
     private String userId;
+
+    /**
+     * 用户最近一次修改的时间
+     */
+    private Date lastTime;
 }

@@ -38,4 +38,9 @@ public class PublicNoteService implements IPublicNoteService {
         PublicNote publicNote = publicNoteDao.getPublicNoteByNoteId(noteId);
         return publicNote;
     }
+
+    @Override
+    public void updatePublicNote(PublicNote publicNote) throws Exception {
+        publicNoteDao.updatePublicNote(publicNote);
+    }
 }

@@ -14,6 +14,7 @@
         <result property="noteId" column="note_id"/>
         <result property="createTime" column="create_time"/>
         <result property="userId" column="user_id"/>
+        <result property="lastTime" column="last_time"/>
     </resultMap>
 
     <!--根据noteId读取公开笔记信息-->
@@ -34,4 +35,12 @@
         select * from public_note
         where note_id=#{noteId}
     </select>
+
+    <update id="updatePublicNote" parameterType="com.gogoyang.lifecapsule.meta.publicNote.entity.PublicNote">
+        update public_note set
+        title=#{title},
+        content=#{content},
+        last_time=#{lastTime}
+        where note_id=#{noteId}
+    </update>
 </mapper>

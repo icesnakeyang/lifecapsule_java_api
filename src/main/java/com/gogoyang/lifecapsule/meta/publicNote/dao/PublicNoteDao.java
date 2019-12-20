@@ -15,4 +15,6 @@ public interface PublicNoteDao {
     ArrayList<PublicNote> listPublicNote(String userId);
 
     PublicNote getPublicNoteByNoteId(String noteId);
+
+    void updatePublicNote(PublicNote publicNote);
 }
