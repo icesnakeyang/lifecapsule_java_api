@@ -106,4 +106,28 @@ public class PublicNoteController {
         }
         return response;
     }
+
+    @ResponseBody
+    @PostMapping("/updatePublicNote")
+    public Response updatePublicNote(@RequestBody PublicNoteRequest request,
+                                     HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        Map in = new HashMap();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            in.put("token", token);
+            in.put("noteId", request.getNoteId());
+            in.put("title", request.getTitle());
+            in.put("content", request.getContent());
+            iPublicNoteBusinessService.updatePublicNote(in);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                logger.error(ex.getMessage());
+            }
+        }
+        return response;
+    }
 }

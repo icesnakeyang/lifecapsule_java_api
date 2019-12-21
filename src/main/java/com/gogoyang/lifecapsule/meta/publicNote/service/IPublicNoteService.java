@@ -15,4 +15,6 @@ public interface IPublicNoteService {
     PublicNote getPublicNoteByNoteId(String noteId) throws Exception;
 
     void fixBug(Map in) throws Exception;
+
+    void updatePublicNote(PublicNote publicNote) throws Exception;
 }

@@ -4,6 +4,8 @@ import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey;
 import com.gogoyang.lifecapsule.meta.gogoKey.service.IGogoKeyService;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteInfo;
 import com.gogoyang.lifecapsule.meta.note.service.INoteService;
+import com.gogoyang.lifecapsule.meta.publicNote.entity.PublicNote;
+import com.gogoyang.lifecapsule.meta.publicNote.service.IPublicNoteService;
 import com.gogoyang.lifecapsule.meta.trigger.entity.Trigger;
 import com.gogoyang.lifecapsule.meta.trigger.service.ITriggerService;
 import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
@@ -17,15 +19,18 @@ public class CommonService implements ICommonService {
     private final ITriggerService iTriggerService;
     private final INoteService iNoteService;
     private final IGogoKeyService iGogoKeyService;
+    private final IPublicNoteService iPublicNoteService;
 
     public CommonService(IUserInfoService iUserInfoService,
                          ITriggerService iTriggerService,
                          INoteService iNoteService,
-                         IGogoKeyService iGogoKeyService) {
+                         IGogoKeyService iGogoKeyService,
+                         IPublicNoteService iPublicNoteService) {
         this.iUserInfoService = iUserInfoService;
         this.iTriggerService = iTriggerService;
         this.iNoteService = iNoteService;
         this.iGogoKeyService = iGogoKeyService;
+        this.iPublicNoteService = iPublicNoteService;
     }
 
     /**
@@ -102,5 +107,14 @@ public class CommonService implements ICommonService {
             throw new Exception("10022");
         }
         return publicKey;
+    }
+
+    @Override
+    public PublicNote getPublicNote(String noteId) throws Exception {
+        PublicNote publicNote=iPublicNoteService.getPublicNoteByNoteId(noteId);
+        if(publicNote==null){
+            throw new Exception("10029");
+        }
+        return publicNote;
     }
 }

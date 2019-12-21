@@ -22,4 +22,6 @@ public interface PublicNoteDao {
     PublicNoteDetail getPublicNoteDetail(String noteId);
 
     ArrayList<PublicNote> listAllPublicNote();
+
+    void updatePublicNote(PublicNote publicNote);
 }
