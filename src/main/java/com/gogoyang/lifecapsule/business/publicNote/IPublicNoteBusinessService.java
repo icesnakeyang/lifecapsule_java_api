@@ -8,4 +8,6 @@ public interface IPublicNoteBusinessService {
     Map listPublicNote(Map in) throws Exception;
 
     Map getPublicNote(Map in) throws Exception;
+
+    void fixBug(Map in) throws Exception;
 }

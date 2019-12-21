@@ -9,6 +9,14 @@
         (#{noteId}, #{title}, #{content}, #{createTime}, #{userId})
     </insert>
 
+    <insert id="createPublicNoteDetail"
+            parameterType="com.gogoyang.lifecapsule.meta.publicNote.entity.PublicNoteDetail">
+        insert into public_note_detail
+        (note_id, content)
+        values
+        (#{noteId}, #{content})
+    </insert>
+
     <!--配置public_note表和PublicNote对象的字段映射 -->
     <resultMap id="publicNoteMap" type="com.gogoyang.lifecapsule.meta.publicNote.entity.PublicNote">
         <result property="noteId" column="note_id"/>
@@ -16,10 +24,21 @@
         <result property="userId" column="user_id"/>
     </resultMap>
 
+    <resultMap id="publicNoteDetailMap" type="com.gogoyang.lifecapsule.meta.publicNote.entity.PublicNoteDetail">
+        <result property="noteId" column="note_id"/>
+    </resultMap>
+
     <!--根据noteId读取公开笔记信息-->
     <select id="getPublicNote" parameterType="java.lang.String"
             resultMap="publicNoteMap">
         select * from public_note
+        where note_id=#{noteId}
+    </select>
+
+    <!--根据noteId读取公开笔记的内容-->
+    <select id="getPublicNoteDetail" parameterType="java.lang.String"
+            resultMap="publicNoteDetailMap">
+        select * from public_note_detail
         where note_id=#{noteId}
     </select>
 
@@ -33,5 +52,9 @@
             resultMap="publicNoteMap">
         select * from public_note
         where note_id=#{noteId}
+    </select>
+
+    <select id="listAllPublicNote" resultMap="publicNoteMap">
+        select * from public_note
     </select>
 </mapper>

@@ -88,4 +88,22 @@ public class PublicNoteController {
         }
         return response;
     }
+
+    @ResponseBody
+    @PostMapping("/fixBug")
+    public Response fixBug() {
+        Response response = new Response();
+        Map in = new HashMap();
+        try {
+            iPublicNoteBusinessService.fixBug(in);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                logger.error(ex.getMessage());
+            }
+        }
+        return response;
+    }
 }

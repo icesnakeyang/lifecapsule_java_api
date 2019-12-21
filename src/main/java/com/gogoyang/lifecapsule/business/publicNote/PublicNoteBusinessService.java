@@ -85,4 +85,10 @@ public class PublicNoteBusinessService implements IPublicNoteBusinessService {
         out.put("note", publicNote);
         return out;
     }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void fixBug(Map in) throws Exception {
+        iPublicNoteService.fixBug(in);
+    }
 }
