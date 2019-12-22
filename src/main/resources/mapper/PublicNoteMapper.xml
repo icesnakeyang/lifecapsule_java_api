@@ -58,8 +58,14 @@
     <update id="updatePublicNote" parameterType="com.gogoyang.lifecapsule.meta.publicNote.entity.PublicNote">
         update public_note set
         title=#{title},
-        content=#{content},
         last_time=#{lastTime}
+        where note_id=#{noteId}
+    </update>
+
+    <update id="updatePublicNoteDetail"
+            parameterType="com.gogoyang.lifecapsule.meta.publicNote.entity.PublicNoteDetail">
+        update public_note_detail set
+        content=#{content}
         where note_id=#{noteId}
     </update>
 

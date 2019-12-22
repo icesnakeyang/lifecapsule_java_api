@@ -24,4 +24,6 @@ public interface PublicNoteDao {
     ArrayList<PublicNote> listAllPublicNote();
 
     void updatePublicNote(PublicNote publicNote);
+
+    void updatePublicNoteDetail(PublicNoteDetail publicNoteDetail);
 }

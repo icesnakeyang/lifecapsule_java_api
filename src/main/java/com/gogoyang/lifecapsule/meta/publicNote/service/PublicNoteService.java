@@ -90,8 +90,13 @@ public class PublicNoteService implements IPublicNoteService {
         }
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void updatePublicNote(PublicNote publicNote) throws Exception {
         publicNoteDao.updatePublicNote(publicNote);
+        PublicNoteDetail publicNoteDetail=new PublicNoteDetail();
+        publicNoteDetail.setNoteId(publicNote.getNoteId());
+        publicNoteDetail.setContent(publicNote.getContent());
+        publicNoteDao.updatePublicNoteDetail(publicNoteDetail);
     }
 }
