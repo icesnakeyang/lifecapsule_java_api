@@ -4,9 +4,9 @@
     <!--创建一个新的公开笔记-->
     <insert id="createPublicNote" parameterType="com.gogoyang.lifecapsule.meta.publicNote.entity.PublicNote">
         insert into public_note
-        (note_id, title, content, create_time, user_id)
+        (note_id, title, create_time, user_id)
         values
-        (#{noteId}, #{title}, #{content}, #{createTime}, #{userId})
+        (#{noteId}, #{title}, #{createTime}, #{userId})
     </insert>
 
     <insert id="createPublicNoteDetail"
