@@ -81,4 +81,6 @@ public interface INoteService {
     List<NoteInfo> listNoteByCategory(String categoryId, String userId, Integer offset, Integer pageSize) throws Exception;
 
     void fractureDetail(NoteDetail noteDetail) throws Exception;
+
+    Integer totalNote(String categoryId, String userId) throws Exception;
 }

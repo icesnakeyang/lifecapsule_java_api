@@ -57,4 +57,7 @@ public interface NoteInfoMapper {
     NoteDetail getNoteDetail(String noteId);
 
     void deleteNoteInfo(String noteId);
+
+    Integer totalNote(Map qIn);
+
 }

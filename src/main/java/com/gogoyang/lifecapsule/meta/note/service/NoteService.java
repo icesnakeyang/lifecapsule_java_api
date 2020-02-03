@@ -177,4 +177,13 @@ public class NoteService implements INoteService {
              */
         }
     }
+
+    @Override
+    public Integer totalNote(String categoryId, String userId) throws Exception {
+        Map qIn = new HashMap();
+        qIn.put("categoryId", categoryId);
+        qIn.put("userId", userId);
+        Integer total = noteInfoMapper.totalNote(qIn);
+        return total;
+    }
 }

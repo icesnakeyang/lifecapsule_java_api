@@ -68,6 +68,22 @@
         where category_id=#{categoryId}
     </select>
 
+    <select id="totalNote" parameterType="map"
+            resultType="java.lang.Integer">
+        select count(*) as total from note_info
+        where 1=1
+        <choose>
+            <when test="categoryId!=null">
+                and category_id=#{categoryId}
+            </when>
+        </choose>
+        <choose>
+            <when test="userId!=null">
+                and user_id=#{userId}
+            </when>
+        </choose>
+    </select>
+
     <!--查询一个笔记分类下的笔记列表-->
     <select id="listNoteByCategory" parameterType="map"
             resultMap="noteInfoMap">

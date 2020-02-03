@@ -170,8 +170,11 @@ public class NoteBusinessService implements INoteBusinessService {
 
         List<NoteInfo> noteInfoList = iNoteService.listNoteByCategory(categoryId, userInfo.getUserId(), offset, pageSize);
 
+        Integer total = iNoteService.totalNote(categoryId, userInfo.getUserId());
+
         Map out = new HashMap();
         out.put("noteList", noteInfoList);
+        out.put("totalNote", total);
         return out;
     }
 
@@ -185,7 +188,7 @@ public class NoteBusinessService implements INoteBusinessService {
         /**
          * 获取用户临时上传的加密笔记AES秘钥的AES秘钥
          */
-        String strAESKey=takeNoteAES(keyToken, encryptKey);
+        String strAESKey = takeNoteAES(keyToken, encryptKey);
 
         /**
          * 1、检查token，查询登录用户
@@ -240,7 +243,7 @@ public class NoteBusinessService implements INoteBusinessService {
         String keyToken = in.get("keyToken").toString();
 
         //读取还原加密detail的AES秘钥
-        String strAESKey=takeNoteAES(keyToken, encryptKey);
+        String strAESKey = takeNoteAES(keyToken, encryptKey);
 
         if (token == null) {
             throw new Exception("10010");
@@ -280,20 +283,20 @@ public class NoteBusinessService implements INoteBusinessService {
 
     @Override
     public void deleteNoteByNoteId(Map in) throws Exception {
-        String token=in.get("token").toString();
-        String noteId=in.get("noteId").toString();
+        String token = in.get("token").toString();
+        String noteId = in.get("noteId").toString();
 
-        UserInfo userInfo=iUserInfoService.getUserByUserToken(token);
-        if(userInfo==null){
+        UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
+        if (userInfo == null) {
             throw new Exception("10003");
         }
 
-        NoteInfo noteInfo=iNoteService.getNoteTinyByNoteId(noteId);
-        if(userInfo==null){
+        NoteInfo noteInfo = iNoteService.getNoteTinyByNoteId(noteId);
+        if (userInfo == null) {
             throw new Exception("10004");
         }
 
-        if(!userInfo.getUserId().equals(noteInfo.getUserId())){
+        if (!userInfo.getUserId().equals(noteInfo.getUserId())) {
             throw new Exception("10011");
         }
 
@@ -303,12 +306,13 @@ public class NoteBusinessService implements INoteBusinessService {
     /**
      * 获取用户上传的AES秘钥
      * 该秘钥用于加密解密用户笔记的AES，加密后传递到用户客户端
+     *
      * @param keyToken
      * @param encryptKey
      * @return
      * @throws Exception
      */
-    private String takeNoteAES(String keyToken, String encryptKey) throws Exception{
+    private String takeNoteAES(String keyToken, String encryptKey) throws Exception {
         //读取生成的RSA私钥
         String privateKey = iSecurityService.getRSAKey(keyToken);
         //用私钥解密用户上传的AES秘钥
