@@ -11,7 +11,7 @@
     <groupId>com.gogoyang.lifecapsule</groupId>
     <artifactId>lifecapsule</artifactId>
     <version>0.0.1</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>lifecapsule</name>
     <description>Record Your Life</description>
 
