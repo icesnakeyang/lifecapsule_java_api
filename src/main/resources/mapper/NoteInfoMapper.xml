@@ -28,6 +28,7 @@
         <result property="createdTime" column="created_time"/>
         <result property="categoryId" column="category_id"/>
         <result property="userEncodeKey" column="user_encode_key"/>
+        <result property="categoryName" column="category_name"/>
     </resultMap>
 
     <resultMap id="noteDetailMap" type="com.gogoyang.lifecapsule.meta.note.entity.NoteDetail">
@@ -48,8 +49,17 @@
     <!--根据noteId查询note笔记-->
     <select id="getNoteByNoteId" parameterType="map"
             resultMap="noteInfoMap">
-        select * from note_info
-        where note_id=#{noteId}
+        select note_info.ids,
+       note_id,
+       note_info.user_id,
+       created_time,
+       title,
+       note_info.category_id,
+       user_encode_key,
+       category_name
+from note_info
+         left join category on category.category_id = note_info.category_id
+where note_id = #{noteId}
     </select>
 
     <!--修改NoteInfo表-->

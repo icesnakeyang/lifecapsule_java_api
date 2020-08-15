@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gogoyang.lifecapsule.meta.userData.dao.UserDataDao">
+    <!--    添加一个新的userData-->
+    <insert id="createUserData" parameterType="com.gogoyang.lifecapsule.meta.userData.entity.UserData">
+        insert into user_data
+        (data_id, data_token, data_token_time, note_id)
+        values
+        (#{dataId}, #{dataToken}, #{dataTokenTime}, #{noteId})
+    </insert>
+
+    <resultMap id="userDataMap" type="com.gogoyang.lifecapsule.meta.userData.entity.UserData">
+        <result property="dataId" column="data_id"/>
+        <result property="dataToken" column="data_token"/>
+        <result property="dataTokenTime" column="data_token_time"/>
+        <result property="noteId" column="note_id"/>
+    </resultMap>
+
+    <select id="getUserData" parameterType="Map"
+            resultMap="userDataMap">
+        select * from user_data
+        where 1=1
+        <choose>
+            <when test="dataId!=null">
+                and data_id=#{dataId}
+            </when>
+        </choose>
+        <choose>
+            <when test="dataToken!=null">
+                and data_token=#{dataToken}
+            </when>
+        </choose>
+        <choose>
+            <when test="noteId!=null">
+                and note_id=#{noteId}
+            </when>
+        </choose>
+    </select>
+</mapper>

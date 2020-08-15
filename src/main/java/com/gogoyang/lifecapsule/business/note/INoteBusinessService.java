@@ -36,4 +36,6 @@ public interface INoteBusinessService {
     Map updateNote(Map in) throws Exception;
 
     void deleteNoteByNoteId(Map in) throws Exception;
+
+    Map getNoteTiny(Map in) throws Exception;
 }

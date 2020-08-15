@@ -5,7 +5,6 @@ import lombok.Data;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * GogoKey 是一个由时空笔记官方预定义的一个触发条件
  * 这个触发条件可以是通过官方或者第三方的各种url取得的各种数据的一个综合值，让用户设置这个综合值来触发条件。

@@ -18,4 +18,14 @@ public interface ICommonService {
     GogoKey getPublicKey(String gogoPublicKey) throws Exception;
 
     PublicNote getPublicNote(String noteId) throws Exception;
+
+    /**
+     * 获取用户上传的AES秘钥
+     * 该秘钥用于加密解密用户笔记的AES，加密后传递到用户客户端
+     * @param keyToken
+     * @param encryptKey
+     * @return
+     * @throws Exception
+     */
+    public String takeNoteAES(String keyToken, String encryptKey) throws Exception;
 }

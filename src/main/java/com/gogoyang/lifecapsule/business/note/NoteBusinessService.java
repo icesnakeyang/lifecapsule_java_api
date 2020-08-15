@@ -1,28 +1,19 @@
 package com.gogoyang.lifecapsule.business.note;
 
+import com.gogoyang.lifecapsule.business.common.ICommonService;
+import com.gogoyang.lifecapsule.controller.notes.NoteRequest;
 import com.gogoyang.lifecapsule.meta.category.entity.NoteCategory;
 import com.gogoyang.lifecapsule.meta.category.service.ICategoryService;
-import com.gogoyang.lifecapsule.meta.note.entity.NoteDetail;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteInfo;
 import com.gogoyang.lifecapsule.meta.note.service.INoteService;
-import com.gogoyang.lifecapsule.meta.security.entity.SecurityKey;
 import com.gogoyang.lifecapsule.meta.security.service.ISecurityService;
 import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
 import com.gogoyang.lifecapsule.meta.user.service.IUserInfoService;
 import com.gogoyang.lifecapsule.utility.GogoTools;
-import org.omg.CORBA.INTERNAL;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.crypto.Cipher;
-import javax.crypto.SecretKey;
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.IvParameterSpec;
-import javax.crypto.spec.PBEKeySpec;
-import javax.crypto.spec.SecretKeySpec;
-import java.security.Key;
-import java.security.spec.KeySpec;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -33,16 +24,19 @@ public class NoteBusinessService implements INoteBusinessService {
     private final INoteService iNoteService;
     private final IUserInfoService iUserInfoService;
     private final ICategoryService iCategoryService;
+    private final ICommonService iCommonService;
     private final ISecurityService iSecurityService;
 
     @Autowired
     public NoteBusinessService(INoteService iNoteService,
                                IUserInfoService iUserInfoService,
                                ICategoryService iCategoryService,
+                               ICommonService iCommonService,
                                ISecurityService iSecurityService) {
         this.iNoteService = iNoteService;
         this.iUserInfoService = iUserInfoService;
         this.iCategoryService = iCategoryService;
+        this.iCommonService = iCommonService;
         this.iSecurityService = iSecurityService;
     }
 
@@ -65,6 +59,7 @@ public class NoteBusinessService implements INoteBusinessService {
 
         /**
          * 根据keyToken读取私钥
+         * 用私钥解开用户用公钥加密的用户AES私钥
          */
         String privateKey = iSecurityService.getRSAKey(keyToken);
         String strAESKey = GogoTools.decryptRSAByPrivateKey(encryptKey, privateKey);
@@ -95,6 +90,7 @@ public class NoteBusinessService implements INoteBusinessService {
         noteInfo.setDetail(detail);
         noteInfo.setTitle(title);
         noteInfo.setCategoryId(categoryId);
+        //保存用户的AES私钥
         noteInfo.setUserEncodeKey(strAESKey);
         iNoteService.createNote(noteInfo);
 
@@ -188,7 +184,7 @@ public class NoteBusinessService implements INoteBusinessService {
         /**
          * 获取用户临时上传的加密笔记AES秘钥的AES秘钥
          */
-        String strAESKey = takeNoteAES(keyToken, encryptKey);
+        String strAESKey = iCommonService.takeNoteAES(keyToken, encryptKey);
 
         /**
          * 1、检查token，查询登录用户
@@ -243,7 +239,7 @@ public class NoteBusinessService implements INoteBusinessService {
         String keyToken = in.get("keyToken").toString();
 
         //读取还原加密detail的AES秘钥
-        String strAESKey = takeNoteAES(keyToken, encryptKey);
+        String strAESKey = iCommonService.takeNoteAES(keyToken, encryptKey);
 
         if (token == null) {
             throw new Exception("10010");
@@ -303,22 +299,19 @@ public class NoteBusinessService implements INoteBusinessService {
         iNoteService.deleteNote(noteId);
     }
 
-    /**
-     * 获取用户上传的AES秘钥
-     * 该秘钥用于加密解密用户笔记的AES，加密后传递到用户客户端
-     *
-     * @param keyToken
-     * @param encryptKey
-     * @return
-     * @throws Exception
-     */
-    private String takeNoteAES(String keyToken, String encryptKey) throws Exception {
-        //读取生成的RSA私钥
-        String privateKey = iSecurityService.getRSAKey(keyToken);
-        //用私钥解密用户上传的AES秘钥
-        String strAESKey = GogoTools.decryptRSAByPrivateKey(encryptKey, privateKey);
-        //删除RSA私钥
-        iSecurityService.deleteRSAKey(keyToken);
-        return strAESKey;
+    @Override
+    public Map getNoteTiny(Map in) throws Exception {
+        String token = in.get("token").toString();
+        String noteId = in.get("noteId").toString();
+
+        UserInfo userInfo = iCommonService.getUserByToken(token);
+        NoteInfo noteInfo = iCommonService.getNoteByNoteId(noteId, userInfo.getUserId());
+
+        Map out = new HashMap();
+        out.put("title", noteInfo.getTitle());
+        out.put("createdTime", noteInfo.getCreatedTime());
+        out.put("categoryId", noteInfo.getCategoryId());
+        out.put("categoryName", noteInfo.getCategoryName());
+        return out;
     }
 }

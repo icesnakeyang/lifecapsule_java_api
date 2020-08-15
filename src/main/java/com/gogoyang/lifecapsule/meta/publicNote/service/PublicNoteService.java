@@ -3,7 +3,6 @@ package com.gogoyang.lifecapsule.meta.publicNote.service;
 import com.gogoyang.lifecapsule.meta.publicNote.dao.PublicNoteDao;
 import com.gogoyang.lifecapsule.meta.publicNote.entity.PublicNote;
 import com.gogoyang.lifecapsule.meta.publicNote.entity.PublicNoteDetail;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

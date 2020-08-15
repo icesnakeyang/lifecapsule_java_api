@@ -6,11 +6,12 @@ import com.gogoyang.lifecapsule.meta.note.entity.NoteInfo;
 import com.gogoyang.lifecapsule.meta.note.service.INoteService;
 import com.gogoyang.lifecapsule.meta.publicNote.entity.PublicNote;
 import com.gogoyang.lifecapsule.meta.publicNote.service.IPublicNoteService;
+import com.gogoyang.lifecapsule.meta.security.service.ISecurityService;
 import com.gogoyang.lifecapsule.meta.trigger.entity.Trigger;
 import com.gogoyang.lifecapsule.meta.trigger.service.ITriggerService;
 import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
 import com.gogoyang.lifecapsule.meta.user.service.IUserInfoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.gogoyang.lifecapsule.utility.GogoTools;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -20,17 +21,20 @@ public class CommonService implements ICommonService {
     private final INoteService iNoteService;
     private final IGogoKeyService iGogoKeyService;
     private final IPublicNoteService iPublicNoteService;
+    private final ISecurityService iSecurityService;
 
     public CommonService(IUserInfoService iUserInfoService,
                          ITriggerService iTriggerService,
                          INoteService iNoteService,
                          IGogoKeyService iGogoKeyService,
-                         IPublicNoteService iPublicNoteService) {
+                         IPublicNoteService iPublicNoteService,
+                         ISecurityService iSecurityService) {
         this.iUserInfoService = iUserInfoService;
         this.iTriggerService = iTriggerService;
         this.iNoteService = iNoteService;
         this.iGogoKeyService = iGogoKeyService;
         this.iPublicNoteService = iPublicNoteService;
+        this.iSecurityService = iSecurityService;
     }
 
     /**
@@ -116,5 +120,25 @@ public class CommonService implements ICommonService {
             throw new Exception("10029");
         }
         return publicNote;
+    }
+
+    /**
+     * 获取用户上传的AES秘钥
+     * 该秘钥用于加密解密用户笔记的AES，加密后传递到用户客户端
+     *
+     * @param keyToken
+     * @param encryptKey
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public String takeNoteAES(String keyToken, String encryptKey) throws Exception {
+        //读取生成的RSA私钥
+        String privateKey = iSecurityService.getRSAKey(keyToken);
+        //用私钥解密用户上传的AES秘钥
+        String strAESKey = GogoTools.decryptRSAByPrivateKey(encryptKey, privateKey);
+        //删除RSA私钥
+        iSecurityService.deleteRSAKey(keyToken);
+        return strAESKey;
     }
 }

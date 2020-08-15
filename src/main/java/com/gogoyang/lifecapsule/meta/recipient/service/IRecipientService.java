@@ -3,7 +3,6 @@ package com.gogoyang.lifecapsule.meta.recipient.service;
 import com.gogoyang.lifecapsule.meta.recipient.entity.Recipient;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public interface IRecipientService {
     /**

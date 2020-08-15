@@ -4,9 +4,6 @@ import lombok.Data;
 
 import java.util.Date;
 
-/**
- * email
- */
 @Data
 public class Recipient {
     /**

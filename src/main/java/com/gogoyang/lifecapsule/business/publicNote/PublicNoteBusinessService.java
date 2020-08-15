@@ -6,7 +6,6 @@ import com.gogoyang.lifecapsule.meta.note.service.INoteService;
 import com.gogoyang.lifecapsule.meta.publicNote.entity.PublicNote;
 import com.gogoyang.lifecapsule.meta.publicNote.service.IPublicNoteService;
 import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

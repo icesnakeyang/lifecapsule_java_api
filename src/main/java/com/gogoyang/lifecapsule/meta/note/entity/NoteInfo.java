@@ -4,11 +4,6 @@ import lombok.Data;
 
 import java.util.Date;
 
-/**
- * 笔记信息类
- * 不包括笔记内容，详细内容保存在NoteDetail里
- * 保存到MySQL
- */
 @Data
 public class NoteInfo {
     /**
@@ -40,6 +35,7 @@ public class NoteInfo {
      * 笔记分类
      */
     private String categoryId;
+    private String categoryName;
 
     private String userEncodeKey;
 }
