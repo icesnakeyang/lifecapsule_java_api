@@ -186,4 +186,16 @@ public class NoteService implements INoteService {
         Integer total = noteInfoMapper.totalNote(qIn);
         return total;
     }
+
+    /**
+     *
+     * @param qIn
+     * title
+     * categoryId
+     * noteId
+     */
+    @Override
+    public void updateNoteInfoMap(Map qIn) {
+        noteInfoMapper.updateNoteInfoMap(qIn);
+    }
 }

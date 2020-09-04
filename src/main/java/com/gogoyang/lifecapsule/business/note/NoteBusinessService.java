@@ -14,10 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class NoteBusinessService implements INoteBusinessService {
@@ -313,5 +310,34 @@ public class NoteBusinessService implements INoteBusinessService {
         out.put("categoryId", noteInfo.getCategoryId());
         out.put("categoryName", noteInfo.getCategoryName());
         return out;
+    }
+
+    /**
+     * 修改一个笔记的分类
+     * @param in
+     * @throws Exception
+     */
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void moveNoteCategory(Map in) throws Exception {
+        String token=in.get("token").toString();
+        String noteId=in.get("noteId").toString();
+        String categoryId=in.get("categoryId").toString();
+
+        UserInfo userInfo=iCommonService.getUserByToken(token);
+        NoteInfo noteInfo=iCommonService.getNoteByNoteId(noteId);
+        NoteCategory noteCategory=iCategoryService.getCategoryByCategoryId(categoryId);
+        if(!noteCategory.getUserId().equals(userInfo.getUserId())){
+            throw new Exception("10014");
+        }
+
+        if(!noteInfo.getUserId().equals(userInfo.getUserId())){
+            //该笔记不是当前用户创建的，不能修改分类
+            throw new Exception("10024");
+        }
+        Map qIn=new HashMap();
+        qIn.put("noteId", noteInfo.getNoteId());
+        qIn.put("categoryId", categoryId);
+        iNoteService.updateNoteInfoMap(qIn);
     }
 }

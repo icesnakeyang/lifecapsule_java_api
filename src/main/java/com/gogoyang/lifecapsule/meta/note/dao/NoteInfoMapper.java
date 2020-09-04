@@ -36,6 +36,15 @@ public interface NoteInfoMapper {
     void updateNoteInfo(NoteInfo noteInfo);
 
     /**
+     * 修改note的基本信息
+     * @param qIn
+     * title
+     * categoryId
+     * noteId
+     */
+    void updateNoteInfoMap(Map qIn);
+
+    /**
      * 统计一个笔记分类下的笔记总数
      * @param categoryId
      */

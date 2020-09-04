@@ -71,6 +71,20 @@ where note_id = #{noteId}
         where note_id=#{noteId}
     </update>
 
+    <!--修改note的基本信息-->
+    <update id="updateNoteInfoMap" parameterType="map">
+        update note_info
+        <set>
+            <if test="title!=null">
+                title=#{title},
+            </if>
+            <if test="categoryId!=null">
+                category_id=#{categoryId}
+            </if>
+        </set>
+        where note_id=#{noteId}
+    </update>
+
     <!--统计一个笔记分类下的笔记总数-->
     <select id="totalNoteByCategoryId" parameterType="java.lang.String"
             resultType="java.lang.Integer">

@@ -4,6 +4,7 @@ import com.gogoyang.lifecapsule.meta.note.entity.NoteDetail;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteInfo;
 
 import java.util.List;
+import java.util.Map;
 
 public interface INoteService {
     /**
@@ -83,4 +84,13 @@ public interface INoteService {
     void fractureDetail(NoteDetail noteDetail) throws Exception;
 
     Integer totalNote(String categoryId, String userId) throws Exception;
+
+    /**
+     * 修改note的基本信息
+     * @param qIn
+     * title
+     * categoryId
+     * noteId
+     */
+    void updateNoteInfoMap(Map qIn);
 }

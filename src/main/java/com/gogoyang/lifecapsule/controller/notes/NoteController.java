@@ -243,5 +243,35 @@ public class NoteController {
         return response;
     }
 
+    /**
+     * 把一个note移动到另一个category分类里
+     * @param request
+     * @param httpServletRequest
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/moveNoteCategory")
+    public Response moveNoteCategory(@RequestBody NoteRequest request,
+                                HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        Map in = new HashMap();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            in.put("token", token);
+            in.put("noteId", request.getNoteId());
+            in.put("categoryId", request.getCategoryId());
+
+            iNoteBusinessService.moveNoteCategory(in);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                logger.error(ex.getMessage());
+            }
+        }
+        return response;
+    }
+
 
 }
