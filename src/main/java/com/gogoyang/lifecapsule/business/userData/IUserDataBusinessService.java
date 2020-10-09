@@ -14,4 +14,6 @@ public interface IUserDataBusinessService {
     Map getNoteApi(Map in) throws Exception;
 
     Map getUserDataApi(Map in) throws Exception;
+
+    Map getUserDataApi2(Map in) throws Exception;
 }

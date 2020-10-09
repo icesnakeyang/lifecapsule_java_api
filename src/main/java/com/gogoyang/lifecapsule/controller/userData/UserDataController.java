@@ -117,4 +117,34 @@ public class UserDataController {
         }
         return response;
     }
+
+    /**
+     * 通过api获取note（不加密）
+     * @param request
+     * @param httpServletRequest
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/getUserDataApi2")
+    public Response getUserDataApi2(@RequestBody UserDataRequest request,
+                                          HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            Map in = new HashMap();
+            in.put("dataToken", request.getDataToken());
+            in.put("token", token);
+
+            Map out = iUserDataBusinessService.getUserDataApi2(in);
+            response.setData(out);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                logger.error(ex.getMessage());
+                response.setCode(10001);
+            }
+        }
+        return response;
+    }
 }

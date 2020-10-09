@@ -1,7 +1,6 @@
 package com.gogoyang.lifecapsule.utility;
 
 import org.apache.tomcat.util.codec.binary.Base64;
-import sun.misc.BASE64Encoder;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
@@ -55,10 +54,15 @@ public class GogoTools {
     public static String encoderByMd5(String password) throws Exception {
         //确定计算方法
         MessageDigest md5 = MessageDigest.getInstance("MD5");
-        BASE64Encoder base64en = new BASE64Encoder();
+        byte[] newpass=Base64.encodeBase64(md5.digest(password.getBytes("utf-8")));
+//        BASE64Encoder base64en = new BASE64Encoder();
         //加密后的字符串
-        String newpass = base64en.encode(md5.digest(password.getBytes("utf-8")));
-        return newpass;
+//        String newpass = base64en.encode(md5.digest(password.getBytes("utf-8")));
+        String str=new String(newpass);
+        return str;
+
+//        byte[] newpass = Base64.encodeBase64(md5.digest(password.getBytes("utf-8")));
+//        String str=new String(newpass);
     }
 
     /**

@@ -128,4 +128,20 @@ public class UserDataBusinessService implements IUserDataBusinessService{
         out.put("note", noteInfo);
         return out;
     }
+
+    @Override
+    public Map getUserDataApi2(Map in) throws Exception {
+        String token=in.get("token").toString();
+        String dataToken=in.get("dataToken").toString();
+
+        //查询note内容
+        Map qIn=new HashMap();
+        qIn.put("dataToken", dataToken);
+        UserData userData=iUserDataService.getUserData(qIn);
+        NoteInfo noteInfo=iNoteService.getNoteDetailByNoteId(userData.getNoteId());
+
+        Map out = new HashMap();
+        out.put("note", noteInfo);
+        return out;
+    }
 }
