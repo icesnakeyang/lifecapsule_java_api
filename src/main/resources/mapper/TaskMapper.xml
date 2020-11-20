@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gogoyang.lifecapsule.meta.task.dao.TaskDao">
+    <!--配置task表和task对象的字段映射 -->
+    <resultMap id="taskMap" type="com.gogoyang.lifecapsule.meta.task.entity.Task">
+        <result property="taskId" column="task_id"/>
+        <result property="createUserId" column="create_user_id"/>
+        <result property="createTime" column="create_time"/>
+        <result property="taskType" column="task_type"/>
+        <result property="endTime" column="end_time"/>
+    </resultMap>
+
+    <!--创建一个新任务-->
+    <insert id="createTask" parameterType="com.gogoyang.lifecapsule.meta.task.entity.Task">
+        insert into task
+        (task_id, create_user_id, content,
+        priority, status, task_type,
+        important, urgent,
+        pid, create_time)
+        values
+        (#{taskId}, #{createUserId}, #{content},
+        #{priority}, #{status}, #{taskType},
+        #{important}, #{urgent},
+        #{pid}, #{createTime})
+    </insert>
+
+    <!--读取任务列表-->
+    <select id="listTask" parameterType="map" resultMap="taskMap">
+        select * from task
+        where 1=1
+        <choose>
+            <when test="createUserId!=null">
+                and create_user_id=#{createUserId}
+            </when>
+        </choose>
+    </select>
+
+    <select id="getTask" parameterType="map" resultMap="taskMap">
+        select * from task
+        where 1=1
+        <choose>
+            <when test="taskId!=null">
+                and task_id=#{taskId}
+            </when>
+        </choose>
+    </select>
+
+    <update id="updateTask" parameterType="map">
+        update task
+        <set>
+            <if test="status!=null">
+                status=#{status},
+            </if>
+            <if test="endTime!=null">
+                end_time=#{endTime}
+            </if>
+        </set>
+        where task_id=#{taskId}
+    </update>
+</mapper>

@@ -3,6 +3,7 @@ package com.gogoyang.lifecapsule.business.common;
 import com.gogoyang.lifecapsule.meta.gogoKey.entity.GogoKey;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteInfo;
 import com.gogoyang.lifecapsule.meta.publicNote.entity.PublicNote;
+import com.gogoyang.lifecapsule.meta.task.entity.Task;
 import com.gogoyang.lifecapsule.meta.trigger.entity.Trigger;
 import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
 
@@ -28,4 +29,7 @@ public interface ICommonService {
      * @throws Exception
      */
     public String takeNoteAES(String keyToken, String encryptKey) throws Exception;
+
+    Task getTaskByTaskId(String taskId) throws Exception;
+
 }

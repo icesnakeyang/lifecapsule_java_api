@@ -7,12 +7,18 @@ import com.gogoyang.lifecapsule.meta.note.service.INoteService;
 import com.gogoyang.lifecapsule.meta.publicNote.entity.PublicNote;
 import com.gogoyang.lifecapsule.meta.publicNote.service.IPublicNoteService;
 import com.gogoyang.lifecapsule.meta.security.service.ISecurityService;
+import com.gogoyang.lifecapsule.meta.task.entity.Task;
+import com.gogoyang.lifecapsule.meta.task.service.ITaskService;
 import com.gogoyang.lifecapsule.meta.trigger.entity.Trigger;
 import com.gogoyang.lifecapsule.meta.trigger.service.ITriggerService;
 import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
 import com.gogoyang.lifecapsule.meta.user.service.IUserInfoService;
 import com.gogoyang.lifecapsule.utility.GogoTools;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class CommonService implements ICommonService {
@@ -22,19 +28,22 @@ public class CommonService implements ICommonService {
     private final IGogoKeyService iGogoKeyService;
     private final IPublicNoteService iPublicNoteService;
     private final ISecurityService iSecurityService;
+    private final ITaskService iTaskService;
 
     public CommonService(IUserInfoService iUserInfoService,
                          ITriggerService iTriggerService,
                          INoteService iNoteService,
                          IGogoKeyService iGogoKeyService,
                          IPublicNoteService iPublicNoteService,
-                         ISecurityService iSecurityService) {
+                         ISecurityService iSecurityService,
+                         ITaskService iTaskService) {
         this.iUserInfoService = iUserInfoService;
         this.iTriggerService = iTriggerService;
         this.iNoteService = iNoteService;
         this.iGogoKeyService = iGogoKeyService;
         this.iPublicNoteService = iPublicNoteService;
         this.iSecurityService = iSecurityService;
+        this.iTaskService = iTaskService;
     }
 
     /**
@@ -115,8 +124,8 @@ public class CommonService implements ICommonService {
 
     @Override
     public PublicNote getPublicNote(String noteId) throws Exception {
-        PublicNote publicNote=iPublicNoteService.getPublicNoteByNoteId(noteId);
-        if(publicNote==null){
+        PublicNote publicNote = iPublicNoteService.getPublicNoteByNoteId(noteId);
+        if (publicNote == null) {
             throw new Exception("10029");
         }
         return publicNote;
@@ -140,5 +149,16 @@ public class CommonService implements ICommonService {
         //删除RSA私钥
         iSecurityService.deleteRSAKey(keyToken);
         return strAESKey;
+    }
+
+    @Override
+    public Task getTaskByTaskId(String taskId) throws Exception {
+        Map qIn = new HashMap();
+        qIn.put("taskId", taskId);
+        Task task = iTaskService.getTask(qIn);
+        if (task == null) {
+            throw new Exception("10031");
+        }
+        return task;
     }
 }
