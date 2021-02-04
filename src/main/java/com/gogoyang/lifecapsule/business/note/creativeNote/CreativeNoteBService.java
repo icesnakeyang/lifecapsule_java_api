@@ -208,4 +208,70 @@ public class CreativeNoteBService implements ICreativeNoteBService{
              */
         }
     }
+
+    /**
+     * 读取一个创新防拖延笔记内容
+     * @param in
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public Map getCreativeNote(Map in) throws Exception {
+        String token = (String) in.get("token");
+        String noteId = in.get("noteId").toString();
+        String encryptKey = in.get("encryptKey").toString();
+        String keyToken = (String) in.get("keyToken");
+
+        /**
+         * 获取用户临时上传的加密笔记AES秘钥的AES秘钥
+         */
+        String strAESKey = iCommonService.takeNoteAES(keyToken, encryptKey);
+
+        /**
+         * 1、检查token，查询登录用户
+         * 2、根据noteId，查询note详情
+         * 3、比较note的userId是否是登录用户，如果不是，返回错误
+         * 4、如果note是当前用户创建的，返回note
+         */
+
+        if (token == null) {
+            throw new Exception("10010");
+        }
+
+        UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
+        if (userInfo == null) {
+            throw new Exception("10003");
+        }
+
+        //查询note简介
+        NoteInfo noteInfo = iNoteService.getNoteDetailByNoteId(noteId);
+        if (noteInfo == null) {
+            throw new Exception("10004");
+        }
+
+        //检查是否是用户自己的笔记
+        if (!noteInfo.getUserId().equals(userInfo.getUserId())) {
+            throw new Exception("10011");
+        }
+        Map out = new HashMap();
+        out.put("note", noteInfo);
+        /**
+         * 读取创新防拖延笔记
+         */
+        Map qIn=new HashMap();
+        qIn.put("noteId", noteInfo.getNoteId());
+        ArrayList<CreativeNote> creativeNotes=iCreativeNoteService.listCreativeNote(qIn);
+        for(int i=0;i<creativeNotes.size();i++){
+            NoteDetail noteDetail=iNoteService.getNoteDetail(creativeNotes.get(i).getCreativeNoteId());
+            creativeNotes.get(i).setContent(noteDetail.getContent());
+        }
+        out.put("creativeNoteList", creativeNotes);
+
+        //用AES秘钥加密笔记内容的AES秘钥
+        String data = noteInfo.getUserEncodeKey();
+        String outCode = GogoTools.encryptAESKey(data, strAESKey);
+        noteInfo.setUserEncodeKey(outCode);
+
+        return out;
+    }
 }

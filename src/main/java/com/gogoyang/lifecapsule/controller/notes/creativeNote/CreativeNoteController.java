@@ -58,4 +58,37 @@ public class CreativeNoteController {
         return response;
 
     }
+
+    /**
+     * 读取防拖延笔记列表
+     *
+     * @param request
+     * @param httpServletRequest
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/getCreativeNote")
+    public Response getCreativeNote(@RequestBody CreativeNoteRequest request,
+                                     HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            Map in = new HashMap();
+            in.put("token", token);
+            in.put("noteId", request.getNoteId());
+            in.put("encryptKey", request.getEncryptKey());
+            in.put("keyToken", request.getKeyToken());
+
+            Map out=iCreativeNoteBService.getCreativeNote(in);
+            response.setData(out);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                log.error("getCreativeNote error:" + ex.getMessage());
+            }
+        }
+        return response;
+    }
 }

@@ -92,4 +92,6 @@ public interface INoteService {
     Integer totalNote(String categoryId, String userId) throws Exception;
 
     void createNoteDetail(NoteDetail noteDetail) throws Exception;
+
+    NoteDetail getNoteDetail(String noteId) throws Exception;
 }

@@ -4,4 +4,6 @@ import java.util.Map;
 
 public interface ICreativeNoteBService {
     void saveCreativeNote(Map in) throws Exception;
+
+    Map getCreativeNote(Map in) throws Exception;
 }

@@ -8,4 +8,5 @@ public class CreativeNote {
     private String noteId;
     private String creativeNoteId;
     private String creativeType;
+    private String content;
 }

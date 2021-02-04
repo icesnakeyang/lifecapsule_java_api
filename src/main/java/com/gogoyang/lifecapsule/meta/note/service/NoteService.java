@@ -35,6 +35,9 @@ public class NoteService implements INoteService {
          */
         noteInfoMapper.createNoteInfo(noteInfo);
 
+        if (noteInfo.getDetail() == null) {
+            return;
+        }
         NoteDetail noteDetail = new NoteDetail();
         noteDetail.setNoteId(noteInfo.getNoteId());
         noteDetail.setContent(noteInfo.getDetail());
@@ -48,13 +51,12 @@ public class NoteService implements INoteService {
     /**
      * 修改一个笔记
      *
-     * @param qIn
-     * title
-     * categoryId
-     * userEncodeKey
-     * noteId（查询条件）
-     * content
-     * 删除detail，再新增到detail表
+     * @param qIn title
+     *            categoryId
+     *            userEncodeKey
+     *            noteId（查询条件）
+     *            content
+     *            删除detail，再新增到detail表
      * @throws Exception
      */
     @Transactional(rollbackFor = Exception.class)
@@ -64,9 +66,9 @@ public class NoteService implements INoteService {
         noteInfoMapper.updateNoteInfo(qIn);
 
         //修改NoteDetail
-        String noteId=qIn.get("noteId").toString();
-        String content=qIn.get("content").toString();
-        if(content==null){
+        String noteId = qIn.get("noteId").toString();
+        String content = qIn.get("content").toString();
+        if (content == null) {
             //没有内容就不修改
             return;
         }
@@ -75,11 +77,11 @@ public class NoteService implements INoteService {
          * todo
          * 在碎片化功能实现之前，直接删除旧的，创建新的
          */
-        NoteDetail noteDetail=new NoteDetail();
+        NoteDetail noteDetail = new NoteDetail();
         noteDetail.setContentId(GogoTools.UUID().toString());
         noteDetail.setContent(content);
         noteDetail.setNoteId(noteId);
-        if(noteId==null){
+        if (noteId == null) {
             throw new Exception("10004");
         }
         noteInfoMapper.deleteNoteDetail(noteId);
@@ -207,5 +209,11 @@ public class NoteService implements INoteService {
     @Override
     public void createNoteDetail(NoteDetail noteDetail) throws Exception {
         noteInfoMapper.createNoteDetail(noteDetail);
+    }
+
+    @Override
+    public NoteDetail getNoteDetail(String noteId) throws Exception {
+        NoteDetail noteDetail = noteInfoMapper.getNoteDetail(noteId);
+        return noteDetail;
     }
 }
