@@ -227,16 +227,13 @@ public class NoteBusinessService implements INoteBusinessService {
      * @throws Exception
      */
     @Override
-    public Map updateNote(Map in) throws Exception {
+    public void updateNote(Map in) throws Exception {
         String token = in.get("token").toString();
         String noteId = in.get("noteId").toString();
         String title = in.get("title").toString();
         String detail = in.get("detail").toString();
         String encryptKey = in.get("encryptKey").toString();
         String keyToken = in.get("keyToken").toString();
-
-        //读取还原加密detail的AES秘钥
-        String strAESKey = iCommonService.takeNoteAES(keyToken, encryptKey);
 
         if (token == null) {
             throw new Exception("10010");
@@ -246,6 +243,9 @@ public class NoteBusinessService implements INoteBusinessService {
         if (userInfo == null) {
             throw new Exception("10003");
         }
+
+        //读取还原加密detail的AES秘钥
+        String strAESKey = iCommonService.takeNoteAES(keyToken, encryptKey);
 
         /**
          * 读取note，判断是否为当前user创建
@@ -260,18 +260,14 @@ public class NoteBusinessService implements INoteBusinessService {
         }
 
         /**
-         * 修改note, 只能修改title,detail
+         * 修改note, 只能修改title,detail,用户的AES秘钥
          */
-        NoteInfo updateNote = new NoteInfo();
-        updateNote.setDetail(detail);
-        updateNote.setTitle(title);
-        updateNote.setNoteId(noteId);
-        updateNote.setUserEncodeKey(strAESKey);
-        iNoteService.updateNote(updateNote);
-
-        Map out = new HashMap();
-        out.put("note", updateNote);
-        return out;
+        Map qIn=new HashMap();
+        qIn.put("title", title);
+        qIn.put("userEncodeKey", strAESKey);
+        qIn.put("noteId", noteId);
+        qIn.put("content", detail);
+        iNoteService.updateNote(qIn);
     }
 
     @Override
@@ -338,6 +334,6 @@ public class NoteBusinessService implements INoteBusinessService {
         Map qIn=new HashMap();
         qIn.put("noteId", noteInfo.getNoteId());
         qIn.put("categoryId", categoryId);
-        iNoteService.updateNoteInfoMap(qIn);
+        iNoteService.updateNote(qIn);
     }
 }

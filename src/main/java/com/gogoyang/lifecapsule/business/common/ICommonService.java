@@ -28,7 +28,7 @@ public interface ICommonService {
      * @return
      * @throws Exception
      */
-    public String takeNoteAES(String keyToken, String encryptKey) throws Exception;
+    String takeNoteAES(String keyToken, String encryptKey) throws Exception;
 
     Task getTaskByTaskId(String taskId) throws Exception;
 

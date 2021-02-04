@@ -26,4 +26,19 @@ public class CreativeNoteService implements ICreativeNoteService {
         ArrayList<CreativeNote> creativeNotes = creativeNoteDao.listCreativeNote(qIn);
         return creativeNotes;
     }
+
+    /**
+     * 删除创新方拖延笔记
+     * @param qIn
+     * noteId
+     */
+    @Override
+    public void deleteCreativeNote(Map qIn) throws Exception {
+        creativeNoteDao.deleteCreativeNote(qIn);
+    }
+
+    @Override
+    public void updateCreativeNoteDetail(Map qIn) {
+        creativeNoteDao.updateCreativeNoteDetail(qIn);
+    }
 }

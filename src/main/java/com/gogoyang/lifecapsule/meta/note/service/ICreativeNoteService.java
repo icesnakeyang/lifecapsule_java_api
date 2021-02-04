@@ -19,4 +19,19 @@ public interface ICreativeNoteService {
      * @return
      */
     ArrayList<CreativeNote> listCreativeNote(Map qIn);
+
+    /**
+     * 删除创新方拖延笔记
+     * @param qIn
+     * noteId
+     */
+    void deleteCreativeNote(Map qIn) throws Exception;
+
+    /**
+     * 根据creativeNoteId修改笔记内容
+     * @param qIn
+     * content
+     * creativeNoteId
+     */
+    void updateCreativeNoteDetail(Map qIn);
 }

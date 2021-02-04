@@ -30,19 +30,14 @@ public interface NoteInfoMapper {
     NoteInfo getNoteByNoteId(String noteId);
 
     /**
-     * 修改NoteInfo表
-     * @param noteInfo
-     */
-    void updateNoteInfo(NoteInfo noteInfo);
-
-    /**
      * 修改note的基本信息
      * @param qIn
      * title
      * categoryId
+     * userEncodeKey
      * noteId
      */
-    void updateNoteInfoMap(Map qIn);
+    void updateNoteInfo(Map qIn);
 
     /**
      * 统计一个笔记分类下的笔记总数

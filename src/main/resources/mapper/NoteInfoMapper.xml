@@ -62,24 +62,18 @@ from note_info
 where note_id = #{noteId}
     </select>
 
-    <!--修改NoteInfo表-->
-    <update id="updateNoteInfo"
-            parameterType="com.gogoyang.lifecapsule.meta.note.entity.NoteInfo">
-        update note_info set
-        title=#{title},
-        user_encode_key=#{userEncodeKey}
-        where note_id=#{noteId}
-    </update>
-
     <!--修改note的基本信息-->
-    <update id="updateNoteInfoMap" parameterType="map">
+    <update id="updateNoteInfo" parameterType="map">
         update note_info
         <set>
             <if test="title!=null">
                 title=#{title},
             </if>
             <if test="categoryId!=null">
-                category_id=#{categoryId}
+                category_id=#{categoryId},
+            </if>
+            <if test="userEncodeKey!=null">
+                user_encode_key=#{userEncodeKey}
             </if>
         </set>
         where note_id=#{noteId}

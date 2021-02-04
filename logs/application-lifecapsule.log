@@ -1,1 +1,69 @@
 2021-02-04 08:10:30.583  WARN 44640 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=9h27m33s214ms965µs800ns).
+2021-02-04 19:30:43.074  INFO 14143 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on liuyangdeiMac.local with PID 14143 (/Users/liuyang/jobs/lifecapsule/lifecapsule_api/target/classes started by liuyang in /Users/liuyang/jobs/lifecapsule/lifecapsule_api)
+2021-02-04 19:30:43.081  INFO 14143 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
+2021-02-04 19:30:44.778  INFO 14143 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
+2021-02-04 19:30:44.812  INFO 14143 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-02-04 19:30:44.812  INFO 14143 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2021-02-04 19:30:44.893  INFO 14143 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-02-04 19:30:44.893  INFO 14143 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1721 ms
+2021-02-04 19:30:45.872  INFO 14143 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-02-04 19:30:46.073  INFO 14143 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-02-04 19:30:47.866  INFO 14143 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-02-04 19:30:47.899  INFO 14143 --- [main] org.quartz.impl.StdSchedulerFactory      : Using default implementation for ThreadExecutor
+2021-02-04 19:30:47.910  INFO 14143 --- [main] org.quartz.core.SchedulerSignalerImpl    : Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2021-02-04 19:30:47.910  INFO 14143 --- [main] org.quartz.core.QuartzScheduler          : Quartz Scheduler v.2.3.1 created.
+2021-02-04 19:30:47.910  INFO 14143 --- [main] org.quartz.simpl.RAMJobStore             : RAMJobStore initialized.
+2021-02-04 19:30:47.911  INFO 14143 --- [main] org.quartz.core.QuartzScheduler          : Scheduler meta-data: Quartz Scheduler (v2.3.1) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2021-02-04 19:30:47.911  INFO 14143 --- [main] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2021-02-04 19:30:47.911  INFO 14143 --- [main] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler version: 2.3.1
+2021-02-04 19:30:47.911  INFO 14143 --- [main] org.quartz.core.QuartzScheduler          : JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@492be039
+2021-02-04 19:30:47.981  INFO 14143 --- [main] o.s.s.quartz.SchedulerFactoryBean        : Starting Quartz Scheduler now
+2021-02-04 19:30:47.982  INFO 14143 --- [main] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2021-02-04 19:30:47.991  INFO 14143 --- [quartzScheduler_Worker-1] c.g.l.b.admin.backJob.GogoKeyProcessor   : Trigger processor started
+2021-02-04 19:30:48.079  INFO 14143 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
+2021-02-04 19:30:48.089  INFO 14143 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 5.683 seconds (JVM running for 8.046)
+2021-02-04 19:42:44.108  INFO 14143 --- [Thread-2] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+2021-02-04 19:42:44.132  INFO 14143 --- [Thread-2] o.s.s.quartz.SchedulerFactoryBean        : Shutting down Quartz Scheduler
+2021-02-04 19:42:44.133  INFO 14143 --- [Thread-2] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED shutting down.
+2021-02-04 19:42:44.133  INFO 14143 --- [Thread-2] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED paused.
+2021-02-04 19:42:44.133  INFO 14143 --- [Thread-2] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED shutdown complete.
+2021-02-04 19:42:44.135  INFO 14143 --- [Thread-2] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2021-02-04 19:42:44.137  INFO 14143 --- [Thread-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-02-04 19:42:44.165  INFO 14143 --- [Thread-2] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2021-02-04 19:42:51.520  INFO 14442 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on liuyangdeiMac.local with PID 14442 (/Users/liuyang/jobs/lifecapsule/lifecapsule_api/target/classes started by liuyang in /Users/liuyang/jobs/lifecapsule/lifecapsule_api)
+2021-02-04 19:42:51.535  INFO 14442 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
+2021-02-04 19:42:53.477  INFO 14442 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
+2021-02-04 19:42:53.503  INFO 14442 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-02-04 19:42:53.503  INFO 14442 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2021-02-04 19:42:53.604  INFO 14442 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-02-04 19:42:53.604  INFO 14442 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1973 ms
+2021-02-04 19:42:54.301  INFO 14442 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-02-04 19:42:54.476  INFO 14442 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-02-04 19:42:55.385  INFO 14442 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-02-04 19:42:55.488  INFO 14442 --- [main] org.quartz.impl.StdSchedulerFactory      : Using default implementation for ThreadExecutor
+2021-02-04 19:42:55.498  INFO 14442 --- [main] org.quartz.core.SchedulerSignalerImpl    : Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2021-02-04 19:42:55.498  INFO 14442 --- [main] org.quartz.core.QuartzScheduler          : Quartz Scheduler v.2.3.1 created.
+2021-02-04 19:42:55.499  INFO 14442 --- [main] org.quartz.simpl.RAMJobStore             : RAMJobStore initialized.
+2021-02-04 19:42:55.499  INFO 14442 --- [main] org.quartz.core.QuartzScheduler          : Scheduler meta-data: Quartz Scheduler (v2.3.1) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2021-02-04 19:42:55.500  INFO 14442 --- [main] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2021-02-04 19:42:55.500  INFO 14442 --- [main] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler version: 2.3.1
+2021-02-04 19:42:55.500  INFO 14442 --- [main] org.quartz.core.QuartzScheduler          : JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@6f91fbda
+2021-02-04 19:42:55.562  INFO 14442 --- [main] o.s.s.quartz.SchedulerFactoryBean        : Starting Quartz Scheduler now
+2021-02-04 19:42:55.562  INFO 14442 --- [main] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2021-02-04 19:42:55.576  INFO 14442 --- [quartzScheduler_Worker-1] c.g.l.b.admin.backJob.GogoKeyProcessor   : Trigger processor started
+2021-02-04 19:42:55.669  INFO 14442 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
+2021-02-04 19:42:55.687  INFO 14442 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 4.752 seconds (JVM running for 5.678)

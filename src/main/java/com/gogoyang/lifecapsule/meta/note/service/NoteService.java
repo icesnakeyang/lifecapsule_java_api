@@ -3,6 +3,7 @@ package com.gogoyang.lifecapsule.meta.note.service;
 import com.gogoyang.lifecapsule.meta.note.dao.NoteInfoMapper;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteDetail;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteInfo;
+import com.gogoyang.lifecapsule.utility.GogoTools;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -47,25 +48,41 @@ public class NoteService implements INoteService {
     /**
      * 修改一个笔记
      *
-     * @param noteInfo
+     * @param qIn
+     * title
+     * categoryId
+     * userEncodeKey
+     * noteId（查询条件）
+     * content
+     * 删除detail，再新增到detail表
      * @throws Exception
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void updateNote(NoteInfo noteInfo) throws Exception {
+    public void updateNote(Map qIn) throws Exception {
         //修改NoteInfo表
-        noteInfoMapper.updateNoteInfo(noteInfo);
+        noteInfoMapper.updateNoteInfo(qIn);
 
         //修改NoteDetail
-        NoteDetail noteDetail = new NoteDetail();
-        noteDetail.setNoteId(noteInfo.getNoteId());
-        noteDetail.setContent(noteInfo.getDetail());
-        fractureDetail(noteDetail);
-
+        String noteId=qIn.get("noteId").toString();
+        String content=qIn.get("content").toString();
+        if(content==null){
+            //没有内容就不修改
+            return;
+        }
+//        fractureDetail(noteDetail);
         /**
+         * todo
          * 在碎片化功能实现之前，直接删除旧的，创建新的
          */
-        noteInfoMapper.deleteNoteDetail(noteDetail.getNoteId());
+        NoteDetail noteDetail=new NoteDetail();
+        noteDetail.setContentId(GogoTools.UUID().toString());
+        noteDetail.setContent(content);
+        noteDetail.setNoteId(noteId);
+        if(noteId==null){
+            throw new Exception("10004");
+        }
+        noteInfoMapper.deleteNoteDetail(noteId);
         noteInfoMapper.createNoteDetail(noteDetail);
     }
 
@@ -187,15 +204,8 @@ public class NoteService implements INoteService {
         return total;
     }
 
-    /**
-     *
-     * @param qIn
-     * title
-     * categoryId
-     * noteId
-     */
     @Override
-    public void updateNoteInfoMap(Map qIn) {
-        noteInfoMapper.updateNoteInfoMap(qIn);
+    public void createNoteDetail(NoteDetail noteDetail) throws Exception {
+        noteInfoMapper.createNoteDetail(noteDetail);
     }
 }

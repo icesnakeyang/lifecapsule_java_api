@@ -18,10 +18,16 @@ public interface INoteService {
     /**
      * 修改一个笔记
      *
-     * @param noteInfo
+     * @param qIn
+     * title
+     * categoryId
+     * userEncodeKey
+     * noteId（查询条件）
+     * content
+     * 删除detail，再新增到detail表
      * @throws Exception
      */
-    void updateNote(NoteInfo noteInfo) throws Exception;
+    void updateNote(Map qIn) throws Exception;
 
     /**
      * 删除笔记
@@ -85,12 +91,5 @@ public interface INoteService {
 
     Integer totalNote(String categoryId, String userId) throws Exception;
 
-    /**
-     * 修改note的基本信息
-     * @param qIn
-     * title
-     * categoryId
-     * noteId
-     */
-    void updateNoteInfoMap(Map qIn);
+    void createNoteDetail(NoteDetail noteDetail) throws Exception;
 }

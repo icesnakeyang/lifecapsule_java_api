@@ -177,14 +177,13 @@ public class NoteController {
             in.put("encryptKey", request.getEncryptKey());
             in.put("keyToken", request.getKeyToken());
             in.put("token", token);
-            Map out = iNoteBusinessService.updateNote(in);
-            response.setData(out);
+            iNoteBusinessService.updateNote(in);
         } catch (Exception ex) {
             try {
                 response.setCode(Integer.parseInt(ex.getMessage()));
             } catch (Exception ex2) {
                 response.setCode(10001);
-                logger.error(ex.getMessage());
+                logger.error("updateNote error:"+ex.getMessage());
             }
         }
         return response;

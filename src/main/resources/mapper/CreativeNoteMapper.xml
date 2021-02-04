@@ -31,4 +31,20 @@
         </choose>
     </select>
 
+    <delete id="deleteCreativeNote" parameterType="map">
+        delete from creative_note
+        where 1=1
+        <choose>
+            <when test="noteId!=null">
+                and note_id=#{noteId}
+            </when>
+        </choose>
+    </delete>
+
+    <!--根据creativeNoteId修改笔记内容-->
+    <update id="updateCreativeNoteDetail" parameterType="map">
+        update note_detail set
+        content=#{content}
+        where note_id=#{creativeNoteId}
+    </update>
 </mapper>
