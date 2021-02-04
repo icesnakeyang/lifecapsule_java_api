@@ -9,11 +9,13 @@
       (
       category_id,
       category_name,
-      user_id
+      user_id,
+       note_type
       ) values (
       #{categoryId},
       #{categoryName},
-      #{userId}
+      #{userId},
+                #{noteType}
       )
     </insert>
 
@@ -22,6 +24,7 @@
         <result property="categoryId" column="category_id"/>
         <result property="categoryName" column="category_name"/>
         <result property="userId" column="user_id"/>
+        <result property="noteType" column="note_type"/>
     </resultMap>
 
     <!--根据分类名称查询分类-->

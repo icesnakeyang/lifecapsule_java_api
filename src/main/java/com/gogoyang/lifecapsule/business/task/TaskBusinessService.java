@@ -79,7 +79,7 @@ public class TaskBusinessService implements ITaskBusinessService {
 
         Map qIn=new HashMap();
         qIn.put("taskId", task.getTaskId());
-        qIn.put("status", GogoStatus.END);
+        qIn.put("status", GogoStatus.COMPLETE);
         qIn.put("endTime", new Date());
 
         iTaskService.updateTask(qIn);

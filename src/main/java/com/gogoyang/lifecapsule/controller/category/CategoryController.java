@@ -40,6 +40,7 @@ public class CategoryController {
             Map in = new HashMap();
             in.put("categoryName", request.getCategoryName());
             in.put("token", token);
+            in.put("noteType", request.getNoteType());
 
             Map out = iCategoryBusinessService.createCategory(in);
             response.setData(out);

@@ -45,6 +45,7 @@ public class CategoryBusinessService implements ICategoryBusinessService {
     public Map createCategory(Map in) throws Exception {
         String categoryName = in.get("categoryName").toString();
         String token = in.get("token").toString();
+        String noteType=(String) in.get("noteType");
 
         if (categoryName.equals("")) {
             throw new Exception("10013");
@@ -73,6 +74,7 @@ public class CategoryBusinessService implements ICategoryBusinessService {
         category.setCategoryId(GogoTools.UUID().toString());
         category.setUserId(userInfo.getUserId());
         category.setCategoryName(categoryName);
+        category.setNoteType(noteType);
         iCategoryService.createCategory(category);
 
         Map out = new HashMap();

@@ -52,10 +52,12 @@ public class LoginBusinessService implements ILoginBusinessService {
         password=GogoTools.decryptRSAByPrivateKey(password,privateKey);
         iSecurityService.deleteRSAKey(keyToken);
 
+        UserInfo userInfo = null;
         //用户输入的密码必须进行md5加密，然后和数据库比对
         password = GogoTools.encoderBySHA256(password);
+        userInfo = iUserInfoService.getUserByPhonePassword(phone, password);
         password = GogoTools.encoderByMd5(password);
-        UserInfo userInfo = null;
+
         if (phone != null) {
             userInfo = iUserInfoService.getUserByPhonePassword(phone, password);
         }

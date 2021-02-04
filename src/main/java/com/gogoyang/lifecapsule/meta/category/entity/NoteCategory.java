@@ -23,4 +23,6 @@ public class NoteCategory {
      * 用户id
      */
     private String userId;
+
+    private String noteType;
 }

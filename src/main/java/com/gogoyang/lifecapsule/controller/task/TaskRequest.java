@@ -9,4 +9,6 @@ public class TaskRequest {
     private Boolean urgent;
     private String createUserId;
     private String taskId;
+    private Integer pageIndex;
+    private Integer pageSize;
 }
