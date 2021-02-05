@@ -94,4 +94,12 @@ public interface INoteService {
     void createNoteDetail(NoteDetail noteDetail) throws Exception;
 
     NoteDetail getNoteDetail(String noteId) throws Exception;
+
+    /**
+     * 修改笔记内容
+     * @param qIn
+     * contentId
+     * content
+     */
+    void updateNoteDetail(Map qIn);
 }

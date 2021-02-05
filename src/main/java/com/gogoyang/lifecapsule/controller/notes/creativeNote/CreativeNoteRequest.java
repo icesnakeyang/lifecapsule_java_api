@@ -2,6 +2,8 @@ package com.gogoyang.lifecapsule.controller.notes.creativeNote;
 
 import lombok.Data;
 
+import java.util.ArrayList;
+
 @Data
 public class CreativeNoteRequest {
     private String detail1;
@@ -12,5 +14,9 @@ public class CreativeNoteRequest {
     private String categoryId;
     private String encryptKey;
     private String keyToken;
+    /**
+     * 10秒行动任务列表
+     */
+    private ArrayList tasks;
 
 }

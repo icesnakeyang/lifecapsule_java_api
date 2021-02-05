@@ -315,3 +315,36 @@
 2021-02-04 21:45:24.808  INFO 7228 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2021-02-04 21:45:24.809  INFO 7228 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2021-02-04 21:45:24.814  INFO 7228 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 5 ms
+2021-02-05 08:41:09.799  INFO 26127 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Starting LifecapsuleApplication on liuyangdeiMac.local with PID 26127 (/Users/liuyang/jobs/lifecapsule/lifecapsule_api/target/classes started by liuyang in /Users/liuyang/jobs/lifecapsule/lifecapsule_api)
+2021-02-05 08:41:09.802  INFO 26127 --- [main] c.g.lifecapsule.LifecapsuleApplication   : No active profile set, falling back to default profiles: default
+2021-02-05 08:41:12.059  INFO 26127 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8088 (http)
+2021-02-05 08:41:12.082  INFO 26127 --- [main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-02-05 08:41:12.083  INFO 26127 --- [main] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.21]
+2021-02-05 08:41:12.171  INFO 26127 --- [main] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-02-05 08:41:12.171  INFO 26127 --- [main] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 2113 ms
+2021-02-05 08:41:13.048  INFO 26127 --- [main] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2021-02-05 08:41:13.257  INFO 26127 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-02-05 08:41:14.118  INFO 26127 --- [main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-02-05 08:41:14.149  INFO 26127 --- [main] org.quartz.impl.StdSchedulerFactory      : Using default implementation for ThreadExecutor
+2021-02-05 08:41:14.160  INFO 26127 --- [main] org.quartz.core.SchedulerSignalerImpl    : Initialized Scheduler Signaller of type: class org.quartz.core.SchedulerSignalerImpl
+2021-02-05 08:41:14.160  INFO 26127 --- [main] org.quartz.core.QuartzScheduler          : Quartz Scheduler v.2.3.1 created.
+2021-02-05 08:41:14.160  INFO 26127 --- [main] org.quartz.simpl.RAMJobStore             : RAMJobStore initialized.
+2021-02-05 08:41:14.161  INFO 26127 --- [main] org.quartz.core.QuartzScheduler          : Scheduler meta-data: Quartz Scheduler (v2.3.1) 'quartzScheduler' with instanceId 'NON_CLUSTERED'
+  Scheduler class: 'org.quartz.core.QuartzScheduler' - running locally.
+  NOT STARTED.
+  Currently in standby mode.
+  Number of jobs executed: 0
+  Using thread pool 'org.quartz.simpl.SimpleThreadPool' - with 10 threads.
+  Using job-store 'org.quartz.simpl.RAMJobStore' - which does not support persistence. and is not clustered.
+
+2021-02-05 08:41:14.161  INFO 26127 --- [main] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler 'quartzScheduler' initialized from an externally provided properties instance.
+2021-02-05 08:41:14.161  INFO 26127 --- [main] org.quartz.impl.StdSchedulerFactory      : Quartz scheduler version: 2.3.1
+2021-02-05 08:41:14.161  INFO 26127 --- [main] org.quartz.core.QuartzScheduler          : JobFactory set to: org.springframework.scheduling.quartz.SpringBeanJobFactory@251d7fdd
+2021-02-05 08:41:14.260  INFO 26127 --- [main] o.s.s.quartz.SchedulerFactoryBean        : Starting Quartz Scheduler now
+2021-02-05 08:41:14.261  INFO 26127 --- [main] org.quartz.core.QuartzScheduler          : Scheduler quartzScheduler_$_NON_CLUSTERED started.
+2021-02-05 08:41:14.275  INFO 26127 --- [quartzScheduler_Worker-1] c.g.l.b.admin.backJob.GogoKeyProcessor   : Trigger processor started
+2021-02-05 08:41:14.366  INFO 26127 --- [main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8088 (http) with context path ''
+2021-02-05 08:41:14.373  INFO 26127 --- [main] c.g.lifecapsule.LifecapsuleApplication   : Started LifecapsuleApplication in 5.555 seconds (JVM running for 6.653)
+2021-02-05 08:41:22.263  INFO 26127 --- [http-nio-8088-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-02-05 08:41:22.277  INFO 26127 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-02-05 08:41:22.315  INFO 26127 --- [http-nio-8088-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 38 ms

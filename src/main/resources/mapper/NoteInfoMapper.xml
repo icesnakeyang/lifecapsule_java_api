@@ -137,4 +137,11 @@ where note_id = #{noteId}
         where note_id=#{noteId}
     </select>
 
+    <!--修改笔记内容-->
+    <update id="updateNoteDetail" parameterType="map">
+        update note_detail set
+        content=#{content}
+        where content_id=#{contentId}
+    </update>
+
 </mapper>

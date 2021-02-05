@@ -9,11 +9,14 @@ import com.gogoyang.lifecapsule.meta.note.entity.NoteInfo;
 import com.gogoyang.lifecapsule.meta.note.service.ICreativeNoteService;
 import com.gogoyang.lifecapsule.meta.note.service.INoteService;
 import com.gogoyang.lifecapsule.meta.security.service.ISecurityService;
+import com.gogoyang.lifecapsule.meta.task.entity.Task;
+import com.gogoyang.lifecapsule.meta.task.service.ITaskService;
 import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
 import com.gogoyang.lifecapsule.meta.user.service.IUserInfoService;
 import com.gogoyang.lifecapsule.utility.GogoTools;
+import com.gogoyang.lifecapsule.utility.constant.GogoStatus;
 import com.gogoyang.lifecapsule.utility.constant.NoteType;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.gogoyang.lifecapsule.utility.constant.TaskType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,19 +33,22 @@ public class CreativeNoteBService implements ICreativeNoteBService{
     private final INoteService iNoteService;
     private final ICreativeNoteService iCreativeNoteService;
     private final ICommonService iCommonService;
+    private final ITaskService iTaskService;
 
     public CreativeNoteBService(ISecurityService iSecurityService,
                                 IUserInfoService iUserInfoService,
                                 ICategoryService iCategoryService,
                                 INoteService iNoteService,
                                 ICreativeNoteService iCreativeNoteService,
-                                ICommonService iCommonService) {
+                                ICommonService iCommonService,
+                                ITaskService iTaskService) {
         this.iSecurityService = iSecurityService;
         this.iUserInfoService = iUserInfoService;
         this.iCategoryService = iCategoryService;
         this.iNoteService = iNoteService;
         this.iCreativeNoteService = iCreativeNoteService;
         this.iCommonService = iCommonService;
+        this.iTaskService = iTaskService;
     }
 
     /**
@@ -61,6 +67,7 @@ public class CreativeNoteBService implements ICreativeNoteBService{
         String categoryId = (String) in.get("categoryId");
         String encryptKey = in.get("encryptKey").toString();
         String keyToken = in.get("keyToken").toString();
+        ArrayList tasks= (ArrayList<String>)in.get("tasks");
 
         /**
          * 根据token取用户信息
@@ -155,6 +162,28 @@ public class CreativeNoteBService implements ICreativeNoteBService{
             /**
              * todo 保存10秒任务
              */
+            if(tasks.size()>0){
+                for(int i=0;i<tasks.size();i++){
+                    Task task=new Task();
+                    task.setCreateTime(new Date());
+                    task.setCreateUserId(userInfo.getUserId());
+                    task.setStatus(GogoStatus.ACTIVE.toString());
+                    task.setTaskId(GogoTools.UUID().toString());
+                    task.setTaskType(TaskType.ACTION_10_SEC.toString());
+                    task.setNoteId(noteInfo.getNoteId());
+                    iTaskService.createTask(task);
+                    //保存内容
+                    iNot
+                    NoteDetail noteDetail=iNoteService.getNoteDetail()
+                    noteDetail.setNoteId(task.getTaskId());
+                    noteDetail.setContent(tasks.get(i).toString());
+                    noteDetail.setContentId(GogoTools.UUID().toString());
+                    qIn=new HashMap();
+                    qIn.put("contentId", )
+
+                    iNoteService.updateNoteDetail(qIn);
+                }
+            }
         }else {
             /**
              * 新增笔记

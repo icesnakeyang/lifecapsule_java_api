@@ -216,4 +216,9 @@ public class NoteService implements INoteService {
         NoteDetail noteDetail = noteInfoMapper.getNoteDetail(noteId);
         return noteDetail;
     }
+
+    @Override
+    public void updateNoteDetail(Map qIn) {
+        noteInfoMapper.updateNoteDetail(qIn);
+    }
 }

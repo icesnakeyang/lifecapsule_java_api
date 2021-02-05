@@ -35,7 +35,6 @@ public class TaskBusinessService implements ITaskBusinessService {
         UserInfo userInfo = iCommonService.getUserByToken(token);
 
         Task task = new Task();
-        task.setContent(content);
         task.setCreateTime(new Date());
         task.setCreateUserId(userInfo.getUserId());
         task.setImportant(important);

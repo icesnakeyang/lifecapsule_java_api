@@ -54,8 +54,6 @@ public interface NoteInfoMapper {
 
     void createNoteDetail(NoteDetail noteDetail);
 
-    void updateNoteDetail(NoteDetail noteDetail);
-
     void deleteNoteDetail(String noteId);
 
     NoteDetail getNoteDetail(String noteId);
@@ -64,4 +62,11 @@ public interface NoteInfoMapper {
 
     Integer totalNote(Map qIn);
 
+    /**
+     * 修改笔记内容
+     * @param qIn
+     * contentId
+     * content
+     */
+    void updateNoteDetail(Map qIn);
 }

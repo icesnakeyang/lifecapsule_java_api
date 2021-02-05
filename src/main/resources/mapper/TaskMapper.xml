@@ -8,17 +8,18 @@
         <result property="createTime" column="create_time"/>
         <result property="taskType" column="task_type"/>
         <result property="endTime" column="end_time"/>
+        <result property="noteId" column="note_id"/>
     </resultMap>
 
     <!--创建一个新任务-->
     <insert id="createTask" parameterType="com.gogoyang.lifecapsule.meta.task.entity.Task">
         insert into task
-        (task_id, create_user_id, content,
+        (task_id, create_user_id, note_id,
         priority, status, task_type,
         important, urgent,
         pid, create_time)
         values
-        (#{taskId}, #{createUserId}, #{content},
+        (#{taskId}, #{createUserId}, #{noteId},
         #{priority}, #{status}, #{taskType},
         #{important}, #{urgent},
         #{pid}, #{createTime})
@@ -31,6 +32,11 @@
         <choose>
             <when test="createUserId!=null">
                 and create_user_id=#{createUserId}
+            </when>
+        </choose>
+        <choose>
+            <when test="noteId!=null">
+                and note_id=#{noteId}
             </when>
         </choose>
     </select>

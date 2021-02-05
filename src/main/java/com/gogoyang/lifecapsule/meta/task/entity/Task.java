@@ -13,7 +13,6 @@ public class Task {
     private String taskId;
     private String createUserId;
     private Date createTime;
-    private String content;
     /**
      * 任务优先级
      */
@@ -33,4 +32,5 @@ public class Task {
      */
     private String pid;
     private Date endTime;
+    private String noteId;
 }
