@@ -161,7 +161,13 @@ public class CreativeNoteBService implements ICreativeNoteBService{
             }
             /**
              * todo 保存10秒任务
+             * 修改
+             * 首先根据noteId读出task列表，oldTasks
+             * 遍历前端提交的tasks，如果oldTasks的taskId，在tasks里不存在，就删除
+             * 如果，
              */
+            qIn.put("noteId", creativeNote.)
+            iTaskService.listTask(qIn);
             if(tasks.size()>0){
                 for(int i=0;i<tasks.size();i++){
                     Task task=new Task();
