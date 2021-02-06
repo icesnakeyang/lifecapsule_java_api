@@ -20,13 +20,10 @@ import com.gogoyang.lifecapsule.utility.constant.TaskType;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Service
-public class CreativeNoteBService implements ICreativeNoteBService{
+public class CreativeNoteBService implements ICreativeNoteBService {
     private final ISecurityService iSecurityService;
     private final IUserInfoService iUserInfoService;
     private final ICategoryService iCategoryService;
@@ -53,6 +50,7 @@ public class CreativeNoteBService implements ICreativeNoteBService{
 
     /**
      * 保存创新防拖延笔记
+     *
      * @param in
      * @throws Exception
      */
@@ -63,11 +61,11 @@ public class CreativeNoteBService implements ICreativeNoteBService{
         String detail1 = (String) in.get("detail1");
         String detail2 = (String) in.get("detail2");
         String detail3 = (String) in.get("detail3");
-        String noteId=(String)in.get("noteId");
+        String noteId = (String) in.get("noteId");
         String categoryId = (String) in.get("categoryId");
         String encryptKey = in.get("encryptKey").toString();
         String keyToken = in.get("keyToken").toString();
-        ArrayList tasks= (ArrayList<String>)in.get("tasks");
+        ArrayList<Map> tasksMap = (ArrayList<Map>) in.get("tasks");
 
         /**
          * 根据token取用户信息
@@ -90,23 +88,23 @@ public class CreativeNoteBService implements ICreativeNoteBService{
          * 保存笔记
          * 4个方拖延子笔记，仍然需要一个note父笔记
          */
-        NoteInfo noteInfo=null;
-        ArrayList creativeNotes=new ArrayList();
-        if(noteId!=null){
+        NoteInfo noteInfo = null;
+        ArrayList creativeNotes = new ArrayList();
+        if (noteId != null) {
             /**
              * 读取原笔记
              */
-            noteInfo=iNoteService.getNoteTinyByNoteId(noteId);
-            if(noteInfo==null){
+            noteInfo = iNoteService.getNoteTinyByNoteId(noteId);
+            if (noteInfo == null) {
                 /**
                  * 笔记不存在
                  */
                 throw new Exception("10004");
             }
-            Map qIn=new HashMap();
+            Map qIn = new HashMap();
             qIn.put("noteId", noteId);
-            creativeNotes =iCreativeNoteService.listCreativeNote(qIn);
-            if(creativeNotes.size()==0) {
+            creativeNotes = iCreativeNoteService.listCreativeNote(qIn);
+            if (creativeNotes.size() == 0) {
                 /**
                  * 笔记内容不存在
                  */
@@ -115,7 +113,7 @@ public class CreativeNoteBService implements ICreativeNoteBService{
             /**
              * 检查是否是用户自己创建的笔记
              */
-            if(!noteInfo.getUserId().equals(userInfo.getUserId())){
+            if (!noteInfo.getUserId().equals(userInfo.getUserId())) {
                 throw new Exception("10011");
             }
             /**
@@ -124,36 +122,36 @@ public class CreativeNoteBService implements ICreativeNoteBService{
              * 然后修改3个noteDetail
              * 最后修改10秒任务
              */
-            qIn=new HashMap();
-            qIn.put("noteId",noteInfo.getNoteId());
-            qIn.put("userEncodeKey",strAESKey);
+            qIn = new HashMap();
+            qIn.put("noteId", noteInfo.getNoteId());
+            qIn.put("userEncodeKey", strAESKey);
             iNoteService.updateNote(qIn);
 
-            for(int i=0;i<creativeNotes.size();i++){
-                CreativeNote creativeNote=(CreativeNote)creativeNotes.get(i);
-                if(creativeNote.getCreativeType().equals(NoteType.CREATIVE1)){
+            for (int i = 0; i < creativeNotes.size(); i++) {
+                CreativeNote creativeNote = (CreativeNote) creativeNotes.get(i);
+                if (creativeNote.getCreativeType().equals(NoteType.CREATIVE1.toString())) {
                     /**
                      * 昨天高兴的事
                      */
-                    qIn=new HashMap();
+                    qIn = new HashMap();
                     qIn.put("content", detail1);
                     qIn.put("creativeNoteId", creativeNote.getCreativeNoteId());
                     iCreativeNoteService.updateCreativeNoteDetail(qIn);
                 }
-                if(creativeNote.getCreativeType().equals(NoteType.CREATIVE2)){
+                if (creativeNote.getCreativeType().equals(NoteType.CREATIVE2.toString())) {
                     /**
                      * 我的感想
                      */
-                    qIn=new HashMap();
+                    qIn = new HashMap();
                     qIn.put("content", detail2);
                     qIn.put("creativeNoteId", creativeNote.getCreativeNoteId());
                     iCreativeNoteService.updateCreativeNoteDetail(qIn);
                 }
-                if(creativeNote.getCreativeType().equals(NoteType.CREATIVE3)){
+                if (creativeNote.getCreativeType().equals(NoteType.CREATIVE3.toString())) {
                     /**
                      * 今天要做的事情
                      */
-                    qIn=new HashMap();
+                    qIn = new HashMap();
                     qIn.put("content", detail3);
                     qIn.put("creativeNoteId", creativeNote.getCreativeNoteId());
                     iCreativeNoteService.updateCreativeNoteDetail(qIn);
@@ -163,34 +161,39 @@ public class CreativeNoteBService implements ICreativeNoteBService{
              * todo 保存10秒任务
              * 修改
              * 首先根据noteId读出task列表，oldTasks
-             * 遍历前端提交的tasks，如果oldTasks的taskId，在tasks里不存在，就删除
-             * 如果，
+             * 遍历oldTasks×tasks，如果有taskId，修改，如果没有就删除
+             * 遍历前端提交的tasks，如果taskId=null，新增
              */
-            qIn.put("noteId", creativeNote.)
-            iTaskService.listTask(qIn);
-            if(tasks.size()>0){
-                for(int i=0;i<tasks.size();i++){
-                    Task task=new Task();
-                    task.setCreateTime(new Date());
-                    task.setCreateUserId(userInfo.getUserId());
-                    task.setStatus(GogoStatus.ACTIVE.toString());
-                    task.setTaskId(GogoTools.UUID().toString());
-                    task.setTaskType(TaskType.ACTION_10_SEC.toString());
-                    task.setNoteId(noteInfo.getNoteId());
-                    iTaskService.createTask(task);
-                    //保存内容
-                    iNot
-                    NoteDetail noteDetail=iNoteService.getNoteDetail()
-                    noteDetail.setNoteId(task.getTaskId());
-                    noteDetail.setContent(tasks.get(i).toString());
-                    noteDetail.setContentId(GogoTools.UUID().toString());
-                    qIn=new HashMap();
-                    qIn.put("contentId", )
+            qIn.put("noteId", noteInfo.getNoteId());
+            ArrayList<Task> tasksDB = iTaskService.listTask(qIn);
+            if (tasksDB.size() > 0) {
+                //遍历数据库里旧的任务
+                for (int iDB = 0; iDB < tasksDB.size(); iDB++) {
+                    Task taskDB = tasksDB.get(iDB);
+                    //遍历前端提交的任务
+                    int ss = 0;
+                    for (int iSubmit = 0; iSubmit < tasksMap.size(); iSubmit++) {
+                        Map taskMap = tasksMap.get(iSubmit);
+                        String taskId = (String) taskMap.get("taskId");
+                        if (taskId != null) {
+                            if (taskId.equals(taskDB.getTaskId())) {
+                                //修改
 
-                    iNoteService.updateNoteDetail(qIn);
+                                //匹配成功，ss+1
+                                ss++;
+                            }
+                        }
+                    }
+                    if (ss == 0) {
+                        //遍历完所有提交的任务，没有该task，则删除
+                    }
                 }
             }
-        }else {
+            //遍历前端提交的任务，如果taskId==null，就新增
+            if (tasksMap!=null && tasksMap.size() > 0) {
+                createNew10SecTasks(tasksMap, userInfo.getUserId(), noteInfo.getNoteId());
+            }
+        } else {
             /**
              * 新增笔记
              */
@@ -212,7 +215,7 @@ public class CreativeNoteBService implements ICreativeNoteBService{
 
             CreativeNote creativeNote = new CreativeNote();
             creativeNote.setNoteId(noteInfo.getNoteId());
-            NoteDetail noteDetail=new NoteDetail();
+            NoteDetail noteDetail = new NoteDetail();
             //昨天高兴的事
             creativeNote.setCreativeType(NoteType.CREATIVE1.toString());
             creativeNote.setCreativeNoteId(GogoTools.UUID().toString());
@@ -240,12 +243,18 @@ public class CreativeNoteBService implements ICreativeNoteBService{
             iNoteService.createNoteDetail(noteDetail);
             /**
              * todo 保存10秒任务
+             * 新增就直接新增就行了
              */
+            //遍历前端提交的任务，如果taskId==null，就新增
+            if (tasksMap.size() > 0) {
+                createNew10SecTasks(tasksMap, userInfo.getUserId(), noteInfo.getNoteId());
+            }
         }
     }
 
     /**
      * 读取一个创新防拖延笔记内容
+     *
      * @param in
      * @return
      * @throws Exception
@@ -293,11 +302,11 @@ public class CreativeNoteBService implements ICreativeNoteBService{
         /**
          * 读取创新防拖延笔记
          */
-        Map qIn=new HashMap();
+        Map qIn = new HashMap();
         qIn.put("noteId", noteInfo.getNoteId());
-        ArrayList<CreativeNote> creativeNotes=iCreativeNoteService.listCreativeNote(qIn);
-        for(int i=0;i<creativeNotes.size();i++){
-            NoteDetail noteDetail=iNoteService.getNoteDetail(creativeNotes.get(i).getCreativeNoteId());
+        ArrayList<CreativeNote> creativeNotes = iCreativeNoteService.listCreativeNote(qIn);
+        for (int i = 0; i < creativeNotes.size(); i++) {
+            NoteDetail noteDetail = iNoteService.getNoteDetail(creativeNotes.get(i).getCreativeNoteId());
             creativeNotes.get(i).setContent(noteDetail.getContent());
         }
         out.put("creativeNoteList", creativeNotes);
@@ -308,5 +317,28 @@ public class CreativeNoteBService implements ICreativeNoteBService{
         noteInfo.setUserEncodeKey(outCode);
 
         return out;
+    }
+
+    private void createNew10SecTasks(ArrayList<Map> tasksMap, String userId, String noteId) throws Exception {
+        for (int j = 0; j < tasksMap.size(); j++) {
+            Map taskMap = tasksMap.get(j);
+            String taskTitle = (String) taskMap.get("taskTitle");
+            if (taskTitle == null || taskTitle.equals("")) {
+                //任务标题不能为空
+                throw new Exception("10033");
+            }
+            String taskId = (String) taskMap.get("taskId");
+            if (taskId == null) {
+                Task task = new Task();
+                task.setCreateTime(new Date());
+                task.setCreateUserId(userId);
+                task.setNoteId(noteId);
+                task.setStatus(GogoStatus.PROGRESS.toString());
+                task.setTaskId(GogoTools.UUID().toString());
+                task.setTaskTitle(taskTitle);
+                task.setTaskType(TaskType.ACTION_10_SEC.toString());
+                iTaskService.createTask(task);
+            }
+        }
     }
 }

@@ -12,6 +12,7 @@ public class Task {
     private Integer ids;
     private String taskId;
     private String createUserId;
+    private String taskTitle;
     private Date createTime;
     /**
      * 任务优先级

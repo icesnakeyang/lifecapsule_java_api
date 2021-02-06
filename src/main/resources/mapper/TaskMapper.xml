@@ -9,6 +9,7 @@
         <result property="taskType" column="task_type"/>
         <result property="endTime" column="end_time"/>
         <result property="noteId" column="note_id"/>
+        <result property="taskTitle" column="task_title"/>
     </resultMap>
 
     <!--创建一个新任务-->
@@ -17,12 +18,12 @@
         (task_id, create_user_id, note_id,
         priority, status, task_type,
         important, urgent,
-        pid, create_time)
+        pid, create_time, task_title)
         values
         (#{taskId}, #{createUserId}, #{noteId},
         #{priority}, #{status}, #{taskType},
         #{important}, #{urgent},
-        #{pid}, #{createTime})
+        #{pid}, #{createTime}, #{taskTitle})
     </insert>
 
     <!--读取任务列表-->

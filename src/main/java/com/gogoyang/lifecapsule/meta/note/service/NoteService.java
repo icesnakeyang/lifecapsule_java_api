@@ -67,7 +67,7 @@ public class NoteService implements INoteService {
 
         //修改NoteDetail
         String noteId = qIn.get("noteId").toString();
-        String content = qIn.get("content").toString();
+        String content = (String)qIn.get("content");
         if (content == null) {
             //没有内容就不修改
             return;
