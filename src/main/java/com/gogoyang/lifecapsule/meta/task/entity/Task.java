@@ -21,17 +21,14 @@ public class Task {
     private String status;
     private String taskType;
     /**
-     * 是否重要
+     * 重要性
      */
-    private Boolean important;
-    /**
-     * 是否紧急
-     */
-    private Boolean urgent;
+    private String important;
     /**
      * 父任务
      */
     private String pid;
     private Date endTime;
     private String noteId;
+    private Boolean complete;
 }

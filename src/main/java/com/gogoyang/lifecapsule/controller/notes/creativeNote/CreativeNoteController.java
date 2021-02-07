@@ -46,6 +46,7 @@ public class CreativeNoteController {
             in.put("encryptKey", request.getEncryptKey());
             in.put("keyToken", request.getKeyToken());
             in.put("tasks", request.getTasks());
+            in.put("noteTitle", request.getNoteTitle());
 
             iCreativeNoteBService.saveCreativeNote(in);
         } catch (Exception ex) {

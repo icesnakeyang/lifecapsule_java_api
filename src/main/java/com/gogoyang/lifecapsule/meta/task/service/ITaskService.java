@@ -29,6 +29,9 @@ public interface ITaskService {
      * status
      * endTime
      * taskId
+     * taskTitle
      */
     void updateTask(Map qIn) throws Exception;
+
+    void deleteTask(String taskId) throws Exception;
 }

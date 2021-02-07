@@ -17,6 +17,7 @@ import com.gogoyang.lifecapsule.utility.GogoTools;
 import com.gogoyang.lifecapsule.utility.constant.GogoStatus;
 import com.gogoyang.lifecapsule.utility.constant.NoteType;
 import com.gogoyang.lifecapsule.utility.constant.TaskType;
+import com.gogoyang.lifecapsule.utility.constant.TaskZone;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -66,6 +67,7 @@ public class CreativeNoteBService implements ICreativeNoteBService {
         String encryptKey = in.get("encryptKey").toString();
         String keyToken = in.get("keyToken").toString();
         ArrayList<Map> tasksMap = (ArrayList<Map>) in.get("tasks");
+        String noteTitle = (String) in.get("noteTitle");
 
         /**
          * 根据token取用户信息
@@ -125,6 +127,7 @@ public class CreativeNoteBService implements ICreativeNoteBService {
             qIn = new HashMap();
             qIn.put("noteId", noteInfo.getNoteId());
             qIn.put("userEncodeKey", strAESKey);
+            qIn.put("title", noteTitle);
             iNoteService.updateNote(qIn);
 
             for (int i = 0; i < creativeNotes.size(); i++) {
@@ -178,6 +181,13 @@ public class CreativeNoteBService implements ICreativeNoteBService {
                         if (taskId != null) {
                             if (taskId.equals(taskDB.getTaskId())) {
                                 //修改
+                                String title = (String) taskMap.get("taskTitle");
+                                qIn.put("taskTitle", taskMap.get("taskTitle"));
+                                qIn.put("status", taskMap.get("status"));
+                                qIn.put("endTime", taskMap.get("endTime"));
+                                qIn.put("taskId", taskMap.get("taskId"));
+                                qIn.put("complete", taskMap.get("complete"));
+                                iTaskService.updateTask(qIn);
 
                                 //匹配成功，ss+1
                                 ss++;
@@ -186,11 +196,12 @@ public class CreativeNoteBService implements ICreativeNoteBService {
                     }
                     if (ss == 0) {
                         //遍历完所有提交的任务，没有该task，则删除
+                        iTaskService.deleteTask(taskDB.getTaskId());
                     }
                 }
             }
             //遍历前端提交的任务，如果taskId==null，就新增
-            if (tasksMap!=null && tasksMap.size() > 0) {
+            if (tasksMap != null && tasksMap.size() > 0) {
                 createNew10SecTasks(tasksMap, userInfo.getUserId(), noteInfo.getNoteId());
             }
         } else {
@@ -201,6 +212,7 @@ public class CreativeNoteBService implements ICreativeNoteBService {
             noteInfo.setNoteId(GogoTools.UUID().toString());
             noteInfo.setUserId(userInfo.getUserId());
             noteInfo.setCreatedTime(new Date());
+            noteInfo.setTitle(noteTitle);
             /**
              * 如果没有分类id，就使用该用户的默认分类id
              */
@@ -316,29 +328,49 @@ public class CreativeNoteBService implements ICreativeNoteBService {
         String outCode = GogoTools.encryptAESKey(data, strAESKey);
         noteInfo.setUserEncodeKey(outCode);
 
+        /**
+         * 读取10秒行动任务
+         */
+        qIn = new HashMap();
+        qIn.put("noteId", noteInfo.getNoteId());
+        ArrayList<Task> tasks = iTaskService.listTask(qIn);
+        out.put("taskList", tasks);
+
         return out;
     }
 
     private void createNew10SecTasks(ArrayList<Map> tasksMap, String userId, String noteId) throws Exception {
         for (int j = 0; j < tasksMap.size(); j++) {
+            String taskId=(String)tasksMap.get(j).get("taskId");
+            if(taskId!=null){
+                continue;
+            }
             Map taskMap = tasksMap.get(j);
             String taskTitle = (String) taskMap.get("taskTitle");
             if (taskTitle == null || taskTitle.equals("")) {
                 //任务标题不能为空
                 throw new Exception("10033");
             }
-            String taskId = (String) taskMap.get("taskId");
-            if (taskId == null) {
-                Task task = new Task();
-                task.setCreateTime(new Date());
-                task.setCreateUserId(userId);
-                task.setNoteId(noteId);
-                task.setStatus(GogoStatus.PROGRESS.toString());
-                task.setTaskId(GogoTools.UUID().toString());
-                task.setTaskTitle(taskTitle);
-                task.setTaskType(TaskType.ACTION_10_SEC.toString());
-                iTaskService.createTask(task);
-            }
+            Boolean complete = (Boolean) taskMap.get("complete");
+            Task task = new Task();
+            task.setCreateTime(new Date());
+            task.setCreateUserId(userId);
+            task.setNoteId(noteId);
+            task.setStatus(GogoStatus.PROGRESS.toString());
+            task.setTaskId(GogoTools.UUID().toString());
+            task.setTaskTitle(taskTitle);
+            task.setTaskType(TaskType.ACTION_10_SEC.toString());
+            /**
+             * 优先级默认为1，如果以后要增加优先级，就调大这个值，值越高，优先级越高
+             */
+            task.setPriority(1);
+            /**
+             * 任务的象限
+             * 默认为重要且紧急的任务
+             */
+            task.setImportant(TaskZone.IMPORTANT_AND_URGENT.toString());
+            task.setComplete(complete);
+            iTaskService.createTask(task);
         }
     }
 }

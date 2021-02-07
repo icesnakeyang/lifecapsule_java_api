@@ -16,14 +16,13 @@
     <insert id="createTask" parameterType="com.gogoyang.lifecapsule.meta.task.entity.Task">
         insert into task
         (task_id, create_user_id, note_id,
-        priority, status, task_type,
-        important, urgent,
-        pid, create_time, task_title)
-        values
-        (#{taskId}, #{createUserId}, #{noteId},
-        #{priority}, #{status}, #{taskType},
-        #{important}, #{urgent},
-        #{pid}, #{createTime}, #{taskTitle})
+         priority, status, task_type,
+         important,complete,
+         pid, create_time, task_title)
+        values (#{taskId}, #{createUserId}, #{noteId},
+                #{priority}, #{status}, #{taskType},
+                #{important},#{complete},
+                #{pid}, #{createTime}, #{taskTitle})
     </insert>
 
     <!--读取任务列表-->
@@ -55,13 +54,25 @@
     <update id="updateTask" parameterType="map">
         update task
         <set>
+            <if test="taskTitle!=null">
+                task_title=#{taskTitle},
+            </if>
             <if test="status!=null">
                 status=#{status},
             </if>
             <if test="endTime!=null">
-                end_time=#{endTime}
+                end_time=#{endTime},
+            </if>
+            <if test="complete!=null">
+                complete=#{complete}
             </if>
         </set>
         where task_id=#{taskId}
     </update>
+
+    <delete id="deleteTask" parameterType="java.lang.String">
+        delete
+        from task
+        where task_id = #{taskId}
+    </delete>
 </mapper>

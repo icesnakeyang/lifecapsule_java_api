@@ -38,9 +38,15 @@ public class TaskService implements ITaskService {
      * status
      * endTime
      * taskId
+     * taskTitle
      */
     @Override
     public void updateTask(Map qIn) throws Exception {
         taskDao.updateTask(qIn);
+    }
+
+    @Override
+    public void deleteTask(String taskId) throws Exception {
+        taskDao.deleteTask(taskId);
     }
 }

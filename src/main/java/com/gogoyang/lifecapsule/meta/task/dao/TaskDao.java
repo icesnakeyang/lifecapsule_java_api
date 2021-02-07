@@ -31,6 +31,9 @@ public interface TaskDao {
      * status
      * endTime
      * taskId
+     * taskTitle
      */
     void updateTask(Map qIn);
+
+    void deleteTask(String taskId);
 }

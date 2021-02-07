@@ -18,5 +18,6 @@ public class CreativeNoteRequest {
      * 10秒行动任务列表
      */
     private ArrayList tasks;
+    private String noteTitle;
 
 }

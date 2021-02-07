@@ -29,7 +29,7 @@ public class TaskBusinessService implements ITaskBusinessService {
     public void createTask(Map in) throws Exception {
         String token = in.get("token").toString();
         String content = in.get("content").toString();
-        Boolean important = (Boolean) in.get("important");
+        String important = (String) in.get("important");
         Boolean urgent = (Boolean) in.get("urgent");
 
         UserInfo userInfo = iCommonService.getUserByToken(token);
@@ -38,7 +38,6 @@ public class TaskBusinessService implements ITaskBusinessService {
         task.setCreateTime(new Date());
         task.setCreateUserId(userInfo.getUserId());
         task.setImportant(important);
-        task.setUrgent(urgent);
         task.setTaskId(GogoTools.UUID().toString());
         task.setPriority(0);
         task.setStatus(GogoStatus.PROGRESS.toString());
