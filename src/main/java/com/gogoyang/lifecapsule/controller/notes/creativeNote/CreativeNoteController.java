@@ -48,7 +48,8 @@ public class CreativeNoteController {
             in.put("tasks", request.getTasks());
             in.put("noteTitle", request.getNoteTitle());
 
-            iCreativeNoteBService.saveCreativeNote(in);
+            Map out=iCreativeNoteBService.saveCreativeNote(in);
+            response.setData(out);
         } catch (Exception ex) {
             try {
                 response.setCode(Integer.parseInt(ex.getMessage()));

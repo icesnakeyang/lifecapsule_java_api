@@ -57,7 +57,7 @@ public class CreativeNoteBService implements ICreativeNoteBService {
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public void saveCreativeNote(Map in) throws Exception {
+    public Map saveCreativeNote(Map in) throws Exception {
         String token = (String) in.get("token");
         String detail1 = (String) in.get("detail1");
         String detail2 = (String) in.get("detail2");
@@ -92,6 +92,7 @@ public class CreativeNoteBService implements ICreativeNoteBService {
          */
         NoteInfo noteInfo = null;
         ArrayList creativeNotes = new ArrayList();
+        Map out=new HashMap();
         if (noteId != null) {
             /**
              * 读取原笔记
@@ -129,6 +130,8 @@ public class CreativeNoteBService implements ICreativeNoteBService {
             qIn.put("userEncodeKey", strAESKey);
             qIn.put("title", noteTitle);
             iNoteService.updateNote(qIn);
+
+            out.put("note", noteInfo);
 
             for (int i = 0; i < creativeNotes.size(); i++) {
                 CreativeNote creativeNote = (CreativeNote) creativeNotes.get(i);
@@ -196,7 +199,9 @@ public class CreativeNoteBService implements ICreativeNoteBService {
                     }
                     if (ss == 0) {
                         //遍历完所有提交的任务，没有该task，则删除
-                        iTaskService.deleteTask(taskDB.getTaskId());
+                        qIn=new HashMap();
+                        qIn.put("taskId", taskDB.getTaskId());
+                        iTaskService.deleteTask(qIn);
                     }
                 }
             }
@@ -224,6 +229,8 @@ public class CreativeNoteBService implements ICreativeNoteBService {
             //保存用户的AES私钥
             noteInfo.setUserEncodeKey(strAESKey);
             iNoteService.createNote(noteInfo);
+
+            out.put("note", noteInfo);
 
             CreativeNote creativeNote = new CreativeNote();
             creativeNote.setNoteId(noteInfo.getNoteId());
@@ -262,6 +269,7 @@ public class CreativeNoteBService implements ICreativeNoteBService {
                 createNew10SecTasks(tasksMap, userInfo.getUserId(), noteInfo.getNoteId());
             }
         }
+        return out;
     }
 
     /**

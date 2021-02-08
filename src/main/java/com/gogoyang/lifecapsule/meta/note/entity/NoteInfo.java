@@ -38,4 +38,5 @@ public class NoteInfo {
     private String categoryName;
 
     private String userEncodeKey;
+    private String noteType;
 }

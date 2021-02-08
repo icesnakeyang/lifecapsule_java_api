@@ -4,9 +4,12 @@ import com.gogoyang.lifecapsule.business.common.ICommonService;
 import com.gogoyang.lifecapsule.controller.notes.NoteRequest;
 import com.gogoyang.lifecapsule.meta.category.entity.NoteCategory;
 import com.gogoyang.lifecapsule.meta.category.service.ICategoryService;
+import com.gogoyang.lifecapsule.meta.note.entity.CreativeNote;
 import com.gogoyang.lifecapsule.meta.note.entity.NoteInfo;
+import com.gogoyang.lifecapsule.meta.note.service.ICreativeNoteService;
 import com.gogoyang.lifecapsule.meta.note.service.INoteService;
 import com.gogoyang.lifecapsule.meta.security.service.ISecurityService;
+import com.gogoyang.lifecapsule.meta.task.service.ITaskService;
 import com.gogoyang.lifecapsule.meta.user.entity.UserInfo;
 import com.gogoyang.lifecapsule.meta.user.service.IUserInfoService;
 import com.gogoyang.lifecapsule.utility.GogoTools;
@@ -23,18 +26,24 @@ public class NoteBusinessService implements INoteBusinessService {
     private final ICategoryService iCategoryService;
     private final ICommonService iCommonService;
     private final ISecurityService iSecurityService;
+    private final ICreativeNoteService iCreativeNoteService;
+    private final ITaskService iTaskService;
 
     @Autowired
     public NoteBusinessService(INoteService iNoteService,
                                IUserInfoService iUserInfoService,
                                ICategoryService iCategoryService,
                                ICommonService iCommonService,
-                               ISecurityService iSecurityService) {
+                               ISecurityService iSecurityService,
+                               ICreativeNoteService iCreativeNoteService,
+                               ITaskService iTaskService) {
         this.iNoteService = iNoteService;
         this.iUserInfoService = iUserInfoService;
         this.iCategoryService = iCategoryService;
         this.iCommonService = iCommonService;
         this.iSecurityService = iSecurityService;
+        this.iCreativeNoteService = iCreativeNoteService;
+        this.iTaskService = iTaskService;
     }
 
     /**
@@ -270,6 +279,7 @@ public class NoteBusinessService implements INoteBusinessService {
         iNoteService.updateNote(qIn);
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteNoteByNoteId(Map in) throws Exception {
         String token = in.get("token").toString();
@@ -290,6 +300,17 @@ public class NoteBusinessService implements INoteBusinessService {
         }
 
         iNoteService.deleteNote(noteId);
+
+        /**
+         * 如果删除的是行动笔记，则需要删除对应的creativeNote和task
+         */
+        Map qIn=new HashMap();
+        qIn.put("noteId", noteId);
+        ArrayList<CreativeNote> creativeNotes= iCreativeNoteService.listCreativeNote(qIn);
+        if(creativeNotes.size()>0){
+            iCreativeNoteService.deleteCreativeNote(qIn);
+        }
+        iTaskService.deleteTask(qIn);
     }
 
     @Override

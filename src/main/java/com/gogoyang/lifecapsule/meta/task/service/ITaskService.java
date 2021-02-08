@@ -33,5 +33,11 @@ public interface ITaskService {
      */
     void updateTask(Map qIn) throws Exception;
 
-    void deleteTask(String taskId) throws Exception;
+    /**
+     * 删除任务
+     * @param qIn
+     * noteId
+     * taskId
+     */
+    void deleteTask(Map qIn) throws Exception;
 }

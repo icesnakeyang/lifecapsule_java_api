@@ -29,6 +29,7 @@
         <result property="categoryId" column="category_id"/>
         <result property="userEncodeKey" column="user_encode_key"/>
         <result property="categoryName" column="category_name"/>
+        <result property="noteType" column="note_type"/>
     </resultMap>
 
     <resultMap id="noteDetailMap" type="com.gogoyang.lifecapsule.meta.note.entity.NoteDetail">
@@ -39,11 +40,21 @@
     <!--分页查询一个用户id的笔记列表-->
     <select id="listNoteByUserId" parameterType="map"
             resultMap="noteInfoMap">
-    select * from note_info
-    where 1=1
-    and user_id = #{userId}
-    order by ids desc
-    limit #{pageSize} offset #{offset}
+        select note.ids,
+               note_id,
+               note.user_id,
+               created_time,
+               title,
+               note.category_id as category_id,
+               user_encode_key,
+               category_name,
+               note_type
+        from note_info note
+                 left join category on note.category_id=category.category_id
+        where 1=1
+          and note.user_id = #{userId}
+        order by note.ids desc
+            limit #{offset}, #{pageSize}
   </select>
 
     <!--根据noteId查询note笔记-->

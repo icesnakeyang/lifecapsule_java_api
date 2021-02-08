@@ -35,5 +35,11 @@ public interface TaskDao {
      */
     void updateTask(Map qIn);
 
-    void deleteTask(String taskId);
+    /**
+     * 删除任务
+     * @param qIn
+     * noteId
+     * taskId
+     */
+    void deleteTask(Map qIn);
 }

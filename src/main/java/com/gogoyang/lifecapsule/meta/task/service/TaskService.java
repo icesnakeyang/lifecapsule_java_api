@@ -45,8 +45,20 @@ public class TaskService implements ITaskService {
         taskDao.updateTask(qIn);
     }
 
+    /**
+     * 删除任务
+     * @param qIn
+     * noteId
+     * taskId
+     */
     @Override
-    public void deleteTask(String taskId) throws Exception {
-        taskDao.deleteTask(taskId);
+    public void deleteTask(Map qIn) throws Exception {
+        String taskId=(String)qIn.get("taskId");
+        String noteId=(String)qIn.get("noteId");
+
+        if(taskId==null && noteId==null){
+            throw new Exception("10034");
+        }
+        taskDao.deleteTask(qIn);
     }
 }

@@ -34,6 +34,10 @@ public class CreativeNoteService implements ICreativeNoteService {
      */
     @Override
     public void deleteCreativeNote(Map qIn) throws Exception {
+        String noteId=(String) qIn.get("noteId");
+        if(noteId==null){
+            throw new Exception("10035");
+        }
         creativeNoteDao.deleteCreativeNote(qIn);
     }
 
