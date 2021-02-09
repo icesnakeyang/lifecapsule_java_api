@@ -5,10 +5,11 @@ import lombok.Data;
 @Data
 public class TaskRequest {
     private String content;
-    private Boolean important;
-    private Boolean urgent;
-    private String createUserId;
+    private String important;
     private String taskId;
     private Integer pageIndex;
     private Integer pageSize;
+    private String title;
+    private String encryptKey;
+    private String keyToken;
 }

@@ -36,7 +36,9 @@ public class TaskController {
             in.put("token", token);
             in.put("content", request.getContent());
             in.put("important", request.getImportant());
-            in.put("urgent", request.getUrgent());
+            in.put("title", request.getTitle());
+            in.put("encryptKey", request.getEncryptKey());
+            in.put("keyToken", request.getKeyToken());
 
             iTaskBusinessService.createTask(in);
         } catch (Exception ex) {
@@ -82,6 +84,36 @@ public class TaskController {
     }
 
     /**
+     * 读取任务详情
+     * @param request
+     * @param httpServletRequest
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/getTask")
+    public Response getTask(@RequestBody TaskRequest request,
+                               HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        Map in = new HashMap();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            in.put("token", token);
+            in.put("taskId", request.getTaskId());
+
+            Map out=iTaskBusinessService.getTask(in);
+            response.setData(out);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                log.error("listTask error:" + ex.getMessage());
+            }
+        }
+        return response;
+    }
+
+    /**
      * 设置为已完成
      * @param request
      * @param httpServletRequest
@@ -99,6 +131,35 @@ public class TaskController {
             in.put("taskId", request.getTaskId());
 
             iTaskBusinessService.completeTask(in);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                log.error("listTask error:" + ex.getMessage());
+            }
+        }
+        return response;
+    }
+
+    /**
+     * 删除任务
+     * @param request
+     * @param httpServletRequest
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/deleteTask")
+    public Response deleteTask(@RequestBody TaskRequest request,
+                               HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        Map in = new HashMap();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            in.put("token", token);
+            in.put("taskId", request.getTaskId());
+
+            iTaskBusinessService.deleteTask(in);
         } catch (Exception ex) {
             try {
                 response.setCode(Integer.parseInt(ex.getMessage()));

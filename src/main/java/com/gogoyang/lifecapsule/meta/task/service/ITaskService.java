@@ -17,9 +17,18 @@ public interface ITaskService {
      * @param qIn
      * createUserId
      * noteId
+     * offset
+     * size
      * @return
      */
     ArrayList<Task> listTask(Map qIn) throws Exception;
+
+    /**
+     * 统计任务总数
+     * @param qIn
+     * @return
+     */
+    Integer totalTask(Map qIn);
 
     Task getTask(Map qIn) throws Exception;
 

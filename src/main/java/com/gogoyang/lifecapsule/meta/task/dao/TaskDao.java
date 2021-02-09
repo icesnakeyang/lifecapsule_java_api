@@ -19,9 +19,18 @@ public interface TaskDao {
      * @param qIn
      * createUserId
      * noteId
+     * offset
+     * size
      * @return
      */
     ArrayList<Task> listTask(Map qIn);
+
+    /**
+     * 统计任务总数
+     * @param qIn
+     * @return
+     */
+    Integer totalTask(Map qIn);
 
     Task getTask(Map qIn);
 

@@ -8,4 +8,8 @@ public interface ITaskBusinessService {
     Map listTask(Map in) throws Exception;
 
     void completeTask(Map in) throws Exception;
+
+    Map getTask(Map in) throws Exception;
+
+    void deleteTask(Map in) throws Exception;
 }

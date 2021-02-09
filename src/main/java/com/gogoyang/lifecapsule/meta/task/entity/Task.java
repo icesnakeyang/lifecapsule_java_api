@@ -31,4 +31,6 @@ public class Task {
     private Date endTime;
     private String noteId;
     private Boolean complete;
+
+    private String userEncodeKey;
 }

@@ -27,6 +27,12 @@ public class TaskService implements ITaskService {
     }
 
     @Override
+    public Integer totalTask(Map qIn) {
+        Integer total = taskDao.totalTask(qIn);
+        return total;
+    }
+
+    @Override
     public Task getTask(Map qIn) throws Exception {
         Task task = taskDao.getTask(qIn);
         return task;
@@ -34,11 +40,11 @@ public class TaskService implements ITaskService {
 
     /**
      * 修改任务
-     * @param qIn
-     * status
-     * endTime
-     * taskId
-     * taskTitle
+     *
+     * @param qIn status
+     *            endTime
+     *            taskId
+     *            taskTitle
      */
     @Override
     public void updateTask(Map qIn) throws Exception {
@@ -47,16 +53,16 @@ public class TaskService implements ITaskService {
 
     /**
      * 删除任务
-     * @param qIn
-     * noteId
-     * taskId
+     *
+     * @param qIn noteId
+     *            taskId
      */
     @Override
     public void deleteTask(Map qIn) throws Exception {
-        String taskId=(String)qIn.get("taskId");
-        String noteId=(String)qIn.get("noteId");
+        String taskId = (String) qIn.get("taskId");
+        String noteId = (String) qIn.get("noteId");
 
-        if(taskId==null && noteId==null){
+        if (taskId == null && noteId == null) {
             throw new Exception("10034");
         }
         taskDao.deleteTask(qIn);

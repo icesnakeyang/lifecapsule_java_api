@@ -10,22 +10,10 @@
         <result property="endTime" column="end_time"/>
         <result property="noteId" column="note_id"/>
         <result property="taskTitle" column="task_title"/>
+        <result property="userEncodeKey" column="user_encode_key"/>
     </resultMap>
 
     <!--创建一个新任务-->
-    <insert id="createTask" parameterType="com.gogoyang.lifecapsule.meta.task.entity.Task">
-        insert into task
-        (task_id, create_user_id, note_id,
-         priority, status, task_type,
-         important,complete,
-         pid, create_time, task_title)
-        values (#{taskId}, #{createUserId}, #{noteId},
-                #{priority}, #{status}, #{taskType},
-                #{important},#{complete},
-                #{pid}, #{createTime}, #{taskTitle})
-    </insert>
-
-    <!--读取任务列表-->
     <select id="listTask" parameterType="map" resultMap="taskMap">
         select * from task
         where 1=1
@@ -39,7 +27,45 @@
                 and note_id=#{noteId}
             </when>
         </choose>
+        <choose>
+            <when test="ocd!=null">
+                order by ids desc
+            </when>
+        </choose>
+        <choose>
+            <when test="offset!=null">
+                limit #{offset}, #{size}
+            </when>
+        </choose>
     </select>
+
+    <select id="totalTask" parameterType="map" resultType="java.lang.Integer">
+        select count(*) as total from task
+        where 1=1
+        <choose>
+            <when test="createUserId!=null">
+                and create_user_id=#{createUserId}
+            </when>
+        </choose>
+        <choose>
+            <when test="noteId!=null">
+                and note_id=#{noteId}
+            </when>
+        </choose>
+    </select>
+
+    <!--读取任务列表-->
+    <insert id="createTask" parameterType="com.gogoyang.lifecapsule.meta.task.entity.Task">
+        insert into task
+        (task_id, create_user_id, note_id,
+         priority, status, task_type,
+         important, complete, user_encode_key,
+         pid, create_time, task_title)
+        values (#{taskId}, #{createUserId}, #{noteId},
+                #{priority}, #{status}, #{taskType},
+                #{important}, #{complete}, #{userEncodeKey},
+                #{pid}, #{createTime}, #{taskTitle})
+    </insert>
 
     <select id="getTask" parameterType="map" resultMap="taskMap">
         select * from task
