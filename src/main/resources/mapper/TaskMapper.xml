@@ -28,6 +28,11 @@
             </when>
         </choose>
         <choose>
+            <when test="taskType!=null">
+                and task_type=#{taskType}
+            </when>
+        </choose>
+        <choose>
             <when test="ocd!=null">
                 order by ids desc
             </when>
@@ -50,6 +55,11 @@
         <choose>
             <when test="noteId!=null">
                 and note_id=#{noteId}
+            </when>
+        </choose>
+        <choose>
+            <when test="taskType!=null">
+                and task_type=#{taskType}
             </when>
         </choose>
     </select>

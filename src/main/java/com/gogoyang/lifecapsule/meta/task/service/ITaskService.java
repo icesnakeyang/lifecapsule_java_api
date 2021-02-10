@@ -17,6 +17,7 @@ public interface ITaskService {
      * @param qIn
      * createUserId
      * noteId
+     * taskType
      * offset
      * size
      * @return

@@ -39,6 +39,7 @@ public class TaskController {
             in.put("title", request.getTitle());
             in.put("encryptKey", request.getEncryptKey());
             in.put("keyToken", request.getKeyToken());
+            in.put("taskType", request.getTaskType());
 
             iTaskBusinessService.createTask(in);
         } catch (Exception ex) {
@@ -69,6 +70,7 @@ public class TaskController {
             in.put("token", token);
             in.put("pageIndex", request.getPageIndex());
             in.put("pageSize", request.getPageSize());
+            in.put("taskType", request.getTaskType());
 
             Map out=iTaskBusinessService.listTask(in);
             response.setData(out);

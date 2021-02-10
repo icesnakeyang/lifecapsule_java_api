@@ -19,6 +19,7 @@ public interface TaskDao {
      * @param qIn
      * createUserId
      * noteId
+     * taskType
      * offset
      * size
      * @return

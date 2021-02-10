@@ -12,4 +12,5 @@ public class TaskRequest {
     private String title;
     private String encryptKey;
     private String keyToken;
+    private String taskType;
 }
