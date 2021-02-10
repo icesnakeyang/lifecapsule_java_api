@@ -39,6 +39,7 @@ public class TaskBusinessService implements ITaskBusinessService {
         String title = in.get("title").toString();
         String encryptKey = in.get("encryptKey").toString();
         String keyToken = in.get("keyToken").toString();
+        String taskType=(String)in.get("taskType");
 
         UserInfo userInfo = iCommonService.getUserByToken(token);
 
@@ -58,6 +59,7 @@ public class TaskBusinessService implements ITaskBusinessService {
         task.setTaskType(GogoStatus.DEFAULT.toString());
         task.setTaskTitle(title);
         task.setUserEncodeKey(strAESKey);
+        task.setTaskType(taskType);
         iTaskService.createTask(task);
 
         NoteDetail noteDetail = new NoteDetail();
@@ -72,6 +74,7 @@ public class TaskBusinessService implements ITaskBusinessService {
         String token = in.get("token").toString();
         Integer pageIndex = (Integer) in.get("pageIndex");
         Integer pageSize = (Integer) in.get("pageSize");
+        String taskType=(String)in.get("taskType");
 
         UserInfo userInfo = iCommonService.getUserByToken(token);
 
@@ -80,6 +83,7 @@ public class TaskBusinessService implements ITaskBusinessService {
         Integer offset = (pageIndex - 1) * pageSize;
         qIn.put("offset", offset);
         qIn.put("size", pageSize);
+        qIn.put("taskType", taskType);
         ArrayList<Task> tasks = iTaskService.listTask(qIn);
 
         Map out = new HashMap();
