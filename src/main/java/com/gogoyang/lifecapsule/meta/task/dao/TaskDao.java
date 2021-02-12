@@ -38,10 +38,15 @@ public interface TaskDao {
     /**
      * 修改任务
      * @param qIn
-     * status
-     * endTime
      * taskId
      * taskTitle
+     * priority
+     * status
+     * taskType
+     * important
+     * complete
+     * endTime
+     * userEncodeKey
      */
     void updateTask(Map qIn);
 

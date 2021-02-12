@@ -150,8 +150,8 @@ public class NoteService implements INoteService {
         Map qIn = new HashMap();
         qIn.put("userId", userId);
         qIn.put("offset", offset);
-        qIn.put("pageSize", pageSize);
-        List noteList = noteInfoMapper.listNoteByUserId(qIn);
+        qIn.put("size", pageSize);
+        List noteList = noteInfoMapper.listNote(qIn);
         return noteList;
     }
 
@@ -163,7 +163,9 @@ public class NoteService implements INoteService {
      */
     @Override
     public Integer countNoteByCategoryId(String categoryId) throws Exception {
-        Integer total = noteInfoMapper.totalNoteByCategoryId(categoryId);
+        Map qIn=new HashMap();
+        qIn.put("categoryId", categoryId);
+        Integer total = noteInfoMapper.totalNote(qIn);
         return total;
     }
 
@@ -182,8 +184,8 @@ public class NoteService implements INoteService {
         qIn.put("categoryId", categoryId);
         qIn.put("userId", userId);
         qIn.put("offset", offset);
-        qIn.put("pageSize", pageSize);
-        List noteList = noteInfoMapper.listNoteByCategory(qIn);
+        qIn.put("size", pageSize);
+        List noteList = noteInfoMapper.listNote(qIn);
         return noteList;
     }
 

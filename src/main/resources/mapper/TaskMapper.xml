@@ -93,14 +93,26 @@
             <if test="taskTitle!=null">
                 task_title=#{taskTitle},
             </if>
+            <if test="priority!=null">
+                priority=#{priority},
+            </if>
             <if test="status!=null">
                 status=#{status},
+            </if>
+            <if test="taskType!=null">
+                task_type=#{taskType},
+            </if>
+            <if test="important!=null">
+                important=#{important},
             </if>
             <if test="endTime!=null">
                 end_time=#{endTime},
             </if>
             <if test="complete!=null">
-                complete=#{complete}
+                complete=#{complete},
+            </if>
+            <if test="userEncodeKey!=null">
+                user_encode_key=#{userEncodeKey}
             </if>
         </set>
         where task_id=#{taskId}
