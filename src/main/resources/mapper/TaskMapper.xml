@@ -67,6 +67,11 @@
                 and task_type=#{taskType}
             </when>
         </choose>
+        <choose>
+            <when test="status!=null">
+                and status=#{status}
+            </when>
+        </choose>
     </select>
 
     <!--读取任务列表-->
