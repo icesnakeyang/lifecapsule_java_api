@@ -75,6 +75,7 @@ public class TaskBusinessService implements ITaskBusinessService {
         Integer pageIndex = (Integer) in.get("pageIndex");
         Integer pageSize = (Integer) in.get("pageSize");
         String taskType=(String)in.get("taskType");
+        String status=(String)in.get("status");
 
         UserInfo userInfo = iCommonService.getUserByToken(token);
 
@@ -84,6 +85,7 @@ public class TaskBusinessService implements ITaskBusinessService {
         qIn.put("offset", offset);
         qIn.put("size", pageSize);
         qIn.put("taskType", taskType);
+        qIn.put("status", status);
         ArrayList<Task> tasks = iTaskService.listTask(qIn);
 
         Map out = new HashMap();

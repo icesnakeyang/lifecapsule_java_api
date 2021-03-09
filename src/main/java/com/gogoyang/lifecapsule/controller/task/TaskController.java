@@ -72,6 +72,7 @@ public class TaskController {
             in.put("pageIndex", request.getPageIndex());
             in.put("pageSize", request.getPageSize());
             in.put("taskType", request.getTaskType());
+            in.put("status", request.getStatus());
 
             Map out=iTaskBusinessService.listTask(in);
             response.setData(out);

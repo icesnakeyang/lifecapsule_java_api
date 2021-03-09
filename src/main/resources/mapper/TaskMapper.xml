@@ -33,6 +33,11 @@
             </when>
         </choose>
         <choose>
+            <when test="status!=null">
+                and status=#{status}
+            </when>
+        </choose>
+        <choose>
             <when test="ocd!=null">
                 order by ids desc
             </when>
