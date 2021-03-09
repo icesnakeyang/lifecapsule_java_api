@@ -38,7 +38,7 @@
     </resultMap>
 
     <!--分页查询一个用户id的笔记列表-->
-    <select id="listNoteByUserId" parameterType="map"
+    <select id="listNote" parameterType="map"
             resultMap="noteInfoMap">
         select note.ids,
                note_id,
@@ -52,10 +52,43 @@
         from note_info note
                  left join category on note.category_id=category.category_id
         where 1=1
-          and note.user_id = #{userId}
-        order by note.ids desc
-            limit #{offset}, #{pageSize}
+        <choose>
+            <when test="userId!=null">
+                and note.user_id = #{userId}
+            </when>
+        </choose>
+        <choose>
+            <when test="categoryId!=null">
+                and note.category_id=#{categoryId}
+            </when>
+        </choose>
+        <choose>
+            <when test="idc!=null">
+                order by note.ids desc
+            </when>
+        </choose>
+        <choose>
+            <when test="offset!=null">
+                limit #{offset}, #{size}
+            </when>
+        </choose>
   </select>
+
+    <select id="totalNote" parameterType="map" resultType="java.lang.Integer">
+        select count(*) as total
+        from note_info
+        where 1=1
+        <choose>
+            <when test="userId!=null">
+                and user_id = #{userId}
+            </when>
+        </choose>
+        <choose>
+            <when test="categoryId!=null">
+                and category_id=#{categoryId}
+            </when>
+        </choose>
+    </select>
 
     <!--根据noteId查询note笔记-->
     <select id="getNoteByNoteId" parameterType="map"
@@ -89,39 +122,6 @@ where note_id = #{noteId}
         </set>
         where note_id=#{noteId}
     </update>
-
-    <!--统计一个笔记分类下的笔记总数-->
-    <select id="totalNoteByCategoryId" parameterType="java.lang.String"
-            resultType="java.lang.Integer">
-        select count(ids) as total from note_info
-        where category_id=#{categoryId}
-    </select>
-
-    <select id="totalNote" parameterType="map"
-            resultType="java.lang.Integer">
-        select count(*) as total from note_info
-        where 1=1
-        <choose>
-            <when test="categoryId!=null">
-                and category_id=#{categoryId}
-            </when>
-        </choose>
-        <choose>
-            <when test="userId!=null">
-                and user_id=#{userId}
-            </when>
-        </choose>
-    </select>
-
-    <!--查询一个笔记分类下的笔记列表-->
-    <select id="listNoteByCategory" parameterType="map"
-            resultMap="noteInfoMap">
-        select * from note_info
-        where category_id=#{categoryId}
-        and user_id=#{userId}
-        order by ids desc
-        limit #{pageSize} offset #{offset}
-    </select>
 
     <!--新增笔记的详细信息-->
     <insert id="createNoteDetail"

@@ -18,9 +18,23 @@ public interface NoteInfoMapper {
     /**
      * 分页查询一个用户id的笔记列表
      * @param qIn
+     * userId
+     * categoryId
+     * idc
+     * offset
+     * size
      * @return
      */
-    List listNoteByUserId(Map qIn);
+    List listNote(Map qIn);
+
+    /**
+     *
+     * @param qIn
+     * userId
+     * categoryId
+     * @return
+     */
+    Integer totalNote(Map qIn);
 
     /**
      * 根据noteId查询note笔记
@@ -39,19 +53,6 @@ public interface NoteInfoMapper {
      */
     void updateNoteInfo(Map qIn);
 
-    /**
-     * 统计一个笔记分类下的笔记总数
-     * @param categoryId
-     */
-    Integer totalNoteByCategoryId(String categoryId);
-
-    /**
-     * 查询一个笔记分类下的笔记列表
-     * @param qIn
-     * @return
-     */
-    List listNoteByCategory(Map qIn);
-
     void createNoteDetail(NoteDetail noteDetail);
 
     void deleteNoteDetail(String noteId);
@@ -59,8 +60,6 @@ public interface NoteInfoMapper {
     NoteDetail getNoteDetail(String noteId);
 
     void deleteNoteInfo(String noteId);
-
-    Integer totalNote(Map qIn);
 
     /**
      * 修改笔记内容

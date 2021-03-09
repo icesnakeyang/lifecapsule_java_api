@@ -12,4 +12,6 @@ public interface ITaskBusinessService {
     Map getTask(Map in) throws Exception;
 
     void deleteTask(Map in) throws Exception;
+
+    void updateTask(Map in) throws Exception;
 }

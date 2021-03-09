@@ -120,6 +120,8 @@ public class TaskBusinessService implements ITaskBusinessService {
     public Map getTask(Map in) throws Exception {
         String token = in.get("token").toString();
         String taskId = in.get("taskId").toString();
+        String encryptKey = in.get("encryptKey").toString();
+        String keyToken = (String) in.get("keyToken");
 
         UserInfo userInfo = iCommonService.getUserByToken(token);
 
@@ -129,8 +131,21 @@ public class TaskBusinessService implements ITaskBusinessService {
             throw new Exception("10036");
         }
 
+        /**
+         * 获取用户临时上传的加密笔记AES秘钥的AES秘钥
+         */
+        String strAESKey = iCommonService.takeNoteAES(keyToken, encryptKey);
+
+        NoteDetail noteDetail=iNoteService.getNoteDetail(task.getTaskId());
+
+        //用AES秘钥加密笔记内容的AES秘钥
+        String data = task.getUserEncodeKey();
+        String outCode = GogoTools.encryptAESKey(data, strAESKey);
+        task.setUserEncodeKey(outCode);
+
         Map out = new HashMap();
         out.put("task", task);
+        out.put("noteContent", noteDetail.getContent());
 
         return out;
     }
@@ -152,5 +167,61 @@ public class TaskBusinessService implements ITaskBusinessService {
         Map qIn=new HashMap();
         qIn.put("taskId", taskId);
         iTaskService.deleteTask(qIn);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void updateTask(Map in) throws Exception {
+        String token=in.get("token").toString();
+        String taskId=in.get("taskId").toString();
+        String taskTitle=in.get("taskTitle").toString();
+        Integer priority=(Integer)in.get("priority");
+        String status=(String)in.get("status");
+        String taskType=(String)in.get("taskType");
+        String important=(String)in.get("important");
+        Boolean complete=(Boolean)in.get("complete");
+        Date endTime=(Date)in.get("endTime");
+        String encryptKey=in.get("encryptKey").toString();
+        String keyToken = in.get("keyToken").toString();
+        String content=in.get("content").toString();
+
+        UserInfo userInfo=iCommonService.getUserByToken(token);
+
+        Task task=iCommonService.getTaskByTaskId(taskId);
+
+        if(!userInfo.getUserId().equals(task.getCreateUserId())){
+            throw new Exception("10037");
+        }
+
+        /**
+         * 根据keyToken读取私钥
+         * 用私钥解开用户用公钥加密的用户AES私钥
+         */
+        String strAESKey = iCommonService.takeNoteAES(keyToken, encryptKey);
+
+        /**
+         * 保存task
+         */
+        Map qIn=new HashMap();
+        qIn.put("taskId", taskId);
+        qIn.put("taskTitle", taskTitle);
+        qIn.put("priority", priority);
+        qIn.put("status", status);
+        qIn.put("taskType", taskType);
+        qIn.put("important", important);
+        qIn.put("complete", complete);
+        qIn.put("endTime", endTime);
+        qIn.put("userEncodeKey", strAESKey);
+        iTaskService.updateTask(qIn);
+
+        /**
+         * 保存content
+         */
+        NoteDetail noteDetail=iNoteService.getNoteDetail(taskId);
+        noteDetail.setContent(content);
+        qIn=new HashMap();
+        qIn.put("contentId", noteDetail.getContentId());
+        qIn.put("content", content);
+        iNoteService.updateNoteDetail(qIn);
     }
 }

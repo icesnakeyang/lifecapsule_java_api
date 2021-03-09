@@ -6,6 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -101,6 +102,8 @@ public class TaskController {
             String token = httpServletRequest.getHeader("token");
             in.put("token", token);
             in.put("taskId", request.getTaskId());
+            in.put("encryptKey", request.getEncryptKey());
+            in.put("keyToken", request.getKeyToken());
 
             Map out=iTaskBusinessService.getTask(in);
             response.setData(out);
@@ -109,7 +112,7 @@ public class TaskController {
                 response.setCode(Integer.parseInt(ex.getMessage()));
             } catch (Exception ex2) {
                 response.setCode(10001);
-                log.error("listTask error:" + ex.getMessage());
+                log.error("getTask error:" + ex.getMessage());
             }
         }
         return response;
@@ -168,6 +171,45 @@ public class TaskController {
             } catch (Exception ex2) {
                 response.setCode(10001);
                 log.error("listTask error:" + ex.getMessage());
+            }
+        }
+        return response;
+    }
+
+    /**
+     * 修改任务
+     * @param request
+     * @param httpServletRequest
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/updateTask")
+    public Response updateTask(@RequestBody TaskRequest request,
+                               HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        Map in = new HashMap();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            in.put("token", token);
+            in.put("taskId", request.getTaskId());
+            in.put("taskTitle", request.getTitle());
+            in.put("priority", request.getPriority());
+            in.put("status", request.getStatus());
+            in.put("taskType", request.getTaskType());
+            in.put("important", request.getImportant());
+            in.put("complete", request.getComplete());
+            in.put("endTime", request.getEndTime());
+            in.put("encryptKey", request.getEncryptKey());
+            in.put("keyToken", request.getKeyToken());
+            in.put("content", request.getContent());
+
+            iTaskBusinessService.updateTask(in);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                log.error("updateTask error:" + ex.getMessage());
             }
         }
         return response;
