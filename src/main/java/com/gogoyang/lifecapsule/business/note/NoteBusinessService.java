@@ -113,12 +113,14 @@ public class NoteBusinessService implements INoteBusinessService {
      * @throws Exception
      */
     @Override
-    public Map listNoteByUserToken(Map in) throws Exception {
+    public Map listNote(Map in) throws Exception {
         String token = (String) in.get("token");
         //第几页
         Integer pageIndex = (Integer) in.get("pageIndex");
         //每页有几条数据
         Integer pageSize = (Integer) in.get("pageSize");
+        Boolean idc=(Boolean) in.get("idc");
+        String categoryId =(String) in.get("categoryId");
 
         /**
          * if no token, means user didn't sign in.
@@ -142,37 +144,15 @@ public class NoteBusinessService implements INoteBusinessService {
          */
         Integer offset = (pageIndex - 1) * pageSize;
 
-        List<NoteInfo> noteInfoList = iNoteService.listNoteByUserId(userInfo.getUserId(), offset, pageSize);
+        Map qIn=new HashMap();
+        qIn.put("userId", userInfo.getUserId());
+        qIn.put("idc", idc);
+        qIn.put("offset", offset);
+        qIn.put("size", pageSize);
+        qIn.put("categoryId", categoryId);
+        List<NoteInfo> noteInfoList = iNoteService.listNote(qIn);
 
-        Map out = new HashMap();
-        out.put("noteList", noteInfoList);
-        return out;
-    }
-
-    /**
-     * 查询笔记分类下的笔记
-     *
-     * @param in
-     * @return
-     * @throws Exception
-     */
-    @Override
-    public Map listNoteByCategory(Map in) throws Exception {
-        String token = in.get("token").toString();
-        String categoryId = in.get("categoryId").toString();
-        Integer pageIndex = (Integer) in.get("pageIndex");
-        Integer pageSize = (Integer) in.get("pageSize");
-
-        UserInfo userInfo = iUserInfoService.getUserByUserToken(token);
-        if (userInfo == null) {
-            throw new Exception("10003");
-        }
-
-        Integer offset = (pageIndex - 1) * pageSize;
-
-        List<NoteInfo> noteInfoList = iNoteService.listNoteByCategory(categoryId, userInfo.getUserId(), offset, pageSize);
-
-        Integer total = iNoteService.totalNote(categoryId, userInfo.getUserId());
+        Integer total = iNoteService.totalNote(qIn);
 
         Map out = new HashMap();
         out.put("noteList", noteInfoList);
@@ -271,7 +251,7 @@ public class NoteBusinessService implements INoteBusinessService {
         /**
          * 修改note, 只能修改title,detail,用户的AES秘钥
          */
-        Map qIn=new HashMap();
+        Map qIn = new HashMap();
         qIn.put("title", title);
         qIn.put("userEncodeKey", strAESKey);
         qIn.put("noteId", noteId);
@@ -304,10 +284,10 @@ public class NoteBusinessService implements INoteBusinessService {
         /**
          * 如果删除的是行动笔记，则需要删除对应的creativeNote和task
          */
-        Map qIn=new HashMap();
+        Map qIn = new HashMap();
         qIn.put("noteId", noteId);
-        ArrayList<CreativeNote> creativeNotes= iCreativeNoteService.listCreativeNote(qIn);
-        if(creativeNotes.size()>0){
+        ArrayList<CreativeNote> creativeNotes = iCreativeNoteService.listCreativeNote(qIn);
+        if (creativeNotes.size() > 0) {
             iCreativeNoteService.deleteCreativeNote(qIn);
         }
         iTaskService.deleteTask(qIn);
@@ -331,28 +311,29 @@ public class NoteBusinessService implements INoteBusinessService {
 
     /**
      * 修改一个笔记的分类
+     *
      * @param in
      * @throws Exception
      */
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void moveNoteCategory(Map in) throws Exception {
-        String token=in.get("token").toString();
-        String noteId=in.get("noteId").toString();
-        String categoryId=in.get("categoryId").toString();
+        String token = in.get("token").toString();
+        String noteId = in.get("noteId").toString();
+        String categoryId = in.get("categoryId").toString();
 
-        UserInfo userInfo=iCommonService.getUserByToken(token);
-        NoteInfo noteInfo=iCommonService.getNoteByNoteId(noteId);
-        NoteCategory noteCategory=iCategoryService.getCategoryByCategoryId(categoryId);
-        if(!noteCategory.getUserId().equals(userInfo.getUserId())){
+        UserInfo userInfo = iCommonService.getUserByToken(token);
+        NoteInfo noteInfo = iCommonService.getNoteByNoteId(noteId);
+        NoteCategory noteCategory = iCategoryService.getCategoryByCategoryId(categoryId);
+        if (!noteCategory.getUserId().equals(userInfo.getUserId())) {
             throw new Exception("10014");
         }
 
-        if(!noteInfo.getUserId().equals(userInfo.getUserId())){
+        if (!noteInfo.getUserId().equals(userInfo.getUserId())) {
             //该笔记不是当前用户创建的，不能修改分类
             throw new Exception("10024");
         }
-        Map qIn=new HashMap();
+        Map qIn = new HashMap();
         qIn.put("noteId", noteInfo.getNoteId());
         qIn.put("categoryId", categoryId);
         iNoteService.updateNote(qIn);

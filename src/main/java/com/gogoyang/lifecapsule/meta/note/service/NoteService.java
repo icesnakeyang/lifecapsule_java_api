@@ -155,6 +155,12 @@ public class NoteService implements INoteService {
         return noteList;
     }
 
+    @Override
+    public List<NoteInfo> listNote(Map qIn) throws Exception {
+        List noteList = noteInfoMapper.listNote(qIn);
+        return noteList;
+    }
+
     /**
      * 统计一个笔记分类下的笔记总数
      *
@@ -200,10 +206,7 @@ public class NoteService implements INoteService {
     }
 
     @Override
-    public Integer totalNote(String categoryId, String userId) throws Exception {
-        Map qIn = new HashMap();
-        qIn.put("categoryId", categoryId);
-        qIn.put("userId", userId);
+    public Integer totalNote(Map qIn) throws Exception {
         Integer total = noteInfoMapper.totalNote(qIn);
         return total;
     }

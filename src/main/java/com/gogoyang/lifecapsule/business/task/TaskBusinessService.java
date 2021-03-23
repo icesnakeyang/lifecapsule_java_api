@@ -56,10 +56,13 @@ public class TaskBusinessService implements ITaskBusinessService {
         task.setTaskId(GogoTools.UUID().toString());
         task.setPriority(0);
         task.setStatus(GogoStatus.PROGRESS.toString());
-        task.setTaskType(GogoStatus.DEFAULT.toString());
+        if(taskType==null) {
+            task.setTaskType(GogoStatus.DEFAULT.toString());
+        }else{
+            task.setTaskType(taskType);
+        }
         task.setTaskTitle(title);
         task.setUserEncodeKey(strAESKey);
-        task.setTaskType(taskType);
         iTaskService.createTask(task);
 
         NoteDetail noteDetail = new NoteDetail();

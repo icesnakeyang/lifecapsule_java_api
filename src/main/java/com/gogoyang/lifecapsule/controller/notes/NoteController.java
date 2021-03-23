@@ -63,44 +63,10 @@ public class NoteController {
 
     }
 
-    /**
-     * 根据用户token查询用户的笔记列表
-     * Post参数里要设定分页
-     * token放在header里
-     *
-     * @param request
-     * @param httpServletRequest
-     * @return
-     */
     @ResponseBody
-    @PostMapping("/listNoteByUserToken")
-    public Response listNoteByUserToken(@RequestBody NoteRequest request,
-                                        HttpServletRequest httpServletRequest) {
-        Response response = new Response();
-        try {
-            String token = httpServletRequest.getHeader("token");
-            Map in = new HashMap();
-            in.put("pageSize", request.getPageSize());
-            in.put("pageIndex", request.getPageIndex());
-            in.put("token", token);
-
-            Map out = iNoteBusinessService.listNoteByUserToken(in);
-            response.setData(out);
-        } catch (Exception ex) {
-            try {
-                response.setCode(Integer.parseInt(ex.getMessage()));
-            } catch (Exception ex2) {
-                response.setCode(10001);
-                logger.error(ex.getMessage());
-            }
-        }
-        return response;
-    }
-
-    @ResponseBody
-    @PostMapping("/listNoteByCategory")
-    public Response listNoteByCategory(@RequestBody NoteRequest request,
-                                       HttpServletRequest httpServletRequest) {
+    @PostMapping("/listNote")
+    public Response listNote(@RequestBody NoteRequest request,
+                             HttpServletRequest httpServletRequest) {
         Response response = new Response();
         try {
             String token = httpServletRequest.getHeader("token");
@@ -109,8 +75,9 @@ public class NoteController {
             in.put("categoryId", request.getCategoryId());
             in.put("pageIndex", request.getPageIndex());
             in.put("pageSize", request.getPageSize());
+            in.put("idc", request.getIdc());
 
-            Map out = iNoteBusinessService.listNoteByCategory(in);
+            Map out = iNoteBusinessService.listNote(in);
             response.setData(out);
         } catch (Exception ex) {
             try {
@@ -183,7 +150,7 @@ public class NoteController {
                 response.setCode(Integer.parseInt(ex.getMessage()));
             } catch (Exception ex2) {
                 response.setCode(10001);
-                logger.error("updateNote error:"+ex.getMessage());
+                logger.error("updateNote error:" + ex.getMessage());
             }
         }
         return response;
@@ -214,6 +181,7 @@ public class NoteController {
     /**
      * 用户查询一个笔记的简要信息
      * 不包括笔记内容，所以不需要加密
+     *
      * @param request
      * @param httpServletRequest
      * @return
@@ -244,6 +212,7 @@ public class NoteController {
 
     /**
      * 把一个note移动到另一个category分类里
+     *
      * @param request
      * @param httpServletRequest
      * @return
@@ -251,7 +220,7 @@ public class NoteController {
     @ResponseBody
     @PostMapping("/moveNoteCategory")
     public Response moveNoteCategory(@RequestBody NoteRequest request,
-                                HttpServletRequest httpServletRequest) {
+                                     HttpServletRequest httpServletRequest) {
         Response response = new Response();
         Map in = new HashMap();
         try {

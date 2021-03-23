@@ -51,5 +51,6 @@ public class NoteRequest {
     private String data;
     private String keyToken;
     private String creativeType;
+    private Boolean idc;
 
 }

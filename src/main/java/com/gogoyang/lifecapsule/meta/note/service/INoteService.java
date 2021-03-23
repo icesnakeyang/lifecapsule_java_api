@@ -18,13 +18,12 @@ public interface INoteService {
     /**
      * 修改一个笔记
      *
-     * @param qIn
-     * title
-     * categoryId
-     * userEncodeKey
-     * noteId（查询条件）
-     * content
-     * 删除detail，再新增到detail表
+     * @param qIn title
+     *            categoryId
+     *            userEncodeKey
+     *            noteId（查询条件）
+     *            content
+     *            删除detail，再新增到detail表
      * @throws Exception
      */
     void updateNote(Map qIn) throws Exception;
@@ -66,6 +65,18 @@ public interface INoteService {
      */
     List<NoteInfo> listNoteByUserId(String userId, Integer offset, Integer pageSize) throws Exception;
 
+    /**
+     * 读取笔记列表
+     * @param qIn
+     * userId
+     * categoryId
+     * idc （指定是否倒序排序）
+     * offset
+     * size
+     * @return
+     * @throws Exception
+     */
+    List<NoteInfo> listNote(Map qIn) throws Exception;
 
     /**
      * 统计一个笔记分类下的笔记总数
@@ -89,7 +100,15 @@ public interface INoteService {
 
     void fractureDetail(NoteDetail noteDetail) throws Exception;
 
-    Integer totalNote(String categoryId, String userId) throws Exception;
+    /**
+     * 统计笔记数量
+     * @param qIn
+     * userId
+     * categoryId
+     * @return
+     * @throws Exception
+     */
+    Integer totalNote(Map qIn) throws Exception;
 
     void createNoteDetail(NoteDetail noteDetail) throws Exception;
 
@@ -97,9 +116,9 @@ public interface INoteService {
 
     /**
      * 修改笔记内容
-     * @param qIn
-     * contentId
-     * content
+     *
+     * @param qIn contentId
+     *            content
      */
     void updateNoteDetail(Map qIn);
 }
