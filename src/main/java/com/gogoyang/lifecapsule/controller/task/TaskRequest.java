@@ -20,4 +20,8 @@ public class TaskRequest {
     private Boolean complete;
     private Date endTime;
     private String userEncodeKey;
+    /**
+     * 是否倒序排序
+     */
+    private Boolean odc;
 }

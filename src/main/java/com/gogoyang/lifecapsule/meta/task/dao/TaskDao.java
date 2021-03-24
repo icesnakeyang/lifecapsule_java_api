@@ -20,6 +20,8 @@ public interface TaskDao {
      * createUserId
      * noteId
      * taskType
+     * status
+     * odc
      * offset
      * size
      * @return

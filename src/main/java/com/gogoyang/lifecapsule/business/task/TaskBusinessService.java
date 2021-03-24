@@ -39,7 +39,7 @@ public class TaskBusinessService implements ITaskBusinessService {
         String title = in.get("title").toString();
         String encryptKey = in.get("encryptKey").toString();
         String keyToken = in.get("keyToken").toString();
-        String taskType=(String)in.get("taskType");
+        String taskType = (String) in.get("taskType");
 
         UserInfo userInfo = iCommonService.getUserByToken(token);
 
@@ -56,9 +56,9 @@ public class TaskBusinessService implements ITaskBusinessService {
         task.setTaskId(GogoTools.UUID().toString());
         task.setPriority(0);
         task.setStatus(GogoStatus.PROGRESS.toString());
-        if(taskType==null) {
+        if (taskType == null) {
             task.setTaskType(GogoStatus.DEFAULT.toString());
-        }else{
+        } else {
             task.setTaskType(taskType);
         }
         task.setTaskTitle(title);
@@ -77,8 +77,9 @@ public class TaskBusinessService implements ITaskBusinessService {
         String token = in.get("token").toString();
         Integer pageIndex = (Integer) in.get("pageIndex");
         Integer pageSize = (Integer) in.get("pageSize");
-        String taskType=(String)in.get("taskType");
-        String status=(String)in.get("status");
+        String taskType = (String) in.get("taskType");
+        String status = (String) in.get("status");
+        Boolean odc = (Boolean) in.get("odc");
 
         UserInfo userInfo = iCommonService.getUserByToken(token);
 
@@ -89,6 +90,7 @@ public class TaskBusinessService implements ITaskBusinessService {
         qIn.put("size", pageSize);
         qIn.put("taskType", taskType);
         qIn.put("status", status);
+        qIn.put("odc", odc);
         ArrayList<Task> tasks = iTaskService.listTask(qIn);
 
         Map out = new HashMap();
@@ -117,6 +119,7 @@ public class TaskBusinessService implements ITaskBusinessService {
         qIn.put("taskId", task.getTaskId());
         qIn.put("status", GogoStatus.COMPLETE);
         qIn.put("endTime", new Date());
+        qIn.put("complete", 1);
 
         iTaskService.updateTask(qIn);
     }
@@ -141,16 +144,20 @@ public class TaskBusinessService implements ITaskBusinessService {
          */
         String strAESKey = iCommonService.takeNoteAES(keyToken, encryptKey);
 
-        NoteDetail noteDetail=iNoteService.getNoteDetail(task.getTaskId());
+        NoteDetail noteDetail = iNoteService.getNoteDetail(task.getTaskId());
 
         //用AES秘钥加密笔记内容的AES秘钥
         String data = task.getUserEncodeKey();
-        String outCode = GogoTools.encryptAESKey(data, strAESKey);
-        task.setUserEncodeKey(outCode);
+        if (task.getUserEncodeKey() != null) {
+            String outCode = GogoTools.encryptAESKey(data, strAESKey);
+            task.setUserEncodeKey(outCode);
+        }
 
         Map out = new HashMap();
         out.put("task", task);
-        out.put("noteContent", noteDetail.getContent());
+        if (noteDetail != null) {
+            out.put("noteContent", noteDetail.getContent());
+        }
 
         return out;
     }
@@ -158,18 +165,18 @@ public class TaskBusinessService implements ITaskBusinessService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteTask(Map in) throws Exception {
-        String token=in.get("token").toString();
-        String taskId=in.get("taskId").toString();
+        String token = in.get("token").toString();
+        String taskId = in.get("taskId").toString();
 
-        UserInfo userInfo=iCommonService.getUserByToken(token);
+        UserInfo userInfo = iCommonService.getUserByToken(token);
 
-        Task task=iCommonService.getTaskByTaskId(taskId);
+        Task task = iCommonService.getTaskByTaskId(taskId);
 
-        if(!task.getCreateUserId().equals(userInfo.getUserId())){
+        if (!task.getCreateUserId().equals(userInfo.getUserId())) {
             throw new Exception("10037");
         }
 
-        Map qIn=new HashMap();
+        Map qIn = new HashMap();
         qIn.put("taskId", taskId);
         iTaskService.deleteTask(qIn);
     }
@@ -177,24 +184,24 @@ public class TaskBusinessService implements ITaskBusinessService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void updateTask(Map in) throws Exception {
-        String token=in.get("token").toString();
-        String taskId=in.get("taskId").toString();
-        String taskTitle=in.get("taskTitle").toString();
-        Integer priority=(Integer)in.get("priority");
-        String status=(String)in.get("status");
-        String taskType=(String)in.get("taskType");
-        String important=(String)in.get("important");
-        Boolean complete=(Boolean)in.get("complete");
-        Date endTime=(Date)in.get("endTime");
-        String encryptKey=in.get("encryptKey").toString();
+        String token = in.get("token").toString();
+        String taskId = in.get("taskId").toString();
+        String taskTitle = in.get("taskTitle").toString();
+        Integer priority = (Integer) in.get("priority");
+        String status = (String) in.get("status");
+        String taskType = (String) in.get("taskType");
+        String important = (String) in.get("important");
+        Boolean complete = (Boolean) in.get("complete");
+        Date endTime = (Date) in.get("endTime");
+        String encryptKey = in.get("encryptKey").toString();
         String keyToken = in.get("keyToken").toString();
-        String content=in.get("content").toString();
+        String content = in.get("content").toString();
 
-        UserInfo userInfo=iCommonService.getUserByToken(token);
+        UserInfo userInfo = iCommonService.getUserByToken(token);
 
-        Task task=iCommonService.getTaskByTaskId(taskId);
+        Task task = iCommonService.getTaskByTaskId(taskId);
 
-        if(!userInfo.getUserId().equals(task.getCreateUserId())){
+        if (!userInfo.getUserId().equals(task.getCreateUserId())) {
             throw new Exception("10037");
         }
 
@@ -207,7 +214,7 @@ public class TaskBusinessService implements ITaskBusinessService {
         /**
          * 保存task
          */
-        Map qIn=new HashMap();
+        Map qIn = new HashMap();
         qIn.put("taskId", taskId);
         qIn.put("taskTitle", taskTitle);
         qIn.put("priority", priority);
@@ -222,11 +229,45 @@ public class TaskBusinessService implements ITaskBusinessService {
         /**
          * 保存content
          */
-        NoteDetail noteDetail=iNoteService.getNoteDetail(taskId);
-        noteDetail.setContent(content);
-        qIn=new HashMap();
-        qIn.put("contentId", noteDetail.getContentId());
-        qIn.put("content", content);
-        iNoteService.updateNoteDetail(qIn);
+        if (content != null) {
+            NoteDetail noteDetail = iNoteService.getNoteDetail(taskId);
+            if (noteDetail == null) {
+                /**
+                 * 没有详情，创建一个
+                 */
+                noteDetail = new NoteDetail();
+                noteDetail.setNoteId(taskId);
+                noteDetail.setContent(content);
+                noteDetail.setContentId(GogoTools.UUID().toString());
+                iNoteService.createNoteDetail(noteDetail);
+            } else {
+                noteDetail.setContent(content);
+                qIn = new HashMap();
+                qIn.put("contentId", noteDetail.getContentId());
+                qIn.put("content", content);
+                iNoteService.updateNoteDetail(qIn);
+            }
+        }
+    }
+
+    @Override
+    public void setTaskProgress(Map in) throws Exception {
+        String token = in.get("token").toString();
+        String taskId = in.get("taskId").toString();
+
+        UserInfo userInfo = iCommonService.getUserByToken(token);
+
+        Task task = iCommonService.getTaskByTaskId(taskId);
+
+        if (!task.getCreateUserId().equals(userInfo.getUserId())) {
+            throw new Exception("10032");
+        }
+
+        Map qIn = new HashMap();
+        qIn.put("taskId", task.getTaskId());
+        qIn.put("status", GogoStatus.PROGRESS);
+        qIn.put("complete", 0);
+
+        iTaskService.updateTask(qIn);
     }
 }

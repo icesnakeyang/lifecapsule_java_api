@@ -92,7 +92,7 @@ public class CreativeNoteBService implements ICreativeNoteBService {
          */
         NoteInfo noteInfo = null;
         ArrayList creativeNotes = new ArrayList();
-        Map out=new HashMap();
+        Map out = new HashMap();
         if (noteId != null) {
             /**
              * 读取原笔记
@@ -186,9 +186,23 @@ public class CreativeNoteBService implements ICreativeNoteBService {
                                 String title = (String) taskMap.get("taskTitle");
                                 qIn.put("taskTitle", taskMap.get("taskTitle"));
                                 qIn.put("status", taskMap.get("status"));
-                                qIn.put("endTime", taskMap.get("endTime"));
+
+                                Boolean complete = (Boolean) taskMap.get("complete");
+                                if (complete) {
+                                    if (taskDB.getEndTime() == null) {
+                                        qIn.put("endTime", new Date());
+                                    } else {
+                                        if (!taskDB.getStatus().equals(GogoStatus.COMPLETE.toString())) {
+                                            qIn.put("endTime", new Date());
+                                        }
+                                    }
+                                    qIn.put("status", GogoStatus.COMPLETE);
+                                    qIn.put("complete", true);
+                                }else{
+                                    qIn.put("status", GogoStatus.PROGRESS);
+                                    qIn.put("complete", false);
+                                }
                                 qIn.put("taskId", taskMap.get("taskId"));
-                                qIn.put("complete", taskMap.get("complete"));
                                 iTaskService.updateTask(qIn);
 
                                 //匹配成功，ss+1
@@ -198,7 +212,7 @@ public class CreativeNoteBService implements ICreativeNoteBService {
                     }
                     if (ss == 0) {
                         //遍历完所有提交的任务，没有该task，则删除
-                        qIn=new HashMap();
+                        qIn = new HashMap();
                         qIn.put("taskId", taskDB.getTaskId());
                         iTaskService.deleteTask(qIn);
                     }
@@ -348,8 +362,8 @@ public class CreativeNoteBService implements ICreativeNoteBService {
 
     private void createNew10SecTasks(ArrayList<Map> tasksMap, String userId, String noteId) throws Exception {
         for (int j = 0; j < tasksMap.size(); j++) {
-            String taskId=(String)tasksMap.get(j).get("taskId");
-            if(taskId!=null){
+            String taskId = (String) tasksMap.get(j).get("taskId");
+            if (taskId != null) {
                 continue;
             }
             Map taskMap = tasksMap.get(j);

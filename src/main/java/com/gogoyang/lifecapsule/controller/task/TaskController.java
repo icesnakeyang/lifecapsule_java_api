@@ -73,6 +73,7 @@ public class TaskController {
             in.put("pageSize", request.getPageSize());
             in.put("taskType", request.getTaskType());
             in.put("status", request.getStatus());
+            in.put("odc", request.getOdc());
 
             Map out=iTaskBusinessService.listTask(in);
             response.setData(out);
@@ -143,6 +144,35 @@ public class TaskController {
             } catch (Exception ex2) {
                 response.setCode(10001);
                 log.error("listTask error:" + ex.getMessage());
+            }
+        }
+        return response;
+    }
+
+    /**
+     * 设置为进行中
+     * @param request
+     * @param httpServletRequest
+     * @return
+     */
+    @ResponseBody
+    @PostMapping("/setTaskProgress")
+    public Response setTaskProgress(@RequestBody TaskRequest request,
+                               HttpServletRequest httpServletRequest) {
+        Response response = new Response();
+        Map in = new HashMap();
+        try {
+            String token = httpServletRequest.getHeader("token");
+            in.put("token", token);
+            in.put("taskId", request.getTaskId());
+
+            iTaskBusinessService.setTaskProgress(in);
+        } catch (Exception ex) {
+            try {
+                response.setCode(Integer.parseInt(ex.getMessage()));
+            } catch (Exception ex2) {
+                response.setCode(10001);
+                log.error("setTaskProgress error:" + ex.getMessage());
             }
         }
         return response;

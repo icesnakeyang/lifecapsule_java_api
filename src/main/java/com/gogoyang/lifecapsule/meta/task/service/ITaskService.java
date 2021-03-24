@@ -18,6 +18,8 @@ public interface ITaskService {
      * createUserId
      * noteId
      * taskType
+     * status
+     * odc
      * offset
      * size
      * @return

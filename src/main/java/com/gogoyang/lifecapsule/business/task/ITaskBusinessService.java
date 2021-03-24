@@ -14,4 +14,6 @@ public interface ITaskBusinessService {
     void deleteTask(Map in) throws Exception;
 
     void updateTask(Map in) throws Exception;
+
+    void setTaskProgress(Map in) throws Exception;
 }
